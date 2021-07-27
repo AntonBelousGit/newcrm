@@ -55,21 +55,23 @@
                 <tr>
                     <th width="3%"></th>
                     <th width="3%">#</th>
-                    <th>{{ ('Shipper')}}</th>
-                    <th>{{ ('phone_shipper Cost')}}</th>
-                    <th>{{ ('Mission')}}</th>
+                    <th>Shipper</th>
+                    <th>Phone shipper</th>
+                    <th>Status</th>
+                    <th>Mission</th>
+
                 </tr>
             </thead>
             <tbody>
 
 
                 @foreach($orders as $key=>$shipment)
-{{--                    {{dd($shipment)}}--}}
                     <tr>
                         <th></th>
                         <th>{{$shipment->id}}</th>
                         <th>{{$shipment->shipper}}</th>
                         <th>{{$shipment->phone_shipper}}</th>
+                        <th>{{$shipment->status}}</th>
                             <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
                                         <i class="las la-edit"></i>

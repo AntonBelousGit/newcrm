@@ -63,12 +63,12 @@ class OrderController extends Controller
         $order->return_sensor = $request->return_sensor ?? 'off';
         $order->return_container = $request->return_container ?? 'off';
         $order->notifications = $request->notifications ?? 'off';
+        $order->status = 'New order';
 
         $order->save();
 
-//        $order->user()->attach($request->user_id);
         foreach ($request->Package as $item){
-//            dd($request->Package);
+
             $cargo = new Cargo();
             $cargo->order_id = $order->id;
             $cargo->type = $item['type'];
@@ -121,7 +121,53 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+//       dd($request);
+        $order = Order::with('cargo')->findOrFail($id);
+
+        $order->shipper = $request->shipper;
+        $order->phone_shipper = $request->phone_shipper;
+        $order->address_shipper = $request->address_shipper ?? $order->address_shipper;
+        $order->company_shipper = $request->company_shipper;
+        $order->consignee = $request->consignee;
+        $order->phone_consignee = $request->phone_consignee;
+        $order->address_consignee = $request->address_consignee ?? $order->address_consignee;
+        $order->company_consignee = $request->company_consignee;
+        $order->shipment_description = $request->shipment_description;
+        $order->comment = $request->comment;
+        $order->sending_time = $request->sending_time;
+        $order->delivery_time = $request->delivery_time;
+        $order->delivery_comment = $request->delivery_comment;
+        $order->user_id = $request->user_id;
+        $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
+        $order->container = $request->container ?? 'off';
+        $order->return_sensor = $request->return_sensor ?? 'off';
+        $order->return_container = $request->return_container ?? 'off';
+        $order->notifications = $request->notifications ?? 'off';
+        $order->status = $request->status;
+
+        $order->update();
+
+        foreach($request->Package as $option_key){
+            $cargo = Cargo::findOrFail($option_key['id']);
+            $cargo->type = $option_key['type'];
+            $cargo->quantity = $option_key['quantity'];
+            $cargo->serial_number = $option_key['serial_number'];
+            $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
+            $cargo->un_number = $option_key['un_number'];
+            $cargo->temperature_conditions = $option_key['temperature_conditions'];
+            $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
+            $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
+            $cargo->сargo_dimensions_height = $option_key['сargo_dimensions_height'];
+            $cargo->volume_weight = ($option_key['сargo_dimensions_height']  * $option_key['сargo_dimensions_width'] * $option_key['сargo_dimensions_length'])/6000;
+            $cargo->update();
+        }
+
+        return redirect()->route('admin.orders.index');
+
+    }
+
+    public function delete_cargo($id){
+
     }
 
     /**

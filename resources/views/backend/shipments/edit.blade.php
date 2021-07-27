@@ -71,8 +71,9 @@
     </style>
 
 
-    <form class="form-horizontal" action="{{route('admin.orders.store')}}" id="kt_form_1" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="{{route('admin.orders.update',$orders->id)}}" id="kt_form_1" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
@@ -94,6 +95,7 @@
 
                             </div>
                         </div>
+                        @if($orders->status != 'Accepted in work' && $orders->status != 'Delivered' )
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Shipper Address')}}:</label>
@@ -101,6 +103,14 @@
 
                             </div>
                         </div>
+                        @else
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{ ('Shipper Address')}}:</label>
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="" disabled class="form-control" value="{{$orders->address_shipper}}" />
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Company Shipper')}}:</label>
@@ -126,6 +136,7 @@
 
                             </div>
                         </div>
+                        @if($orders->status != 'Accepted in work' && $orders->status != 'Delivered' )
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Consignee Address')}}:</label>
@@ -133,6 +144,16 @@
 
                             </div>
                         </div>
+                        @else
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{ ('Consignee Address')}}:</label>
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}"  class="form-control" disabled value="{{$orders->address_consignee}}"/>
+
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Company Consignee')}}:</label>
@@ -197,6 +218,7 @@
                                 <div class="col-md-3">
                                     <label>{{ ('Type')}}:</label>
                                     <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" value="{{$item['type']}}">
+                                    <input type="hidden" name="id" value="{{$item['id']}}">
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-3">
@@ -248,7 +270,7 @@
                                     <input type="text"  placeholder="Temperature conditions" name="volume_weight" class="form-control  "  value="{{$item['volume_weight']}}" />
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
-                                
+
                                 <div class="col-md-12" style="margin-top: 10px;">
                                     <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
                                 </div>
@@ -272,7 +294,7 @@
                                     <div class="col-md-12">
 
                                         <div>
-                                            <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
+                                            <a href="javascript:;" data-repeater-delete="" onclick="deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
                                                 <i class="la la-trash-o"></i>{{ ('Delete')}}
                                             </a>
                                         </div>
@@ -332,6 +354,18 @@
                                     <option value="{{$item->id}}" @if($item->id == $orders->user_id) selected @endif>{{$item->email}}</option>
                                 @endforeach
 
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6" data-select2-id="66">
+                            <label>Status:</label>
+                            <select id="change-country-to" name="status" class="form-control ">
+                                <option value="New order" @if($orders->status == 'New order') selected @endif >New order</option>
+                                <option value="In processing" @if($orders->status == 'In processing') selected @endif>In processing</option>
+                                <option value="Accepted in work" @if($orders->status == 'Accepted in work') selected @endif>Accepted in work</option>
+                                <option value="Delivered" @if($orders->status == 'Delivered') selected @endif>Delivered</option>
                             </select>
                         </div>
                     </div>
@@ -553,7 +587,17 @@
             }).get();
             $('.total-weight').val(sumWeight);
         }
+        function deleteCargo(elem){
+           var zalupus = $(elem).parent('div').parent('.col-md-12').parent('.row').parent('.align-items-center').find('input[type="hidden"]').val();
+            if(confirm('Удалять?')){
+                alert(zalupus);
+            }else {
+                return;
+            }
+
+        }
         $(document).ready(function() {
+
 
             $('.select-country').select2({
                 placeholder: "Select country",
@@ -718,6 +762,8 @@
                     $(this).slideUp(deleteElement);
                 }
             });
+
+
 
 
             $('body').on('click', '.delete_item', function(){
