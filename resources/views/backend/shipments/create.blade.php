@@ -83,28 +83,28 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Name')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control" value="{{old('shipper')}}" />
+                                    <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control" required value="{{old('shipper')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Phone')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" class="form-control"  value="{{old('phone_shipper')}}"/>
+                                    <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" class="form-control" required value="{{old('phone_shipper')}}"/>
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" value="{{old('address_shipper')}}" />
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" required value="{{old('address_shipper')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Company Shipper')}}:</label>
-                                    <input type="text" placeholder="{{ ('Company Shipper')}}" name="company_shipper" class="form-control" value="{{old('company_shipper')}}" />
+                                    <input type="text" placeholder="{{ ('Company Shipper')}}" name="company_shipper" class="form-control" required value="{{old('company_shipper')}}" />
 
                                 </div>
                             </div>
@@ -115,48 +115,48 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Name')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" class="form-control" value="{{old('consignee')}}" />
+                                    <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" class="form-control" required value="{{old('consignee')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Phone')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" class="form-control" value="{{old('phone_consignee')}}" />
+                                    <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" class="form-control" required value="{{old('phone_consignee')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" value="{{old('address_consignee')}}"  />
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" required value="{{old('address_consignee')}}"  />
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Company Consignee')}}:</label>
-                                    <input type="text" placeholder="{{ ('Company Consignee')}}" name="company_consignee" class="form-control" value="{{old('company_consignee')}}" />
+                                    <input type="text" placeholder="{{ ('Company Consignee')}}" name="company_consignee" class="form-control" required value="{{old('company_consignee')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Shipment description')}}:</label>
-                                    <textarea class="form-control" name="shipment_description">{{old('shipment_description')}}</textarea>
+                                    <textarea class="form-control" name="shipment_description" required>{{old('shipment_description')}}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Comment')}}:</label>
-                                    <textarea class="form-control" name="comment">{{old('comment')}}</textarea>
+                                    <textarea class="form-control" name="comment" required>{{old('comment')}}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group fv-plugins-icon-container">
                                     <label>Shipping Date:</label>
                                     <div class="input-group date">
-                                        <input type="text" placeholder="Sending Date" value="2021-07-26" name="sending_time" autocomplete="off" class="form-control" id="kt_datepicker_3">
+                                        <input type="text" placeholder="Sending Date" value="2021-07-26" name="sending_time" autocomplete="off" class="form-control" id="kt_datepicker_3" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="la la-calendar"></i>
@@ -170,7 +170,7 @@
                                 <div class="form-group fv-plugins-icon-container">
                                     <label>Delivery Date:</label>
                                     <div class="input-group date">
-                                        <input type="text" placeholder="Delivery Date" value="2021-07-26" name="delivery_time" autocomplete="off" class="form-control" id="kt_datepicker_4">
+                                        <input type="text" placeholder="Delivery Date" value="2021-07-26" name="delivery_time" autocomplete="off" class="form-control" id="kt_datepicker_4" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="la la-calendar"></i>
@@ -197,18 +197,18 @@
 
                                     <div class="col-md-3">
                                         <label>{{ ('Type')}}:</label>
-                                        <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type">
+                                        <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" required>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Actual weight:</label>
-                                        <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="1" />
+                                        <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="1"  required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <label>{{ ('Quantity')}}:</label>
-                                        <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" min="1" name="quantity" class="form-control" value="1" />
+                                        <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" min="1" name="quantity" class="form-control" value="1" required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
 
@@ -216,7 +216,7 @@
 
                                         <label>Serial number:</label>
 
-                                        <input type="text"  placeholder="Serial number" name="serial_number" class="form-control "  value="" />
+                                        <input type="text"  placeholder="Serial number" name="serial_number" class="form-control "  value="" required />
                                         <div class="mb-2 d-md-none"></div>
 
                                     </div>
@@ -314,14 +314,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Delivery comment</label>
-                                <textarea class="form-control" name="delivery_comment"></textarea>
+                                <textarea class="form-control" name="delivery_comment" required></textarea>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-md-6" data-select2-id="66">
                                     <label>Shipping Payer:</label>
-                                    <select id="change-country-to" name="user_id" class="form-control ">
+                                    <select id="change-country-to" name="user_id" class="form-control " required>
                                         <option value="">----</option>
                                         @foreach($user as $item)
                                         <option value="{{$item->id}}">{{$item->email}}</option>
