@@ -83,28 +83,28 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Name')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control" />
+                                    <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control" value="{{old('shipper')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Phone')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" class="form-control" />
+                                    <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" class="form-control"  value="{{old('phone_shipper')}}"/>
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" />
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" value="{{old('address_shipper')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Company Shipper')}}:</label>
-                                    <input type="text" placeholder="{{ ('Company Shipper')}}" name="company_shipper" class="form-control" />
+                                    <input type="text" placeholder="{{ ('Company Shipper')}}" name="company_shipper" class="form-control" value="{{old('company_shipper')}}" />
 
                                 </div>
                             </div>
@@ -115,41 +115,41 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Name')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" class="form-control" />
+                                    <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" class="form-control" value="{{old('consignee')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Phone')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" class="form-control" />
+                                    <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" class="form-control" value="{{old('phone_consignee')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" />
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" value="{{old('address_consignee')}}"  />
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Company Consignee')}}:</label>
-                                    <input type="text" placeholder="{{ ('Company Consignee')}}" name="company_consignee" class="form-control" />
+                                    <input type="text" placeholder="{{ ('Company Consignee')}}" name="company_consignee" class="form-control" value="{{old('company_consignee')}}" />
 
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Shipment description')}}:</label>
-                                    <textarea class="form-control" name="shipment_description"></textarea>
+                                    <textarea class="form-control" name="shipment_description">{{old('shipment_description')}}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Comment')}}:</label>
-                                    <textarea class="form-control" name="comment"></textarea>
+                                    <textarea class="form-control" name="comment">{{old('comment')}}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -326,7 +326,6 @@
                                         @foreach($user as $item)
                                         <option value="{{$item->id}}">{{$item->email}}</option>
                                         @endforeach
-
                                     </select>
                             </div>
                         </div>
