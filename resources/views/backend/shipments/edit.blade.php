@@ -96,7 +96,7 @@
 
                             </div>
                         </div>
-                        @if($orders->status != 'Accepted in work' && $orders->status != 'Delivered' )
+                        @if($orders->status_id != 2 && $orders->status_id != 3 )
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Shipper Address')}}:</label>
@@ -137,7 +137,7 @@
 
                             </div>
                         </div>
-                        @if($orders->status != 'Accepted in work' && $orders->status != 'Delivered' )
+                        @if($orders->status_id != 2 && $orders->status_id != 3 )
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Consignee Address')}}:</label>
@@ -209,195 +209,215 @@
 
                 <hr>
 
-                <div id="kt_repeater_1">
-                    <div class="row" id="kt_repeater_1">
-                        <h2 class="text-left">{{ ('Package Info')}}:</h2>
-                        <div data-repeater-list="Package" class="col-lg-12">
-                        @foreach($orders->cargo as $item)
-                            <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                <div class="col-lg-12">
+                    <div id="kt_repeater_1">
+                        <div class="" id="">
+                            <h2 class="text-left">{{ ('Package Info')}}:</h2>
+                            <div data-repeater-list="Package" class="col-lg-12">
+                                @foreach($orders->cargo as $item)
+                                    <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
 
-                                <div class="col-md-3">
-                                    <label>{{ ('Type')}}:</label>
-                                    <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" value="{{$item['type']}}">
-                                    <input type="hidden" name="id" value="{{$item['id']}}">
-                                    <div class="mb-2 d-md-none"></div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Actual weight:</label>
-                                    <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="{{$item['actual_weight']}}" />
-                                    <div class="mb-2 d-md-none"></div>
-                                </div>
+                                        <div class="col-md-3">
+                                            <label>{{ ('Type')}}:</label>
+                                            <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" value="{{$item['type']}}">
+                                            <input type="hidden" name="id" value="{{$item['id']}}">
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Actual weight:</label>
+                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="{{$item['actual_weight']}}" />
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
 
-                                <div class="col-md-3">
-                                    <label>{{ ('Quantity')}}:</label>
-                                    <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" min="1" name="quantity" class="form-control" value="{{$item['quantity']}}" />
-                                    <div class="mb-2 d-md-none"></div>
-                                </div>
+                                        <div class="col-md-3">
+                                            <label>{{ ('Quantity')}}:</label>
+                                            <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" min="1" name="quantity" class="form-control" value="{{$item['quantity']}}" />
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
 
-                                <div class="col-md-3">
+                                        <div class="col-md-3">
 
-                                    <label>Serial number:</label>
+                                            <label>Serial number:</label>
 
-                                    <input type="text"  placeholder="Serial number" name="serial_number" class="form-control "  value="{{$item['serial_number']}}" />
-                                    <div class="mb-2 d-md-none"></div>
+                                            <input type="text"  placeholder="Serial number" name="serial_number" class="form-control "  value="{{$item['serial_number']}}" />
+                                            <div class="mb-2 d-md-none"></div>
 
-                                </div>
-                                <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-3">
 
-                                    <label>Serial number sensor:</label>
+                                            <label>Serial number sensor:</label>
 
-                                    <input type="text"  placeholder="Serial number sensor" name="serial_number_sensor" class="form-control  "  value="{{$item['serial_number_sensor']}}" />
-                                    <div class="mb-2 d-md-none"></div>
+                                            <input type="text"  placeholder="Serial number sensor" name="serial_number_sensor" class="form-control  "  value="{{$item['serial_number_sensor']}}" />
+                                            <div class="mb-2 d-md-none"></div>
 
-                                </div>
-                                <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-3">
 
-                                    <label>UN number:</label>
+                                            <label>UN number:</label>
 
-                                    <input type="text"  placeholder="UN number" name="un_number" class="form-control  "  value="{{$item['un_number']}}" />
-                                    <div class="mb-2 d-md-none"></div>
+                                            <input type="text"  placeholder="UN number" name="un_number" class="form-control  "  value="{{$item['un_number']}}" />
+                                            <div class="mb-2 d-md-none"></div>
 
-                                </div>
-                                <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-3">
 
-                                    <label>Temperature conditions:</label>
+                                            <label>Temperature conditions:</label>
 
-                                    <input type="text"  placeholder="Temperature conditions" name="temperature_conditions" class="form-control  "  value="{{$item['temperature_conditions']}}" />
-                                    <div class="mb-2 d-md-none"></div>
+                                            <input type="text"  placeholder="Temperature conditions" name="temperature_conditions" class="form-control  "  value="{{$item['temperature_conditions']}}" />
+                                            <div class="mb-2 d-md-none"></div>
 
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Volume weight:</label>
-                                    <input type="text"  placeholder="Temperature conditions" name="volume_weight" disabled class="form-control  "  value="{{$item['volume_weight']}}" />
-                                    <div class="mb-2 d-md-none"></div>
-                                </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Volume weight:</label>
+                                            <input type="text"  placeholder="Temperature conditions" name="volume_weight" disabled class="form-control  "  value="{{$item['volume_weight']}}" />
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
 
-                                <div class="col-md-12" style="margin-top: 10px;">
-                                    <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
-                                </div>
-                                <div class="col-md-2">
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
+                                        </div>
+                                        <div class="col-md-3">
 
-                                    <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Length')}}" name="сargo_dimensions_length" value="{{$item['сargo_dimensions_length']}}" />
+                                            <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Length')}}" name="сargo_dimensions_length" value="{{$item['сargo_dimensions_length']}}" />
 
-                                </div>
-                                <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-3">
 
-                                    <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Width')}}" name="сargo_dimensions_width" value="{{$item['сargo_dimensions_width']}}" />
+                                            <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Width')}}" name="сargo_dimensions_width" value="{{$item['сargo_dimensions_width']}}" />
 
-                                </div>
-                                <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-3">
 
-                                    <input class="dimensions_r" type="number" min="1" class="form-control " placeholder="{{ ('Height')}}" name="сargo_dimensions_height" value="{{$item['сargo_dimensions_height']}}" />
+                                            <input class="dimensions_r" type="number" min="1" class="form-control " placeholder="{{ ('Height')}}" name="сargo_dimensions_height" value="{{$item['сargo_dimensions_height']}}" />
 
-                                </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
 
-                                        <div>
-                                            <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
-                                                <i class="la la-trash-o"></i>{{ ('Delete')}}
-                                            </a>
+                                                <div>
+                                                    <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
+                                                        <i class="la la-trash-o"></i>{{ ('Delete')}}
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="">
+                                <label class="text-right col-form-label">{{ ('Add')}}</label>
+                                <div>
+                                    <a href="javascript:;" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
+                                        <i class="la la-plus"></i>{{ ('Add')}}
+                                    </a>
                                 </div>
                             </div>
-                        @endforeach
                         </div>
-                    </div>
-                    <div class="form-group row">
+
                         <div class="">
-                            <label class="text-right col-form-label">{{ ('Add')}}</label>
-                            <div>
-                                <a href="javascript:;" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
-                                    <i class="la la-plus"></i>{{ ('Add')}}
-                                </a>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="sensor_for_rent" @if($orders->sensor_for_rent == 'on') checked @endif>
+                                <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container" @if($orders->container == 'on') checked @endif>
+                                <label class="form-check-label" for="inlineCheckbox2">Container</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="return_sensor" @if($orders->return_sensor == 'on') checked @endif>
+                                <label class="form-check-label" for="inlineCheckbox3">Returning the sensor</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="return_container" @if($orders->return_container == 'on') checked @endif>
+                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="notifications" @if($orders->notifications == 'on') checked @endif>
+                                <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="sensor_for_rent" @if($orders->sensor_for_rent == 'on') checked @endif>
-                            <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
+                        <hr>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Delivery comment</label>
+                                <textarea class="form-control" name="delivery_comment">{{$orders->delivery_comment}}</textarea>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container" @if($orders->container == 'on') checked @endif>
-                            <label class="form-check-label" for="inlineCheckbox2">Container</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="return_sensor" @if($orders->return_sensor == 'on') checked @endif>
-                            <label class="form-check-label" for="inlineCheckbox3">Returning the sensor</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="return_container" @if($orders->return_container == 'on') checked @endif>
-                            <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="notifications" @if($orders->notifications == 'on') checked @endif>
-                            <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Delivery comment</label>
-                            <textarea class="form-control" name="delivery_comment">{{$orders->delivery_comment}}</textarea>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6" data-select2-id="66">
-                            <label>Shipping Payer:</label>
-                            <select id="change-country-to" name="user_id" class="form-control ">
-                                <option value="">----</option>
-                                @foreach($user as $item)
-                                    <option value="{{$item->id}}" @if($item->id == $orders->user_id) selected @endif>{{$item->email}}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6" data-select2-id="66">
-                            <label>Status:</label>
-                            <select id="change-country-to" name="status" class="form-control ">
-                                <option value="New order" @if($orders->status == 'New order') selected @endif >New order</option>
-                                <option value="In processing" @if($orders->status == 'In processing') selected @endif>In processing</option>
-                                <option value="Accepted in work" @if($orders->status == 'Accepted in work') selected @endif>Accepted in work</option>
-                                <option value="Delivered" @if($orders->status == 'Delivered') selected @endif>Delivered</option>
-                            </select>
-                        </div>
-                    </div>
-                    <hr>
-                    {{--                        <div class="row">--}}
-                    {{--                            <div class="col-md-6">--}}
-                    {{--                                <div class="form-group">--}}
-                    {{--                                    <label>{{ ('Delivery Time')}}:</label>--}}
-                    {{--                                    <select class="form-control kt-select2 delivery-time" id="delivery_time" name="Shipment[delivery_time]">--}}
-                    {{--                                            @foreach($deliveryTimes as $deliveryTime)--}}
-                    {{--                                                <option value="{{$deliveryTime->name}}">{{ ($deliveryTime->name)}}</option>--}}
-                    {{--                                            @endforeach--}}
-                    {{--                                    </select>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="col-md-6">--}}
-                    {{--                                <div class="form-group">--}}
-                    {{--                                    <label>{{ ('Total Weight')}}:</label>--}}
-                    {{--                                    <input id="kt_touchspin_4" placeholder="{{ ('Total Weight')}}" type="text" min="1" class="form-control total-weight" value="1" name="Shipment[total_weight]" />--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-
-                    <div class="form-group row">
+                        <hr>
                         <div class="">
-                            <div>
-                                <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
+                            {{--                        <div class="col-md-6" data-select2-id="66">--}}
+                            {{--                            <label>Shipping Payer:</label>--}}
+                            {{--                            <select id="change-country-to" name="user_id" class="form-control ">--}}
+                            {{--                                <option value="">----</option>--}}
+                            {{--                                @foreach($user as $item)--}}
+                            {{--                                    <option value="{{$item->id}}" @if($item->id == $orders->user_id) selected @endif>{{$item->email}}</option>--}}
+                            {{--                                @endforeach--}}
+
+                            {{--                            </select>--}}
+                            {{--                        </div>--}}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Shipping Payer:</label>
+                                    <input type="text" placeholder="Shipping Payer" name="user" class="form-control" value="{{ $orders->user }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="">
+                            <div class="col-md-6" data-select2-id="66">
+                                <label>Status:</label>
+                                <select id="change-country-to" name="status_id" class="form-control ">
+                                    @foreach($status as $item)
+                                        <option value="{{$item->id}}" @if($item->id == $orders->status->id) selected @endif >{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="">
+                            <div class="col-md-6" data-select2-id="66">
+                                <label>Cargo location:</label>
+                                <select id="change-country-to" name="cargo_location_id" class="form-control ">
+                                    @foreach($cargo_location as $item)
+                                        <option value="{{$item->id}}" @if($item->id == $orders->cargolocation->id) selected @endif >{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        {{--                        <div class="row">--}}
+                        {{--                            <div class="col-md-6">--}}
+                        {{--                                <div class="form-group">--}}
+                        {{--                                    <label>{{ ('Delivery Time')}}:</label>--}}
+                        {{--                                    <select class="form-control kt-select2 delivery-time" id="delivery_time" name="Shipment[delivery_time]">--}}
+                        {{--                                            @foreach($deliveryTimes as $deliveryTime)--}}
+                        {{--                                                <option value="{{$deliveryTime->name}}">{{ ($deliveryTime->name)}}</option>--}}
+                        {{--                                            @endforeach--}}
+                        {{--                                    </select>--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+                        {{--                            <div class="col-md-6">--}}
+                        {{--                                <div class="form-group">--}}
+                        {{--                                    <label>{{ ('Total Weight')}}:</label>--}}
+                        {{--                                    <input id="kt_touchspin_4" placeholder="{{ ('Total Weight')}}" type="text" min="1" class="form-control total-weight" value="1" name="Shipment[total_weight]" />--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+
+                        <div class="form-group ">
+                            <div class="">
+                                <div>
+                                    <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
 

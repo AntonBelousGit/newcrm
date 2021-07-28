@@ -31,7 +31,42 @@
 
                                 </a>
                             </li>
+                        <li class="menu-item " aria-haspopup="true">
+                            <a href="{{route('admin.orders.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">New order</span>
 
+                            </a>
+                        </li>
+                        <li class="menu-item " aria-haspopup="true">
+                            <a href="{{route('admin.orders.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">In processing</span>
+
+                            </a>
+                        </li>
+                        <li class="menu-item " aria-haspopup="true">
+                            <a href="{{route('admin.orders.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Accepted in work</span>
+
+                            </a>
+                        </li>
+                        <li class="menu-item " aria-haspopup="true">
+                            <a href="{{route('admin.orders.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Delivered</span>
+
+                            </a>
+                        </li>
 {{--                        @foreach(\App\Shipment::status_info() as $item)--}}
 {{--                            @if(in_array($user_type,['admin','customer','captain','branch']) || in_array($item['permissions'], json_decode(Auth::user()->staff->role->permissions ?? "[]")))--}}
 {{--                                @if($item['status'] == \App\Shipment::SAVED_STATUS)--}}

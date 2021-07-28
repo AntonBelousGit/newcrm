@@ -32,10 +32,16 @@ class CreateOrdersTable extends Migration
             $table->enum('return_sensor',['on','off']);
             $table->enum('return_container',['on','off']);
             $table->string('delivery_comment');
-            $table->string('cargo_location')->nullable();
+
             $table->enum('notifications',['on','off']);
-            $table->foreignId('user_id')->constrained();
-            $table->enum('status',['New order','In processing','Accepted in work','Delivered']);
+            $table->string('user');
+//            $table->foreignId('user_id')->constrained();
+
+            $table->bigInteger('cargo_location_id')->unsigned()->nullable();
+            $table->bigInteger('status_id')->unsigned()->nullable();
+
+            $table->foreign('status_id')->references('id')->on('product_statuses');
+            $table->foreign('cargo_location_id')->references('id')->on('cargo_locations');
 
             $table->timestamps();
         });

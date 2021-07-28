@@ -70,6 +70,9 @@
 	<!--end::Layout Themes-->
 
 	<link href="{{ asset('assets/css/custom-style.css?v=7.2.3') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/mycss.css') }}" rel="stylesheet" type="text/css" />
+
+
 
 	@yield('style')
 

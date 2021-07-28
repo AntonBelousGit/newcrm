@@ -186,9 +186,9 @@
                     </div>
 
                         <hr>
-
+                    <div class="col-lg-12">
                     <div id="kt_repeater_1">
-                        <div class="row" id="kt_repeater_1">
+                        <div class="" >
                             <h2 class="text-left">{{ ('Package Info')}}:</h2>
                             <div data-repeater-list="Package" class="col-lg-12">
                                 <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
@@ -248,17 +248,17 @@
                                     <div class="col-md-12" style="margin-top: 10px;">
                                         <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
 
                                         <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Length')}}" name="сargo_dimensions_length" value="1" />
 
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
 
                                         <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Width')}}" name="сargo_dimensions_width" value="1" />
 
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
 
                                         <input class="dimensions_r" type="number" min="1" class="form-control " placeholder="{{ ('Height')}}" name="сargo_dimensions_height" value="1" />
 
@@ -276,7 +276,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group ">
                             <div class="">
                                 <label class="text-right col-form-label">{{ ('Add')}}</label>
                                 <div>
@@ -288,7 +288,7 @@
                         </div>
 
                         <hr>
-                        <div class="row">
+                        <div class="">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="sensor_for_rent">
                                 <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
@@ -318,15 +318,21 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-md-6" data-select2-id="66">
+                        <div class="">
+{{--                            <div class="col-md-6" data-select2-id="66">--}}
+{{--                                    <label>Shipping Payer:</label>--}}
+{{--                                    <select id="change-country-to" name="user_id" class="form-control " required>--}}
+{{--                                        <option value="">----</option>--}}
+{{--                                        @foreach($user as $item)--}}
+{{--                                        <option value="{{$item->id}}">{{$item->email}}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                            </div>--}}
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label>Shipping Payer:</label>
-                                    <select id="change-country-to" name="user_id" class="form-control " required>
-                                        <option value="">----</option>
-                                        @foreach($user as $item)
-                                        <option value="{{$item->id}}">{{$item->email}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" placeholder="Shipping Payer" name="user" class="form-control" value="" required />
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -349,13 +355,14 @@
 {{--                            </div>--}}
 {{--                        </div>--}}
 
-                        <div class="form-group row">
+                        <div class="form-group ">
                             <div class="">
                                 <div>
                                     <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
                                 </div>
                             </div>
                         </div>
+{{--                    </div>--}}
                     </div>
                     </div>
                 </div>

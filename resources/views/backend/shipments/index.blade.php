@@ -71,7 +71,7 @@
                         <th>{{$shipment->id}}</th>
                         <th>{{$shipment->shipper}}</th>
                         <th>{{$shipment->phone_shipper}}</th>
-                        <th>{{$shipment->status}}</th>
+                        <th>{{$shipment->status->name}}</th>
                             <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
                                         <i class="las la-edit"></i>

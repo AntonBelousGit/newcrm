@@ -44,6 +44,16 @@ class Order extends Model
         return $this->hasMany('App\Models\Cargo');
 
     }
+    public function cargolocation()
+    {
+        return $this->belongsTo('App\Models\CargoLocation','cargo_location_id');
+
+    }
+    public function status()
+    {
+        return $this->belongsTo('App\Models\ProductStatus','status_id');
+
+    }
 
     public function user()
     {

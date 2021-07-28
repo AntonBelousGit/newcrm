@@ -10,7 +10,7 @@
         <!--begin::Logo-->
         <a href="{{ route('admin.index') }}" class="brand-logo">
 
-                <img src="{{ asset('assets/img/logo.svg') }}" style="max-height: 25px;" >
+                <img src="{{ asset('assets/img/logo.svg') }}" style="max-height: 50px;" >
 
         </a>
 

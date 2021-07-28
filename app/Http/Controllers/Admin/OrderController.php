@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cargo;
+use App\Models\CargoLocation;
 use App\Models\Order;
+use App\Models\ProductStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -57,14 +59,15 @@ class OrderController extends Controller
         $order->sending_time = $request->sending_time;
         $order->delivery_time = $request->delivery_time;
         $order->delivery_comment = $request->delivery_comment;
-        $order->user_id = $request->user_id;
+        $order->user = $request->user;
 
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';
         $order->return_container = $request->return_container ?? 'off';
         $order->notifications = $request->notifications ?? 'off';
-        $order->status = 'New order';
+        $order->status_id = 1;
+        $order->cargo_location_id = 1;
 
         $order->save();
 
@@ -108,9 +111,12 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $orders = Order::with('cargo','user')->findOrFail($id);
+        $orders = Order::with('cargo','user','status','cargolocation')->findOrFail($id);
+//        dd($orders);
         $user = User::all();
-        return view('backend.shipments.edit',compact('orders','user'));
+        $status = ProductStatus::all();
+        $cargo_location = CargoLocation::all();
+        return view('backend.shipments.edit',compact('orders','user','status','cargo_location'));
     }
 
     /**
@@ -138,13 +144,14 @@ class OrderController extends Controller
         $order->sending_time = $request->sending_time;
         $order->delivery_time = $request->delivery_time;
         $order->delivery_comment = $request->delivery_comment;
-        $order->user_id = $request->user_id;
+        $order->user = $request->user;
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';
         $order->return_container = $request->return_container ?? 'off';
         $order->notifications = $request->notifications ?? 'off';
-        $order->status = $request->status;
+        $order->status_id = $request->status_id;
+        $order->cargo_location_id = $request->cargo_location_id;
 
         $order->update();
 
