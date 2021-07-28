@@ -718,6 +718,8 @@
             $('.total-weight').val("{{ ('Calculated...')}}");
             setTimeout(function(){ calcTotalWeight(); }, 500);
         });
+
+
         $('#kt_touchspin_2, #kt_touchspin_2_2').TouchSpin({
             buttondown_class: 'btn btn-secondary',
             buttonup_class: 'btn btn-secondary',

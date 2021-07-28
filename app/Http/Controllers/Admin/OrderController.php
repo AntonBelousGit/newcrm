@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cargo;
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -148,26 +149,47 @@ class OrderController extends Controller
         $order->update();
 
         foreach($request->Package as $option_key){
-            $cargo = Cargo::findOrFail($option_key['id']);
-            $cargo->type = $option_key['type'];
-            $cargo->quantity = $option_key['quantity'];
-            $cargo->serial_number = $option_key['serial_number'];
-            $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
-            $cargo->un_number = $option_key['un_number'];
-            $cargo->temperature_conditions = $option_key['temperature_conditions'];
-            $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
-            $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
-            $cargo->сargo_dimensions_height = $option_key['сargo_dimensions_height'];
-            $cargo->volume_weight = ($option_key['сargo_dimensions_height']  * $option_key['сargo_dimensions_width'] * $option_key['сargo_dimensions_length'])/6000;
-            $cargo->update();
+            if ($option_key['id']){
+                $cargo = Cargo::findOrFail($option_key['id']);
+                $cargo->type = $option_key['type'];
+                $cargo->quantity = $option_key['quantity'];
+                $cargo->serial_number = $option_key['serial_number'];
+                $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
+                $cargo->un_number = $option_key['un_number'];
+                $cargo->temperature_conditions = $option_key['temperature_conditions'];
+                $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
+                $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
+                $cargo->сargo_dimensions_height = $option_key['сargo_dimensions_height'];
+                $cargo->volume_weight = ($option_key['сargo_dimensions_height']  * $option_key['сargo_dimensions_width'] * $option_key['сargo_dimensions_length'])/6000;
+                $cargo->update();
+            }
+            else{
+                $cargo = new Cargo();
+                $cargo->order_id = $order->id;
+                $cargo->type = $option_key['type'];
+                $cargo->actual_weight = $option_key['actual_weight'];
+                $cargo->quantity = $option_key['quantity'];
+                $cargo->serial_number = $option_key['serial_number'];
+                $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
+                $cargo->un_number = $option_key['un_number'];
+                $cargo->temperature_conditions = $option_key['temperature_conditions'];
+                $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
+                $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
+                $cargo->сargo_dimensions_height = $option_key['сargo_dimensions_height'];
+                $cargo->volume_weight =  ($option_key['сargo_dimensions_height']  * $option_key['сargo_dimensions_width'] * $option_key['сargo_dimensions_length'])/6000;
+                $cargo->save();
+            }
         }
 
         return redirect()->route('admin.orders.index');
 
     }
 
-    public function delete_cargo($id){
+    public function remove_cargo(Request $request ){
 
+        $cargo = Cargo::where('order_id',$request->order)->where('id',$request->cargo)->first();
+        $cargo->delete();
+        return true;
     }
 
     /**

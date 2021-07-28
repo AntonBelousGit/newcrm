@@ -85,9 +85,10 @@
                             <div class="form-group">
                                 <label>{{ ('Shipper Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control"  value="{{$orders->shipper}}" />
-
+                                <input type="hidden" id="order" value="{{$orders->id}}">
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ ('Shipper Phone')}}:</label>
@@ -267,7 +268,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Volume weight:</label>
-                                    <input type="text"  placeholder="Temperature conditions" name="volume_weight" class="form-control  "  value="{{$item['volume_weight']}}" />
+                                    <input type="text"  placeholder="Temperature conditions" name="volume_weight" disabled class="form-control  "  value="{{$item['volume_weight']}}" />
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
 
@@ -294,7 +295,7 @@
                                     <div class="col-md-12">
 
                                         <div>
-                                            <a href="javascript:;" data-repeater-delete="" onclick="deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
+                                            <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
                                                 <i class="la la-trash-o"></i>{{ ('Delete')}}
                                             </a>
                                         </div>
@@ -492,17 +493,6 @@
             }
         }
 
-        {{--$('.select-client').select2({--}}
-        {{--        placeholder: "Select Client",--}}
-        {{--    })--}}
-        {{--@if($user_type == 'admin' || in_array('1005', $staff_permission) )--}}
-        {{--    .on('select2:open', () => {--}}
-        {{--        $(".select2-results:not(:has(a))").append(`<li style='list-style: none; padding: 10px;'><a style="width: 100%" href="{{route('admin.clients.create')}}?redirect=admin.shipments.create"--}}
-        {{--            class="btn btn-primary" >+ {{ ('Add New Client')}}</a>--}}
-        {{--            </li>`);--}}
-        {{--    });--}}
-        {{--@endif--}}
-
         $('.select-client').change(function(){
             var client_phone = $(this).find(':selected').data('phone');
             document.getElementById("client_phone").value = client_phone;
@@ -587,18 +577,29 @@
             }).get();
             $('.total-weight').val(sumWeight);
         }
-        function deleteCargo(elem){
-           var zalupus = $(elem).parent('div').parent('.col-md-12').parent('.row').parent('.align-items-center').find('input[type="hidden"]').val();
+
+
+        function deleteCargo(elem,deleteElement){
+           var cargo_id = $(elem).find('input[type="hidden"]').val();
+           var order_id = $("#order").val();
+
             if(confirm('Удалять?')){
-                alert(zalupus);
-            }else {
-                return;
+                $.ajax({
+                    url: '/admin/orders/remove-cargo',
+                    type: "POST",
+                    data: {
+                        cargo: cargo_id,
+                        order: order_id
+                    },
+                    success: function(response){
+                        $(this).slideUp(deleteElement);
+                    }
+                })
             }
-
         }
+
+
         $(document).ready(function() {
-
-
             $('.select-country').select2({
                 placeholder: "Select country",
                 language: {
@@ -616,7 +617,6 @@
                     return markup;
                 },
             });
-
             $('.select-state').select2({
                 placeholder: "Select state",
                 language: {
@@ -634,11 +634,9 @@
                     return markup;
                 },
             });
-
             $('.select-address').select2({
                 placeholder: "Select Client First",
             })
-
             $('.select-area').select2({
                 placeholder: "Select Area",
                 language: {
@@ -656,10 +654,8 @@
                     return markup;
                 },
             });
-
             $('.select-country').trigger('change');
             $('.select-state').trigger('change');
-
             $('#kt_datepicker_3').datepicker({
                 orientation: "bottom auto",
                 autoclose: true,
@@ -696,12 +692,10 @@
                 });
             });
 
-
             //Package Types Repeater
 
             $('#kt_repeater_1').repeater({
                 initEmpty: false,
-
                 show: function() {
                     $(this).slideDown();
 
@@ -757,9 +751,10 @@
                     });
                     calcTotalWeight();
                 },
-
                 hide: function(deleteElement) {
-                    $(this).slideUp(deleteElement);
+
+                    deleteCargo(this,deleteElement);
+
                 }
             });
 

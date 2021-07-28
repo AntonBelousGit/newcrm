@@ -12,4 +12,6 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
         Route::resources([
             'orders'=> OrderController::class,
         ]);
+        Route::post('/orders/remove-cargo', [OrderController::class,'remove_cargo']);
+
     });
