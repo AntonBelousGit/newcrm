@@ -32,7 +32,7 @@
                                 </a>
                             </li>
                         <li class="menu-item " aria-haspopup="true">
-                            <a href="{{route('admin.orders.index')}}" class="menu-link">
+                            <a href="{{route('admin.orders.new_order')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="menu-item " aria-haspopup="true">
-                            <a href="{{route('admin.orders.index')}}" class="menu-link">
+                            <a href="{{route('admin.orders.in_processing')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="menu-item " aria-haspopup="true">
-                            <a href="{{route('admin.orders.index')}}" class="menu-link">
+                            <a href="{{route('admin.orders.in_work')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
@@ -59,7 +59,7 @@
                             </a>
                         </li>
                         <li class="menu-item " aria-haspopup="true">
-                            <a href="{{route('admin.orders.index')}}" class="menu-link">
+                            <a href="{{route('admin.orders.delivered')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>

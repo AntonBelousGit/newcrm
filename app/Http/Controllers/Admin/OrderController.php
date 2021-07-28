@@ -199,6 +199,26 @@ class OrderController extends Controller
         return true;
     }
 
+    public function new_order(){
+
+        $orders = Order::with('cargo','user')->where('status_id',1)->paginate(10);
+        return view('backend.shipments.index',compact('orders'));
+    }
+
+    public function in_processing(){
+        $orders = Order::with('cargo','user')->where('status_id',2)->paginate(10);
+        return view('backend.shipments.index',compact('orders'));
+    }
+
+    public function in_work(){
+        $orders = Order::with('cargo','user')->where('status_id',3)->paginate(10);
+        return view('backend.shipments.index',compact('orders'));
+    }
+    public function delivered(){
+        $orders = Order::with('cargo','user')->where('status_id',4)->paginate(10);
+        return view('backend.shipments.index',compact('orders'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
