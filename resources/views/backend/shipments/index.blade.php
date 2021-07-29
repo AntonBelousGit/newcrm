@@ -43,7 +43,7 @@
     <div class="flex-wrap py-3 card-header">
         <div class="card-title">
             <h3 class="card-label">
-                All Shipments
+                {{$title}}
             </h3>
         </div>
     </div>

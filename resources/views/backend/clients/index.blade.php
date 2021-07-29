@@ -5,11 +5,11 @@
 <div class="aiz-titlebar text-left mt-2 mb-3">
 	<div class="row align-items-center">
 		<div class="col-md-6">
-			<h1 class="h3">{{translate('All Customers')}}</h1>
+			<h1 class="h3">All Users</h1>
 		</div>
 		<div class="col-md-6 text-md-right">
-			<a href="{{ route('admin.clients.create') }}" class="btn btn-circle btn-info">
-				<span>{{translate('Add New Customers')}}</span>
+			<a href="{{ route('admin.users.create') }}" class="btn btn-circle btn-info">
+				<span>Add New Users</span>
 			</a>
 		</div>
 	</div>
@@ -17,52 +17,52 @@
 
 <div class="card">
     <div class="card-header">
-        <h5 class="mb-0 h6">{{translate('Customers')}}</h5>
+        <h5 class="mb-0 h6">User</h5>
     </div>
     <div class="card-body">
         <table class="table aiz-table mb-0">
             <thead>
                 <tr>
                     <th  width="3%">#</th>
-                    <th >{{translate('Name')}}</th>
-                    <th >{{translate('Email')}}</th>
-                    <th >{{translate('Phone')}}</th>
-                    
-                    <th  width="10%" class="text-center">{{translate('Options')}}</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Full name</th>
+
+                    <th  width="10%" class="text-center">Options</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($clients as $key => $client)
-                    
+                @foreach($users as $user)
+
                         <tr>
-                            <td  width="3%">{{ ($key+1) + ($clients->currentPage() - 1)*$clients->perPage() }}</td>
-                            <td width="20%">{{$client->name}}</td>
-                            <td width="20%">{{$client->email}}</td>
-                            <td width="20%">{{$client->responsible_mobile}}</td>
-                           
+                            <td width="3%">{{$user->id}}</td>
+                            <td width="20%">{{$user->name}}</td>
+                            <td width="20%">{{$user->email}}</td>
+                            <td width="20%">{{$user->fullname}}</td>
+                            <td width="">{{$user->roles()->get()->pluck('name')->first()}}</td>
+
                             <td class="text-center">
-                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.clients.show', $client->id)}}" title="{{ translate('Show') }}">
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.users.show', $user->id)}}" title="Show">
 		                                <i class="las la-eye"></i>
 		                            </a>
-		                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.clients.edit', $client->id)}}" title="{{ translate('Edit') }}">
+		                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.users.edit', $user->id)}}" title="Edit">
 		                                <i class="las la-edit"></i>
 		                            </a>
-		                            <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('admin.clients.delete-client', ['client'=>$client->id])}}" title="{{ translate('Delete') }}">
-		                                <i class="las la-trash"></i>
-		                            </a>
+                                    <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('admin.users.destroy', $user->id)}}" title="Delete">
+                                        <i class="las la-trash"></i>
+                                    </a>
+
 		                        </td>
                         </tr>
-               
+
                 @endforeach
             </tbody>
         </table>
         <div class="aiz-pagination">
-            {{ $clients->appends(request()->input())->links() }}
+{{--            {{ $users->links() }}--}}
         </div>
     </div>
 </div>
-{!! hookView('spot-cargo-shipment-client-addon',$currentView) !!}
-
 @endsection
 
 @section('modal')
