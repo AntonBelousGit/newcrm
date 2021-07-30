@@ -142,7 +142,7 @@
 	<div class="d-flex flex-column flex-root">
 
 		<!--begin::Page-->
-		<div class="flex-row d-flex flex-column-fluid page">
+		<div class="flex-column d-flex flex-column-fluid page">
 
 			@include('backend.inc.admin_sidenav')
 

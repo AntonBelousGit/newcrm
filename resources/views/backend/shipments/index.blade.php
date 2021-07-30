@@ -59,6 +59,7 @@
                     <th>Consignee</th>
                     <th>Phone consignee</th>
                     <th>Invoice number</th>
+                    <th>Location</th>
                     <th>Status</th>
                     <th>Created at</th>
                     <th>Mission</th>
@@ -77,12 +78,19 @@
                         <th>{{$shipment->phone_consignee}}</th>
                         <th>{{$shipment->invoice_number}}</th>
 
+                        <th>{{$shipment->cargolocation->name}}</th>
+
                         <th>{{$shipment->status->name}}</th>
                         <th>{{$shipment->created_at}}</th>
                             <td class="text-center">
-                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
+                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                    <i class="las la-eye"></i>
+                                </a>
+                                @canany(['SuperUser','Manager','OPS'], Auth::user())
+                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
                                         <i class="las la-edit"></i>
-                                    </a>
+                                </a>
+                                @endcanany
                             </td>
 
                     </tr>
@@ -91,9 +99,6 @@
         </table>
 
     </form>
-    <div class="aiz-pagination">
-        {{ $orders->links() }}
-    </div>
 </div>
 </div>
 

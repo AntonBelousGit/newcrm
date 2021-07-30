@@ -34,26 +34,28 @@
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
+                @canany(['SuperUser','Manager','OPS'], Auth::user())
+                    @if(count(\File::files(base_path('resources/views/backend/inc/addons/'))) > 0)
+                        <li class="menu-section">
+                            <h4 class="menu-text">Addons</h4>
+                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                        </li>
 
-                @if(count(\File::files(base_path('resources/views/backend/inc/addons/'))) > 0)
-                    <li class="menu-section">
-                        <h4 class="menu-text">Addons'</h4>
-                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                    </li>
+                            @foreach(\File::files(base_path('resources/views/backend/inc/addons/')) as $path)
+                                @include('backend.inc.addons.'.str_replace('.blade','',pathinfo($path)['filename']))
+                            @endforeach
 
-                    @foreach(\File::files(base_path('resources/views/backend/inc/addons/')) as $path)
-                        @include('backend.inc.addons.'.str_replace('.blade','',pathinfo($path)['filename']))
-                    @endforeach
-                @endif
+                    @endif
+                @endcanany
 
-
+                @canany(['SuperUser','Manager','Security Officer'], Auth::user())
                 <li class="menu-section">
                     <h4 class="menu-text">Administration</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
 
 
-                <li class="menu-item menu-item-submenu  " aria-haspopup="true" data-menu-toggle="hover">
+                    <li class="menu-item menu-item-submenu  " aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-users"></i>
                         <span class="menu-text">Users</span>
@@ -67,6 +69,7 @@
                                 <span class="menu-text">Shipments</span>
                             </span>
                             </li>
+
                             <li class="menu-item " aria-haspopup="true">
                                 <a href="{{route('admin.users.create')}}" class="menu-link">
                                     <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
@@ -82,46 +85,11 @@
 
                                 </a>
                             </li>
-{{--                            <li class="menu-item " aria-haspopup="true">--}}
-{{--                                <a href="{{route('admin.orders.new_order')}}" class="menu-link">--}}
-{{--                                    <i class="menu-bullet menu-bullet-dot">--}}
-{{--                                        <span></span>--}}
-{{--                                    </i>--}}
-{{--                                    <span class="menu-text">New order</span>--}}
 
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="menu-item " aria-haspopup="true">--}}
-{{--                                <a href="{{route('admin.orders.in_processing')}}" class="menu-link">--}}
-{{--                                    <i class="menu-bullet menu-bullet-dot">--}}
-{{--                                        <span></span>--}}
-{{--                                    </i>--}}
-{{--                                    <span class="menu-text">In processing</span>--}}
-
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="menu-item " aria-haspopup="true">--}}
-{{--                                <a href="{{route('admin.orders.in_work')}}" class="menu-link">--}}
-{{--                                    <i class="menu-bullet menu-bullet-dot">--}}
-{{--                                        <span></span>--}}
-{{--                                    </i>--}}
-{{--                                    <span class="menu-text">Accepted in work</span>--}}
-
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="menu-item " aria-haspopup="true">--}}
-{{--                                <a href="{{route('admin.orders.delivered')}}" class="menu-link">--}}
-{{--                                    <i class="menu-bullet menu-bullet-dot">--}}
-{{--                                        <span></span>--}}
-{{--                                    </i>--}}
-{{--                                    <span class="menu-text">Delivered</span>--}}
-
-{{--                                </a>--}}
-{{--                            </li>--}}
                         </ul>
                     </div>
                 </li>
-
+                @endcanany
 
 
             </ul>

@@ -18,5 +18,6 @@ class StatusSeeder extends Seeder
         ProductStatus::create(['name'=>'In processing']);
         ProductStatus::create(['name'=>'Accepted in work']);
         ProductStatus::create(['name'=>'Delivered']);
+        ProductStatus::create(['name'=>'В подборе']);
     }
 }

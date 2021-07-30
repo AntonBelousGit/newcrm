@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -17,8 +19,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('id','!=',1)->get();
-        return view('backend.clients.index',compact('users'));
+        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+            $users = User::where('id','!=',1)->get();
+            return view('backend.clients.index',compact('users'));
+        }
+        return  abort(403);
     }
 
     /**
@@ -27,9 +32,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $roles=Role::where('id','!=',1)->get();
-        return view('backend.clients.create',compact('roles'));
+    {   if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+            $roles=Role::where('id','!=',1)->get();
+            return view('backend.clients.create',compact('roles'));
+        }
+        return  abort(403);
     }
 
     /**
@@ -40,20 +47,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request);
-        $user = new User;
+        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+            $user = new User;
 
-        $user->name = $request->name;
-        $user->surname = $request->surname;
-        $user->nickname = $request->nickname;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->fullname = $request->fullname;
-        $user->save();
+            $user->name = $request->name;
+            $user->surname = $request->surname;
+            $user->nickname = $request->nickname;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->fullname = $request->fullname;
+            $user->save();
 
-        $user->roles()->attach($request->roles);
+            if ($request->roles == 1){
+                return abort(403);
+            }
+            $user->roles()->attach($request->roles);
 
-        return redirect()->route('admin.users.index');
+            return redirect()->route('admin.users.index');
+        }
+        return  abort(403);
     }
 
     /**
@@ -64,11 +76,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-//        $role = Role::find($id);
-        $users = User::where('id',$id)->with('roles')->first();
+        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+            $users = User::where('id',$id)->with('roles')->first();
 
-//         dd($users);
-        return view('backend.clients.show',compact('users'));
+            return view('backend.clients.show',compact('users'));
+        }
+        return  abort(403);
     }
 
     /**
@@ -79,9 +92,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        $roles = Role::where('id','!=',1)->get();
-        return view('backend.clients.edit', compact('user','roles'));
+        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+            $user = User::find($id);
+            $roles = Role::where('id','!=',1)->get();
+            return view('backend.clients.edit', compact('user','roles'));
+        }
+        return  abort(403);
     }
 
     /**
@@ -93,21 +109,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
 
-        $user->name = $request->name;
-        $user->surname = $request->surname;
-        $user->nickname = $request->nickname;
-        $user->email = $request->email;
-        $user->fullname = $request->fullname;
-        if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
+            $user = User::find($id);
+
+            $user->name = $request->name;
+            $user->surname = $request->surname;
+            $user->nickname = $request->nickname;
+            $user->email = $request->email;
+            $user->fullname = $request->fullname;
+            if (!empty($request->password)) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->update();
+
+            if ($request->roles == 1){
+                return abort(403);
+            }
+
+            $user->roles()->sync($request->roles);
+
+            return redirect()->route('admin.users.index');
         }
-        $user->update();
-
-        $user->roles()->sync($request->roles);
-
-        return redirect()->route('admin.users.index');
+        return  abort(403);
     }
 
     /**

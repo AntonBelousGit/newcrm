@@ -47,13 +47,14 @@
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.users.show', $user->id)}}" title="Show">
 		                                <i class="las la-eye"></i>
 		                            </a>
+                                @canany(['SuperUser','Manager','Security Officer'], Auth::user())
 		                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.users.edit', $user->id)}}" title="Edit">
 		                                <i class="las la-edit"></i>
 		                            </a>
                                     <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('admin.users.destroy', $user->id)}}" title="Delete">
                                         <i class="las la-trash"></i>
                                     </a>
-
+                                @endcanany
 		                        </td>
                         </tr>
 
