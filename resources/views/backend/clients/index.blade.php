@@ -23,10 +23,12 @@
         <table id="table_id" class="">
             <thead>
                 <tr>
-                    <th  width="3%">#</th>
+                    <th>#</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Full name</th>
+                    <th>Role</th>
+
 
                     <th  width="10%" class="text-center">Options</th>
                 </tr>
@@ -35,11 +37,11 @@
                 @foreach($users as $user)
 
                         <tr>
-                            <td width="3%">{{$user->id}}</td>
-                            <td width="20%">{{$user->name}}</td>
-                            <td width="20%">{{$user->email}}</td>
-                            <td width="20%">{{$user->fullname}}</td>
-                            <td width="">{{$user->roles()->get()->pluck('name')->first()}}</td>
+                            <td>{{$user->id}}</td>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>{{$user->fullname}}</td>
+                            <td>{{$user->roles()->get()->pluck('name')->first()}}</td>
 
                             <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.users.show', $user->id)}}" title="Show">

@@ -50,7 +50,7 @@
 
     <form id="tableForm">
         @csrf()
-        <table class="table mb-0 aiz-table">
+        <table id="table_id" class="">
             <thead>
                 <tr>
                     <th>Number order</th>
@@ -104,6 +104,13 @@
 @endsection
 
 @section('script')
+    <script type="text/javascript">
+               $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+
+
 <script type="text/javascript">
     $(document).on('click','#submit_transfer',function(){
         $('#tableForm').submit();
