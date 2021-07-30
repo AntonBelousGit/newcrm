@@ -61,6 +61,10 @@ class OrderController extends Controller
         $order->delivery_comment = $request->delivery_comment;
         $order->user = $request->user;
 
+        $order->number_order =  rand(1000000, 9999999).'-'.rand(1000000, 9999999).'-'.rand(1000000, 9999999);
+        $order->invoice_number = rand(1000000, 9999999).'-'.rand(1000000, 9999999).'-'.rand(1000000, 9999999).'-'.rand(1000000, 9999999);
+
+
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';

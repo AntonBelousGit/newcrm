@@ -20,7 +20,7 @@
         <h5 class="mb-0 h6">User</h5>
     </div>
     <div class="card-body">
-        <table class="table aiz-table mb-0">
+        <table id="table_id" class="">
             <thead>
                 <tr>
                     <th  width="3%">#</th>
@@ -63,8 +63,26 @@
         </div>
     </div>
 </div>
+
 @endsection
+
 
 @section('modal')
     @include('modals.delete_modal')
+@endsection
+
+
+
+@section('script')
+    <script>
+        // $(document).ready(() => {
+        //     $('#table_id').DataTable();
+        // });
+        // $(document).ready( function () {
+        //     $('#table_id').DataTable();
+        // } );
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
 @endsection

@@ -53,11 +53,14 @@
         <table class="table mb-0 aiz-table">
             <thead>
                 <tr>
-                    <th width="3%"></th>
-                    <th width="3%">#</th>
+                    <th>Number order</th>
                     <th>Shipper</th>
                     <th>Phone shipper</th>
+                    <th>Consignee</th>
+                    <th>Phone consignee</th>
+                    <th>Invoice number</th>
                     <th>Status</th>
+                    <th>Created at</th>
                     <th>Mission</th>
 
                 </tr>
@@ -67,11 +70,15 @@
 
                 @foreach($orders as $key=>$shipment)
                     <tr>
-                        <th></th>
-                        <th>{{$shipment->id}}</th>
+                        <th>{{$shipment->number_order}}</th>
                         <th>{{$shipment->shipper}}</th>
                         <th>{{$shipment->phone_shipper}}</th>
+                        <th>{{$shipment->consignee}}</th>
+                        <th>{{$shipment->phone_consignee}}</th>
+                        <th>{{$shipment->invoice_number}}</th>
+
                         <th>{{$shipment->status->name}}</th>
+                        <th>{{$shipment->created_at}}</th>
                             <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
                                         <i class="las la-edit"></i>

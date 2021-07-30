@@ -27,7 +27,9 @@ class Order extends Model
         'return_container',
         'delivery_comment',
         'notifications',
-        'user_id'
+        'user_id',
+        'number_order',
+        'invoice_number'
     ];
 
 //    public function cargo()
