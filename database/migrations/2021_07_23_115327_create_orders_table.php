@@ -16,8 +16,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('shipper');
-            $table->integer('number_order')->unique();
-            $table->integer('invoice_number')->unique();
+            $table->integer('number_order')->unique()->nullable();
+            $table->integer('invoice_number')->unique()->nullable();
             $table->string('phone_shipper');
             $table->string('address_shipper');
             $table->string('company_shipper');
@@ -41,8 +41,12 @@ class CreateOrdersTable extends Migration
 
             $table->bigInteger('cargo_location_id')->unsigned()->nullable();
             $table->bigInteger('status_id')->unsigned()->nullable();
+            $table->bigInteger('agent_id')->unsigned()->nullable();
+            $table->bigInteger('driver_id')->unsigned()->nullable();
 
             $table->foreign('status_id')->references('id')->on('product_statuses');
+            $table->foreign('agent_id')->references('id')->on('users');
+            $table->foreign('driver_id')->references('id')->on('users');
             $table->foreign('cargo_location_id')->references('id')->on('cargo_locations');
 
             $table->timestamps();

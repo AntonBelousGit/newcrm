@@ -77,7 +77,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Number order:</label>
-                                <input type="text" placeholder="Number order" disabled class="form-control"  value="{{$orders->number_order}}" />
+                                <input type="text" placeholder="Number order" disabled class="form-control"  value="{{$orders->id}}" />
 
                             </div>
                         </div>
@@ -85,7 +85,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ ('Invoce number')}}:</label>
-                                <input type="text" placeholder="{{ ('Invoce number')}}" disabled class="form-control" value="{{$orders->invoice_number}}"/>
+                                <input type="text" placeholder="{{ ('Invoce number')}}" disabled class="form-control" value="@php echo str_pad($orders->invoice_number, 6, "0", STR_PAD_LEFT);
+                                @endphp
+                                    "/>
 
                             </div>
                         </div>
@@ -312,6 +314,21 @@
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Cargo location:</label>
                                 <input type="text" placeholder="Cargo location" class="form-control" disabled value="{{$orders->cargolocation->name }}" />
+                            </div>
+                        </div>
+                        <hr>
+                        <hr>
+                        <div class="">
+                            <div class="col-md-6" data-select2-id="66">
+                                <label>Agent:</label>
+                                <input type="text" placeholder="Cargo location" class="form-control" disabled value="{{$orders->agent->fullname}}" />
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="">
+                            <div class="col-md-6" data-select2-id="66">
+                                <label>Driver:</label>
+                                <input type="text" placeholder="Cargo location" class="form-control" disabled value="{{$orders->driver->fullname}}" />
                             </div>
                         </div>
                         <hr>

@@ -68,33 +68,96 @@
             </thead>
             <tbody>
 
+                @can('Agent')
+                    @foreach($orders as $key=>$shipment)
+                        @can('manage-agent',$shipment)
+                        <tr>
+                            <th>{{$shipment->id}}</th>
+                            <th>{{$shipment->shipper}}</th>
+                            <th>{{$shipment->phone_shipper}}</th>
+                            <th>{{$shipment->consignee}}</th>
+                            <th>{{$shipment->phone_consignee}}</th>
+                            <th>
+                                @php
+                                    echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
+                                @endphp
+                            </th>
 
-                @foreach($orders as $key=>$shipment)
-                    <tr>
-                        <th>{{$shipment->number_order}}</th>
-                        <th>{{$shipment->shipper}}</th>
-                        <th>{{$shipment->phone_shipper}}</th>
-                        <th>{{$shipment->consignee}}</th>
-                        <th>{{$shipment->phone_consignee}}</th>
-                        <th>{{$shipment->invoice_number}}</th>
+                            <th>{{$shipment->cargolocation->name}}</th>
 
-                        <th>{{$shipment->cargolocation->name}}</th>
+                            <th>{{$shipment->status->name}}</th>
+                            <th>{{$shipment->created_at}}</th>
+                            <td class="text-center">
+                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                    <i class="las la-eye"></i>
+                                </a>
+                            </td>
 
-                        <th>{{$shipment->status->name}}</th>
-                        <th>{{$shipment->created_at}}</th>
+                        </tr>
+                        @endcan
+                    @endforeach
+                @elsecan('Driver')
+                    @foreach($orders as $key=>$shipment)
+
+                        @can('manage-driver',$shipment)
+                            <tr>
+                                <th>{{$shipment->id}}</th>
+                                <th>{{$shipment->shipper}}</th>
+                                <th>{{$shipment->phone_shipper}}</th>
+                                <th>{{$shipment->consignee}}</th>
+                                <th>{{$shipment->phone_consignee}}</th>
+                                <th>
+                                    @php
+                                        echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
+                                    @endphp
+                                </th>
+
+                                <th>{{$shipment->cargolocation->name}}</th>
+
+                                <th>{{$shipment->status->name}}</th>
+                                <th>{{$shipment->created_at}}</th>
+                                <td class="text-center">
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                        <i class="las la-eye"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        @endcan
+                    @endforeach
+                @else
+                    @foreach($orders as $key=>$shipment)
+                        <tr>
+                            <th>{{$shipment->id}}</th>
+                            <th>{{$shipment->shipper}}</th>
+                            <th>{{$shipment->phone_shipper}}</th>
+                            <th>{{$shipment->consignee}}</th>
+                            <th>{{$shipment->phone_consignee}}</th>
+                            <th>
+                                @php
+                                    echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
+                                @endphp
+                            </th>
+
+                            <th>{{$shipment->cargolocation->name}}</th>
+
+                            <th>{{$shipment->status->name}}</th>
+                            <th>{{$shipment->created_at}}</th>
                             <td class="text-center">
                                 <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                     <i class="las la-eye"></i>
                                 </a>
                                 @canany(['SuperUser','Manager','OPS'], Auth::user())
-                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
                                         <i class="las la-edit"></i>
-                                </a>
+                                    </a>
                                 @endcanany
                             </td>
 
-                    </tr>
-                @endforeach
+                        </tr>
+                    @endforeach
+                @endcan
+
             </tbody>
         </table>
 
