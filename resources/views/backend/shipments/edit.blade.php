@@ -96,7 +96,7 @@
 
                             </div>
                         </div>
-                        @if($orders->status_id == 4 && $orders->status_id == 3 && $orders->status_id == 1)
+                        @if($orders->status_id != 2 && $orders->status_id != 3 )
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Shipper Address')}}:</label>
@@ -137,7 +137,7 @@
 
                             </div>
                         </div>
-                        @if($orders->status_id == 4 && $orders->status_id == 3 && $orders->status_id == 1)
+                        @if($orders->status_id != 2 && $orders->status_id != 3 )
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Consignee Address')}}:</label>
@@ -383,34 +383,6 @@
                                 <select id="change-country-to" name="cargo_location_id" class="form-control ">
                                     @foreach($cargo_location as $item)
                                         <option value="{{$item->id}}" @if($item->id == $orders->cargolocation->id) selected @endif >{{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Agent:</label>
-                                <select id="change-country-to" name="agent_id" class="form-control ">
-                                    <option value=""></option>
-                                    @foreach($user as $item)
-                                        @if($item->roles->first()->name == 'Agent')
-                                            <option value="{{$item->id}}" @if($item->id == $orders->agent_id) selected @endif >{{$item->nickname}} - {{$item->roles->first()->name}} </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Driver:</label>
-                                <select id="change-country-to" name="driver_id" class="form-control ">
-                                    <option value=""></option>
-                                    @foreach($user as $item)
-                                        @if($item->roles->first()->name == 'Driver')
-                                            <option value="{{$item->id}}" @if($item->id == $orders->driver_id) selected @endif >{{$item->nickname}} - {{$item->roles->first()->name}}  </option>
-                                        @endif
                                     @endforeach
                                 </select>
                             </div>
