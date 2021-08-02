@@ -16,6 +16,7 @@ class CreateCargoLocationsTable extends Migration
         Schema::create('cargo_locations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('city');
             $table->timestamps();
         });
     }

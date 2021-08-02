@@ -16,10 +16,16 @@ class CargoLocationSeeder extends Seeder
     public function run()
     {
 
-        CargoLocation::create(['name'=>'----']);
-        CargoLocation::create(['name'=>'APC-1']);
-        CargoLocation::create(['name'=>'APC-2']);
-        CargoLocation::create(['name'=>'APC-3']);
-        CargoLocation::create(['name'=>'APC-3-x']);
+        CargoLocation::create(['name'=>'----','city'=>'----']);
+        CargoLocation::create(['name'=>'IEV','city'=>'KYIV']);
+        CargoLocation::create(['name'=>'HRK','city'=>'KHARKIV']);
+        CargoLocation::create(['name'=>'ODS','city'=>'ODESA']);
+        CargoLocation::create(['name'=>'LWO','city'=>'LVIV']);
+        CargoLocation::create(['name'=>'KHE','city'=>'KHERSON']);
+        CargoLocation::create(['name'=>'OZH','city'=>'ZAPORIZHZHIA']);
+        CargoLocation::create(['name'=>'UDJ','city'=>'UZHHOROD']);
+        CargoLocation::create(['name'=>'DNK','city'=>'DNIPRO']);
+        CargoLocation::create(['name'=>'IFO','city'=>'IVANO-FRANKIVSK']);
+        CargoLocation::create(['name'=>'ZTR','city'=>'ZHYTOMYR']);
     }
 }

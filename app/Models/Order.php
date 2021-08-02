@@ -61,4 +61,12 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\User','user_id');
     }
+    public function agent()
+    {
+        return $this->belongsTo('App\Models\User','agent_id');
+    }
+    public function driver()
+    {
+        return $this->belongsTo('App\Models\User','driver_id');
+    }
 }
