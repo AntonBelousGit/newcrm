@@ -222,7 +222,7 @@ class OrderController extends Controller
     public function new_order(){
 
         if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
-            $orders = Order::with('cargo','user','agent','driver')->where('status_id',1)->paginate(10);
+            $orders = Order::with('cargo','user','agent','driver')->where('status_id',1)->get();
             $title = 'New order';
             return view('backend.shipments.index',compact('orders','title'));
         }
@@ -231,7 +231,7 @@ class OrderController extends Controller
 
     public function in_processing(){
         if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
-            $orders = Order::with('cargo','user','agent')->where('status_id',2)->paginate(10);
+            $orders = Order::with('cargo','user','agent')->where('status_id',2)->get();
             $title = 'In processing';
             return view('backend.shipments.index',compact('orders','title'));
         }
@@ -240,7 +240,7 @@ class OrderController extends Controller
 
     public function in_work(){
         if (Gate::any(['SuperUser','Manager','OPS','Agent','Driver'], Auth::user())) {
-            $orders = Order::with('cargo','user','agent','driver')->where('status_id',3)->paginate(10);
+            $orders = Order::with('cargo','user','agent','driver')->where('status_id',3)->get();
             $title = 'Accepted in work';
             return view('backend.shipments.index',compact('orders','title'));
         }
@@ -248,7 +248,7 @@ class OrderController extends Controller
     }
     public function delivered(){
         if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
-            $orders = Order::with('cargo','user','agent')->where('status_id',4)->paginate(10);
+            $orders = Order::with('cargo','user','agent')->where('status_id',4)->get();
             $title = 'Delivered';
             return view('backend.shipments.index',compact('orders','title'));
         }
