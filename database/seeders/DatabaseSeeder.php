@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CargoLocationSeeder::class);
         $this->call(StatusSeeder::class);
         $this->call(RoleSeeder::class);
-        User::factory(15)->create();
+//        User::factory(15)->create();
     }
 }
