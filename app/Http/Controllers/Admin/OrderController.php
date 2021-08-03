@@ -6,6 +6,7 @@ use App\Models\Cargo;
 use App\Models\CargoLocation;
 use App\Models\Order;
 use App\Models\ProductStatus;
+use App\Models\Tracker;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -120,15 +121,12 @@ class OrderController extends Controller
     public function edit($id)
     {
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
-            $orders = Order::with('cargo','user','status','cargolocation')->findOrFail($id);
-            //        dd($orders);
+            $orders = Order::with('cargo','user','status','cargolocation','tracker')->find($id);
             $user = User::all();
-            $agent = User::with('roles')->get();
-//            dd($agent);
-
+            $tracker = Tracker::with('cargolocation')->where('order_id',$id)->get();
             $status = ProductStatus::all();
             $cargo_location = CargoLocation::all();
-            return view('backend.shipments.edit',compact('orders','user','status','cargo_location'));
+            return view('backend.shipments.edit',compact('orders','user','status','cargo_location','tracker'));
         }
         return  abort(403);
     }
@@ -171,7 +169,7 @@ class OrderController extends Controller
 
 
 
-            $order->cargo_location_id = $request->cargo_location_id;
+            $order->cargo_location_id = $request->cargo_location_id ?? 1;
 
             $order->update();
             foreach($request->Package as $option_key){
@@ -213,6 +211,9 @@ class OrderController extends Controller
     public function remove_cargo(Request $request ){
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             $cargo = Cargo::where('order_id',$request->order)->where('id',$request->cargo)->first();
+            if (is_null($cargo)){
+                return true;
+            }
             $cargo->delete();
             return true;
         }
@@ -232,6 +233,7 @@ class OrderController extends Controller
     public function in_processing(){
         if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
             $orders = Order::with('cargo','user','agent')->where('status_id',2)->get();
+
             $title = 'In processing';
             return view('backend.shipments.index',compact('orders','title'));
         }

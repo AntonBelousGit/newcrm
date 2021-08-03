@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TrackerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
@@ -17,8 +18,10 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
         Route::resources([
             'orders'=> OrderController::class,
             'users'=> UserController::class,
+            'tracker'=> TrackerController::class,
         ]);
         Route::post('/orders/remove-cargo', [OrderController::class,'remove_cargo']);
+        Route::post('/tracker/remove-tracker', [TrackerController::class,'remove_tracker']);
 
 
 

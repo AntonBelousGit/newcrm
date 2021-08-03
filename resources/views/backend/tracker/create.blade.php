@@ -10,7 +10,7 @@
                 <!--begin::Page Heading-->
                 <div class="flex-wrap mr-5 d-flex align-items-baseline">
                     <!--begin::Page Title-->
-                    <h5 class="my-1 mr-5 text-dark font-weight-bold">Create Shipment</h5>
+                    <h5 class="my-1 mr-5 text-dark font-weight-bold">Create Tracker</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="p-0 my-2 mr-5 breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold font-size-sm">
@@ -18,10 +18,10 @@
                             <a href="{{ route('admin.index')}}" class="text-muted">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('admin.orders.index')}}" class="text-muted">Shipments</a>
+                            <a href="{{ route('admin.tracker.index')}}" class="text-muted">Tracker</a>
                         </li>
                         <li class="breadcrumb-item text-muted">
-                            <a href="#" class="text-muted">Create Shipment</a>
+                            <a href="#" class="text-muted">Create Tracker</a>
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
@@ -34,32 +34,10 @@
     <!--end::Subheader-->
 @endsection
 
-@section('sub_title') Create New Shipment @endsection
+@section('sub_title') Create New Tracker @endsection
 
 @section('content')
 
-@php
- /*   $auth_user = Auth::user();
-
-    $user_type = Auth::user()->user_type;
-    $staff_permission = json_decode(Auth::user()->staff->role->permissions ?? "[]");
-    $countries = \App\Country::where('covered',1)->get();
-    $packages = \App\Package::all();
-    $deliveryTimes = \App\DeliveryTime::all();
-
-    $is_def_mile_or_fees = \App\ShipmentSetting::getVal('is_def_mile_or_fees');
-    // is_def_mile_or_fees if result 1 for mile if result 2 for fees
-    dd($is_def_mile_or_fees);
-    if(!$is_def_mile_or_fees){
-        $is_def_mile_or_fees = 0;
-    }
-    $checked_google_map = \App\BusinessSetting::where('type', 'google_map')->first();
-
-    if($user_type == 'customer')
-    {
-        $user_client = Auth::user()->userClient->client_id;
-    } */
-@endphp
 <style>
     label {
         font-weight: bold !important;
@@ -71,114 +49,20 @@
 </style>
 
 
-        <form class="form-horizontal" action="{{route('admin.orders.store')}}" id="kt_form_1" method="POST" enctype="multipart/form-data">
+        <form class="form-horizontal" action="{{route('admin.tracker.store')}}" id="kt_form_1" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">
-
                         <hr>
                         <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ ('Shipper Name')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control" required value="{{old('shipper')}}" />
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ ('Shipper Phone')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" class="form-control" required value="{{old('phone_shipper')}}"/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" required value="{{old('address_shipper')}}" />
-
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Company Shipper')}}:</label>
-                                    <input type="text" placeholder="{{ ('Company Shipper')}}" name="company_shipper" class="form-control" required value="{{old('company_shipper')}}" />
-
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ ('Consignee Name')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" class="form-control" required value="{{old('consignee')}}" />
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ ('Consignee Phone')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" class="form-control" required value="{{old('phone_consignee')}}" />
-
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" required value="{{old('address_consignee')}}"  />
-
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Company Consignee')}}:</label>
-                                    <input type="text" placeholder="{{ ('Company Consignee')}}" name="company_consignee" class="form-control" required value="{{old('company_consignee')}}" />
-
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Shipment description')}}:</label>
-                                    <textarea class="form-control" name="shipment_description" required>{{old('shipment_description')}}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Comment')}}:</label>
-                                    <textarea class="form-control" name="comment" required>{{old('comment')}}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group fv-plugins-icon-container">
-                                    <label>Shipping Date:</label>
-                                    <div class="input-group date">
-                                        <input type="text" placeholder="Sending Date" value="2021-07-26" name="sending_time" autocomplete="off" class="form-control" id="kt_datepicker_3" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div><i data-field="sending_time" class="fv-plugins-icon"></i>
-
-                                    <div class="fv-plugins-message-container"></div></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group fv-plugins-icon-container">
-                                    <label>Delivery Date:</label>
-                                    <div class="input-group date">
-                                        <input type="text" placeholder="Delivery Date" value="2021-07-26" name="delivery_time" autocomplete="off" class="form-control" id="kt_datepicker_4" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div><i data-field="delivery_time" class="fv-plugins-icon"></i>
-
-                                    <div class="fv-plugins-message-container"></div></div>
+                            <div class="col-md-3">
+                                <label>Order:</label>
+                                <select id="change-country-to" name="order_id" class="form-control ">
+                                    @foreach($orders as $item)
+                                        <option value="{{$item->id}}" >{{$item->id}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <hr>
@@ -187,186 +71,58 @@
 
                         <hr>
                     <div class="col-lg-12">
-                    <div id="kt_repeater_1">
-                        <div class="" >
-                            <h2 class="text-left">{{ ('Package Info')}}:</h2>
-                            <div data-repeater-list="Package" class="col-lg-12">
-                                <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                        <div id="kt_repeater_1">
+                            <div class="" id="">
+                                <h2 class="text-left">Time Info:</h2>
+                                <div data-repeater-list="time" class="col-lg-12">
+                                        <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                            <div class="col-md-3">
+                                                <label>Location:</label>
+                                                <select id="change-country-to" name="cargo_location" class="form-control ">
+                                                    @foreach($cargo_location as $item)
+                                                        <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Time:</label>
+                                                <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
 
-
-
-                                    <div class="col-md-3">
-                                        <label>{{ ('Type')}}:</label>
-                                        <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" required>
-                                        <div class="mb-2 d-md-none"></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label>Actual weight:</label>
-                                        <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="1"  required/>
-                                        <div class="mb-2 d-md-none"></div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <label>{{ ('Quantity')}}:</label>
-                                        <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" min="1" name="quantity" class="form-control" value="1" required/>
-                                        <div class="mb-2 d-md-none"></div>
-                                    </div>
-
-                                    <div class="col-md-3">
-
-                                        <label>Serial number:</label>
-
-                                        <input type="text"  placeholder="Serial number" name="serial_number" class="form-control "  value="" required />
-                                        <div class="mb-2 d-md-none"></div>
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <label>Serial number sensor:</label>
-
-                                        <input type="text"  placeholder="Serial number sensor" name="serial_number_sensor" class="form-control  "  value="" />
-                                        <div class="mb-2 d-md-none"></div>
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <label>UN number:</label>
-
-                                        <input type="text"  placeholder="UN number" name="un_number" class="form-control  "  value="" />
-                                        <div class="mb-2 d-md-none"></div>
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <label>Temperature conditions:</label>
-
-                                        <input type="text"  placeholder="Temperature conditions" name="temperature_conditions" class="form-control  "  value="1" />
-                                        <div class="mb-2 d-md-none"></div>
-
-                                    </div>
-
-                                    <div class="col-md-12" style="margin-top: 10px;">
-                                        <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Length')}}" name="сargo_dimensions_length" value="1" />
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Width')}}" name="сargo_dimensions_width" value="1" />
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <input class="dimensions_r" type="number" min="1" class="form-control " placeholder="{{ ('Height')}}" name="сargo_dimensions_height" value="1" />
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-
-                                            <div>
-                                                <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
-                                                    <i class="la la-trash-o"></i>{{ ('Delete')}}
-                                                </a>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item_time">
+                                                            <i class="la la-trash-o"></i>{{ ('Delete')}}
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="">
+                                    <label class="text-right col-form-label">{{ ('Add')}}</label>
+                                    <div>
+                                        <a href="javascript:;" data-repeater-create-time="" class="btn btn-sm font-weight-bolder btn-light-primary">
+                                            <i class="la la-plus"></i>{{ ('Add')}}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group ">
-                            <div class="">
-                                <label class="text-right col-form-label">{{ ('Add')}}</label>
-                                <div>
-                                    <a href="javascript:;" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
-                                        <i class="la la-plus"></i>{{ ('Add')}}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-                        <div class="">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="sensor_for_rent">
-                                <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container">
-                                <label class="form-check-label" for="inlineCheckbox2">Container</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="return_sensor">
-                                <label class="form-check-label" for="inlineCheckbox3">Returning the sensor</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="return_container">
-                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="notifications">
-                                <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Delivery comment</label>
-                                <textarea class="form-control" name="delivery_comment" required></textarea>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="">
-{{--                            <div class="col-md-6" data-select2-id="66">--}}
-{{--                                    <label>Shipping Payer:</label>--}}
-{{--                                    <select id="change-country-to" name="user_id" class="form-control " required>--}}
-{{--                                        <option value="">----</option>--}}
-{{--                                        @foreach($user as $item)--}}
-{{--                                        <option value="{{$item->id}}">{{$item->email}}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                            </div>--}}
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Shipping Payer:</label>
-                                    <input type="text" placeholder="Shipping Payer" name="user" class="form-control" value="" required />
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-{{--                        <div class="row">--}}
-{{--                            <div class="col-md-6">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label>{{ ('Delivery Time')}}:</label>--}}
-{{--                                    <select class="form-control kt-select2 delivery-time" id="delivery_time" name="Shipment[delivery_time]">--}}
-{{--                                            @foreach($deliveryTimes as $deliveryTime)--}}
-{{--                                                <option value="{{$deliveryTime->name}}">{{ ($deliveryTime->name)}}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-6">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label>{{ ('Total Weight')}}:</label>--}}
-{{--                                    <input id="kt_touchspin_4" placeholder="{{ ('Total Weight')}}" type="text" min="1" class="form-control total-weight" value="1" name="Shipment[total_weight]" />--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-                        <div class="form-group ">
-                            <div class="">
-                                <div>
-                                    <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
-                                </div>
-                            </div>
-                        </div>
-{{--                    </div>--}}
-                    </div>
                     </div>
                 </div>
-
+                <div class="form-group ">
+                    <div class="">
+                        <div>
+                            <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
 
 

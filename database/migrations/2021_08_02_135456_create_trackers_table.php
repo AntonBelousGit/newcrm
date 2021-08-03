@@ -15,9 +15,10 @@ class CreateTrackersTable extends Migration
     {
         Schema::create('trackers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id');
             $table->bigInteger('location_id')->unsigned()->nullable();
-            $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->enum('status',['ok','bad'])->nullable();
             $table->boolean('start')->nullable();
             $table->boolean('end')->nullable();

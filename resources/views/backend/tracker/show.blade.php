@@ -1,4 +1,6 @@
 @extends('backend.layouts.app')
+
+
 @section('subheader')
     <!--begin::Subheader-->
     <div class="py-2 subheader py-lg-6 subheader-solid" id="kt_subheader">
@@ -8,7 +10,7 @@
                 <!--begin::Page Heading-->
                 <div class="flex-wrap mr-5 d-flex align-items-baseline">
                     <!--begin::Page Title-->
-                    <h5 class="my-1 mr-5 text-dark font-weight-bold">Create Shipment</h5>
+                    <h5 class="my-1 mr-5 text-dark font-weight-bold">Create Tracker</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="p-0 my-2 mr-5 breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold font-size-sm">
@@ -16,10 +18,10 @@
                             <a href="{{ route('admin.index')}}" class="text-muted">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('admin.orders.index')}}" class="text-muted">Shipments</a>
+                            <a href="{{ route('admin.tracker.index')}}" class="text-muted">Tracker</a>
                         </li>
                         <li class="breadcrumb-item text-muted">
-                            <a href="#" class="text-muted">Create Shipment</a>
+                            <a href="#" class="text-muted">Create Tracker</a>
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
@@ -31,362 +33,69 @@
     </div>
     <!--end::Subheader-->
 @endsection
-@section('sub_title') Create New Shipment @endsection
+
+@section('sub_title') Create New Tracker @endsection
+
 @section('content')
-    @php
-        /*   $auth_user = Auth::user();
-           $user_type = Auth::user()->user_type;
-           $staff_permission = json_decode(Auth::user()->staff->role->permissions ?? "[]");
-           $countries = \App\Country::where('covered',1)->get();
-           $packages = \App\Package::all();
-           $deliveryTimes = \App\DeliveryTime::all();
-           $is_def_mile_or_fees = \App\ShipmentSetting::getVal('is_def_mile_or_fees');
-           // is_def_mile_or_fees if result 1 for mile if result 2 for fees
-           dd($is_def_mile_or_fees);
-           if(!$is_def_mile_or_fees){
-               $is_def_mile_or_fees = 0;
-           }
-           $checked_google_map = \App\BusinessSetting::where('type', 'google_map')->first();
-           if($user_type == 'customer')
-           {
-               $user_client = Auth::user()->userClient->client_id;
-           } */
-    @endphp
+
     <style>
         label {
             font-weight: bold !important;
         }
+
         .select2-container {
             display: block !important;
         }
     </style>
-    <form class="form-horizontal" action="{{route('admin.orders.update',$orders->id)}}" id="kt_form_1" method="POST" enctype="multipart/form-data">
+
+
+    <form class="form-horizontal" action="{{route('admin.tracker.store')}}" id="kt_form_1" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
                     <hr>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>{{ ('Shipper Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control"  value="{{$orders->shipper}}" />
-                                <input type="hidden" id="order" value="{{$orders->id}}">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>{{ ('Shipper Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" class="form-control" value="{{$orders->phone_shipper}}"/>
-
-                            </div>
-                        </div>
-                        @if($orders->status_id == 4 && $orders->status_id == 3 && $orders->status_id == 1)
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" value="{{$orders->address_shipper}}" />
-                                </div>
-                            </div>
-                        @else
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="" disabled class="form-control" value="{{$orders->address_shipper}}" />
-                                </div>
-                            </div>
-                        @endif
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>{{ ('Company Shipper')}}:</label>
-                                <input type="text" placeholder="{{ ('Company Shipper')}}" name="company_shipper" class="form-control" value="{{$orders->company_shipper}}" />
-                            </div>
+                        <div class="col-md-3">
+                            <label>Order:</label>
+                            <input type="text" placeholder="Order" disabled class="form-control" value="{{ $id }}" />
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>{{ ('Consignee Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" class="form-control" value="{{$orders->consignee}}" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>{{ ('Consignee Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" class="form-control" value="{{$orders->phone_consignee}}" />
 
-                            </div>
-                        </div>
-                        @if($orders->status_id == 4 && $orders->status_id == 3 && $orders->status_id == 1)
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" value="{{$orders->address_consignee}}"/>
-                                </div>
-                            </div>
-                        @else
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}"  class="form-control" disabled value="{{$orders->address_consignee}}"/>
-                                </div>
-                            </div>
-                        @endif
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>{{ ('Company Consignee')}}:</label>
-                                <input type="text" placeholder="{{ ('Company Consignee')}}" name="company_consignee" class="form-control" value="{{ $orders->company_consignee }}" />
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>{{ ('Shipment description')}}:</label>
-                                <textarea class="form-control" name="shipment_description">{{ $orders->shipment_description }}</textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>{{ ('Comment')}}:</label>
-                                <textarea class="form-control" name="comment">{{ $orders->comment }}</textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group fv-plugins-icon-container">
-                                <label>Shipping Date:</label>
-                                <div class="input-group date">
-                                    <input type="text" placeholder="Sending Date" value="{{ $orders->sending_time }}" name="sending_time" autocomplete="off" class="form-control" id="kt_datepicker_3">
-                                    <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar"></i>
-                                            </span>
-                                    </div>
-                                </div><i data-field="sending_time" class="fv-plugins-icon"></i>
-                                <div class="fv-plugins-message-container"></div></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group fv-plugins-icon-container">
-                                <label>Delivery Date:</label>
-                                <div class="input-group date">
-                                    <input type="text" placeholder="Delivery Date" value="{{ $orders->delivery_time }}" name="delivery_time" autocomplete="off" class="form-control" id="kt_datepicker_4">
-                                    <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar"></i>
-                                            </span>
-                                    </div>
-                                </div><i data-field="delivery_time" class="fv-plugins-icon"></i>
-                                <div class="fv-plugins-message-container"></div></div>
-                        </div>
-                    </div>
-                    <hr>
                 </div>
+
                 <hr>
                 <div class="col-lg-12">
                     <div id="kt_repeater_1">
                         <div class="" id="">
-                            <h2 class="text-left">Package Info:</h2>
-                            <div data-repeater-list="Package" class="col-lg-12">
-                                @foreach($orders->cargo as $item)
-                                    <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
-                                        <div class="col-md-3">
-                                            <label>{{ ('Type')}}:</label>
-                                            <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" value="{{$item['type']}}">
-                                            <input type="hidden" name="id" value="{{$item['id']}}">
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Actual weight:</label>
-                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="{{$item['actual_weight']}}" />
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>{{ ('Quantity')}}:</label>
-                                            <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" min="1" name="quantity" class="form-control" value="{{$item['quantity']}}" />
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Serial number:</label>
-                                            <input type="text"  placeholder="Serial number" name="serial_number" class="form-control "  value="{{$item['serial_number']}}" />
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Serial number sensor:</label>
-                                            <input type="text"  placeholder="Serial number sensor" name="serial_number_sensor" class="form-control  "  value="{{$item['serial_number_sensor']}}" />
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>UN number:</label>
-                                            <input type="text"  placeholder="UN number" name="un_number" class="form-control  "  value="{{$item['un_number']}}" />
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Temperature conditions:</label>
-                                            <input type="text"  placeholder="Temperature conditions" name="temperature_conditions" class="form-control  "  value="{{$item['temperature_conditions']}}" />
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Volume weight:</label>
-                                            <input type="text"  placeholder="Temperature conditions" name="volume_weight" disabled class="form-control  "  value="{{$item['volume_weight']}}" />
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-12" style="margin-top: 10px;">
-                                            <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Length')}}" name="сargo_dimensions_length" value="{{$item['сargo_dimensions_length']}}" />
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Width')}}" name="сargo_dimensions_width" value="{{$item['сargo_dimensions_width']}}" />
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input class="dimensions_r" type="number" min="1" class="form-control " placeholder="{{ ('Height')}}" name="сargo_dimensions_height" value="{{$item['сargo_dimensions_height']}}" />
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div>
-                                                    <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
-                                                        <i class="la la-trash-o"></i>{{ ('Delete')}}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <h2 class="text-left">Time Info:</h2>
+                            <div data-repeater-list="time" class="col-lg-12">
+                                @foreach($trackers as $tracker)
+                                <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                    <div class="col-md-3">
+                                        <label>Location:</label>
+                                        <input type="text" placeholder="Location" disabled class="form-control" value="{{ $tracker->cargolocation->name }}" />
                                     </div>
+                                    <div class="col-md-4">
+                                        @php
+                                            if (isset($tracker->start_time))
+                                            {
+                                                 $start_time = str_replace(' ','T', $tracker->start_time);
+                                            }
+                                            $end_time=is_null($tracker->end_time)?'':str_replace(' ','T', $tracker->end_time);
+                                        @endphp
+                                        <label>Time start:</label>
+                                        <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $start_time }}"/>
+                                        <div class="mb-2 d-md-none"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Time confirm:</label>
+                                        <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{$end_time}}"/>
+                                        <div class="mb-2 d-md-none"></div>
+                                    </div>
+                                </div>
                                 @endforeach
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="">
-                                <label class="text-right col-form-label">{{ ('Add')}}</label>
-                                <div>
-                                    <a href="javascript:;" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
-                                        <i class="la la-plus"></i>{{ ('Add')}}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="sensor_for_rent" @if($orders->sensor_for_rent == 'on') checked @endif>
-                                <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container" @if($orders->container == 'on') checked @endif>
-                                <label class="form-check-label" for="inlineCheckbox2">Container</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="return_sensor" @if($orders->return_sensor == 'on') checked @endif>
-                                <label class="form-check-label" for="inlineCheckbox3">Returning the sensor</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="return_container" @if($orders->return_container == 'on') checked @endif>
-                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="notifications" @if($orders->notifications == 'on') checked @endif>
-                                <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Delivery comment</label>
-                                <textarea class="form-control" name="delivery_comment">{{$orders->delivery_comment}}</textarea>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="">
-                            {{--                        <div class="col-md-6" data-select2-id="66">--}}
-                            {{--                            <label>Shipping Payer:</label>--}}
-                            {{--                            <select id="change-country-to" name="user_id" class="form-control ">--}}
-                            {{--                                <option value="">----</option>--}}
-                            {{--                                @foreach($user as $item)--}}
-                            {{--                                    <option value="{{$item->id}}" @if($item->id == $orders->user_id) selected @endif>{{$item->email}}</option>--}}
-                            {{--                                @endforeach--}}
-                            {{--                            </select>--}}
-                            {{--                        </div>--}}
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Shipping Payer:</label>
-                                    <input type="text" placeholder="Shipping Payer" name="user" class="form-control" value="{{ $orders->user }}" />
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Status:</label>
-                                <select id="change-country-to" name="status_id" class="form-control ">
-                                    @foreach($status as $item)
-                                        <option value="{{$item->id}}" @if($item->id == $orders->status->id) selected @endif >{{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Agent:</label>
-                                <select id="change-country-to" name="agent_id" class="form-control ">
-                                    <option value=""></option>
-                                    @foreach($user as $item)
-                                        @if($item->roles->first()->name == 'Agent')
-                                            <option value="{{$item->id}}" @if($item->id == $orders->agent_id) selected @endif >{{$item->nickname}} - {{$item->roles->first()->name}} </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Driver:</label>
-                                <select id="change-country-to" name="driver_id" class="form-control ">
-                                    <option value=""></option>
-                                    @foreach($user as $item)
-                                        @if($item->roles->first()->name == 'Driver')
-                                            <option value="{{$item->id}}" @if($item->id == $orders->driver_id) selected @endif >{{$item->nickname}} - {{$item->roles->first()->name}}  </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Tracker:</label>
-                                    @if(!$tracker->isEmpty())
-{{--                                        @dd($tracker)--}}
-                                        @foreach($tracker as $item)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"  name="tracker[]">
-                                                <label class="form-check-label" >{{$item->cargolocation->name}}</label>
-                                                @php
-                                                    if (isset($item->start_time))
-                                                    {
-                                                         $start_time = str_replace(' ','T', $item->start_time);
-                                                    }
-                                                    $end_time=is_null($item->end_time)?'':str_replace(' ','T', $item->end_time);
-                                                @endphp
-                                                <br/>
-                                                <label>Time start:</label>
-                                                <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $start_time }}"/>
-                                                <label>Status:</label>
-                                                <input  placeholder="Status" type="text" disabled class="form-control" value="{{ $item->status }}"/>
-                                                <br/>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                       <hr>
-                        <div class="form-group ">
-                            <div class="">
-                                <div>
-                                    <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -394,11 +103,22 @@
             </div>
         </div>
     </form>
+    <div class="">
+        <div class="card-body">
+            <div>
+                <a href="{{ url()->previous() }}" class="btn btn-sm font-weight-bolder btn-light-primary" >Back</a>
+            </div>
+        </div>
+    </div>
+
 @endsection
+
 @section('script')
     <script src="{{ static_asset('assets/dashboard/js/geocomplete/jquery.geocomplete.js') }}"></script>
     {{--<script src="//maps.googleapis.com/maps/api/js?libraries=places&key={{$checked_google_map->key}}"></script>--}}
+
     <script type="text/javascript">
+
         // Map Address For Receiver
         $('.address-receiver').each(function(){
             var address = $(this);
@@ -421,6 +141,7 @@
                 $("input[data-receiver=lng]").val(latLng.lng());
             });
         });
+
         // Map Address For Client
         $('.address-client').each(function(){
             var address = $(this);
@@ -443,11 +164,15 @@
                 $("input[data-client=lng]").val(latLng.lng());
             });
         });
+
+
         // Get Addressess After Select Client
         function selectIsTriggered()
         {
             getAdressess(document.getElementById("client-id").value);
         }
+
+
         function openAddressDiv()
         {
             $( "#show_address_div" ).slideDown( "slow", function() {
@@ -460,7 +185,9 @@
                 // Animation complete.
             });
         }
+
         var inputs = document.getElementsByTagName('input');
+
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].type.toLowerCase() == 'number') {
                 inputs[i].onkeydown = function(e) {
@@ -472,31 +199,53 @@
                 }
             }
         }
+
+        {{--$('.select-client').select2({--}}
+        {{--        placeholder: "Select Client",--}}
+        {{--    })--}}
+        {{--@if($user_type == 'admin' || in_array('1005', $staff_permission) )--}}
+        {{--    .on('select2:open', () => {--}}
+        {{--        $(".select2-results:not(:has(a))").append(`<li style='list-style: none; padding: 10px;'><a style="width: 100%" href="{{route('admin.clients.create')}}?redirect=admin.shipments.create"--}}
+        {{--            class="btn btn-primary" >+ {{ ('Add New Client')}}</a>--}}
+        {{--            </li>`);--}}
+        {{--    });--}}
+        {{--@endif--}}
+
         $('.select-client').change(function(){
             var client_phone = $(this).find(':selected').data('phone');
             document.getElementById("client_phone").value = client_phone;
         })
+
         $('.payment-method').select2({
             placeholder: "Payment Method",
         });
+
         $('.payment-type').select2({
             placeholder: "Payment Type",
         });
+
+
+
         $('.delivery-time').select2({
             placeholder: "Delivery Time",
         });
+
         $('.select-branch').select2({
             placeholder: "Select Branch",
         })
+
+
         function get_estimation_cost() {
             var total_weight = document.getElementById('kt_touchspin_4').value;
             var select_packages = document.getElementsByClassName('package-type-select');
+
             var from_country_id = document.getElementsByName("Shipment[from_country_id]")[0].value;
             var to_country_id = document.getElementsByName("Shipment[to_country_id]")[0].value;
             var from_state_id = document.getElementsByName("Shipment[from_state_id]")[0].value;
             var to_state_id = document.getElementsByName("Shipment[to_state_id]")[0].value;
             var from_area_id = document.getElementsByName("Shipment[from_area_id]")[0].value;
             var to_area_id = document.getElementsByName("Shipment[to_area_id]")[0].value;
+
             var package_ids = [];
             for (let index = 0; index < select_packages.length; index++) {
                 if(select_packages[index].value){
@@ -518,6 +267,7 @@
                 to_area_id : to_area_id,
             };
             {{--$.post('{{ route('admin.shipments.get-estimation-cost') }}', request_data, function(response){--}}
+
             {{--    if({{$is_def_mile_or_fees}} =='2')--}}
             {{--    {--}}
             {{--        document.getElementById("shipping_cost").innerHTML = response.shipping_cost;--}}
@@ -534,6 +284,7 @@
             {{--    console.log(response);--}}
             {{--});--}}
         }
+
         function calcTotalWeight() {
             var elements = $('.weight-listener');
             var sumWeight = 0;
@@ -543,24 +294,8 @@
             }).get();
             $('.total-weight').val(sumWeight);
         }
-        function deleteCargo(elem,deleteElement){
-            var cargo_id = $(elem).find('input[type="hidden"]').val();
-            var order_id = $("#order").val();
-            if(confirm('Удалять?')){
-                $.ajax({
-                    url: '/admin/orders/remove-cargo',
-                    type: "POST",
-                    data: {
-                        cargo: cargo_id,
-                        order: order_id
-                    },
-                    success: function(response){
-                        $(this).slideUp(deleteElement);
-                    }
-                })
-            }
-        }
         $(document).ready(function() {
+
             $('.select-country').select2({
                 placeholder: "Select country",
                 language: {
@@ -578,6 +313,7 @@
                     return markup;
                 },
             });
+
             $('.select-state').select2({
                 placeholder: "Select state",
                 language: {
@@ -595,9 +331,11 @@
                     return markup;
                 },
             });
+
             $('.select-address').select2({
                 placeholder: "Select Client First",
             })
+
             $('.select-area').select2({
                 placeholder: "Select Area",
                 language: {
@@ -615,8 +353,10 @@
                     return markup;
                 },
             });
+
             $('.select-country').trigger('change');
             $('.select-state').trigger('change');
+
             $('#kt_datepicker_3').datepicker({
                 orientation: "bottom auto",
                 autoclose: true,
@@ -652,11 +392,16 @@
                     },
                 });
             });
+
+
             //Package Types Repeater
+
             $('#kt_repeater_1').repeater({
                 initEmpty: false,
+
                 show: function() {
                     $(this).slideDown();
+
                     $('.package-type-select').select2({
                         placeholder: "Package Type",
                         language: {
@@ -674,18 +419,22 @@
                             return markup;
                         },
                     });
+
                     $('.dimensions_r').TouchSpin({
                         buttondown_class: 'btn btn-secondary',
                         buttonup_class: 'btn btn-secondary',
+
                         min: 1,
                         max: 1000000000,
                         stepinterval: 50,
                         maxboostedstep: 10000000,
                         initval: 1,
                     });
+
                     $('.kt_touchspin_weight').TouchSpin({
                         buttondown_class: 'btn btn-secondary',
                         buttonup_class: 'btn btn-secondary',
+
                         min: 1,
                         max: 1000000000,
                         stepinterval: 50,
@@ -696,6 +445,7 @@
                     $('.kt_touchspin_qty').TouchSpin({
                         buttondown_class: 'btn btn-secondary',
                         buttonup_class: 'btn btn-secondary',
+
                         min: 1,
                         max: 1000000000,
                         stepinterval: 50,
@@ -704,19 +454,9 @@
                     });
                     calcTotalWeight();
                 },
-                hide: function(deleteElement) {
-                    deleteCargo(this,deleteElement);
-                }
-            });
 
-
-            $('#kt_repeater_11').repeater({
-                initEmpty: false,
-                show: function() {
-                    $(this).slideDown();
-                },
                 hide: function(deleteElement) {
-                    deleteCargo(this,deleteElement);
+                    $(this).slideUp(deleteElement);
                 }
             });
 
@@ -725,9 +465,12 @@
                 $('.total-weight').val("{{ ('Calculated...')}}");
                 setTimeout(function(){ calcTotalWeight(); }, 500);
             });
+
+
             $('#kt_touchspin_2, #kt_touchspin_2_2').TouchSpin({
                 buttondown_class: 'btn btn-secondary',
                 buttonup_class: 'btn btn-secondary',
+
                 min: -1000000000,
                 max: 1000000000,
                 stepinterval: 50,
@@ -737,6 +480,7 @@
             $('#kt_touchspin_3').TouchSpin({
                 buttondown_class: 'btn btn-secondary',
                 buttonup_class: 'btn btn-secondary',
+
                 min: 0,
                 max: 1000000000,
                 stepinterval: 50,
@@ -746,6 +490,7 @@
             $('#kt_touchspin_4').TouchSpin({
                 buttondown_class: 'btn btn-secondary',
                 buttonup_class: 'btn btn-secondary',
+
                 min: 1,
                 max: 1000000000,
                 stepinterval: 50,
@@ -756,6 +501,7 @@
             $('.kt_touchspin_weight').TouchSpin({
                 buttondown_class: 'btn btn-secondary',
                 buttonup_class: 'btn btn-secondary',
+
                 min: 1,
                 max: 1000000000,
                 stepinterval: 50,
@@ -766,6 +512,7 @@
             $('.kt_touchspin_qty').TouchSpin({
                 buttondown_class: 'btn btn-secondary',
                 buttonup_class: 'btn btn-secondary',
+
                 min: 1,
                 max: 1000000000,
                 stepinterval: 50,
@@ -775,12 +522,15 @@
             $('.dimensions_r').TouchSpin({
                 buttondown_class: 'btn btn-secondary',
                 buttonup_class: 'btn btn-secondary',
+
                 min: 1,
                 max: 1000000000,
                 stepinterval: 50,
                 maxboostedstep: 10000000,
                 initval: 1,
             });
+
+
             {{--FormValidation.formValidation(--}}
             {{--    document.getElementById('kt_form_1'), {--}}
             {{--        fields: {--}}
@@ -933,7 +683,12 @@
             {{--                    }--}}
             {{--                }--}}
             {{--            }--}}
+
+
+
             {{--        },--}}
+
+
             {{--        plugins: {--}}
             {{--            autoFocus: new FormValidation.plugins.AutoFocus(),--}}
             {{--            trigger: new FormValidation.plugins.Trigger(),--}}

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Tracker extends Model
 {
     use HasFactory;
+
+    public function cargolocation()
+    {
+        return $this->belongsTo('App\Models\CargoLocation','location_id');
+
+    }
 }

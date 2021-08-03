@@ -46,6 +46,11 @@ class Order extends Model
         return $this->hasMany('App\Models\Cargo');
 
     }
+    public function tracker()
+    {
+        return $this->hasMany('App\Models\Tracker');
+
+    }
     public function cargolocation()
     {
         return $this->belongsTo('App\Models\CargoLocation','cargo_location_id');
