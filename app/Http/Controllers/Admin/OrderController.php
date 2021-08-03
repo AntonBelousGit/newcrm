@@ -95,7 +95,7 @@ class OrderController extends Controller
                 $cargo->volume_weight =  ($item['сargo_dimensions_height']  * $item['сargo_dimensions_width'] * $item['сargo_dimensions_length'])/6000;
                 $cargo->save();
             }
-            return redirect()->route('admin.index');
+            return redirect()->route('admin.orders.index');
         }
         return  abort(403);
     }

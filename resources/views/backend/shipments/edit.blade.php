@@ -363,24 +363,6 @@
                             </div>
                         </div>
                         <hr>
-                        {{--                        <div class="row">--}}
-                        {{--                            <div class="col-md-6">--}}
-                        {{--                                <div class="form-group">--}}
-                        {{--                                    <label>{{ ('Delivery Time')}}:</label>--}}
-                        {{--                                    <select class="form-control kt-select2 delivery-time" id="delivery_time" name="Shipment[delivery_time]">--}}
-                        {{--                                            @foreach($deliveryTimes as $deliveryTime)--}}
-                        {{--                                                <option value="{{$deliveryTime->name}}">{{ ($deliveryTime->name)}}</option>--}}
-                        {{--                                            @endforeach--}}
-                        {{--                                    </select>--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                            <div class="col-md-6">--}}
-                        {{--                                <div class="form-group">--}}
-                        {{--                                    <label>{{ ('Total Weight')}}:</label>--}}
-                        {{--                                    <input id="kt_touchspin_4" placeholder="{{ ('Total Weight')}}" type="text" min="1" class="form-control total-weight" value="1" name="Shipment[total_weight]" />--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
                         <div class="form-group ">
                             <div class="">
                                 <div>
