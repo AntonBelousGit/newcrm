@@ -72,50 +72,83 @@
 
                 <hr>
                 <div class="col-lg-12">
-                    <div id="kt_repeater_1">
+                    <div id="kt_repeater_12">
                         <div class="" id="">
                             <h2 class="text-left">Time Info:</h2>
                             <div data-repeater-list="time" class="col-lg-12">
-                                @foreach($trackers as $tracker)
-                                <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
-                                    <div class="col-md-3">
-                                        <label>Location:</label>
-                                        <select  name="cargo_location" class="form-control ">
-                                            @foreach($cargo_location as $item)
-                                                <option value="{{$item->id}}" @if($item->id == $tracker->cargolocation->id) selected @endif>{{$item->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <input type="hidden" name="id" value="{{$tracker->id}}">
-                                    </div>
-                                    <div class="col-md-4">
-                                        @php
-                                            if (isset($tracker->start_time))
-                                            {
-                                                 $start_time = str_replace(' ','T', $tracker->start_time);
-                                            }
-                                            $end_time=is_null($tracker->end_time)?'':str_replace(' ','T', $tracker->end_time);
-                                        @endphp
-                                        <label>Time start:</label>
-                                        <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control" value="{{ $start_time }}"/>
-                                        <div class="mb-2 d-md-none"></div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Time confirm:</label>
-                                        <input  placeholder="Start time" type="datetime-local" name="end_time" class="form-control" value="{{$end_time}}"/>
-                                        <div class="mb-2 d-md-none"></div>
-                                    </div>
+{{--                                @dd($trackers)--}}
+                                @if(!$trackers->isEmpty())
+                                    @foreach($trackers as $tracker)
+                                    <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                        <div class="col-md-3">
+                                            <label>Location:</label>
+                                            <select  name="cargo_location" class="form-control ">
+                                                @foreach($cargo_location as $item)
+                                                    <option value="{{$item->id}}" @if($item->id == $tracker->cargolocation->id) selected @endif>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" name="id" value="{{$tracker->id}}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            @php
+                                                if (isset($tracker->start_time))
+                                                {
+                                                     $start_time = str_replace(' ','T', $tracker->start_time);
+                                                }
+                                                $end_time=is_null($tracker->end_time)?'':str_replace(' ','T', $tracker->end_time);
+                                            @endphp
+                                            <label>Time start:</label>
+                                            <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control" value="{{ $start_time }}"/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Time confirm:</label>
+                                            <input  placeholder="Start time" type="datetime-local" name="end_time" class="form-control" value="{{$end_time}}"/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div>
-                                                <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item_time">
-                                                    <i class="la la-trash-o"></i>{{ ('Delete')}}
-                                                </a>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item_time">
+                                                        <i class="la la-trash-o"></i>{{ ('Delete')}}
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                @endforeach
+                                    @endforeach
+                                @else
+                                    <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                        <div class="col-md-3">
+                                            <label>Location:</label>
+                                            <select id="change-country-to" name="cargo_location" class="form-control ">
+                                                @foreach($cargo_location as $item)
+                                                    <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Time:</label>
+                                            <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control"/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Time confirm:</label>
+                                            <input  placeholder="Start time" type="datetime-local" name="end_time" class="form-control"/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item_time">
+                                                        <i class="la la-trash-o"></i>{{ ('Delete')}}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group ">

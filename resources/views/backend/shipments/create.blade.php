@@ -94,11 +94,21 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" required value="{{old('address_shipper')}}" />
+                                    <input type="text" placeholder="City, street, postal code" name="address_shipper" class="form-control" required value="{{old('address_shipper')}}" />
 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ ('Shipper City')}}:</label>
+                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" name="shipper_address_id" required>
+                                        @foreach($cargo_location as $location)
+                                            <option value="{{$location->id}}">{{ $location->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -126,11 +136,21 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" required value="{{old('address_consignee')}}"  />
+                                    <input type="text" placeholder="City, street, postal code" name="address_consignee" class="form-control" required value="{{old('address_consignee')}}"  />
 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ ('Consignee City')}}:</label>
+                                    <select class="form-control kt-select2 delivery-time" id="consignee_address" name="consignee_address_id" required>
+                                        @foreach($cargo_location as $location)
+                                            <option value="{{$location->id}}">{{ $location->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -366,6 +386,7 @@
                     </div>
                     </div>
                 </div>
+            </div>
 
         </form>
 

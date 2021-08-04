@@ -85,11 +85,15 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
+                                                <label>Address:</label>
+                                                <input  placeholder="Address" type="text" name="address" class="form-control"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-4">
                                                 <label>Time:</label>
                                                 <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control"/>
                                                 <div class="mb-2 d-md-none"></div>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div>

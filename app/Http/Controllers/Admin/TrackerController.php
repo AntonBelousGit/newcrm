@@ -58,6 +58,8 @@ class TrackerController extends Controller
                 $tracker->order_id = $request->order_id;
                 $tracker->start_time =  str_replace('T',' ',$item['start_time']);
                 $tracker->location_id = $item['cargo_location'];
+                $tracker->status  = 'Awaiting arrival';
+                $tracker->alert  = 'ok';
 
                 $tracker->save();
             }
@@ -112,7 +114,7 @@ class TrackerController extends Controller
     {
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             foreach($request->time as $option_key) {
-                if ($option_key['id']) {
+                if (isset($option_key['id'])) {
                     $tracker = Tracker::findOrFail($option_key['id']);
                     $tracker->order_id = $request->order_id;
                     $tracker->location_id = $option_key['cargo_location'];

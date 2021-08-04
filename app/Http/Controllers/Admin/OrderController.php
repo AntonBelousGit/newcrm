@@ -37,7 +37,8 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             $user = User::all();
-            return view('backend.shipments.create',compact('user'));
+            $cargo_location = CargoLocation::all();
+            return view('backend.shipments.create',compact('user','cargo_location'));
         }
         return  abort(403);
     }
@@ -50,14 +51,15 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
+//            dd($request);
             $order = new Order();
             $order->shipper = $request->shipper;
             $order->phone_shipper = $request->phone_shipper;
-            $order->address_shipper = $request->address_shipper;
             $order->company_shipper = $request->company_shipper;
             $order->consignee = $request->consignee;
             $order->phone_consignee = $request->phone_consignee;
-            $order->address_consignee = $request->address_consignee;
+            $order->shipper_address_id = $request->shipper_address_id;
+            $order->consignee_address_id = $request->consignee_address_id;
             $order->company_consignee = $request->company_consignee;
             $order->shipment_description = $request->shipment_description;
             $order->comment = $request->comment;
@@ -77,7 +79,28 @@ class OrderController extends Controller
 
             $order->invoice_number = $order->id;
 
+            if($request->shipper_address_id){
+                $start_tracker = new Tracker;
+                $start_tracker->order_id = $order->id;
+                $start_tracker->location_id = $request->shipper_address_id;
+                $start_tracker->address = $request->address_shipper;
+                $start_tracker->start_time = $request->sending_time;
+                $start_tracker->position = '0';
+                $start_tracker->save();
+            }
+            if($request->consignee_address_id){
+                $start_tracker = new Tracker;
+                $start_tracker->order_id = $order->id;
+                $start_tracker->location_id = $request->consignee_address_id;
+                $start_tracker->address = $request->address_consignee;
+                $start_tracker->start_time = $request->delivery_time;
+                $start_tracker->position = '2';
+                $start_tracker->save();
+            }
+
             $order->update();
+
+
 
             foreach ($request->Package as $item){
 
@@ -123,10 +146,13 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             $orders = Order::with('cargo','user','status','cargolocation','tracker')->find($id);
             $user = User::all();
-            $tracker = Tracker::with('cargolocation')->where('order_id',$id)->get();
+            $trackers = Tracker::with('cargolocation')->where('position','1')->get();
+            $tracker_start = Tracker::with('cargolocation')->where('order_id',$id)->where('position','0')->first();
+            $tracker_end = Tracker::with('cargolocation')->where('order_id',$id)->where('position','2')->first();
+//            dd($tracker_start);
             $status = ProductStatus::all();
             $cargo_location = CargoLocation::all();
-            return view('backend.shipments.edit',compact('orders','user','status','cargo_location','tracker'));
+            return view('backend.shipments.edit',compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end'));
         }
         return  abort(403);
     }
@@ -146,11 +172,9 @@ class OrderController extends Controller
 
             $order->shipper = $request->shipper;
             $order->phone_shipper = $request->phone_shipper;
-            $order->address_shipper = $request->address_shipper ?? $order->address_shipper;
             $order->company_shipper = $request->company_shipper;
             $order->consignee = $request->consignee;
             $order->phone_consignee = $request->phone_consignee;
-            $order->address_consignee = $request->address_consignee ?? $order->address_consignee;
             $order->company_consignee = $request->company_consignee;
             $order->shipment_description = $request->shipment_description;
             $order->comment = $request->comment;
@@ -164,8 +188,8 @@ class OrderController extends Controller
             $order->return_container = $request->return_container ?? 'off';
             $order->notifications = $request->notifications ?? 'off';
             $order->status_id = $request->status_id;
-            $order->agent_id = $request->agent_id ?? '';
-            $order->driver_id = $request->driver_id ?? '';
+            $order->agent_id = $request->agent_id ?? null;
+            $order->driver_id = $request->driver_id ?? null;
 
 
 
@@ -204,6 +228,79 @@ class OrderController extends Controller
                     $cargo->save();
                 }
             }
+
+            foreach($request->time as $option_key) {
+                if (isset($option_key['id'])) {
+                    $tracker = Tracker::findOrFail($option_key['id']);
+                    $tracker->order_id = $order->id;
+                    $tracker->location_id = $option_key['cargo_location'];
+                    $tracker->address = $option_key['address'];
+                    if (!is_null($option_key['start_time'])){
+                        $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
+                    }
+                    if (!is_null($option_key['end_time'])){
+                        $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
+                    }
+                    $tracker->status = $option_key['status'];
+                    $tracker->update();
+                } else {
+                    $tracker = new Tracker();
+                    $tracker->order_id = $order->id;
+                    $tracker->location_id = $option_key['cargo_location'];
+                    $tracker->address = $option_key['address'];
+                    if (!is_null($option_key['start_time'])){
+                        $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
+                    }
+                    if (!is_null($option_key['end_time'])){
+                        $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
+                    }
+                    $tracker->status = $option_key['status'];
+                    $tracker->save();
+                }
+            }
+
+            if ($request->start){
+                $tracker_start = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','0')->first();
+                $start = $request->start;
+                if (!is_null($start['start_time'])){
+                    $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
+                }
+                if (!is_null($start['end_time'])){
+                    $tracker_start->end_time = str_replace('T', ' ', $start['end_time']);
+                }
+                $tracker_start->status = $start['status'];
+
+                $tracker_start->update();
+            }
+
+            if ($request->end){
+                $tracker_end = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','0')->first();
+                $end = $request->start;
+                if (!is_null($end['start_time'])){
+                    $tracker_end->start_time = str_replace('T', ' ', $end['start_time']);
+                }
+                if (!is_null($end['end_time'])){
+                    $tracker_end->end_time = str_replace('T', ' ', $end['end_time']);
+                }
+                $tracker_end->status = $end['status'];
+                $tracker_end->update();
+            }
+
+            if($request->shipper_address_id){
+                $tracker_start = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','0')->first();
+                $tracker_start->location_id = $request->shipper_address_id;
+                $tracker_start->address = $request->address_shipper;
+                $tracker_start->start_time = $request->sending_time;
+                $tracker_start->update();
+            }
+            if($request->consignee_address_id){
+                $tracker_end = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','2')->first();
+                $tracker_end->location_id = $request->consignee_address_id;
+                $tracker_end->address = $request->address_consignee;
+                $tracker_end->start_time = $request->delivery_time;
+                $tracker_end->update();
+            }
+
             return redirect()->route('admin.orders.index');
         }
         return  abort(403);

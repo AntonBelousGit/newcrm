@@ -17,11 +17,11 @@ class CreateOrdersTable extends Migration
             $table->integer('number_order')->unique()->nullable();
             $table->integer('invoice_number')->unique()->nullable();
             $table->string('phone_shipper');
-            $table->string('address_shipper');
+//            $table->string('address_shipper');
             $table->string('company_shipper');
             $table->string('consignee');
             $table->string('phone_consignee');
-            $table->string('address_consignee');
+//            $table->string('address_consignee');
             $table->string('company_consignee');
             $table->string('shipment_description');
             $table->string('comment');
@@ -40,11 +40,15 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('status_id')->unsigned()->nullable();
             $table->bigInteger('agent_id')->unsigned()->nullable();
             $table->bigInteger('driver_id')->unsigned()->nullable();
+            $table->bigInteger('shipper_address_id')->unsigned()->nullable();
+            $table->bigInteger('consignee_address_id')->unsigned()->nullable();
 
             $table->foreign('status_id')->references('id')->on('product_statuses');
             $table->foreign('agent_id')->references('id')->on('users');
             $table->foreign('driver_id')->references('id')->on('users');
             $table->foreign('cargo_location_id')->references('id')->on('cargo_locations');
+            $table->foreign('shipper_address_id')->references('id')->on('cargo_locations');
+            $table->foreign('consignee_address_id')->references('id')->on('cargo_locations');
 
             $table->timestamps();
 

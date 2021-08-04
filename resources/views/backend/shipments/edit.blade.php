@@ -82,18 +82,38 @@
 
                             </div>
                         </div>
-                        @if($orders->status_id == 4 && $orders->status_id == 3 && $orders->status_id == 1)
-                            <div class="col-md-12">
+                        @if($orders->status_id == 2 || $orders->status_id == 1)
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" value="{{$orders->address_shipper}}" />
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" value="{{$tracker_start->address}}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ ('Shipper City')}}:</label>
+                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" name="shipper_address_id" required>
+                                        @foreach($cargo_location as $location)
+                                            <option value="{{$location->id}}" @if($tracker_start->location_id == $location->id) selected @endif>{{ $location->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         @else
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="" disabled class="form-control" value="{{$orders->address_shipper}}" />
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}"  disabled class="form-control" value="{{$tracker_start->address}}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ ('Shipper City')}}:</label>
+                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled>
+                                        @foreach($cargo_location as $location)
+                                            <option value="{{$location->id}}" @if($tracker_start->location_id == $location->id) selected @endif>{{ $location->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         @endif
@@ -119,18 +139,38 @@
 
                             </div>
                         </div>
-                        @if($orders->status_id == 4 && $orders->status_id == 3 && $orders->status_id == 1)
-                            <div class="col-md-12">
+                        @if($orders->status_id == 2 || $orders->status_id == 1)
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" value="{{$orders->address_consignee}}"/>
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" value="{{$tracker_end->address}}"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ ('Shipper City')}}:</label>
+                                    <select class="form-control kt-select2 delivery-time" id="consignee_address" name="consignee_address_id" required>
+                                        @foreach($cargo_location as $location)
+                                            <option value="{{$location->id}}" @if($tracker_end->location_id == $location->id) selected @endif>{{ $location->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         @else
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}"  class="form-control" disabled value="{{$orders->address_consignee}}"/>
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}"  class="form-control" disabled value="{{$tracker_end->address}}"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ ('Shipper City')}}:</label>
+                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled>
+                                        @foreach($cargo_location as $location)
+                                            <option value="{{$location->id}}" @if($tracker_end->location_id == $location->id) selected @endif>{{ $location->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         @endif
@@ -352,35 +392,180 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Tracker:</label>
-                                    @if(!$tracker->isEmpty())
-{{--                                        @dd($tracker)--}}
-                                        @foreach($tracker as $item)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"  name="tracker[]">
-                                                <label class="form-check-label" >{{$item->cargolocation->name}}</label>
-                                                @php
-                                                    if (isset($item->start_time))
-                                                    {
-                                                         $start_time = str_replace(' ','T', $item->start_time);
-                                                    }
-                                                    $end_time=is_null($item->end_time)?'':str_replace(' ','T', $item->end_time);
-                                                @endphp
-                                                <br/>
-                                                <label>Time start:</label>
-                                                <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $start_time }}"/>
-                                                <label>Status:</label>
-                                                <input  placeholder="Status" type="text" disabled class="form-control" value="{{ $item->status }}"/>
-                                                <br/>
+                    </div>
+                    <div id="kt_repeater_12">
+                        <div class="" id="">
+                            <h2 class="text-left">Tracker Info:</h2>
+                            <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                <div class="col-md-3">
+                                    <label>Location:</label>
+                                    <input  placeholder="Start time" type="text"  disabled class="form-control" value="{{$tracker_start->cargolocation->name}}"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Address:</label>
+                                    <input  placeholder="Start time" type="text" disabled  class="form-control" value="{{$tracker_start->address}}"/>
+                                    <div class="mb-2 d-md-none"></div>
+                                </div>
+                                @php
+                                    if (isset($tracker_start->start_time))
+                                    {
+                                         $start_time = str_replace(' ','T', $tracker_start->start_time);
+                                    }
+                                    $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
+                                @endphp
+                                <div class="col-md-4">
+                                    <label>Estimated time:</label>
+                                    <input  placeholder="Start time" type="datetime-local" name="start[start_time]" class="form-control" value="{{ $start_time }}"/>
+                                    <div class="mb-2 d-md-none"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Actual Time:</label>
+                                    <input  placeholder="Start time" type="datetime-local" name="start[end_time]" class="form-control" value="{{ $end_time }}"/>
+                                    <div class="mb-2 d-md-none"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Status:</label>
+{{--                                    @dd($tracker_start->status)--}}
+                                    <select id="change-country-to" name="start[status]" class="form-control ">
+                                            <option value="Awaiting arrival" @if($tracker_start->status == 'Awaiting arrival') selected @endif>Awaiting arrival</option>
+                                            <option value="Arrived" @if($tracker_start->status == 'Arrived') selected @endif>Arrived</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div data-repeater-list="time" class="col-lg-12">
+                                {{--                                @dd($trackers)--}}
+                                @if(!$trackers->isEmpty())
+                                    @foreach($trackers as $tracker)
+                                        <div data-repeater-item class="row align-items-center zakupak" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                            <div class="col-md-3">
+                                                <label>Location:</label>
+                                                <select  name="cargo_location" class="form-control ">
+                                                    @foreach($cargo_location as $item)
+                                                        <option value="{{$item->id}}" @if($item->id == $tracker->cargolocation->id) selected @endif>{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <input type="hidden" name="id" value="{{$tracker->id}}">
                                             </div>
-                                        @endforeach
-                                    @endif
+                                            <div class="col-md-4">
+                                                <label>Address:</label>
+                                                <input  placeholder="City, street, postal code" type="text" name="address"  class="form-control" value="{{$tracker->address}}" required/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                @php
+                                                    if (isset($tracker->start_time))
+                                                    {
+                                                         $start_time = str_replace(' ','T', $tracker->start_time);
+                                                    }
+                                                    $end_time=is_null($tracker->end_time)?'':str_replace(' ','T', $tracker->end_time);
+                                                @endphp
+                                                <label>Estimated time:</label>
+                                                <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control clear-value-data" value="{{ $start_time }}" required/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Actual Time:</label>
+                                                <input  placeholder="Start time" type="datetime-local" name="end_time" class="form-control clear-value-data" value="{{$end_time}}" />
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Status:</label>
+                                                <select id="change-country-to" name="start[status]" class="form-control ">
+                                                    <option value="Arrived" @if($tracker_start->status == $tracker->status) selected @endif>Arrived</option>
+                                                    <option value="Awaiting arrival" @if($tracker_start->status == $tracker->status) selected @endif>Awaiting arrival</option>
+                                                </select>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item_time">
+                                                            <i class="la la-trash-o"></i>{{ ('Delete')}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                        <div class="col-md-3">
+                                            <label>Location:</label>
+                                            <select id="change-country-to" name="cargo_location" class="form-control ">
+                                                @foreach($cargo_location as $item)
+                                                    <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Time:</label>
+                                            <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control"/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Time confirm:</label>
+                                            <input  placeholder="Start time" type="datetime-local" name="end_time" class="form-control"/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <a href="javascript:;" data-repeater-delete="" onclick="//deleteCargo(this)" class="btn btn-sm font-weight-bolder btn-light-danger delete_item_time">
+                                                        <i class="la la-trash-o"></i>{{ ('Delete')}}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                <div class="col-md-3">
+                                    <label>Location:</label>
+                                    <input  placeholder="Start time" type="text"  disabled class="form-control" value="{{$tracker_end->cargolocation->name}}"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Address:</label>
+                                    <input  placeholder="Start time" type="text" disabled  class="form-control" value="{{$tracker_end->address}}"/>
+                                    <div class="mb-2 d-md-none"></div>
+                                </div>
+                                @php
+                                    if (isset($tracker_end->start_time))
+                                    {
+                                         $start_time = str_replace(' ','T', $tracker_end->start_time);
+                                    }
+                                    $end_time=is_null($tracker_end->end_time)?'':str_replace(' ','T', $tracker_end->end_time);
+                                @endphp
+                                <div class="col-md-4">
+                                    <label>Estimated time:</label>
+                                    <input  placeholder="Start time" type="datetime-local" name="end[start_time]" class="form-control" value="{{ $start_time }}"/>
+                                    <div class="mb-2 d-md-none"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Actual Time:</label>
+                                    <input  placeholder="Start time" type="datetime-local" name="end[end_time]" class="form-control" value="{{ $end_time }}"/>
+                                    <div class="mb-2 d-md-none"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Status:</label>
+                                    <select id="change-country-to" name="end[status]" class="form-control ">
+                                        <option value="Awaiting arrival" @if($tracker_end->status == 'Awaiting arrival') selected @endif>Awaiting arrival</option>
+                                        <option value="Arrived" @if($tracker_end->status == 'Arrived') selected @endif>Arrived</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group ">
+                            <div class="">
+                                <label class="text-right col-form-label">{{ ('Add')}}</label>
+                                <div>
+                                    <a href="javascript:;" data-repeater-create-time="" class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
+                                        <i class="la la-plus"></i>{{ ('Add')}}
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                    </div>
                        <hr>
                         <div class="form-group ">
                             <div class="">
@@ -560,6 +745,23 @@
                 })
             }
         }
+        function deleteTracker(elem,deleteElement){
+            var tracker_id = $(elem).find('input[type="hidden"]').val();
+            // var order_id = $("#order").val();
+            if(confirm('Удалять?')){
+                console.log(tracker_id);
+                $.ajax({
+                    url: '/admin/tracker/remove-tracker',
+                    type: "POST",
+                    data: {
+                        tracker: tracker_id,
+                    },
+                    success: function(response){
+                        $(this).slideUp(deleteElement);
+                    }
+                })
+            }
+        }
         $(document).ready(function() {
             $('.select-country').select2({
                 placeholder: "Select country",
@@ -710,13 +912,13 @@
             });
 
 
-            $('#kt_repeater_11').repeater({
+            $('#kt_repeater_12').repeater({
                 initEmpty: false,
                 show: function() {
                     $(this).slideDown();
                 },
                 hide: function(deleteElement) {
-                    deleteCargo(this,deleteElement);
+                    deleteTracker(this,deleteElement);
                 }
             });
 
@@ -951,6 +1153,10 @@
             {{--        }--}}
             {{--    }--}}
             {{--);--}}
+
+            $('.clear-value-datatime').click(function (){
+                $('.zakupak').last().find('.col-md-4').find('.clear-value-data').removeAttr('value');
+            });
         });
     </script>
 @endsection
