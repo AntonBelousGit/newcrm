@@ -49,13 +49,13 @@
             <table id="table_id" class="">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Number order</th>
                     <th>Shipper</th>
                     <th>Phone shipper</th>
                     <th>Consignee</th>
                     <th>Phone consignee</th>
                     <th>Invoice number</th>
-                    <th>Location</th>
                     <th>Status</th>
                     <th>Created at</th>
                     <th>Mission</th>
@@ -67,6 +67,7 @@
                     @foreach($orders as $key=>$shipment)
                         @can('manage-agent',$shipment)
                             <tr>
+                                <th></th>
                                 <th>{{$shipment->id}}</th>
                                 <th>{{$shipment->shipper}}</th>
                                 <th>{{$shipment->phone_shipper}}</th>
@@ -78,7 +79,6 @@
                                     @endphp
                                 </th>
 
-                                <th>{{$shipment->cargolocation->name}}</th>
 
                                 <th>{{$shipment->status->name}}</th>
                                 <th>{{$shipment->created_at}}</th>
@@ -96,6 +96,7 @@
 
                         @can('manage-driver',$shipment)
                             <tr>
+                                <th></th>
                                 <th>{{$shipment->id}}</th>
                                 <th>{{$shipment->shipper}}</th>
                                 <th>{{$shipment->phone_shipper}}</th>
@@ -107,7 +108,6 @@
                                     @endphp
                                 </th>
 
-                                <th>{{$shipment->cargolocation->name}}</th>
 
                                 <th>{{$shipment->status->name}}</th>
                                 <th>{{$shipment->created_at}}</th>
@@ -121,8 +121,57 @@
                         @endcan
                     @endforeach
                 @else
+{{--                    @dd($orders)--}}
                     @foreach($orders as $key=>$shipment)
                         <tr>
+                            <th>
+                                @php
+                                    $start_point = $shipment->tracker->where('position',0)->first();
+                                   // $start_hour  = $start_point->start_time->format('Y-m-d H:i:s');
+                                    $start_hour  = new DateTime($start_point->start_time);
+                                    $end_hour  = new DateTime($start_point->end_time);
+                                  //  dd($start_hour->format('H:i'));
+                                    $end_point = $shipment->tracker->where('position',2)->first();
+                                    $last_start_hour  = new DateTime($end_point->start_time);
+                                    $last_end_hour  = new DateTime($end_point->end_time);
+                                @endphp
+{{--                                @dd($start_point)--}}
+                                <label>{{$start_point->cargolocation->name}}({{$start_point->cargolocation->city}})</label>
+                                <input type="checkbox" @if($start_point->status == 'Arrived') checked disabled @endif>
+                                <p>Estimated time: {{$start_hour->format('H:i')}} ({{$start_hour->format('d.m.Y')}}) </p>
+                                <p>Actual time: {{$end_hour->format('H:i')}} </p>
+{{--                                    @if($start_point->alert == 'bad')--}}
+                                    @if($start_hour->format('H:i') < $end_hour->format('H:i'))
+                                        <p style="color: red;">АЛЕРТ</p>
+                                    @endif
+                                <hr>
+                                @foreach($shipment->tracker as $tracker)
+                                    @if($tracker->position == 1)
+                                        @php
+                                            $tracker_start_hour  = new DateTime($tracker->start_time);
+                                            $tracker_end_hour  = new DateTime($tracker->end_time);
+                                        @endphp
+                                        <label>{{$tracker->cargolocation->name}}({{$tracker->cargolocation->city}})</label>
+                                        <input type="checkbox" @if($tracker->status == 'Arrived') checked disabled @endif>
+                                        <p>{{$tracker_start_hour->format('H:i')}} ({{$tracker_start_hour->format('d.m.Y')}}) </p>
+                                        <p>{{$tracker_end_hour->format('H:i')}} </p>
+{{--                                        @if($tracker->alert == 'bad')--}}
+                                        @if($tracker_start_hour->format('H:i') < $tracker_end_hour->format('H:i'))
+                                            <p style="color: red;">АЛЕРТ</p>
+                                        @endif
+                                    @endif
+                                @endforeach
+                                <hr>
+                                <label>{{$end_point->cargolocation->name}}({{$end_point->cargolocation->city}})</label>
+                                <input type="checkbox" @if($end_point->status == 'Arrived') checked disabled @endif>
+                                <p>{{$last_start_hour->format('H:i')}} ({{$last_start_hour->format('d.m.Y')}}) </p>
+                                <p>{{$last_start_hour->format('H:i')}} </p>
+                                @if($end_point->alert == 'bad')
+                                    <p style="color: red;">АЛЕРТ</p>
+                                @endif
+
+
+                            </th>
                             <th>{{$shipment->id}}</th>
                             <th>{{$shipment->shipper}}</th>
                             <th>{{$shipment->phone_shipper}}</th>
@@ -134,7 +183,6 @@
                                 @endphp
                             </th>
 
-                            <th>{{$shipment->cargolocation->name}}</th>
 
                             <th>{{$shipment->status->name}}</th>
                             <th>{{$shipment->created_at}}</th>

@@ -314,9 +314,10 @@
 
 	<script src="{{ asset('assets/js/vendors.js') }}" ></script>
 	<script src="{{ asset('assets/js/aiz-core.js') }}" ></script>
-{{--    <script src="{{asset('assets/js/datatables.js')}}" ></script>--}}
+    <script src="{{asset('assets/js/datatables.js')}}" ></script>
 {{--    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>--}}
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+{{--    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>--}}
+{{--    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.js"></script>--}}
 
     @yield('script')
 

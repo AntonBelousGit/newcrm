@@ -22,7 +22,7 @@ class OrderController extends Controller
     public function index()
     {
         if (Gate::any(['SuperUser','Manager','OPS','Agent','Driver'], Auth::user())) {
-            $orders = Order::with('cargo','user')->get();
+            $orders = Order::with('cargo','user','tracker.cargolocation')->get();
             $title = 'All Shipments';
             return view('backend.shipments.index',compact('orders','title'));
         }
@@ -364,5 +364,15 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function zalupus(){
+        return view('backend.shipments.zalupa');
+    }
+    public function getUsersData()
+    {
+        $users = User::select(['id', 'name', 'email', 'created_at', 'updated_at']);
+
+        return $users;
     }
 }

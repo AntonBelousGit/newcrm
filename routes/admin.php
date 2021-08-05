@@ -22,8 +22,4 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
         ]);
         Route::post('/orders/remove-cargo', [OrderController::class,'remove_cargo']);
         Route::post('/tracker/remove-tracker', [TrackerController::class,'remove_tracker']);
-
-
-
-
     });
