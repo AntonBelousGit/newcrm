@@ -228,34 +228,36 @@ class OrderController extends Controller
                     $cargo->save();
                 }
             }
-
-            foreach($request->time as $option_key) {
-                if (isset($option_key['id'])) {
-                    $tracker = Tracker::findOrFail($option_key['id']);
-                    $tracker->order_id = $order->id;
-                    $tracker->location_id = $option_key['cargo_location'];
-                    $tracker->address = $option_key['address'];
-                    if (!is_null($option_key['start_time'])){
-                        $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
+//            dd($request);
+            if (isset($request->time)){
+                foreach($request->time as $option_key) {
+                    if (isset($option_key['id'])) {
+                        $tracker = Tracker::findOrFail($option_key['id']);
+                        $tracker->order_id = $order->id;
+                        $tracker->location_id = $option_key['cargo_location'];
+                        $tracker->address = $option_key['address'];
+                        if (!is_null($option_key['start_time'])){
+                            $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
+                        }
+                        if (!is_null($option_key['end_time'])){
+                            $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
+                        }
+                        $tracker->status = $option_key['status'];
+                        $tracker->update();
+                    } else {
+                        $tracker = new Tracker();
+                        $tracker->order_id = $order->id;
+                        $tracker->location_id = $option_key['cargo_location'];
+                        $tracker->address = $option_key['address'];
+                        if (!is_null($option_key['start_time'])){
+                            $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
+                        }
+                        if (!is_null($option_key['end_time'])){
+                            $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
+                        }
+                        $tracker->status = $option_key['status'];
+                        $tracker->save();
                     }
-                    if (!is_null($option_key['end_time'])){
-                        $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
-                    }
-                    $tracker->status = $option_key['status'];
-                    $tracker->update();
-                } else {
-                    $tracker = new Tracker();
-                    $tracker->order_id = $order->id;
-                    $tracker->location_id = $option_key['cargo_location'];
-                    $tracker->address = $option_key['address'];
-                    if (!is_null($option_key['start_time'])){
-                        $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
-                    }
-                    if (!is_null($option_key['end_time'])){
-                        $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
-                    }
-                    $tracker->status = $option_key['status'];
-                    $tracker->save();
                 }
             }
 

@@ -490,21 +490,33 @@
                                     <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
                                         <div class="col-md-3">
                                             <label>Location:</label>
-                                            <select id="change-country-to" name="cargo_location" class="form-control ">
+                                            <select  name="cargo_location" class="form-control ">
                                                 @foreach($cargo_location as $item)
-                                                    <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Time:</label>
-                                            <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control"/>
+                                            <label>Address:</label>
+                                            <input  placeholder="City, street, postal code" type="text" name="address"  class="form-control" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Time confirm:</label>
-                                            <input  placeholder="Start time" type="datetime-local" name="end_time" class="form-control"/>
+                                            <label>Estimated time:</label>
+                                            <input  placeholder="Start time" type="datetime-local" name="start_time" class="form-control clear-value-data"  />
                                             <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Actual Time:</label>
+                                            <input  placeholder="Start time" type="datetime-local" name="end_time" class="form-control clear-value-data" />
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Status:</label>
+                                            <select id="change-country-to" name="start[status]" class="form-control ">
+                                                <option value="Arrived">Arrived</option>
+                                                <option value="Awaiting arrival">Awaiting arrival</option>
+                                            </select>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
