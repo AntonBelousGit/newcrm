@@ -146,7 +146,7 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             $orders = Order::with('cargo','user','status','cargolocation','tracker')->find($id);
             $user = User::all();
-            $trackers = Tracker::with('cargolocation')->where('position','1')->get();
+            $trackers = Tracker::with('cargolocation')->where('order_id',$id)->where('position','1')->get();
             $tracker_start = Tracker::with('cargolocation')->where('order_id',$id)->where('position','0')->first();
             $tracker_end = Tracker::with('cargolocation')->where('order_id',$id)->where('position','2')->first();
 //            dd($tracker_start);
