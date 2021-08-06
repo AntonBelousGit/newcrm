@@ -162,6 +162,13 @@ class TrackerController extends Controller
         return  abort(403);
     }
 
+    public function show_child_row(Request $request){
+
+         $id = intval($request->data);
+         dd($id);
+
+    }
+
     public function destroy($id)
     {
         //

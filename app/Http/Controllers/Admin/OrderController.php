@@ -135,7 +135,6 @@ class OrderController extends Controller
         $orders = Order::with('cargo','user','status','cargolocation','agent','driver')->findOrFail($id);
         return view('backend.shipments.show',compact('orders'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -320,7 +319,6 @@ class OrderController extends Controller
         }
         return  abort(403);
     }
-
     public function new_order(){
 
         if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
@@ -330,7 +328,6 @@ class OrderController extends Controller
         }
         return  abort(403);
     }
-
     public function in_processing(){
         if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
             $orders = Order::with('cargo','user','agent')->where('status_id',2)->get();
@@ -340,7 +337,6 @@ class OrderController extends Controller
         }
         return  abort(403);
     }
-
     public function in_work(){
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             $orders = Order::with('cargo','user','agent','driver')->where('status_id',3)->get();

@@ -46,177 +46,129 @@
         </div>
         <form id="tableForm">
             @csrf()
-            <table id="table_id" class="">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Number order</th>
-                    <th>Shipper</th>
-                    <th>Phone shipper</th>
-                    <th>Consignee</th>
-                    <th>Phone consignee</th>
-                    <th>Invoice number</th>
-                    <th>Status</th>
-                    <th>Created at</th>
-                    <th>Mission</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="wrap_table">
+                <table id="table_id" class="">
+                    <thead>
+                    <tr>
+                        <th>Number order</th>
+                        <th>Shipper</th>
+                        <th>Phone shipper</th>
+                        <th>Consignee</th>
+                        <th>Phone consignee</th>
+                        <th>Invoice number</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Created at</th>
+                        <th>Mission</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                @can('Agent')
-                    @foreach($orders as $key=>$shipment)
-                        @can('manage-agent',$shipment)
-                            <tr>
-                                <th></th>
-                                <th>{{$shipment->id}}</th>
-                                <th>{{$shipment->shipper}}</th>
-                                <th>{{$shipment->phone_shipper}}</th>
-                                <th>{{$shipment->consignee}}</th>
-                                <th>{{$shipment->phone_consignee}}</th>
-                                <th>
-                                    @php
-                                        echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
-                                    @endphp
-                                </th>
-
-
-                                <th>{{$shipment->status->name}}</th>
-                                <th>{{$shipment->created_at}}</th>
-                                <td class="text-center">
-                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
-                                        <i class="las la-eye"></i>
-                                    </a>
-                                </td>
-
-                            </tr>
-                        @endcan
-                    @endforeach
-                @elsecan('Driver')
-                    @foreach($orders as $key=>$shipment)
-
-                        @can('manage-driver',$shipment)
-                            <tr>
-                                <th></th>
-                                <th>{{$shipment->id}}</th>
-                                <th>{{$shipment->shipper}}</th>
-                                <th>{{$shipment->phone_shipper}}</th>
-                                <th>{{$shipment->consignee}}</th>
-                                <th>{{$shipment->phone_consignee}}</th>
-                                <th>
-                                    @php
-                                        echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
-                                    @endphp
-                                </th>
-
-
-                                <th>{{$shipment->status->name}}</th>
-                                <th>{{$shipment->created_at}}</th>
-                                <td class="text-center">
-                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
-                                        <i class="las la-eye"></i>
-                                    </a>
-                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">
-                                        <i class="las la-edit"></i>
-                                    </a>
-                                </td>
-
-                            </tr>
-                        @endcan
-                    @endforeach
-                @else
-{{--                    @dd($orders)--}}
-                    @foreach($orders as $key=>$shipment)
-                        <tr>
-                            <th>
-                                @php
-                                    $start_point = $shipment->tracker->where('position',0)->first();
-                                   // $start_hour  = $start_point->start_time->format('Y-m-d H:i:s');
-                                    $start_hour  = new DateTime($start_point->start_time);
-                                    $end_hour  = new DateTime($start_point->end_time);
-                                  //  dd($start_hour->format('H:i'));
-                                    $end_point = $shipment->tracker->where('position',2)->first();
-                                    $last_start_hour  = new DateTime($end_point->start_time);
-                                    $last_end_hour  = new DateTime($end_point->end_time);
-                                @endphp
-{{--                                @dd($start_point)--}}
-                                <label>{{$start_point->cargolocation->name}}({{$start_point->cargolocation->city}})</label>
-                                <input type="checkbox" @if($start_point->status == 'Arrived') checked disabled @endif>
-                                <p>Estimated time: {{$start_hour->format('H:i')}} ({{$start_hour->format('d.m.Y')}}) </p>
-                                <p>Actual time: {{$end_hour->format('H:i')}} </p>
-{{--                                    @if($start_point->alert == 'bad')--}}
-                                    @if($start_hour->format('H:i') < $end_hour->format('H:i'))
-                                        <p style="color: red;">АЛЕРТ</p>
-                                    @endif
-                                <hr>
-                                @foreach($shipment->tracker as $tracker)
-                                    @if($tracker->position == 1)
+                    @can('Agent')
+                        @foreach($orders as $key=>$shipment)
+                            @can('manage-agent',$shipment)
+                                <tr>
+                                    <th>{{$shipment->id}}</th>
+                                    <th>{{$shipment->shipper}}</th>
+                                    <th>{{$shipment->phone_shipper}}</th>
+                                    <th>{{$shipment->consignee}}</th>
+                                    <th>{{$shipment->phone_consignee}}</th>
+                                    <th>
                                         @php
-                                            $tracker_start_hour  = new DateTime($tracker->start_time);
-                                            $tracker_end_hour  = new DateTime($tracker->end_time);
+                                            echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                         @endphp
-                                        <label>{{$tracker->cargolocation->name}}({{$tracker->cargolocation->city}})</label>
-                                        <input type="checkbox" @if($tracker->status == 'Arrived') checked disabled @endif>
-                                        <p>{{$tracker_start_hour->format('H:i')}} ({{$tracker_start_hour->format('d.m.Y')}}) </p>
-                                        <p>{{$tracker_end_hour->format('H:i')}} </p>
-{{--                                        @if($tracker->alert == 'bad')--}}
-                                        @if($tracker_start_hour->format('H:i') < $tracker_end_hour->format('H:i'))
-                                            <p style="color: red;">АЛЕРТ</p>
-                                        @endif
-                                    @endif
-                                @endforeach
-                                <hr>
-                                <label>{{$end_point->cargolocation->name}}({{$end_point->cargolocation->city}})</label>
-                                <input type="checkbox" @if($end_point->status == 'Arrived') checked disabled @endif>
-                                <p>{{$last_start_hour->format('H:i')}} ({{$last_start_hour->format('d.m.Y')}}) </p>
-                                <p>{{$last_start_hour->format('H:i')}} </p>
-                                @if($end_point->alert == 'bad')
-                                    <p style="color: red;">АЛЕРТ</p>
-                                @endif
+                                    </th>
 
+                                    <th>{{$shipment->cargolocation->name}}</th>
 
-                            </th>
-                            <th>{{$shipment->id}}</th>
-                            <th>{{$shipment->shipper}}</th>
-                            <th>{{$shipment->phone_shipper}}</th>
-                            <th>{{$shipment->consignee}}</th>
-                            <th>{{$shipment->phone_consignee}}</th>
-                            <th>
-                                @php
-                                    echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
-                                @endphp
-                            </th>
+                                    <th>{{$shipment->status->name}}</th>
+                                    <th>{{$shipment->created_at}}</th>
+                                    <td class="text-center">
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                            <i class="las la-eye"></i>
+                                        </a>
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-agent', $shipment->id)}}" title="{{  ('Edit') }}">
+                                            <i class="las la-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endcan
+                        @endforeach
+                    @elsecan('Driver')
+                        @foreach($orders as $key=>$shipment)
 
+                            @can('manage-driver',$shipment)
+                                <tr>
+                                    <th>{{$shipment->id}}</th>
+                                    <th>{{$shipment->shipper}}</th>
+                                    <th>{{$shipment->phone_shipper}}</th>
+                                    <th>{{$shipment->consignee}}</th>
+                                    <th>{{$shipment->phone_consignee}}</th>
+                                    <th>
+                                        @php
+                                            echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
+                                        @endphp
+                                    </th>
 
-                            <th>{{$shipment->status->name}}</th>
-                            <th>{{$shipment->created_at}}</th>
-                            <td class="text-center">
-                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
-                                    <i class="las la-eye"></i>
-                                </a>
-                                @canany(['SuperUser','Manager','OPS'], Auth::user())
-                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
-                                        <i class="las la-edit"></i>
+                                    <th>{{$shipment->cargolocation->name}}</th>
+
+                                    <th>{{$shipment->status->name}}</th>
+                                    <th>{{$shipment->created_at}}</th>
+                                    <td class="text-center">
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                            <i class="las la-eye"></i>
+                                        </a>
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">
+                                            <i class="las la-edit"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            @endcan
+                        @endforeach
+                    @else
+                        @foreach($orders as $key=>$shipment)
+
+                            <tr>
+                                <th>{{$shipment->id}}</th>
+                                <th>{{$shipment->shipper}}</th>
+                                <th>{{$shipment->phone_shipper}}</th>
+                                <th>{{$shipment->consignee}}</th>
+                                <th>{{$shipment->phone_consignee}}</th>
+                                <th>
+                                    @php
+                                        echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
+                                    @endphp
+                                </th>
+
+                                <th>{{$shipment->cargolocation->name}}</th>
+
+                                <th>{{$shipment->status->name}}</th>
+                                <th>{{$shipment->created_at}}</th>
+                                <td class="text-center">
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                        <i class="las la-eye"></i>
                                     </a>
-                                @endcanany
-                            </td>
+                                    @canany(['SuperUser','Manager','OPS'], Auth::user())
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
+                                            <i class="las la-edit"></i>
+                                        </a>
+                                    @endcanany
+                                </td>
+                                <td class="details-control">
+                                    <input type="hidden" value="{{$shipment->id}}">
+                                    <div class="btn_arr">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endcan
 
-                        </tr>
-                    @endforeach
-                @endcan
-
-                </tbody>
-            </table>
-
-
-
-
-
-
-
-
-
-
-
+                    </tbody>
+                </table>
+            </div>
         </form>
     </div>
     </div>
@@ -226,8 +178,61 @@
 @endsection
 @section('script')
     <script type="text/javascript">
+
+        function format(d) {
+            // `d` is the original data object for the row
+            var str_start_head = '<table class="table_custom"><thead><tr><th></th>';
+            var str_end_head = '</tr></thead>';
+            var str_start_body ='<tbody>';
+            var str_start_body_row1 = '<tr><td>Estimated time:</td>';
+            var str_end_body_row1 = '</tr>'
+
+            var str_start_body_row2 = '<tr><td>Actual time:</td>';
+            var str_end_body_row2 = '</tr>'
+
+            var str_end_body = '</tbody></table>';
+
+            for( i=0; i<10; i++) {
+                str_start_head = str_start_head + '<th>IEV(kiev)<div class="wrap_custom_check"><label for="check1" class="custom_check"><i class="fas fa-check"></i></label></div></th>';
+
+                str_start_body_row1 = str_start_body_row1 + '<td >12:00<span>(11.08.2021)</span></td>';
+
+                str_start_body_row2 = str_start_body_row2 + '<td >16:00 <br><span class="table_alert"><i class="fas fa-exclamation-triangle"></i></span></td>';
+            }
+
+            str_start_head = str_start_head + str_end_head + str_start_body + str_start_body_row1 + str_end_body_row1 + str_start_body_row2 + str_end_body_row2 + str_end_body;
+
+            return str_start_head;
+        }
+
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            var table = $('#table_id').DataTable({
+            });
+            $('#table_id tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var id = $(this).find('input[type="hidden"]').val();
+                var row = table.row(tr);
+
+
+                $.post('{{route('admin.orders.children')}}', {data: id})
+                    .done(function (responsePromo) {
+                        if (row.child.isShown()) {
+                            // This row is already open - close it
+                            row.child.hide();
+                            tr.removeClass('shown');
+                        }
+                        else {
+                            // Open this row
+                            row.child(format(row.data())).show();
+                            tr.addClass('shown');
+                        }
+                    })
+                    .fail(function (error) {
+                        alert(error.responseJSON.message);
+                    })
+
+
+            });
         } );
     </script>
     <script type="text/javascript">
@@ -415,6 +420,7 @@
             }
         }
         $(document).ready(function() {
+
             $('.action-caller').on('click', function(e) {
                 e.preventDefault();
                 var selected = [];
