@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\ProductStatus;
 use App\Models\Tracker;
 use App\Models\User;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -149,7 +150,6 @@ class OrderController extends Controller
             $trackers = Tracker::with('cargolocation')->where('order_id',$id)->where('position','1')->get();
             $tracker_start = Tracker::with('cargolocation')->where('order_id',$id)->where('position','0')->first();
             $tracker_end = Tracker::with('cargolocation')->where('order_id',$id)->where('position','2')->first();
-//            dd($tracker_start);
             $status = ProductStatus::all();
             $cargo_location = CargoLocation::all();
             return view('backend.shipments.edit',compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end'));
@@ -196,6 +196,7 @@ class OrderController extends Controller
             $order->cargo_location_id = $request->cargo_location_id ?? 1;
 
             $order->update();
+
             foreach($request->Package as $option_key){
                 if ($option_key['id']){
                     $cargo = Cargo::findOrFail($option_key['id']);
@@ -274,7 +275,6 @@ class OrderController extends Controller
 
                 $tracker_start->update();
             }
-
             if ($request->end){
                 $tracker_end = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','0')->first();
                 $end = $request->start;
@@ -287,7 +287,6 @@ class OrderController extends Controller
                 $tracker_end->status = $end['status'];
                 $tracker_end->update();
             }
-
             if($request->shipper_address_id){
                 $tracker_start = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','0')->first();
                 $tracker_start->location_id = $request->shipper_address_id;
@@ -304,6 +303,9 @@ class OrderController extends Controller
             }
 
             return redirect()->route('admin.orders.index');
+        }
+        elseif (Gate::any(['Agent','Driver'],Auth::user())){
+            dd($request);
         }
         return  abort(403);
     }
@@ -340,10 +342,16 @@ class OrderController extends Controller
     }
 
     public function in_work(){
-        if (Gate::any(['SuperUser','Manager','OPS','Agent','Driver'], Auth::user())) {
+        if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             $orders = Order::with('cargo','user','agent','driver')->where('status_id',3)->get();
             $title = 'Accepted in work';
             return view('backend.shipments.index',compact('orders','title'));
+        }
+        if (Gate::any(['Agent','Driver'], Auth::user())){
+            $orders = Order::with('cargo','user','agent','driver')->where('status_id',3)->get();
+            $title = 'Accepted in work';
+            return view('backend.shipments.index',compact('orders','title'));
+
         }
         return  abort(403);
     }
@@ -355,6 +363,82 @@ class OrderController extends Controller
         }
         return  abort(403);
     }
+    public function edit_agent_driver($id){
+        if (Gate::any(['Agent','Driver'], Auth::user())){
+            $orders = Order::with('cargo','user','status','cargolocation','tracker')->find($id);
+            $user = User::all();
+            $trackers = Tracker::with('cargolocation')->where('order_id',$id)->where('position','1')->get();
+            $tracker_start = Tracker::with('cargolocation')->where('order_id',$id)->where('position','0')->first();
+            $tracker_end = Tracker::with('cargolocation')->where('order_id',$id)->where('position','2')->first();
+            $status = ProductStatus::all();
+            $cargo_location = CargoLocation::all();
+
+            return view('backend.shipments.edit-driver-agent',compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end'));
+        }
+        return  abort(403);
+    }
+    public function update_agent_driver_tracker(Request $request,$id){
+
+        $orders = Order::find($id);
+            if (Gate::any(['manage-agent','manage-driver'],$orders)){
+//                dd($request);
+
+                if (isset($request->start)){
+                    if (isset($request->start['status_arrival'])){
+                        $tracker_start = Tracker::with('cargolocation')->where('order_id',$id)->where('position','0')->first();
+                            if ($tracker_start->status == 'Arrival'){
+                                return abort(403);
+                            }
+                        $tracker_start->end_time = now();
+                        $tracker_start->status = 'Arrived';
+
+                            if ($tracker_start->end_time > $tracker_start->start_time )
+                            {
+                                $tracker_start->alert = 'bad';
+                            }
+                        $tracker_start->update();
+                    }
+                }
+                if ($request->end){
+                    if (isset($request->end['status_arrival'])){
+                        $tracker_end = Tracker::with('cargolocation')->where('order_id',$id)->where('position','2')->first();
+                        if ($tracker_end->status == 'Arrival'){
+                            return abort(403);
+                        }
+                        $tracker_end->end_time = now();
+                        $tracker_end->status = 'Arrived';
+
+                        if ($tracker_end->end_time > $tracker_end->start_time )
+                        {
+                            $tracker_end->alert = 'bad';
+                        }
+                        $tracker_end->update();
+                    }
+                }
+                if (isset($request->time)){
+                    foreach($request->time as $option_key) {
+                        if (isset($option_key['id']) &&  isset($option_key['status_arrival'])) {
+                            $tracker = Tracker::where('order_id',$id)->findOrFail($option_key['id']);
+                                if ($tracker->status == 'Arrival'){
+                                    return abort(403);
+                                }
+                            $tracker->end_time = now();
+                            $tracker->status = 'Arrived';
+                                if ($tracker->end_time > $tracker->start_time)
+                                {
+                                    $tracker->alert = 'bad';
+                                }
+
+                                $tracker->update();
+                        }
+                    }
+                }
+                return redirect()->route('admin.orders.in_work');
+
+            }
+//        dd($tracker_start);
+        return  abort(403);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -364,15 +448,5 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function zalupus(){
-        return view('backend.shipments.zalupa');
-    }
-    public function getUsersData()
-    {
-        $users = User::select(['id', 'name', 'email', 'created_at', 'updated_at']);
-
-        return $users;
     }
 }

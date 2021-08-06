@@ -115,6 +115,9 @@
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                         <i class="las la-eye"></i>
                                     </a>
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">
+                                        <i class="las la-edit"></i>
+                                    </a>
                                 </td>
 
                             </tr>

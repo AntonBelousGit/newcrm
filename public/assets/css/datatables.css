@@ -55,13 +55,13 @@ table.dataTable thead .sorting_desc_disabled {
   background-position: center right;
 }
 table.dataTable thead .sorting {
-  background-image: url("DataTables-1.10.24/images/sort_both.png");
+  background-image: url("../iconpicker/sort_both.png");
 }
 table.dataTable thead .sorting_asc {
-  background-image: url("DataTables-1.10.24/images/sort_asc.png") !important;
+  background-image: url("../iconpicker/sort_asc.png") !important;
 }
 table.dataTable thead .sorting_desc {
-  background-image: url("DataTables-1.10.24/images/sort_desc.png") !important;
+  background-image: url("../iconpicker/sort_desc.png") !important;
 }
 table.dataTable thead .sorting_asc_disabled {
   background-image: url("DataTables-1.10.24/images/sort_asc_disabled.png");

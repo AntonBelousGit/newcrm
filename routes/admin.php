@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AgentUserController;
+use App\Http\Controllers\Admin\DriverUserController;
 use App\Http\Controllers\Admin\TrackerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -15,9 +17,15 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
         Route::get('/orders/in-processing', [OrderController::class,'in_processing'])->name('orders.in_processing');
         Route::get('/orders/in-work', [OrderController::class,'in_work'])->name('orders.in_work');
         Route::get('/orders/delivered', [OrderController::class,'delivered'])->name('orders.delivered');
+        Route::get('/orders/agent/{order}',[OrderController::class,'edit_agent_driver'])->name('orders.edit-agent');
+        Route::get('/orders/driver/{order}',[OrderController::class,'edit_agent_driver'])->name('orders.edit-driver');
+        Route::post('/orders/agent/{order}',[OrderController::class,'update_agent_driver_tracker'])->name('orders.agent-driver-tracker');
+        Route::post('/orders/driver/{order}',[OrderController::class,'update_agent_driver_tracker'])->name('orders.agent-driver-tracker');
         Route::resources([
             'orders'=> OrderController::class,
             'users'=> UserController::class,
+            'driver'=> DriverUserController::class,
+            'agent'=> AgentUserController::class,
 //            'tracker'=> TrackerController::class,
         ]);
         Route::post('/orders/remove-cargo', [OrderController::class,'remove_cargo']);
