@@ -7,6 +7,7 @@ use App\Models\CargoLocation;
 use App\Models\Order;
 use App\Models\Tracker;
 use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -194,8 +195,13 @@ class TrackerController extends Controller
         $time->start_hour = $start_time->format('H:i');
         $time->start_date = $start_time->format('d.m.Y');
         //Фактическое время
-        $end_time = new DateTime($time->end_time);
-        $time->end_hour = $end_time->format('H:i');
+        if (isset($time->end_time)){
+            $end_time = new DateTime($time->end_time);
+            $time->end_hour = $end_time->format('H:i');
+        }else{
+            $time->end_hour = '';
+        }
+
 
         return $time;
     }

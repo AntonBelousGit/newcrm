@@ -49,11 +49,17 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('View-Only', function(User $user){
             return $user->hasRole(['View-Only']);
         });
+        Gate::define('User', function(User $user){
+            return $user->hasRole(['User']);
+        });
         Gate::define('manage-agent', function (User $user, Order $order) {
             return $user->id === $order->agent_id;
         });
         Gate::define('manage-driver', function (User $user, Order $order) {
             return $user->id === $order->driver_id;
+        });
+        Gate::define('manage-user', function (User $user, Order $order) {
+            return $user->id === $order->user_id;
         });
         Gate::define('settings', function ($user)
         {

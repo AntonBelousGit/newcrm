@@ -59,6 +59,12 @@ class UserSeeder extends Seeder
             'email' => '6@mail.com',
             'password' => Hash::make('123'),
         ]);
+        DB::table('users')->insert([
+            'name' => 'User',
+            'nickname' => 'User',
+            'email' => '7@mail.com',
+            'password' => Hash::make('123'),
+        ]);
         DB::table('role_user')->insert([
             'role_id' => 1,
             'user_id' => 1,
@@ -86,6 +92,10 @@ class UserSeeder extends Seeder
         DB::table('role_user')->insert([
             'role_id' => 7,
             'user_id' => 7,
+        ]);
+        DB::table('role_user')->insert([
+            'role_id' => 8,
+            'user_id' => 8,
         ]);
     }
 }

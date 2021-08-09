@@ -424,10 +424,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Status:</label>
-                                                <select id="change-country-to" disabled class="form-control ">
-                                                    <option value="Arrived" @if($tracker_start->status == $tracker->status) selected @endif>Arrived</option>
-                                                    <option value="Awaiting arrival" @if($tracker_start->status == $tracker->status) selected @endif>Awaiting arrival</option>
-                                                </select>
+                                                <input  placeholder="Start time" type="text" disabled class="form-control clear-value-data" value="{{ $tracker->status }}" required/>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-check">

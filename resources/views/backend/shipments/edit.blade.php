@@ -471,8 +471,8 @@
                                             <div class="col-md-4">
                                                 <label>Status:</label>
                                                 <select id="change-country-to" name="start[status]" class="form-control ">
-                                                    <option value="Arrived" @if($tracker_start->status == $tracker->status) selected @endif>Arrived</option>
-                                                    <option value="Awaiting arrival" @if($tracker_start->status == $tracker->status) selected @endif>Awaiting arrival</option>
+                                                    <option value="Arrived" @if ($tracker->status == 'Arrived') selected @endif>Arrived</option>
+                                                    <option value="Awaiting arrival" @if($tracker->status == 'Awaiting arrival') selected @endif>Awaiting arrival</option>
                                                 </select>
                                             </div>
                                             <div class="row">

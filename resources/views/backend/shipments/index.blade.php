@@ -243,13 +243,13 @@
                 if (chototam === 'bad') {
                    var fez =  '<i class="fas fa-exclamation-triangle"></i>';
                 } else if (chototam === null) {
-                    var fez = '';
+                    var fez = ' ';
                 }
                 gdetotam = d.data[i].status;
                 if (gdetotam === 'Arrived') {
                     var pupa =  '<i class="fas fa-check"></i>';
                 } else {
-                    var pupa = '';
+                    var pupa = ' ';
                 }
 
                 str_start_head = str_start_head + '<th>'+ d.data[i].cargolocation.name +'('+ d.data[i].cargolocation.city +')'+'<div class="wrap_custom_check"><label for="check1" class="custom_check">'+ pupa +'</label></div></th>';

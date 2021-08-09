@@ -22,5 +22,6 @@ class RoleSeeder extends Seeder
         Role::create(['name'=>'Agent']);
         Role::create(['name'=>'Driver']);
         Role::create(['name'=>'View-Only']);
+        Role::create(['name'=>'User']);
     }
 }
