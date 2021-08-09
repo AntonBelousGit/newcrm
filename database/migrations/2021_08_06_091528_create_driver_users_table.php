@@ -19,7 +19,7 @@ class CreateDriverUsersTable extends Migration
             $table->string('gos_number_car')->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
 
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });
