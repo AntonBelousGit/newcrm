@@ -88,9 +88,16 @@
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                             <i class="las la-eye"></i>
                                         </a>
+
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-agent', $shipment->id)}}" title="{{  ('Edit') }}">
                                             <i class="las la-edit"></i>
                                         </a>
+                                    </td>
+                                    <td class="details-control">
+                                        <input type="hidden" value="{{$shipment->id}}">
+                                        <div class="btn_arr">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </div>
                                     </td>
                                 </tr>
                             @endcan
@@ -99,6 +106,32 @@
                         @foreach($orders as $key=>$shipment)
 
                             @can('manage-driver',$shipment)
+{{--                                <tr>--}}
+{{--                                    <th>{{$shipment->id}}</th>--}}
+{{--                                    <th>{{$shipment->shipper}}</th>--}}
+{{--                                    <th>{{$shipment->phone_shipper}}</th>--}}
+{{--                                    <th>{{$shipment->consignee}}</th>--}}
+{{--                                    <th>{{$shipment->phone_consignee}}</th>--}}
+{{--                                    <th>--}}
+{{--                                        @php--}}
+{{--                                            echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);--}}
+{{--                                        @endphp--}}
+{{--                                    </th>--}}
+
+{{--                                    <th>{{$shipment->cargolocation->name}}</th>--}}
+
+{{--                                    <th>{{$shipment->status->name}}</th>--}}
+{{--                                    <th>{{$shipment->created_at}}</th>--}}
+{{--                                    <td class="text-center">--}}
+{{--                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">--}}
+{{--                                            <i class="las la-eye"></i>--}}
+{{--                                        </a>--}}
+{{--                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">--}}
+{{--                                            <i class="las la-edit"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </td>--}}
+
+{{--                                </tr>--}}
                                 <tr>
                                     <th>{{$shipment->id}}</th>
                                     <th>{{$shipment->shipper}}</th>
@@ -119,12 +152,19 @@
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                             <i class="las la-eye"></i>
                                         </a>
-                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">
-                                            <i class="las la-edit"></i>
-                                        </a>
-                                    </td>
 
+                                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">
+                                                <i class="las la-edit"></i>
+                                            </a>
+                                    </td>
+                                    <td class="details-control">
+                                        <input type="hidden" value="{{$shipment->id}}">
+                                        <div class="btn_arr">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </div>
+                                    </td>
                                 </tr>
+
                             @endcan
                         @endforeach
                     @else
@@ -180,6 +220,7 @@
     <script type="text/javascript">
 
         function format(d) {
+            console.log(d);
             // `d` is the original data object for the row
             var str_start_head = '<table class="table_custom"><thead><tr><th></th>';
             var str_end_head = '</tr></thead>';
@@ -192,12 +233,30 @@
 
             var str_end_body = '</tbody></table>';
 
-            for( i=0; i<10; i++) {
-                str_start_head = str_start_head + '<th>IEV(kiev)<div class="wrap_custom_check"><label for="check1" class="custom_check"><i class="fas fa-check"></i></label></div></th>';
+            // d.forEach(function(item, i, arr) {
+            //     alert( i + ": " + item + " (массив:" + arr + ")" );
+            // });
 
-                str_start_body_row1 = str_start_body_row1 + '<td >12:00<span>(11.08.2021)</span></td>';
+            for( i = 0 ; i< d.data.length; i++) {
 
-                str_start_body_row2 = str_start_body_row2 + '<td >16:00 <br><span class="table_alert"><i class="fas fa-exclamation-triangle"></i></span></td>';
+                chototam = d.data[i].alert;
+                if (chototam === 'bad') {
+                   var fez =  '<i class="fas fa-exclamation-triangle"></i>';
+                } else if (chototam === null) {
+                    var fez = '';
+                }
+                gdetotam = d.data[i].status;
+                if (gdetotam === 'Arrived') {
+                    var pupa =  '<i class="fas fa-check"></i>';
+                } else {
+                    var pupa = '';
+                }
+
+                str_start_head = str_start_head + '<th>'+ d.data[i].cargolocation.name +'('+ d.data[i].cargolocation.city +')'+'<div class="wrap_custom_check"><label for="check1" class="custom_check">'+ pupa +'</label></div></th>';
+
+                str_start_body_row1 = str_start_body_row1 + '<td >'+d.data[i].start_hour +'<span>('+ d.data[i].start_date +')</span></td>';
+
+                str_start_body_row2 = str_start_body_row2 + '<td >'+d.data[i].end_hour +'<br><span class="table_alert">'+ fez +'</span></td>';
             }
 
             str_start_head = str_start_head + str_end_head + str_start_body + str_start_body_row1 + str_end_body_row1 + str_start_body_row2 + str_end_body_row2 + str_end_body;
@@ -215,7 +274,9 @@
 
 
                 $.post('{{route('admin.orders.children')}}', {data: id})
-                    .done(function (responsePromo) {
+                    .done(function (response) {
+                        // var result = JSON.parse(response);
+
                         if (row.child.isShown()) {
                             // This row is already open - close it
                             row.child.hide();
@@ -223,7 +284,7 @@
                         }
                         else {
                             // Open this row
-                            row.child(format(row.data())).show();
+                            row.child(format(response)).show();
                             tr.addClass('shown');
                         }
                     })
