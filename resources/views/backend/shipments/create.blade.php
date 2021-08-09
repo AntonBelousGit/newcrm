@@ -106,7 +106,7 @@
                                     <label>{{ ('Shipper City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" id="shipper_address" name="shipper_address_id" required>
                                         @foreach($cargo_location as $location)
-                                            <option value="{{$location->id}}">{{ $location->name}}</option>
+                                            <option value="{{$location->id}}">{{ $location->city}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -148,7 +148,7 @@
                                     <label>{{ ('Consignee City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" id="consignee_address" name="consignee_address_id" required>
                                         @foreach($cargo_location as $location)
-                                            <option value="{{$location->id}}">{{ $location->name}}</option>
+                                            <option value="{{$location->id}}">{{ $location->city}}</option>
                                         @endforeach
                                     </select>
                                 </div>

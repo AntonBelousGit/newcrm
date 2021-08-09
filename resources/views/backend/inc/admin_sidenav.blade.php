@@ -34,7 +34,7 @@
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
-                @canany(['SuperUser','Manager','OPS','Agent','Driver'], Auth::user())
+                @canany(['SuperUser','Manager','OPS','Agent','Driver','Client'], Auth::user())
                     @if(count(\File::files(base_path('resources/views/backend/inc/addons/'))) > 0)
                         <li class="menu-section">
                             <h4 class="menu-text">Addons</h4>

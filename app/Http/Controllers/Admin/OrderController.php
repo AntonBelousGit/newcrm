@@ -22,7 +22,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if (Gate::any(['SuperUser','Manager','OPS','Agent','Driver'], Auth::user())) {
+        if (Gate::any(['SuperUser','Manager','OPS','Agent','Driver','Client'], Auth::user())) {
             $orders = Order::with('cargo','user','tracker.cargolocation')->get();
             $title = 'All Shipments';
             return view('backend.shipments.index',compact('orders','title'));
@@ -36,7 +36,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
+        if (Gate::any(['SuperUser','Manager','OPS','Client'], Auth::user())) {
             $user = User::all();
             $cargo_location = CargoLocation::all();
             return view('backend.shipments.create',compact('user','cargo_location'));
@@ -51,7 +51,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
+        if (Gate::any(['SuperUser','Manager','OPS','Client'], Auth::user())) {
 //            dd($request);
             $order = new Order();
             $order->shipper = $request->shipper;
@@ -75,6 +75,10 @@ class OrderController extends Controller
             $order->notifications = $request->notifications ?? 'off';
             $order->status_id = 1;
             $order->cargo_location_id = 1;
+            if (Gate::any(['Client'],Auth::user()))
+            {
+                $order->client_id =  Auth::id();
+            }
 
             $order->save();
 
@@ -329,12 +333,13 @@ class OrderController extends Controller
         return  abort(403);
     }
     public function in_processing(){
-        if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
+        if (Gate::any(['SuperUser','Manager','OPS','Agent','Client'], Auth::user())) {
             $orders = Order::with('cargo','user','agent')->where('status_id',2)->get();
 
             $title = 'In processing';
             return view('backend.shipments.index',compact('orders','title'));
         }
+
         return  abort(403);
     }
     public function in_work(){

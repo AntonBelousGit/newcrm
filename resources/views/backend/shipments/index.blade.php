@@ -25,7 +25,9 @@
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
-                    <a href="{{ route('admin.orders.create') }}" class="btn btn-light-primary font-weight-bolder btn-sm"><i class="flaticon2-add-1"></i> {{ ('Add New Shipment')}}</a>
+                    <a href="{{ route('admin.orders.create') }}"
+                       class="btn btn-light-primary font-weight-bolder btn-sm"><i
+                            class="flaticon2-add-1"></i> {{ ('Add New Shipment')}}</a>
                 </div>
                 <!--end::Page Heading-->
             </div>
@@ -85,11 +87,14 @@
                                     <th>{{$shipment->status->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
-                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                             <i class="las la-eye"></i>
                                         </a>
 
-                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-agent', $shipment->id)}}" title="{{  ('Edit') }}">
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{{route('admin.orders.edit-agent', $shipment->id)}}"
+                                           title="{{  ('Edit') }}">
                                             <i class="las la-edit"></i>
                                         </a>
                                     </td>
@@ -106,32 +111,32 @@
                         @foreach($orders as $key=>$shipment)
 
                             @can('manage-driver',$shipment)
-{{--                                <tr>--}}
-{{--                                    <th>{{$shipment->id}}</th>--}}
-{{--                                    <th>{{$shipment->shipper}}</th>--}}
-{{--                                    <th>{{$shipment->phone_shipper}}</th>--}}
-{{--                                    <th>{{$shipment->consignee}}</th>--}}
-{{--                                    <th>{{$shipment->phone_consignee}}</th>--}}
-{{--                                    <th>--}}
-{{--                                        @php--}}
-{{--                                            echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);--}}
-{{--                                        @endphp--}}
-{{--                                    </th>--}}
+                                {{--                                <tr>--}}
+                                {{--                                    <th>{{$shipment->id}}</th>--}}
+                                {{--                                    <th>{{$shipment->shipper}}</th>--}}
+                                {{--                                    <th>{{$shipment->phone_shipper}}</th>--}}
+                                {{--                                    <th>{{$shipment->consignee}}</th>--}}
+                                {{--                                    <th>{{$shipment->phone_consignee}}</th>--}}
+                                {{--                                    <th>--}}
+                                {{--                                        @php--}}
+                                {{--                                            echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);--}}
+                                {{--                                        @endphp--}}
+                                {{--                                    </th>--}}
 
-{{--                                    <th>{{$shipment->cargolocation->name}}</th>--}}
+                                {{--                                    <th>{{$shipment->cargolocation->name}}</th>--}}
 
-{{--                                    <th>{{$shipment->status->name}}</th>--}}
-{{--                                    <th>{{$shipment->created_at}}</th>--}}
-{{--                                    <td class="text-center">--}}
-{{--                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">--}}
-{{--                                            <i class="las la-eye"></i>--}}
-{{--                                        </a>--}}
-{{--                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">--}}
-{{--                                            <i class="las la-edit"></i>--}}
-{{--                                        </a>--}}
-{{--                                    </td>--}}
+                                {{--                                    <th>{{$shipment->status->name}}</th>--}}
+                                {{--                                    <th>{{$shipment->created_at}}</th>--}}
+                                {{--                                    <td class="text-center">--}}
+                                {{--                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">--}}
+                                {{--                                            <i class="las la-eye"></i>--}}
+                                {{--                                        </a>--}}
+                                {{--                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">--}}
+                                {{--                                            <i class="las la-edit"></i>--}}
+                                {{--                                        </a>--}}
+                                {{--                                    </td>--}}
 
-{{--                                </tr>--}}
+                                {{--                                </tr>--}}
                                 <tr>
                                     <th>{{$shipment->id}}</th>
                                     <th>{{$shipment->shipper}}</th>
@@ -149,13 +154,16 @@
                                     <th>{{$shipment->status->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
-                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                             <i class="las la-eye"></i>
                                         </a>
 
-                                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">
-                                                <i class="las la-edit"></i>
-                                            </a>
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{{route('admin.orders.edit-driver', $shipment->id)}}"
+                                           title="{{  ('Edit') }}">
+                                            <i class="las la-edit"></i>
+                                        </a>
                                     </td>
                                     <td class="details-control">
                                         <input type="hidden" value="{{$shipment->id}}">
@@ -165,6 +173,41 @@
                                     </td>
                                 </tr>
 
+                            @endcan
+                        @endforeach
+                    @elsecan('Client')
+                        @foreach($orders as $key=>$shipment)
+                            @can('manage-client',$shipment)
+
+                                <tr>
+                                    <th>{{$shipment->id}}</th>
+                                    <th>{{$shipment->shipper}}</th>
+                                    <th>{{$shipment->phone_shipper}}</th>
+                                    <th>{{$shipment->consignee}}</th>
+                                    <th>{{$shipment->phone_consignee}}</th>
+                                    <th>
+                                        @php
+                                            echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
+                                        @endphp
+                                    </th>
+
+                                    <th>{{$shipment->cargolocation->name}}</th>
+
+                                    <th>{{$shipment->status->name}}</th>
+                                    <th>{{$shipment->created_at}}</th>
+                                    <td class="text-center">
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                            <i class="las la-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td class="details-control">
+                                        <input type="hidden" value="{{$shipment->id}}">
+                                        <div class="btn_arr">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endcan
                         @endforeach
                     @else
@@ -187,11 +230,13 @@
                                 <th>{{$shipment->status->name}}</th>
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">
-                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                       href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                         <i class="las la-eye"></i>
                                     </a>
                                     @canany(['SuperUser','Manager','OPS'], Auth::user())
-                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
                                             <i class="las la-edit"></i>
                                         </a>
                                     @endcanany
@@ -224,7 +269,7 @@
             // `d` is the original data object for the row
             var str_start_head = '<table class="table_custom"><thead><tr><th></th>';
             var str_end_head = '</tr></thead>';
-            var str_start_body ='<tbody>';
+            var str_start_body = '<tbody>';
             var str_start_body_row1 = '<tr><td>Estimated time:</td>';
             var str_end_body_row1 = '</tr>'
 
@@ -237,26 +282,26 @@
             //     alert( i + ": " + item + " (массив:" + arr + ")" );
             // });
 
-            for( i = 0 ; i< d.data.length; i++) {
+            for (i = 0; i < d.data.length; i++) {
 
                 chototam = d.data[i].alert;
                 if (chototam === 'bad') {
-                   var fez =  '<i class="fas fa-exclamation-triangle"></i>';
-                } else if (chototam === null) {
+                    var fez = '<i class="fas fa-exclamation-triangle"></i>';
+                } else {
                     var fez = ' ';
                 }
                 gdetotam = d.data[i].status;
                 if (gdetotam === 'Arrived') {
-                    var pupa =  '<i class="fas fa-check"></i>';
+                    var pupa = '<i class="fas fa-check"></i>';
                 } else {
-                    var pupa = ' ';
+                    var pupa = '';
                 }
 
-                str_start_head = str_start_head + '<th>'+ d.data[i].cargolocation.name +'('+ d.data[i].cargolocation.city +')'+'<div class="wrap_custom_check"><label for="check1" class="custom_check">'+ pupa +'</label></div></th>';
+                str_start_head = str_start_head + '<th>' + d.data[i].cargolocation.name + '(' + d.data[i].cargolocation.city + ')' + '<div class="wrap_custom_check"><label for="check1" class="custom_check">' + pupa + '</label></div></th>';
 
-                str_start_body_row1 = str_start_body_row1 + '<td >'+d.data[i].start_hour +'<span>('+ d.data[i].start_date +')</span></td>';
+                str_start_body_row1 = str_start_body_row1 + '<td >' + d.data[i].start_hour + '<span>(' + d.data[i].start_date + ')</span></td>';
 
-                str_start_body_row2 = str_start_body_row2 + '<td >'+d.data[i].end_hour +'<br><span class="table_alert">'+ fez +'</span></td>';
+                str_start_body_row2 = str_start_body_row2 + '<td >' + d.data[i].end_hour + '<br><span class="table_alert">' + fez + '</span></td>';
             }
 
             str_start_head = str_start_head + str_end_head + str_start_body + str_start_body_row1 + str_end_body_row1 + str_start_body_row2 + str_end_body_row2 + str_end_body;
@@ -264,9 +309,8 @@
             return str_start_head;
         }
 
-        $(document).ready( function () {
-            var table = $('#table_id').DataTable({
-            });
+        $(document).ready(function () {
+            var table = $('#table_id').DataTable({});
             $('#table_id tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var id = $(this).find('input[type="hidden"]').val();
@@ -281,8 +325,7 @@
                             // This row is already open - close it
                             row.child.hide();
                             tr.removeClass('shown');
-                        }
-                        else {
+                        } else {
                             // Open this row
                             row.child(format(response)).show();
                             tr.addClass('shown');
@@ -294,25 +337,26 @@
 
 
             });
-        } );
+        });
     </script>
     <script type="text/javascript">
-        $(document).on('click','#submit_transfer',function(){
+        $(document).on('click', '#submit_transfer', function () {
             $('#tableForm').submit();
         });
-        $('#reset_search').click(function(e) {
+        $('#reset_search').click(function (e) {
             e.preventDefault();
             $('#search_form')[0].reset();
         });
+
         function openCaptainModel(element, e) {
             var selected = [];
             var selected_payment_method = [];
-            var count_payment_method = 0 ;
+            var count_payment_method = 0;
             var selected_address_sender = [];
             var selected_address = [];
             var selected_branch_hidden = [];
             var mission_id = [];
-            $('.sh-check:checked').each(function() {
+            $('.sh-check:checked').each(function () {
                 selected.push($(this).data('clientid'));
                 selected_payment_method.push($(this).data('paymentmethodid'));
                 selected_address_sender.push($(this).data('clientaddresssender'));
@@ -321,19 +365,19 @@
                 mission_id.push($(this).data('missionid'));
             });
             console.log(selected_payment_method);
-            if (selected.length != 0)
-            {
-                if(mission_id[0] == ""){
-                    var sum = selected.reduce(function(acc, val) { return acc + val; },0);
+            if (selected.length != 0) {
+                if (mission_id[0] == "") {
+                    var sum = selected.reduce(function (acc, val) {
+                        return acc + val;
+                    }, 0);
                     var check_sum = selected[0] * selected.length;
                     if (selected.length == 1 || sum == check_sum) {
                         selected_payment_method.forEach((element, index) => {
-                            if(selected_payment_method[0] == selected_payment_method[index]){
+                            if (selected_payment_method[0] == selected_payment_method[index]) {
                                 count_payment_method++;
                             }
                         });
-                        if(selected_payment_method.length == count_payment_method)
-                        {
+                        if (selected_payment_method.length == count_payment_method) {
                             $('#tableForm').attr('action', $(element).data('url'));
                             $('#tableForm').attr('method', $(element).data('method'));
                             $('#pick_up_address').val(selected_address_sender[0]);
@@ -342,25 +386,26 @@
                             $('#pick_up_client_id').val(selected[0]);
                             $('#pick_up_client_id_hidden').val(selected[0]);
                             $('.branch_hidden').val(selected_branch_hidden[0]);
-                        }else{
+                        } else {
                             Swal.fire("{{ ('Select shipments of the same payment method')}}", "", "error");
                         }
                     } else if (selected.length == 0) {
                         Swal.fire("{{ ('Please Select Shipments')}}", "", "error");
-                    }else{
+                    } else {
                         Swal.fire("{{ ('Select shipments of the same client to Assign')}}", "", "error");
                     }
-                }else{
+                } else {
                     Swal.fire("{{ ('This Shipment Already In Mission')}}", "", "error");
                 }
-            }else{
+            } else {
                 Swal.fire("{{ ('Please Select Shipments')}}", "", "error");
             }
         }
+
         function openAssignShipmentCaptainModel(element, e) {
             var selected = [];
             var selected_payment_method = [];
-            var count_payment_method = 0 ;
+            var count_payment_method = 0;
             var selected_address = [];
             var selected_name = [];
             var selected_state = [];
@@ -369,7 +414,7 @@
             var selected_area_hidden = [];
             var selected_branch_hidden = [];
             var mission_id = [];
-            $('.sh-check:checked').each(function() {
+            $('.sh-check:checked').each(function () {
                 selected.push($(this).data('clientid'));
                 selected_payment_method.push($(this).data('paymentmethodid'));
                 selected_address.push($(this).data('clientaddress'));
@@ -381,19 +426,19 @@
                 selected_branch_hidden.push($(this).data('branchid'));
                 mission_id.push($(this).data('missionid'));
             });
-            if (selected.length != 0)
-            {
-                if(mission_id[0] == ""){
-                    var sum = selected.reduce(function(acc, val) { return acc + val; },0);
+            if (selected.length != 0) {
+                if (mission_id[0] == "") {
+                    var sum = selected.reduce(function (acc, val) {
+                        return acc + val;
+                    }, 0);
                     var check_sum = selected[0] * selected.length;
-                    if (selected.length == 1 || sum == check_sum ) {
+                    if (selected.length == 1 || sum == check_sum) {
                         selected_payment_method.forEach((element, index) => {
-                            if(selected_payment_method[0] == selected_payment_method[index]){
+                            if (selected_payment_method[0] == selected_payment_method[index]) {
                                 count_payment_method++;
                             }
                         });
-                        if(selected_payment_method.length == count_payment_method)
-                        {
+                        if (selected_payment_method.length == count_payment_method) {
                             $('#tableForm').attr('action', $(element).data('url'));
                             $('#tableForm').attr('method', $(element).data('method'));
                             $('#assign-to-captain-modal').modal('toggle');
@@ -406,86 +451,89 @@
                             $('.branch_hidden').val(selected_branch_hidden[0]);
                             $('#pick_up_client_id').val(selected[0]);
                             $('#pick_up_client_id_hidden').val(selected[0]);
-                        }else{
+                        } else {
                             Swal.fire("{{ ('Select shipments of the same payment method')}}", "", "error");
                         }
                     } else if (selected.length == 0) {
                         Swal.fire("{{ ('Please Select Shipments')}}", "", "error");
-                    }else{
+                    } else {
                         Swal.fire("{{ ('Select shipments of the same client to Assign')}}", "", "error");
                     }
-                }else{
+                } else {
                     Swal.fire("{{ ('This Shipment Already In Mission')}}", "", "error");
                 }
-            }else{
+            } else {
                 Swal.fire("{{ ('Please Select Shipments')}}", "", "error");
             }
         }
+
         function openTransferShipmentCaptainModel(element, e) {
             var selected = [];
             var branchId = '';
             var branchName = '';
             var mission_id = [];
             var selected_payment_method = [];
-            var count_payment_method = 0 ;
-            $('#to_branch_id option').css("display","block");
-            $('.sh-check:checked').each(function() {
+            var count_payment_method = 0;
+            $('#to_branch_id option').css("display", "block");
+            $('.sh-check:checked').each(function () {
                 selected_payment_method.push($(this).data('paymentmethodid'));
                 selected.push($(this).data('clientid'));
                 branchId = $(this).data('branchid');
                 branchName = $(this).data('branchname');
                 mission_id.push($(this).data('missionid'));
             });
-            if (selected.length != 0)
-            {
-                if(mission_id[0] == ""){
-                    var sum = selected.reduce(function(acc, val) { return acc + val; },0);
+            if (selected.length != 0) {
+                if (mission_id[0] == "") {
+                    var sum = selected.reduce(function (acc, val) {
+                        return acc + val;
+                    }, 0);
                     var check_sum = selected[0] * selected.length;
-                    if (selected.length == 1 || sum == check_sum ) {
+                    if (selected.length == 1 || sum == check_sum) {
                         selected_payment_method.forEach((element, index) => {
-                            if(selected_payment_method[0] == selected_payment_method[index]){
+                            if (selected_payment_method[0] == selected_payment_method[index]) {
                                 count_payment_method++;
                             }
                         });
-                        if(selected_payment_method.length == count_payment_method)
-                        {
+                        if (selected_payment_method.length == count_payment_method) {
                             $('#assign-to-captain-modal').remove();
                             $('#tableForm').attr('action', $(element).data('url'));
                             $('#tableForm').attr('method', $(element).data('method'));
                             document.getElementById("from_branch_transfer").value = branchName;
-                            $('#to_branch_id option[value='+ branchId +']').css("display","none");
-                            $('#to_branch_id option[value='+ branchId +']').find('option:selected').remove();
+                            $('#to_branch_id option[value=' + branchId + ']').css("display", "none");
+                            $('#to_branch_id option[value=' + branchId + ']').find('option:selected').remove();
                             $('#transfer-to-branch-modal').modal('toggle');
-                        }else{
+                        } else {
                             Swal.fire("{{ ('Select shipments of the same payment method')}}", "", "error");
                         }
                     } else if (selected.length == 0) {
                         Swal.fire("{{ ('Please Select Shipments')}}", "", "error");
-                    }else{
+                    } else {
                         Swal.fire("{{ ('Select shipments of the same client to Assign')}}", "", "error");
                     }
-                }else{
+                } else {
                     Swal.fire("{{ ('This Shipment Already In Mission')}}", "", "error");
                 }
-            }else{
+            } else {
                 Swal.fire("{{ ('Please Select Shipments')}}", "", "error");
             }
         }
-        function check_client(parent_checkbox,client_id) {
+
+        function check_client(parent_checkbox, client_id) {
             // if(parent_checkbox.checked){
             //     console.log("checked");
             // }
-            checkboxs = document.getElementsByClassName("checkbox-client-id-"+client_id);
+            checkboxs = document.getElementsByClassName("checkbox-client-id-" + client_id);
             for (let index = 0; index < checkboxs.length; index++) {
                 checkboxs[index].checked = parent_checkbox.checked;
             }
         }
-        $(document).ready(function() {
 
-            $('.action-caller').on('click', function(e) {
+        $(document).ready(function () {
+
+            $('.action-caller').on('click', function (e) {
                 e.preventDefault();
                 var selected = [];
-                $('.sh-check:checked').each(function() {
+                $('.sh-check:checked').each(function () {
                     selected.push($(this).data('clientid'));
                 });
                 if (selected.length > 0) {

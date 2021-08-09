@@ -14,7 +14,7 @@
                                 </span>
                 </li>
             @endcan
-            @canany(['SuperUser','Manager','OPS'], Auth::user())
+            @canany(['SuperUser','Manager','OPS','Client'], Auth::user())
                 <li class="menu-item " aria-haspopup="true">
                     <a href="{{route('admin.orders.create')}}" class="menu-link">
                         <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
@@ -22,7 +22,7 @@
                     </a>
                 </li>
             @endcan
-            @canany(['SuperUser','Manager','OPS','Agent'], Auth::user())
+            @canany(['SuperUser','Manager','OPS','Agent','Client'], Auth::user())
                 <li class="menu-item " aria-haspopup="true">
                     <a href="{{route('admin.orders.index')}}" class="menu-link">
                         <i class="menu-bullet menu-bullet-dot">
@@ -32,6 +32,8 @@
 
                     </a>
                 </li>
+            @endcan
+            @canany(['SuperUser','Manager','OPS','Agent'], Auth::user())
                 <li class="menu-item " aria-haspopup="true">
                     <a href="{{route('admin.orders.new_order')}}" class="menu-link">
                         <i class="menu-bullet menu-bullet-dot">
@@ -41,6 +43,9 @@
 
                     </a>
                 </li>
+            @endcan
+            @canany(['SuperUser','Manager','OPS','Agent','Client'], Auth::user())
+
                 <li class="menu-item " aria-haspopup="true">
                     <a href="{{route('admin.orders.in_processing')}}" class="menu-link">
                         <i class="menu-bullet menu-bullet-dot">
