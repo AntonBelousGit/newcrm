@@ -82,7 +82,7 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->cargolocation->name}}</th>
+                                    <th>{{$shipment->locations}}</th>
 
                                     <th>{{$shipment->substatus->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
@@ -149,7 +149,7 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->cargolocation->name}}</th>
+                                    <th>{{$shipment->locations}}</th>
 
                                     <th>{{$shipment->substatus->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
@@ -191,7 +191,7 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->cargolocation->name}}</th>
+                                    <th>{{$shipment->locations}}</th>
 
                                     <th>{{$shipment->substatus->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
@@ -225,7 +225,7 @@
                                     @endphp
                                 </th>
 
-                                <th>{{$shipment->cargolocation->name}}</th>
+                                <th>{{$shipment->locations}}</th>
 
                                 <th>{{$shipment->substatus->name}}</th>
                                 <th>{{$shipment->created_at}}</th>

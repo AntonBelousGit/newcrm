@@ -44,7 +44,7 @@
                     </a>
                 </li>
             @endcan
-            @canany(['SuperUser','Manager','OPS','Agent','Client'], Auth::user())
+            @canany(['SuperUser','Manager','OPS','Agent'], Auth::user())
 
                 <li class="menu-item " aria-haspopup="true">
                     <a href="{{route('admin.orders.in_processing')}}" class="menu-link">

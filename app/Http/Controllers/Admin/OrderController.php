@@ -349,7 +349,7 @@ class OrderController extends Controller
         return  abort(403);
     }
     public function in_processing(){
-        if (Gate::any(['SuperUser','Manager','OPS','Agent','Client'], Auth::user())) {
+        if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
             $orders = Order::with('cargo','user','agent')->where('status_id',2)->get();
 
             $title = 'In processing';
