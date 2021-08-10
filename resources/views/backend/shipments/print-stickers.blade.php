@@ -1,4 +1,4 @@
-<?php 
+<?php
 use \Milon\Barcode\DNS1D;
 use App\Shipment;
 $d = new DNS1D();
@@ -6,7 +6,7 @@ $d = new DNS1D();
 ?>
 <style type="text/css">
 	<!--
-	
+
 	.txt-align-left {
 		text-align: left;
 	}
@@ -16,11 +16,11 @@ $d = new DNS1D();
 	.vertical-align-middle{
 		vertical-align: middle;
 	}
-	
+
 	-->
 </style>
 
-	
+
 	@php
 		$n = 0;
 	@endphp
@@ -45,7 +45,7 @@ $d = new DNS1D();
 													@if(get_setting('system_logo_white') != null)
 														<img src="{{ uploaded_asset(get_setting('system_logo_white')) }}">
 													@else
-														<img src="{{ static_asset('assets/img/logo.svg') }}">
+														<img src="{{ static_asset('assets/img/logo.png') }}">
 													@endif
 												</td>
 											</tr>
@@ -172,7 +172,7 @@ $d = new DNS1D();
 													@if(get_setting('system_logo_white') != null)
 														<img src="{{ uploaded_asset(get_setting('system_logo_white')) }}">
 													@else
-														<img src="{{ static_asset('assets/img/logo.svg') }}">
+														<img src="{{ static_asset('assets/img/logo.png') }}">
 													@endif
 												</td>
 											</tr>
@@ -307,7 +307,7 @@ $d = new DNS1D();
 				</div>
 			</div>
 		@endif
-		
+
 @endforeach
 
 <script>

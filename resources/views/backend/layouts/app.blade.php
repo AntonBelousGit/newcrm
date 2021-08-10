@@ -95,7 +95,7 @@
 
 		<!--begin::Logo-->
         <a href="{{ route('admin.index') }}">
-                <img src="{{ asset('assets/img/logo.svg') }}" alt="">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="">
         </a>
 
 		<!--end::Logo-->

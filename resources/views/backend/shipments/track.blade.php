@@ -17,7 +17,7 @@
                             @if(get_setting('system_logo_white') != null)
                                 <img src="{{ uploaded_asset(get_setting('system_logo_white')) }}" alt="{{ get_setting('site_name') }}" style="max-width:150px">
                             @else
-                                <img src="{{ static_asset('assets/img/logo.svg') }}" alt="{{ get_setting('site_name') }}" style="max-width:150px">
+                                <img src="{{ static_asset('assets/img/logo.png') }}" alt="{{ get_setting('site_name') }}" style="max-width:150px">
                             @endif
                         </a>
                     </p>

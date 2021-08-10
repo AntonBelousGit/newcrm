@@ -41,7 +41,7 @@
                                 @if(get_setting('system_logo_white') != null)
                                     <img src="{{ uploaded_asset(get_setting('system_logo_white')) }}" class="d-block mb-5">
                                 @else
-                                    <img src="{{ static_asset('assets/img/logo.svg') }}" class="d-block mb-5">
+                                    <img src="{{ static_asset('assets/img/logo.png') }}" class="d-block mb-5">
                                 @endif
                                 {{translate('MANIFEST MISSIONS')}}
                             </h1>
@@ -93,7 +93,7 @@
                                             <div style="width: 30px;height: 30px;border: 1px solid;border-radius: 3px;"></div>
                                         </td>
 
-                                       
+
                                     </tr>
 
                                     @endforeach

@@ -7,7 +7,7 @@
         <!--begin::Login-->
         <div class="login login-4 login-signin-on d-flex flex-row-fluid" id="kt_login">
             <div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat" style="background-image: url('{{ static_asset('assets/dashboard/media/bg/bg-3.jpg') }}');">
-                
+
 
                     <div class="container p-5">
                         <div class="row">
@@ -18,7 +18,7 @@
                                         @if(get_setting('system_logo_black') != null)
                                             <img src="{{ uploaded_asset(get_setting('system_logo_black')) }}" alt="{{ get_setting('site_name') }}" class="max-h-75px" style="width:100%">
                                         @else
-                                            <img src="{{ static_asset('assets/img/logo.svg') }}" alt="{{ get_setting('site_name') }}" class="max-h-75px">
+                                            <img src="{{ static_asset('assets/img/logo.png') }}" alt="{{ get_setting('site_name') }}" class="max-h-75px">
                                         @endif
                                     </a>
                                 </div>
@@ -88,7 +88,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                                
+
                                             </div>
                                             <button type="submit" class="btn btn-primary btn-lg btn-block">
                                                 {{ translate('Register') }}
@@ -117,10 +117,10 @@
 @section('script')
     <!-- <script type="text/javascript">
 
-    
+
 
         $(document).ready(function() {
-            const form = document.getElementById('kt_login'); 
+            const form = document.getElementById('kt_login');
             FormValidation.formValidation(
                 form, {
                     fields: {

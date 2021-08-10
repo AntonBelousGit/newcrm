@@ -1,4 +1,4 @@
-<?php 
+<?php
 use \Milon\Barcode\DNS1D;
 $d = new DNS1D();
 ?>
@@ -40,7 +40,7 @@ $d = new DNS1D();
                                 @if(get_setting('system_logo_white') != null)
                                     <img src="{{ uploaded_asset(get_setting('system_logo_white')) }}" class="d-block mb-5">
                                 @else
-                                    <img src="{{ static_asset('assets/img/logo.svg') }}" class="d-block mb-5">
+                                    <img src="{{ static_asset('assets/img/logo.png') }}" class="d-block mb-5">
                                 @endif
                                 {{translate('MISSION DETAILS')}}
                             </h1>
