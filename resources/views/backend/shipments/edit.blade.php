@@ -353,14 +353,65 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="">
+                        <div class="row">
+{{--                            <div class="col-md-6" data-select2-id="66">--}}
+{{--                                <label>Status:</label>--}}
+{{--                                <select id="select1" name="status_id" class="form-control ">--}}
+{{--                                    @foreach($status as $item)--}}
+{{--                                        <option value="{{$item->id}}" @if($item->id == $orders->status->id) selected @endif >{{$item->name}}</option>--}}
+{{--                                    @endforeach--}}
+{{--                            </select>--}}
+{{--                            </div>--}}
+
+{{--                            <div id="step2">--}}
+{{--                                <div class="col-md-6" data-select2-id="66" id="3">--}}
+{{--                                    <select  name="substatus_id" class="form-control ">--}}
+{{--                                        @foreach($substatus->where('status_id',3) as $item)--}}
+{{--                                            <option value="{{$item->id}}" >{{$item->name}}</option>--}}
+{{--                                            <option value="{{$item->id}}" @if($item->id == $orders->substatus->id) selected @endif >{{$item->name}}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-6" data-select2-id="66" id="4">--}}
+{{--                                    <select name="substatus_id" class="form-control ">--}}
+{{--                                        @foreach($substatus->where('status_id',4) as $item)--}}
+{{--                                            <option value="{{$item->id}}">{{$item->name}}</option>--}}
+{{--                                            <option value="{{$item->id}}" @if($item->id == $orders->substatus->id) selected @endif >{{$item->name}}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+
+
+
                             <div class="col-md-6" data-select2-id="66">
-                                <label>Status:</label>
-                                <select id="change-country-to" name="status_id" class="form-control ">
+                                <label>Status</label>
+                                <select id="select1" name="status_id" class="form-control ">
                                     @foreach($status as $item)
                                         <option value="{{$item->id}}" @if($item->id == $orders->status->id) selected @endif >{{$item->name}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                                <div id="step2">
+                                    <label></label>
+
+                                    <select id="3" name="substatus_id" class="form-control ">
+                                        <option></option>
+                                        @foreach($substatus->where('status_id',3) as $item)
+{{--                                            <option value="{{$item->id}}" >{{$item->name}}</option>--}}
+                                            <option value="{{$item->id}}" @if($item->id == isset($orders->substatus->id)) selected @endif >{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label></label>
+
+                                    <select id="4" name="substatus_id" class="form-control ">
+                                        <option></option>
+                                        @foreach($substatus->where('status_id',4) as $item)
+{{--                                            <option value="{{$item->id}}">{{$item->name}}</option>--}}
+                                            <option value="{{$item->id}}" @if($item->id == isset($orders->substatus->id)) selected @endif >{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                             </div>
                         </div>
                         <hr>
@@ -391,6 +442,52 @@
                                 </select>
                             </div>
                         </div>
+                        <hr>
+                         <div class="">
+                             <div class="col-md-6" data-select2-id="66">
+                                 <label>Location:</label>
+                                 <select id="change-country-to" name="locations" class="form-control ">
+{{--                                         @php--}}
+{{--                                             $last_city = '';--}}
+{{--                                         @endphp--}}
+
+{{--                                     @foreach($lupa as $city )--}}
+{{--                                         @if($last_city != '')--}}
+{{--                                            <option value="{{$last_city}}-{{$city['name']}}({{$city['city']}})" @if($last_city.'-'.$city['name'] == $orders->locations ) selected @endif  >{{$last_city}}-{{$city['name']}}({{$city['city']}})</option>--}}
+{{--                                         @endif--}}
+{{--                                            <option value="{{$city['name']}}({{$city['city']}})" @if($city['name'] == $orders->locations ) selected @endif >{{$city['name']}}({{$city['city']}})</option>--}}
+{{--                                         @php--}}
+{{--                                             $last_city = $city['name'].'('.$city['city'].')';--}}
+{{--                                         @endphp--}}
+{{--                                     @endforeach--}}
+
+
+                     @php
+                         $last_city = '';
+                     @endphp
+
+                     @foreach($lupa as $city )
+                         @php
+                             $cur_city = $city['name'].'('.$city['city'].')';
+                         @endphp
+                             @if($last_city != '')
+                                 <option value="{{$last_city}}-{{$city['name']}}({{$city['city']}})" @if($last_city.'-'.$cur_city == $orders->locations ) selected @endif>{{$last_city}}-{{$cur_city}}</option>
+                             @endif
+
+                         <option value="{{$cur_city}}" @if($cur_city == $orders->locations ) selected @endif >{{$cur_city}}</option>
+
+                         @php
+
+                             echo $cur_city;
+                             $last_city = $cur_city;
+                         @endphp
+                     @endforeach
+
+
+
+                                 </select>
+                             </div>
+                    </div>
                         <hr>
                     </div>
                     <div id="kt_repeater_12">
@@ -578,7 +675,6 @@
                             </div>
                         </div>
                     </div>
-                       <hr>
                         <div class="form-group ">
                             <div class="">
                                 <div>
@@ -775,6 +871,26 @@
             }
         }
         $(document).ready(function() {
+            $('#select1').change(function(){
+                var val = $(this).val();
+                console.log(val);
+                //если элемент с id равным значению #select1 существует
+                if(val == '3'){
+                    $('#step2 select').hide();
+                    $('#' + val).show();
+                    $('#3').removeAttr('name').attr('name','substatus_id');
+                    $('#4').removeAttr('name')
+                }
+                else if(val == '4'){
+                    $('#step2 select').hide();
+                    $('#' + val).show();
+                    $('#4').removeAttr('name').attr('name','substatus_id');
+                    $('#3').removeAttr('name')
+                }
+                else if(val != 'select2_1' || val != 'select2_2' ){
+                    $('#step2 select').hide();
+                }
+            })
             $('.select-country').select2({
                 placeholder: "Select country",
                 language: {

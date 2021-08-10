@@ -122,3 +122,6 @@ input[type="checkbox"]~.custom_check i {
 .fa-exclamation-triangle {
     color: red;
 }
+#step2 select{
+    display:none;
+}

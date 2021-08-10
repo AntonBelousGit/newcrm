@@ -25,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->string('company_consignee');
             $table->string('shipment_description');
             $table->string('comment');
+            $table->string('locations')->nullable();
             $table->date('sending_time');
             $table->date('delivery_time');
             $table->enum('sensor_for_rent',['on','off']);
@@ -38,12 +39,14 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('client_id')->unsigned()->nullable();
             $table->bigInteger('cargo_location_id')->unsigned()->nullable();
             $table->bigInteger('status_id')->unsigned()->nullable();
+            $table->bigInteger('substatus_id')->unsigned()->nullable();
             $table->bigInteger('agent_id')->unsigned()->nullable();
             $table->bigInteger('driver_id')->unsigned()->nullable();
             $table->bigInteger('shipper_address_id')->unsigned()->nullable();
             $table->bigInteger('consignee_address_id')->unsigned()->nullable();
 
             $table->foreign('status_id')->references('id')->on('product_statuses');
+            $table->foreign('substatus_id')->references('id')->on('sub_product_statuses');
             $table->foreign('client_id')->references('id')->on('users');
             $table->foreign('agent_id')->references('id')->on('users');
             $table->foreign('driver_id')->references('id')->on('users');

@@ -6,6 +6,7 @@ use App\Models\Cargo;
 use App\Models\CargoLocation;
 use App\Models\Order;
 use App\Models\ProductStatus;
+use App\Models\SubProductStatus;
 use App\Models\Tracker;
 use App\Models\User;
 use DateTime;
@@ -150,12 +151,27 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             $orders = Order::with('cargo','user','status','cargolocation','tracker')->find($id);
             $user = User::all();
-            $trackers = Tracker::with('cargolocation')->where('order_id',$id)->where('position','1')->get();
+
             $tracker_start = Tracker::with('cargolocation')->where('order_id',$id)->where('position','0')->first();
+            $trackers = Tracker::with('cargolocation')->where('order_id',$id)->where('position','1')->get();
+
+
+            $lupa[] = $tracker_start->cargolocation->toArray();
+
+            foreach ($trackers as $item)
+            {
+                $lupa[] = $item->cargolocation->toArray();
+            }
             $tracker_end = Tracker::with('cargolocation')->where('order_id',$id)->where('position','2')->first();
+
+            $lupa[] = $tracker_end->cargolocation->toArray();
+
+
             $status = ProductStatus::all();
+            $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
-            return view('backend.shipments.edit',compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end'));
+
+            return view('backend.shipments.edit',compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end','substatus','lupa'));
         }
         return  abort(403);
     }
@@ -168,9 +184,9 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request);
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
 
-//           dd($request);
             $order = Order::with('cargo')->findOrFail($id);
 
             $order->shipper = $request->shipper;
@@ -181,6 +197,7 @@ class OrderController extends Controller
             $order->company_consignee = $request->company_consignee;
             $order->shipment_description = $request->shipment_description;
             $order->comment = $request->comment;
+            $order->locations = $request->locations;
             $order->sending_time = $request->sending_time;
             $order->delivery_time = $request->delivery_time;
             $order->delivery_comment = $request->delivery_comment;
@@ -193,46 +210,48 @@ class OrderController extends Controller
             $order->status_id = $request->status_id;
             $order->agent_id = $request->agent_id ?? null;
             $order->driver_id = $request->driver_id ?? null;
-
+            if (!is_null($request->substatus_id)){
+               $order->substatus_id = $request->substatus_id;
+            }
 
 
             $order->cargo_location_id = $request->cargo_location_id ?? 1;
 
             $order->update();
 
-            foreach($request->Package as $option_key){
-                if ($option_key['id']){
-                    $cargo = Cargo::findOrFail($option_key['id']);
-                    $cargo->type = $option_key['type'];
-                    $cargo->quantity = $option_key['quantity'];
-                    $cargo->serial_number = $option_key['serial_number'];
-                    $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
-                    $cargo->un_number = $option_key['un_number'];
-                    $cargo->temperature_conditions = $option_key['temperature_conditions'];
-                    $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
-                    $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
-                    $cargo->сargo_dimensions_height = $option_key['сargo_dimensions_height'];
-                    $cargo->volume_weight = ($option_key['сargo_dimensions_height']  * $option_key['сargo_dimensions_width'] * $option_key['сargo_dimensions_length'])/6000;
-                    $cargo->update();
-                }
-                else{
-                    $cargo = new Cargo();
-                    $cargo->order_id = $order->id;
-                    $cargo->type = $option_key['type'];
-                    $cargo->actual_weight = $option_key['actual_weight'];
-                    $cargo->quantity = $option_key['quantity'];
-                    $cargo->serial_number = $option_key['serial_number'];
-                    $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
-                    $cargo->un_number = $option_key['un_number'];
-                    $cargo->temperature_conditions = $option_key['temperature_conditions'];
-                    $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
-                    $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
-                    $cargo->сargo_dimensions_height = $option_key['сargo_dimensions_height'];
-                    $cargo->volume_weight =  ($option_key['сargo_dimensions_height']  * $option_key['сargo_dimensions_width'] * $option_key['сargo_dimensions_length'])/6000;
-                    $cargo->save();
+            if (isset($request->Package)) {
+                foreach ($request->Package as $option_key) {
+                    if ($option_key['id']) {
+                        $cargo = Cargo::findOrFail($option_key['id']);
+                        $cargo->type = $option_key['type'];
+                        $cargo->quantity = $option_key['quantity'];
+                        $cargo->serial_number = $option_key['serial_number'];
+                        $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
+                        $cargo->un_number = $option_key['un_number'];
+                        $cargo->temperature_conditions = $option_key['temperature_conditions'];
+                        $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
+                        $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
+                        $cargo->сargo_dimensions_height = $option_key['сargo_dimensions_height'];
+                        $cargo->volume_weight = ($option_key['сargo_dimensions_height'] * $option_key['сargo_dimensions_width'] * $option_key['сargo_dimensions_length']) / 6000;
+                        $cargo->update();
+                    } else {
+                        $cargo = new Cargo();
+                        $cargo->order_id = $order->id;
+                        $cargo->type = $option_key['type'];
+                        $cargo->actual_weight = $option_key['actual_weight'];
+                        $cargo->quantity = $option_key['quantity'];
+                        $cargo->serial_number = $option_key['serial_number'];
+                        $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
+                        $cargo->un_number = $option_key['un_number'];
+                        $cargo->temperature_conditions = $option_key['temperature_conditions'];
+                        $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
+                        $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
+                        $cargo->сargo_dimensions_height = $option_key['сargo_dimensions_height'];
+                        $cargo->volume_weight = ($option_key['сargo_dimensions_height'] * $option_key['сargo_dimensions_width'] * $option_key['сargo_dimensions_length']) / 6000;
+                        $cargo->save();
+                    }
                 }
             }
-//            dd($request);
             if (isset($request->time)){
                 foreach($request->time as $option_key) {
                     if (isset($option_key['id'])) {
@@ -307,9 +326,6 @@ class OrderController extends Controller
 
             return redirect()->route('admin.orders.index');
         }
-        elseif (Gate::any(['Agent','Driver'],Auth::user())){
-            dd($request);
-        }
         return  abort(403);
     }
     public function remove_cargo(Request $request ){
@@ -346,21 +362,21 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser','Manager','OPS'], Auth::user())) {
             $orders = Order::with('cargo','user','agent','driver')->where('status_id',3)->get();
             $title = 'Accepted in work';
-            return view('backend.shipments.index',compact('orders','title'));
+            return view('backend.shipments.index-in-work',compact('orders','title'));
         }
         if (Gate::any(['Agent','Driver'], Auth::user())){
             $orders = Order::with('cargo','user','agent','driver')->where('status_id',3)->get();
             $title = 'Accepted in work';
-            return view('backend.shipments.index',compact('orders','title'));
+            return view('backend.shipments.index-in-work',compact('orders','title'));
 
         }
         return  abort(403);
     }
     public function delivered(){
         if (Gate::any(['SuperUser','Manager','OPS','Agent'], Auth::user())) {
-            $orders = Order::with('cargo','user','agent')->where('status_id',4)->get();
+            $orders = Order::with('cargo','user','agent','substatus')->where('status_id',4)->get();
             $title = 'Delivered';
-            return view('backend.shipments.index',compact('orders','title'));
+            return view('backend.shipments.index-delivered',compact('orders','title'));
         }
         return  abort(403);
     }

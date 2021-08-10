@@ -82,9 +82,9 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->locations}}</th>
+                                    <th>{{$shipment->cargolocation->name}}</th>
 
-                                    <th>{{$shipment->status->name}}</th>
+                                    <th>{{$shipment->substatus->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -149,9 +149,9 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->locations}}</th>
+                                    <th>{{$shipment->cargolocation->name}}</th>
 
-                                    <th>{{$shipment->status->name}}</th>
+                                    <th>{{$shipment->substatus->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -191,9 +191,9 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->locations}}</th>
+                                    <th>{{$shipment->cargolocation->name}}</th>
 
-                                    <th>{{$shipment->status->name}}</th>
+                                    <th>{{$shipment->substatus->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -212,7 +212,7 @@
                         @endforeach
                     @else
                         @foreach($orders as $key=>$shipment)
-
+{{--                            @dd($orders)--}}
                             <tr>
                                 <th>{{$shipment->id}}</th>
                                 <th>{{$shipment->shipper}}</th>
@@ -225,9 +225,9 @@
                                     @endphp
                                 </th>
 
-                                <th>{{$shipment->locations}}</th>
+                                <th>{{$shipment->cargolocation->name}}</th>
 
-                                <th>{{$shipment->status->name}}</th>
+                                <th>{{$shipment->substatus->name}}</th>
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"

@@ -61,6 +61,11 @@ class Order extends Model
         return $this->belongsTo('App\Models\ProductStatus','status_id');
 
     }
+    public function substatus()
+    {
+        return $this->belongsTo('App\Models\SubProductStatus','substatus_id');
+
+    }
 
     public function user()
     {
