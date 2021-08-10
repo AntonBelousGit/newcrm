@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -53,13 +54,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRole(['Client']);
         });
         Gate::define('manage-agent', function (User $user, Order $order) {
-            return $user->id === $order->agent_id;
+            return $user->id == $order->agent_id;
         });
         Gate::define('manage-driver', function (User $user, Order $order) {
-            return $user->id === $order->driver_id;
+            return $user->id == $order->driver_id;
         });
         Gate::define('manage-client', function (User $user, Order $order) {
-            return $user->id === $order->client_id;
+            return $user->id == $order->client_id;
+
         });
         Gate::define('settings', function ($user)
         {
