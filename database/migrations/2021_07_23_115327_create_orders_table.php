@@ -23,16 +23,16 @@ class CreateOrdersTable extends Migration
             $table->string('phone_consignee');
 //            $table->string('address_consignee');
             $table->string('company_consignee');
-            $table->string('shipment_description');
-            $table->string('comment');
+            $table->string('shipment_description')->nullable();
+            $table->string('comment')->nullable();
             $table->string('locations')->nullable();
-            $table->date('sending_time');
-            $table->date('delivery_time');
+            $table->timestamp('sending_time');
+            $table->timestamp('delivery_time');
             $table->enum('sensor_for_rent',['on','off']);
             $table->enum('container',['on','off']);
             $table->enum('return_sensor',['on','off']);
             $table->enum('return_container',['on','off']);
-            $table->string('delivery_comment');
+            $table->string('delivery_comment')->nullable();
             $table->enum('notifications',['on','off']);
             $table->string('user');
 

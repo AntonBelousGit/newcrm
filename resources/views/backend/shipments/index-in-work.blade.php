@@ -57,7 +57,7 @@
                         <th>Phone shipper</th>
                         <th>Consignee</th>
                         <th>Phone consignee</th>
-                        <th>Invoice number</th>
+                        <th>NWB number</th>
                         <th>Location</th>
                         <th>Status</th>
                         <th>Created at</th>

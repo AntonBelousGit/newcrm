@@ -69,30 +69,30 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
+
                             <div class="form-group">
-                                <label>{{ ('Shipper Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control"  value="{{$orders->shipper}}" />
-                                <input type="hidden" id="order" value="{{$orders->id}}">
+                                <label class="red-star">{{ ('Shipper`s company name')}}:</label>
+                                <input type="text" placeholder="{{ ('Shipper company name')}}" name="company_shipper" required class="form-control" value="{{$orders->company_shipper}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ ('Shipper Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" class="form-control" value="{{$orders->phone_shipper}}"/>
+                                <label class="red-star">{{ ('Shipper Phone')}}:</label>
+                                <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" required class="form-control" value="{{$orders->phone_shipper}}"/>
 
                             </div>
                         </div>
                         @if($orders->status_id == 2 || $orders->status_id == 1)
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" class="form-control" value="{{$tracker_start->address}}" />
+                                    <label class="red-star">{{ ('Shipper Address')}}:</label>
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper" required class="form-control" value="{{$tracker_start->address}}" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ ('Shipper City')}}:</label>
-                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" name="shipper_address_id" required>
+                                    <label class="red-star">{{ ('Shipper City')}}:</label>
+                                    <select class="form-control kt-select2 delivery-time"  id="shipper_address" name="shipper_address_id" required>
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}" @if($tracker_start->location_id == $location->id) selected @endif>{{ $location->name}}</option>
                                         @endforeach
@@ -102,13 +102,13 @@
                         @else
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ ('Shipper Address')}}:</label>
+                                    <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <input type="text" placeholder="{{ ('Shipper Address')}}"  disabled class="form-control" value="{{$tracker_start->address}}" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ ('Shipper City')}}:</label>
+                                    <label class="red-star">{{ ('Shipper City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled>
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}" @if($tracker_start->location_id == $location->id) selected @endif>{{ $location->name}}</option>
@@ -119,8 +119,9 @@
                         @endif
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ ('Company Shipper')}}:</label>
-                                <input type="text" placeholder="{{ ('Company Shipper')}}" name="company_shipper" class="form-control" value="{{$orders->company_shipper}}" />
+                                <label class="red-star">{{ ('Shipper Name')}}:</label>
+                                <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper"  required class="form-control"  value="{{$orders->shipper}}" />
+                                <input type="hidden" id="order" value="{{$orders->id}}">
                             </div>
                         </div>
                     </div>
@@ -128,27 +129,27 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ ('Consignee Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" class="form-control" value="{{$orders->consignee}}" />
+                                <label class="red-star">{{ ('Consignee`s company name')}}:</label>
+                                <input type="text" placeholder="{{ ('Company Consignee')}}" name="company_consignee" required class="form-control" value="{{ $orders->company_consignee }}" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ ('Consignee Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" class="form-control" value="{{$orders->phone_consignee}}" />
+                                <label class="red-star">{{ ('Consignee Phone')}}:</label>
+                                <input type="text" placeholder="{{ ('Consignee Phone')}}" required name="phone_consignee" class="form-control" value="{{$orders->phone_consignee}}" />
 
                             </div>
                         </div>
                         @if($orders->status_id == 2 || $orders->status_id == 1)
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" class="form-control" value="{{$tracker_end->address}}"/>
+                                    <label class="red-star">{{ ('Consignee Address')}}:</label>
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" required class="form-control" value="{{$tracker_end->address}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ ('Shipper City')}}:</label>
+                                    <label class="red-star" >{{ ('Shipper City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" id="consignee_address" name="consignee_address_id" required>
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}" @if($tracker_end->location_id == $location->id) selected @endif>{{ $location->name}}</option>
@@ -176,8 +177,8 @@
                         @endif
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ ('Company Consignee')}}:</label>
-                                <input type="text" placeholder="{{ ('Company Consignee')}}" name="company_consignee" class="form-control" value="{{ $orders->company_consignee }}" />
+                                <label class="red-star" >{{ ('Consignee Name')}}:</label>
+                                <input type="text" placeholder="{{ ('Consignee Name')}}" required name="consignee" class="form-control" value="{{$orders->consignee}}" />
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -188,34 +189,59 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ ('Comment')}}:</label>
+                                <label>Pick-up Instruction</label>
                                 <textarea class="form-control" name="comment">{{ $orders->comment }}</textarea>
                             </div>
                         </div>
+{{--                        <div class="col-md-6">--}}
+{{--                            <div class="form-group fv-plugins-icon-container">--}}
+{{--                                <label>Shipping Date:</label>--}}
+{{--                                <div class="input-group date">--}}
+{{--                                    <input type="text" placeholder="Sending Date" value="{{ $orders->sending_time }}" name="sending_time" autocomplete="off" class="form-control" id="kt_datepicker_3">--}}
+{{--                                    <div class="input-group-append">--}}
+{{--                                            <span class="input-group-text">--}}
+{{--                                                <i class="la la-calendar"></i>--}}
+{{--                                            </span>--}}
+{{--                                    </div>--}}
+{{--                                </div><i data-field="sending_time" class="fv-plugins-icon"></i>--}}
+{{--                                <div class="fv-plugins-message-container"></div></div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-6">--}}
+{{--                            <div class="form-group fv-plugins-icon-container">--}}
+{{--                                <label>Delivery Date:</label>--}}
+{{--                                <div class="input-group date">--}}
+{{--                                    <input type="text" placeholder="Delivery Date" value="{{ $orders->delivery_time }}" name="delivery_time" autocomplete="off" class="form-control" id="kt_datepicker_4">--}}
+{{--                                    <div class="input-group-append">--}}
+{{--                                            <span class="input-group-text">--}}
+{{--                                                <i class="la la-calendar"></i>--}}
+{{--                                            </span>--}}
+{{--                                    </div>--}}
+{{--                                </div><i data-field="delivery_time" class="fv-plugins-icon"></i>--}}
+{{--                                <div class="fv-plugins-message-container"></div></div>--}}
+{{--                        </div>--}}
+                        @php
+                            if (isset($orders->sending_time))
+                            {
+                                 $orders_start_time = str_replace(' ','T', $orders->sending_time);
+                            }
+                            $orders_end_time=is_null($orders->delivery_time)?'':str_replace(' ','T', $orders->delivery_time);
+                        @endphp
                         <div class="col-md-6">
                             <div class="form-group fv-plugins-icon-container">
-                                <label>Shipping Date:</label>
+                                <label class="red-star">Shipping Date:</label>
                                 <div class="input-group date">
-                                    <input type="text" placeholder="Sending Date" value="{{ $orders->sending_time }}" name="sending_time" autocomplete="off" class="form-control" id="kt_datepicker_3">
-                                    <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar"></i>
-                                            </span>
-                                    </div>
+                                    <input  placeholder="Start time" type="datetime-local" name="sending_time" required class="form-control" value="{{$orders_start_time}}"/>
                                 </div><i data-field="sending_time" class="fv-plugins-icon"></i>
+
                                 <div class="fv-plugins-message-container"></div></div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group fv-plugins-icon-container">
-                                <label>Delivery Date:</label>
+                                <label class="red-star">Delivery Date:</label>
                                 <div class="input-group date">
-                                    <input type="text" placeholder="Delivery Date" value="{{ $orders->delivery_time }}" name="delivery_time" autocomplete="off" class="form-control" id="kt_datepicker_4">
-                                    <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar"></i>
-                                            </span>
-                                    </div>
+                                    <input  placeholder="Start time" type="datetime-local" name="delivery_time" required class="form-control" value="{{$orders_end_time}}"/>
                                 </div><i data-field="delivery_time" class="fv-plugins-icon"></i>
+
                                 <div class="fv-plugins-message-container"></div></div>
                         </div>
                     </div>
@@ -230,23 +256,23 @@
                                 @foreach($orders->cargo as $item)
                                     <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
                                         <div class="col-md-3">
-                                            <label>{{ ('Type')}}:</label>
-                                            <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" value="{{$item['type']}}">
+                                            <label class="red-star">{{ ('Type')}}:</label>
+                                            <input type="text" placeholder="{{ ('type')}}" class="form-control" required  name="type" value="{{$item['type']}}">
                                             <input type="hidden" name="id" value="{{$item['id']}}">
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
-                                            <label>Actual weight:</label>
-                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="{{$item['actual_weight']}}" />
+                                            <label class="red-star">Actual weight:</label>
+                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" required min="1" name="actual_weight" class="form-control" value="{{$item['actual_weight']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
-                                            <label>{{ ('Quantity')}}:</label>
-                                            <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" min="1" name="quantity" class="form-control" value="{{$item['quantity']}}" />
+                                            <label class="red-star">{{ ('Quantity')}}:</label>
+                                            <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required type="number" min="1" name="quantity" class="form-control" value="{{$item['quantity']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
-                                            <label>Serial number:</label>
+                                            <label>Serial number box:</label>
                                             <input type="text"  placeholder="Serial number" name="serial_number" class="form-control "  value="{{$item['serial_number']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -261,8 +287,8 @@
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
-                                            <label>Temperature conditions:</label>
-                                            <input type="text"  placeholder="Temperature conditions" name="temperature_conditions" class="form-control  "  value="{{$item['temperature_conditions']}}" />
+                                            <label class="red-star">Temperature conditions:</label>
+                                            <input type="text"  placeholder="Temperature conditions" name="temperature_conditions" required class="form-control  "  value="{{$item['temperature_conditions']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -271,16 +297,16 @@
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-12" style="margin-top: 10px;">
-                                            <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
+                                            <label class="red-star">{{ ('Dimensions [Length x Width x Height] (cm)')}}:</label>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Length')}}" name="сargo_dimensions_length" value="{{$item['сargo_dimensions_length']}}" />
+                                            <input class="dimensions_r" type="number" min="1" required class="form-control" placeholder="{{ ('Length')}}" name="сargo_dimensions_length" value="{{$item['сargo_dimensions_length']}}" />
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" type="number" min="1" class="form-control" placeholder="{{ ('Width')}}" name="сargo_dimensions_width" value="{{$item['сargo_dimensions_width']}}" />
+                                            <input class="dimensions_r" type="number" min="1" required class="form-control" placeholder="{{ ('Width')}}" name="сargo_dimensions_width" value="{{$item['сargo_dimensions_width']}}" />
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" type="number" min="1" class="form-control " placeholder="{{ ('Height')}}" name="сargo_dimensions_height" value="{{$item['сargo_dimensions_height']}}" />
+                                            <input class="dimensions_r" type="number" min="1" required class="form-control " placeholder="{{ ('Height')}}" name="сargo_dimensions_height" value="{{$item['сargo_dimensions_height']}}" />
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -330,7 +356,7 @@
                         <hr>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Delivery comment</label>
+                                <label>Delivery Instruction</label>
                                 <textarea class="form-control" name="delivery_comment">{{$orders->delivery_comment}}</textarea>
                             </div>
                         </div>
@@ -347,8 +373,8 @@
                             {{--                        </div>--}}
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Shipping Payer:</label>
-                                    <input type="text" placeholder="Shipping Payer" name="user" class="form-control" value="{{ $orders->user }}" />
+                                    <label class="red-star">Shipping Payer:</label>
+                                    <input type="text" placeholder="Shipping Payer" name="user" required class="form-control" value="{{ $orders->user }}" />
                                 </div>
                             </div>
                         </div>
@@ -398,7 +424,7 @@
                                         <option></option>
                                         @foreach($substatus->where('status_id',3) as $item)
 {{--                                            <option value="{{$item->id}}" >{{$item->name}}</option>--}}
-                                            <option value="{{$item->id}}" @if($item->id == isset($orders->substatus->id)) selected @endif >{{$item->name}}</option>
+                                            <option value="{{$item->id}}" @if($item->id == $orders->substatus_id) selected @endif >{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                     <label></label>
@@ -407,7 +433,7 @@
                                         <option></option>
                                         @foreach($substatus->where('status_id',4) as $item)
 {{--                                            <option value="{{$item->id}}">{{$item->name}}</option>--}}
-                                            <option value="{{$item->id}}" @if($item->id == isset($orders->substatus->id)) selected @endif >{{$item->name}}</option>
+                                            <option value="{{$item->id}}" @if($item->id == $orders->substatus_id) selected @endif >{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -498,7 +524,7 @@
                                     <label>Location:</label>
                                     <input  placeholder="Start time" type="text"  disabled class="form-control" value="{{$tracker_start->cargolocation->name}}"/>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Address:</label>
                                     <input  placeholder="Start time" type="text" disabled  class="form-control" value="{{$tracker_start->address}}"/>
                                     <div class="mb-2 d-md-none"></div>
@@ -510,17 +536,17 @@
                                     }
                                     $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
                                 @endphp
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Estimated time:</label>
                                     <input  placeholder="Start time" type="datetime-local" name="start[start_time]" class="form-control" value="{{ $start_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Actual Time:</label>
                                     <input  placeholder="Start time" type="datetime-local" name="start[end_time]" class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Status:</label>
 {{--                                    @dd($tracker_start->status)--}}
                                     <select id="change-country-to" name="start[status]" class="form-control ">
@@ -584,7 +610,7 @@
                                         </div>
                                     @endforeach
                                 @else
-                                    <div data-repeater-item class="row align-items-center" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                    <div data-repeater-item class="row align-items-center  tracker-block-delete" style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
                                         <div class="col-md-3">
                                             <label>Location:</label>
                                             <select  name="cargo_location" class="form-control ">
@@ -632,7 +658,7 @@
                                     <label>Location:</label>
                                     <input  placeholder="Start time" type="text"  disabled class="form-control" value="{{$tracker_end->cargolocation->name}}"/>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Address:</label>
                                     <input  placeholder="Start time" type="text" disabled  class="form-control" value="{{$tracker_end->address}}"/>
                                     <div class="mb-2 d-md-none"></div>
@@ -644,22 +670,29 @@
                                     }
                                     $end_time=is_null($tracker_end->end_time)?'':str_replace(' ','T', $tracker_end->end_time);
                                 @endphp
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Estimated time:</label>
                                     <input  placeholder="Start time" type="datetime-local" name="end[start_time]" class="form-control" value="{{ $start_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Actual Time:</label>
                                     <input  placeholder="Start time" type="datetime-local" name="end[end_time]" class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Status:</label>
                                     <select id="change-country-to" name="end[status]" class="form-control ">
                                         <option value="Awaiting arrival" @if($tracker_end->status == 'Awaiting arrival') selected @endif>Awaiting arrival</option>
                                         <option value="Arrived" @if($tracker_end->status == 'Arrived') selected @endif>Arrived</option>
                                     </select>
+                                </div>
+{{--                                <div class="col-md-3">--}}
+{{--                                    <label>Signed:</label>--}}
+{{--                                    <input  placeholder="Start time" type="text"  disabled class="form-control" value="{{$tracker_end->cargolocation->name}}"/>--}}
+{{--                                </div>--}}
+                                <div class="col-md-3 tracker_append">
+
                                 </div>
                             </div>
 
@@ -871,6 +904,7 @@
             }
         }
         $(document).ready(function() {
+
             $('#select1').change(function(){
                 var val = $(this).val();
                 console.log(val);
@@ -890,7 +924,24 @@
                 else if(val != 'select2_1' || val != 'select2_2' ){
                     $('#step2 select').hide();
                 }
+                if ($('#select1').val() == 4){
+                    $('.tracker_append').append($('<label>Signed:</label><input placeholder="Signed" type="text" name="signed" class="form-control " value="{{$tracker_end->signed}}"/><div class="mb-2 d-md-none"></div>'));
+                }
             })
+            if ($('#select1 :selected').val() == 3){
+                $('#3').show();
+                $('#4').removeAttr('name')
+            }
+            if ($('#select1 :selected').val() == 4){
+                $('#4').show();
+                $('#3').removeAttr('name');
+            }
+
+
+            if ($('#select1').val() == 4){
+                $('.tracker_append').append($('<label>Signed:</label><input placeholder="Signed" type="text" name="signed" class="form-control" value="{{$tracker_end->signed}}"/><div class="mb-2 d-md-none"></div>'));
+            }
+
             $('.select-country').select2({
                 placeholder: "Select country",
                 language: {
@@ -1049,7 +1100,7 @@
                     deleteTracker(this,deleteElement);
                 }
             });
-
+            $('.tracker-block-delete').remove();
 
             $('body').on('click', '.delete_item', function(){
                 $('.total-weight').val("{{ ('Calculated...')}}");

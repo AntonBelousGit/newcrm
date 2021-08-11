@@ -26,7 +26,7 @@ class CreateCargosTable extends Migration
             $table->string('serial_number')->nullable()->unique();
             $table->string('serial_number_sensor')->nullable();
             $table->string('un_number')->nullable()->unique();
-            $table->float('temperature_conditions')->nullable();
+            $table->string('temperature_conditions')->nullable();
 
             $table->timestamps();
         });

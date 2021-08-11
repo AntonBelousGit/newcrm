@@ -57,7 +57,7 @@
                         <th>Phone shipper</th>
                         <th>Consignee</th>
                         <th>Phone consignee</th>
-                        <th>Invoice number</th>
+                        <th>NWB number</th>
                         <th>Location</th>
                         <th>Status</th>
                         <th>Created at</th>
@@ -84,7 +84,16 @@
 
                                     <th>{{$shipment->locations}}</th>
 
-                                    <th>{{$shipment->status->name}}</th>
+                                    @php
+                                        if($shipment->status_id == 3 || $shipment->status_id == 4 )
+                                            {
+                                                echo '<th>'.$shipment->substatus->name.'</th>';
+                                            }
+                                        else
+                                            {
+                                                echo '<th>'.$shipment->status->name.'</th>';
+                                            }
+                                    @endphp
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -151,7 +160,16 @@
 
                                     <th>{{$shipment->locations}}</th>
 
-                                    <th>{{$shipment->status->name}}</th>
+                                    @php
+                                        if($shipment->status_id == 3 || $shipment->status_id == 4 )
+                                            {
+                                                echo '<th>'.$shipment->substatus->name.'</th>';
+                                            }
+                                        else
+                                            {
+                                                echo '<th>'.$shipment->status->name.'</th>';
+                                            }
+                                    @endphp
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -193,7 +211,16 @@
 
                                     <th>{{$shipment->locations}}</th>
 
-                                    <th>{{$shipment->status->name}}</th>
+                                    @php
+                                        if($shipment->status_id == 3 || $shipment->status_id == 4 )
+                                            {
+                                                echo '<th>'.$shipment->substatus->name.'</th>';
+                                            }
+                                        else
+                                            {
+                                                echo '<th>'.$shipment->status->name.'</th>';
+                                            }
+                                    @endphp
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -227,7 +254,16 @@
 
                                 <th>{{$shipment->locations}}</th>
 
-                                <th>{{$shipment->status->name}}</th>
+                                    @php
+                                        if($shipment->status_id == 3 || $shipment->status_id == 4 )
+                                            {
+                                                echo '<th>'.$shipment->substatus->name.'</th>';
+                                            }
+                                        else
+                                            {
+                                                echo '<th>'.$shipment->status->name.'</th>';
+                                            }
+                                    @endphp
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"

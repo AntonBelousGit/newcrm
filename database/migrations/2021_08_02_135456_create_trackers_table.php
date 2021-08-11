@@ -20,6 +20,7 @@ class CreateTrackersTable extends Migration
             $table->string('address')->nullable();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
+            $table->string('signed')->nullable();
             $table->enum('status',['Arrived','Awaiting arrival'])->default('Awaiting arrival');
             $table->enum('alert',['ok','bad'])->default('ok');
             $table->enum('position',[0,1,2])->default(1);

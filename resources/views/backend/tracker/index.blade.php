@@ -50,7 +50,7 @@
                 <thead>
                 <tr>
                     <th>Number order</th>
-                    <th>Invoice number</th>
+                    <th>NWB number</th>
                     <th>Location</th>
                     <th>Mission</th>
                 </tr>

@@ -125,3 +125,15 @@ input[type="checkbox"]~.custom_check i {
 #step2 select{
     display:none;
 }
+.red-star {
+    position: relative;
+}
+.red-star::after {
+    content: "*";
+    top: -6px;
+    right: -12px;
+    font-size: 20px;
+    position: absolute;
+    display: block;
+    color: red;
+}

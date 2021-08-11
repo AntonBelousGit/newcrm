@@ -37,8 +37,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ ('Shipper Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Name')}}" disabled class="form-control"  value="{{$orders->shipper}}" />
+                                <label>Shipper’s company name</label>
+                                <input type="text" placeholder="Shipper’s company name" disabled class="form-control" value="{{$orders->company_shipper}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -55,8 +55,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ ('Company Shipper')}}:</label>
-                                <input type="text" placeholder="{{ ('Company Shipper')}}" disabled class="form-control" value="{{$orders->company_shipper}}" />
+                                <label>{{ ('Shipper Name')}}:</label>
+                                <input type="text" placeholder="{{ ('Shipper Name')}}" disabled class="form-control"  value="{{$orders->shipper}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -81,8 +81,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ ('Consignee Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Name')}}" disabled class="form-control" value="{{$orders->consignee}}" />
+                                <label>Consignee’s company name</label>
+                                <input type="text" placeholder="Consignee’s company name" disabled class="form-control" value="{{ $orders->company_consignee }}" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -99,8 +99,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ ('Company Consignee')}}:</label>
-                                <input type="text" placeholder="{{ ('Company Consignee')}}" disabled class="form-control" value="{{ $orders->company_consignee }}" />
+                                <label>{{ ('Consignee Name')}}:</label>
+                                <input type="text" placeholder="{{ ('Consignee Name')}}" disabled class="form-control" value="{{$orders->consignee}}" />
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -111,7 +111,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>{{ ('Comment')}}:</label>
+                                <label>Pick-up Instruction</label>
                                 <textarea class="form-control" disabled>{{ $orders->comment }}</textarea>
                             </div>
                         </div>
@@ -169,7 +169,7 @@
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
-                                            <label>Serial number:</label>
+                                            <label>Serial number box:</label>
                                             <input type="text"  placeholder="Serial number" disabled class="form-control "  value="{{$item['serial_number']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
