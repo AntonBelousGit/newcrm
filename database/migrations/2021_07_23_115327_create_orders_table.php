@@ -26,8 +26,9 @@ class CreateOrdersTable extends Migration
             $table->string('shipment_description')->nullable();
             $table->string('comment')->nullable();
             $table->string('locations')->nullable();
-            $table->timestamp('sending_time');
-            $table->timestamp('delivery_time');
+            $table->string('locations_id')->nullable();
+            $table->timestamp('sending_time')->nullable();
+            $table->timestamp('delivery_time')->nullable();
             $table->enum('sensor_for_rent',['on','off']);
             $table->enum('container',['on','off']);
             $table->enum('return_sensor',['on','off']);

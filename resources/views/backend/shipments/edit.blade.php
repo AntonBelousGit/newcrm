@@ -219,31 +219,31 @@
 {{--                                </div><i data-field="delivery_time" class="fv-plugins-icon"></i>--}}
 {{--                                <div class="fv-plugins-message-container"></div></div>--}}
 {{--                        </div>--}}
-                        @php
-                            if (isset($orders->sending_time))
-                            {
-                                 $orders_start_time = str_replace(' ','T', $orders->sending_time);
-                            }
-                            $orders_end_time=is_null($orders->delivery_time)?'':str_replace(' ','T', $orders->delivery_time);
-                        @endphp
-                        <div class="col-md-6">
-                            <div class="form-group fv-plugins-icon-container">
-                                <label class="red-star">Shipping Date:</label>
-                                <div class="input-group date">
-                                    <input  placeholder="Start time" type="datetime-local" name="sending_time" required class="form-control" value="{{$orders_start_time}}"/>
-                                </div><i data-field="sending_time" class="fv-plugins-icon"></i>
+{{--                        @php--}}
+{{--                            if (isset($orders->sending_time))--}}
+{{--                            {--}}
+{{--                                 $orders_start_time = str_replace(' ','T', $orders->sending_time);--}}
+{{--                            }--}}
+{{--                            $orders_end_time=is_null($orders->delivery_time)?'':str_replace(' ','T', $orders->delivery_time);--}}
+{{--                        @endphp--}}
+{{--                        <div class="col-md-6">--}}
+{{--                            <div class="form-group fv-plugins-icon-container">--}}
+{{--                                <label class="red-star">Shipping Date:</label>--}}
+{{--                                <div class="input-group date">--}}
+{{--                                    <input  placeholder="Start time" type="datetime-local" name="sending_time" required class="form-control" value="{{$orders_start_time}}"/>--}}
+{{--                                </div><i data-field="sending_time" class="fv-plugins-icon"></i>--}}
 
-                                <div class="fv-plugins-message-container"></div></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group fv-plugins-icon-container">
-                                <label class="red-star">Delivery Date:</label>
-                                <div class="input-group date">
-                                    <input  placeholder="Start time" type="datetime-local" name="delivery_time" required class="form-control" value="{{$orders_end_time}}"/>
-                                </div><i data-field="delivery_time" class="fv-plugins-icon"></i>
+{{--                                <div class="fv-plugins-message-container"></div></div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-6">--}}
+{{--                            <div class="form-group fv-plugins-icon-container">--}}
+{{--                                <label class="red-star">Delivery Date:</label>--}}
+{{--                                <div class="input-group date">--}}
+{{--                                    <input  placeholder="Start time" type="datetime-local" name="delivery_time" required class="form-control" value="{{$orders_end_time}}"/>--}}
+{{--                                </div><i data-field="delivery_time" class="fv-plugins-icon"></i>--}}
 
-                                <div class="fv-plugins-message-container"></div></div>
-                        </div>
+{{--                                <div class="fv-plugins-message-container"></div></div>--}}
+{{--                        </div>--}}
                     </div>
                     <hr>
                 </div>
@@ -472,7 +472,8 @@
                          <div class="">
                              <div class="col-md-6" data-select2-id="66">
                                  <label>Location:</label>
-                                 <select id="change-country-to" name="locations" class="form-control ">
+                                 <select id="select2" name="locations" class="form-control ">
+                                     <option></option>
 {{--                                         @php--}}
 {{--                                             $last_city = '';--}}
 {{--                                         @endphp--}}
@@ -488,30 +489,30 @@
 {{--                                     @endforeach--}}
 
 
-                     @php
-                         $last_city = '';
-                     @endphp
+                    @php
+                     $last_city = '';
+                    @endphp
 
-                     @foreach($lupa as $city )
+                     @foreach($lupa as $key => $city )
                          @php
                              $cur_city = $city['name'].'('.$city['city'].')';
                          @endphp
                              @if($last_city != '')
-                                 <option value="{{$last_city}}-{{$city['name']}}({{$city['city']}})" @if($last_city.'-'.$cur_city == $orders->locations ) selected @endif>{{$last_city}}-{{$cur_city}}</option>
+                                 <option value="{{$last_city}}-{{$city['name']}}({{$city['city']}})" data-id="city_{{$key+20}}" @if('city_' . ($key+20) == $orders->locations_id) selected @endif>{{$last_city}}-{{$cur_city}}</option>
                              @endif
 
-                         <option value="{{$cur_city}}" @if($cur_city == $orders->locations ) selected @endif >{{$cur_city}}</option>
+                         <option value="{{$cur_city}}" data-id="city_{{$key+1}}" @if('city_' . ($key+1) == $orders->locations_id ) selected @endif >{{$cur_city}}</option>
 
                          @php
-
-                             echo $cur_city;
                              $last_city = $cur_city;
                          @endphp
-                     @endforeach
+
+                    @endforeach
 
 
 
                                  </select>
+                                 <input type="hidden" name="city_id"  id="city" value="{{$orders->locations_id}}">
                              </div>
                     </div>
                         <hr>
@@ -907,7 +908,7 @@
 
             $('#select1').change(function(){
                 var val = $(this).val();
-                console.log(val);
+                // console.log(val);
                 //если элемент с id равным значению #select1 существует
                 if(val == '3'){
                     $('#step2 select').hide();
@@ -927,6 +928,7 @@
                 if ($('#select1').val() == 4){
                     $('.tracker_append').append($('<label>Signed:</label><input placeholder="Signed" type="text" name="signed" class="form-control " value="{{$tracker_end->signed}}"/><div class="mb-2 d-md-none"></div>'));
                 }
+
             })
             if ($('#select1 :selected').val() == 3){
                 $('#3').show();
@@ -941,6 +943,11 @@
             if ($('#select1').val() == 4){
                 $('.tracker_append').append($('<label>Signed:</label><input placeholder="Signed" type="text" name="signed" class="form-control" value="{{$tracker_end->signed}}"/><div class="mb-2 d-md-none"></div>'));
             }
+            $('#select2').change(function(){
+
+                let option2 = $('option:selected', this).attr('data-id');
+                $('#city').val(option2);
+            })
 
             $('.select-country').select2({
                 placeholder: "Select country",

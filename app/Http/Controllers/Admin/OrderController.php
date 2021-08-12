@@ -171,6 +171,7 @@ class OrderController extends Controller
 
             $lupa[] = $tracker_end->cargolocation->toArray();
 
+//            dd($lupa);
 
             $status = ProductStatus::all();
             $substatus = SubProductStatus::all();
@@ -203,6 +204,7 @@ class OrderController extends Controller
             $order->shipment_description = $request->shipment_description ?? null;
             $order->comment = $request->comment ?? null;
             $order->locations = $request->locations;
+            $order->locations_id = $request->city_id;
 
             if (!is_null($request->sending_time)){
                 $order->sending_time = str_replace('T', ' ', $request->sending_time);
@@ -223,8 +225,6 @@ class OrderController extends Controller
             if (!is_null($request->substatus_id)){
                $order->substatus_id = $request->substatus_id;
             }
-
-
             $order->cargo_location_id = $request->cargo_location_id ?? 1;
 
             $order->update();
@@ -275,6 +275,9 @@ class OrderController extends Controller
                         if (!is_null($option_key['end_time'])){
                             $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
                         }
+                        if (!is_null($option_key['end_time']) && $option_key['status'] == 'Arrived'){
+                            $tracker->alert =  $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
+                        }
                         $tracker->status = $option_key['status'];
                         $tracker->update();
                     } else {
@@ -287,6 +290,9 @@ class OrderController extends Controller
                         }
                         if (!is_null($option_key['end_time'])){
                             $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
+                        }
+                        if (!is_null($option_key['end_time']) && $option_key['status'] == 'Arrived'){
+                            $tracker->alert =  $tracker->end_time > $tracker->start_time ? 'bad' : '';
                         }
                         $tracker->status = $option_key['status'];
                         $tracker->save();
@@ -303,18 +309,24 @@ class OrderController extends Controller
                 if (!is_null($start['end_time'])){
                     $tracker_start->end_time = str_replace('T', ' ', $start['end_time']);
                 }
+                if (!is_null($start['end_time']) && $start['status'] == 'Arrived'){
+                    $tracker_start->alert =  $tracker_start->end_time > $tracker_start->start_time ? 'bad' : 'ok';
+                }
                 $tracker_start->status = $start['status'];
 
                 $tracker_start->update();
             }
             if ($request->end){
                 $tracker_end = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','2')->first();
-                $end = $request->start;
+                $end = $request->end;
                 if (!is_null($end['start_time'])){
                     $tracker_end->start_time = str_replace('T', ' ', $end['start_time']);
                 }
                 if (!is_null($end['end_time'])){
                     $tracker_end->end_time = str_replace('T', ' ', $end['end_time']);
+                }
+                if (!is_null($start['end_time']) && $start['status'] == 'Arrived'){
+                    $tracker_end->alert =  $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
                 }
                 $tracker_end->status = $end['status'];
                 $tracker_end->signed = $request->signed ?? '';
@@ -327,14 +339,14 @@ class OrderController extends Controller
                 $tracker_start = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','0')->first();
                 $tracker_start->location_id = $request->shipper_address_id;
                 $tracker_start->address = $request->address_shipper;
-                $tracker_start->start_time = $request->sending_time;
+//                $tracker_start->start_time = $request->sending_time;
                 $tracker_start->update();
             }
             if($request->consignee_address_id){
                 $tracker_end = Tracker::with('cargolocation')->where('order_id',$order->id)->where('position','2')->first();
                 $tracker_end->location_id = $request->consignee_address_id;
                 $tracker_end->address = $request->address_consignee;
-                $tracker_end->start_time = $request->delivery_time;
+//                $tracker_end->start_time = $request->delivery_time;
                 $tracker_end->update();
             }
 
