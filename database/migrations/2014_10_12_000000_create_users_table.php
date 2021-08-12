@@ -23,7 +23,14 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken()->nullable();
+            $table->bigInteger('agent_id')->unsigned()->nullable();
+            $table->bigInteger('driver_id')->unsigned()->nullable();
+
             $table->timestamps();
+
+            $table->foreign('agent_id')->references('id')->on('agent_users');
+            $table->foreign('driver_id')->references('id')->on('driver_users');
+
         });
     }
 

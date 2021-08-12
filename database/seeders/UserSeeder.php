@@ -44,12 +44,14 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Agent',
             'nickname' => 'Agent',
+            'fullname' => 'Семёныч',
             'email' => '4@mail.com',
             'password' => Hash::make('123'),
         ]);
         DB::table('users')->insert([
             'name' => 'Driver',
             'nickname' => 'Driver',
+            'fullname' => 'Петрович',
             'email' => '5@mail.com',
             'password' => Hash::make('123'),
         ]);

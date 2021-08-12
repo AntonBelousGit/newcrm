@@ -54,5 +54,14 @@ class User extends Authenticatable
         }
         return false;
     }
+    public function driver()
+    {
+        return $this->belongsTo('App\Models\DriverUser','driver_id');
 
+    }
+    public function agent()
+    {
+        return $this->belongsTo('App\Models\AgentUser','agent_id');
+
+    }
 }
