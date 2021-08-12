@@ -300,6 +300,48 @@
 @section('script')
     <script type="text/javascript">
 
+        @can('Client')
+        function format(d) {
+            console.log(d);
+            // `d` is the original data object for the row
+            var str_start_head = '<table class="table_custom"><thead><tr><th></th>';
+            var str_end_head = '</tr></thead>';
+            var str_start_body = '<tbody>';
+            var str_start_body_row1 = '<tr><td>Estimated time:</td>';
+            var str_end_body_row1 = '</tr>'
+
+            var str_start_body_row2 = '<tr><td>Actual time:</td>';
+            var str_end_body_row2 = '</tr>'
+
+            var str_end_body = '</tbody></table>';
+
+            // d.forEach(function(item, i, arr) {
+            //     alert( i + ": " + item + " (массив:" + arr + ")" );
+            // });
+
+            for (i = 0; i < d.data.length; i++) {
+
+                chototam = d.data[i].alert;
+                var fez = ' ';
+                gdetotam = d.data[i].status;
+                if (gdetotam === 'Arrived') {
+                    var pupa = '<i class="fas fa-check"></i>';
+                } else {
+                    var pupa = '';
+                }
+
+                str_start_head = str_start_head + '<th>' + d.data[i].cargolocation.name + '(' + d.data[i].cargolocation.city + ')' + '<div class="wrap_custom_check"><label for="check1" class="custom_check">' + pupa + '</label></div></th>';
+
+                str_start_body_row1 = str_start_body_row1 + '<td >' + d.data[i].start_hour + '<span>(' + d.data[i].start_date + ')</span></td>';
+
+                str_start_body_row2 = str_start_body_row2 + '<td >' + d.data[i].end_hour + '<br><span class="table_alert">' + fez + '</span></td>';
+            }
+
+            str_start_head = str_start_head + str_end_head + str_start_body + str_start_body_row1 + str_end_body_row1 + str_start_body_row2 + str_end_body_row2 + str_end_body;
+
+            return str_start_head;
+        }
+        @else
         function format(d) {
             console.log(d);
             // `d` is the original data object for the row
@@ -344,7 +386,7 @@
 
             return str_start_head;
         }
-
+        @endcan
         $(document).ready(function () {
             var table = $('#table_id').DataTable({});
             $('#table_id tbody').on('click', 'td.details-control', function () {
