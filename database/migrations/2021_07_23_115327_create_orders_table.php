@@ -33,6 +33,7 @@ class CreateOrdersTable extends Migration
             $table->enum('container',['on','off']);
             $table->enum('return_sensor',['on','off']);
             $table->enum('return_container',['on','off']);
+            $table->integer('returned')->default(0);
             $table->string('delivery_comment')->nullable();
             $table->enum('notifications',['on','off']);
             $table->string('user');

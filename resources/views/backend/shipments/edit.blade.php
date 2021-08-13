@@ -340,14 +340,14 @@
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container" @if($orders->container == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox2">Container</label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="return_sensor" @if($orders->return_sensor == 'on') checked @endif>
-                                <label class="form-check-label" for="inlineCheckbox3">Returning the sensor</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="return_container" @if($orders->return_container == 'on') checked @endif>
-                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>
-                            </div>
+{{--                            <div class="form-check">--}}
+{{--                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="return_sensor" @if($orders->return_sensor == 'on') checked @endif>--}}
+{{--                                <label class="form-check-label" for="inlineCheckbox3">Returning the sensor</label>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-check">--}}
+{{--                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="return_container" @if($orders->return_container == 'on') checked @endif>--}}
+{{--                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>--}}
+{{--                            </div>--}}
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="notifications" @if($orders->notifications == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>

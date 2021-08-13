@@ -189,11 +189,15 @@ class TrackerController extends Controller
 
     public function time_tracker($time)
     {
-
         //Предположительное время
-        $start_time = new DateTime($time->start_time);
-        $time->start_hour = $start_time->format('H:i');
-        $time->start_date = $start_time->format('d.m.Y');
+        if (isset($time->start_time)){
+            $start_time = new DateTime($time->start_time);
+            $time->start_hour = $start_time->format('H:i');
+            $time->start_date = $start_time->format('d.m.Y');
+        }else{
+            $time->start_hour = '';
+            $time->start_date = 'set the date';
+        }
         //Фактическое время
         if (isset($time->end_time)){
             $end_time = new DateTime($time->end_time);
@@ -201,8 +205,6 @@ class TrackerController extends Controller
         }else{
             $time->end_hour = '';
         }
-
-
         return $time;
     }
 
