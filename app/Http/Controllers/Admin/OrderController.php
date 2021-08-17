@@ -26,7 +26,7 @@ class OrderController extends Controller
     public function index()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent', 'Driver', 'Client'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'tracker.cargolocation')->get();
+            $orders = Order::with('cargo', 'user', 'tracker.cargolocation')->where('status_id','!=',6)->get();
             $title = 'All Shipments';
             return view('backend.shipments.index', compact('orders', 'title'));
         }
@@ -240,6 +240,7 @@ class OrderController extends Controller
 //            dd($lupa);
 
             $status = ProductStatus::all();
+
             $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
 
@@ -298,6 +299,7 @@ class OrderController extends Controller
 
             if (isset($request->Package)) {
                 foreach ($request->Package as $option_key) {
+//                    dd($request->Package);
                     if ($option_key['id']) {
                         $cargo = Cargo::findOrFail($option_key['id']);
                         $cargo->type = $option_key['type'];
@@ -329,6 +331,32 @@ class OrderController extends Controller
                     }
                 }
             }
+
+
+            if ($request->start) {
+                $tracker_start = Tracker::with('cargolocation')->where('order_id', $order->id)->where('position', '0')->first();
+                $start = $request->start;
+                if (!is_null($start['start_time'])) {
+                    $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
+                }
+                if (!is_null($start['end_time'])) {
+                    $tracker_start->end_time = str_replace('T', ' ', $start['end_time']);
+                    $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : 'ok';
+
+                }
+                if (!is_null($start['end_time']) && !empty($start['signed']))
+                {
+//                    dd(isset($start['signed']));
+                    $tracker_start->signed = $start['signed'];
+                    $tracker_start->status = 'Arrived';
+                    $order->status_id = 3;
+                    $order->update();
+                }
+
+                $tracker_start->update();
+
+            }
+
             if (isset($request->time)) {
                 foreach ($request->time as $option_key) {
                     if (isset($option_key['id'])) {
@@ -341,11 +369,12 @@ class OrderController extends Controller
                         }
                         if (!is_null($option_key['end_time'])) {
                             $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
-                        }
-                        if (!is_null($option_key['end_time']) && $option_key['status'] == 'Arrived') {
                             $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
+                            $tracker->status = 'Arrived';
+                            $order->status_id = 4;
+                            $order->update();
                         }
-                        $tracker->status = $option_key['status'];
+
                         $tracker->update();
                     } else {
                         $tracker = new Tracker();
@@ -357,50 +386,44 @@ class OrderController extends Controller
                         }
                         if (!is_null($option_key['end_time'])) {
                             $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
-                        }
-                        if (!is_null($option_key['end_time']) && $option_key['status'] == 'Arrived') {
                             $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : '';
+                            $tracker->status = 'Arrived';
+                            $order->status_id = 4;
+                            $order->update();
                         }
-                        $tracker->status = $option_key['status'];
+
                         $tracker->save();
                     }
                 }
             }
 
-            if ($request->start) {
-                $tracker_start = Tracker::with('cargolocation')->where('order_id', $order->id)->where('position', '0')->first();
-                $start = $request->start;
-                if (!is_null($start['start_time'])) {
-                    $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
-                }
-                if (!is_null($start['end_time'])) {
-                    $tracker_start->end_time = str_replace('T', ' ', $start['end_time']);
-                }
-                if (!is_null($start['end_time']) && $start['status'] == 'Arrived') {
-                    $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : 'ok';
-                }
-                $tracker_start->status = $start['status'];
-
-                $tracker_start->update();
-            }
             if ($request->end) {
                 $tracker_end = Tracker::with('cargolocation')->where('order_id', $order->id)->where('position', '2')->first();
                 $end = $request->end;
+                $tracker_end->signed = '';
                 if (!is_null($end['start_time'])) {
                     $tracker_end->start_time = str_replace('T', ' ', $end['start_time']);
                 }
                 if (!is_null($end['end_time'])) {
                     $tracker_end->end_time = str_replace('T', ' ', $end['end_time']);
-                }
-                if (!is_null($start['end_time']) && $start['status'] == 'Arrived') {
                     $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
+                    $tracker_end->signed = $end['signed'];
+                    $tracker_end->status = 'Arrived';
+                    $order->status_id = 5;
+                    $order->update();
                 }
-                $tracker_end->status = $end['status'];
-                $tracker_end->signed = $request->signed ?? '';
+                if (!is_null($request->checkout_number)) {
+
+                    $order->checkout_number = $request->checkout_number;
+                    $order->status_id = 6;
+                    $order->update();
+                }
+
 
 
                 $tracker_end->update();
             }
+
 
             if ($request->shipper_address_id) {
                 $tracker_start = Tracker::with('cargolocation')->where('order_id', $order->id)->where('position', '0')->first();
@@ -461,12 +484,12 @@ class OrderController extends Controller
     public function in_work()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', 3)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', 2)->get();
             $title = 'Accepted in work';
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
         }
         if (Gate::any(['Agent', 'Driver'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', 3)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', 2)->get();
             $title = 'Accepted in work';
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
 
@@ -477,9 +500,19 @@ class OrderController extends Controller
     public function delivered()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 4)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 5)->get();
             $title = 'Delivered';
             return view('backend.shipments.index-delivered', compact('orders', 'title'));
+        }
+        return abort(403);
+    }
+
+    public function archives()
+    {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 6)->get();
+            $title = 'Archives';
+            return view('backend.shipments.index', compact('orders', 'title'));
         }
         return abort(403);
     }

@@ -44,18 +44,6 @@
                     </a>
                 </li>
             @endcan
-            @canany(['SuperUser','Manager','OPS','Agent'], Auth::user())
-
-                <li class="menu-item " aria-haspopup="true">
-                    <a href="{{route('admin.orders.in_processing')}}" class="menu-link">
-                        <i class="menu-bullet menu-bullet-dot">
-                            <span></span>
-                        </i>
-                        <span class="menu-text">In processing</span>
-
-                    </a>
-                </li>
-            @endcan
             @canany(['SuperUser','Manager','OPS','Agent','Driver'], Auth::user())
                 <li class="menu-item " aria-haspopup="true">
                     <a href="{{route('admin.orders.in_work')}}" class="menu-link">
@@ -78,17 +66,28 @@
                     </a>
                 </li>
             @endcan
-                @canany(['SuperUser','Manager','OPS'], Auth::user())
-                    <li class="menu-item " aria-haspopup="true">
-                        <a href="{{route('admin.orders.return_job')}}" class="menu-link">
-                            <i class="menu-bullet menu-bullet-dot">
-                                <span></span>
-                            </i>
-                            <span class="menu-text">Return Job</span>
+            @canany(['SuperUser','Manager','OPS'], Auth::user())
+                <li class="menu-item " aria-haspopup="true">
+                    <a href="{{route('admin.orders.return_job')}}" class="menu-link">
+                        <i class="menu-bullet menu-bullet-dot">
+                            <span></span>
+                        </i>
+                        <span class="menu-text">Return Job</span>
 
-                        </a>
-                    </li>
-                @endcan
+                    </a>
+                </li>
+            @endcan
+            @canany(['SuperUser','Manager','OPS'], Auth::user())
+                <li class="menu-item " aria-haspopup="true">
+                    <a href="{{route('admin.orders.archives')}}" class="menu-link">
+                        <i class="menu-bullet menu-bullet-dot">
+                            <span></span>
+                        </i>
+                        <span class="menu-text">Archives</span>
+
+                    </a>
+                </li>
+            @endcan
 
         </ul>
     </div>

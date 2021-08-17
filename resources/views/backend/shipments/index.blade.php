@@ -255,14 +255,7 @@
                                 <th>{{$shipment->locations}}</th>
 
                                     @php
-                                        if($shipment->status_id == 3 || $shipment->status_id == 4 )
-                                            {
-                                                echo '<th>'.$shipment->substatus->name.'</th>';
-                                            }
-                                        else
-                                            {
-                                                echo '<th>'.$shipment->status->name.'</th>';
-                                            }
+                                        echo '<th>'.$shipment->status->name.'</th>';
                                     @endphp
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">

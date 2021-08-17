@@ -15,9 +15,10 @@ class StatusSeeder extends Seeder
     public function run()
     {
         ProductStatus::create(['name'=>'New order']);
-        ProductStatus::create(['name'=>'In processing']);
         ProductStatus::create(['name'=>'Accepted in work']);
+        ProductStatus::create(['name'=>'Picked-up']);
+        ProductStatus::create(['name'=>'In Transit']);
         ProductStatus::create(['name'=>'Delivered']);
-        ProductStatus::create(['name'=>'В подборе']);
+        ProductStatus::create(['name'=>'Invoiced']);
     }
 }
