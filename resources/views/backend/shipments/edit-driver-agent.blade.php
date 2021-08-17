@@ -371,17 +371,14 @@
                                     <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label>Status:</label>
-                                    {{--                                    @dd($tracker_start->status)--}}
-                                    <select id="change-country-to" disabled class="form-control ">
-                                        <option value="Awaiting arrival" @if($tracker_start->status == 'Awaiting arrival') selected @endif>Awaiting arrival</option>
-                                        <option value="Arrived" @if($tracker_start->status == 'Arrived') selected @endif>Arrived</option>
-                                    </select>
+                                <div class="col-md-3" id="actual_time_start">
+                                    <label>Signed:</label><input placeholder="Signed" type="text" name="start[signed]"
+                                                                 class="form-control" value="{{$tracker_start->signed}}"/>
+                                    <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"  name="start[status_arrival]" @if($tracker_start->status == 'Arrived') disabled checked @endif>
+                                        <input class="form-check-input" type="checkbox" id="actual_time" name="start[status_arrival]" @if($tracker_start->status == 'Arrived') disabled checked @endif>
                                         <label class="form-check-label" >Arrival</label>
                                     </div>
                                 </div>
@@ -423,10 +420,6 @@
                                                 <div class="mb-2 d-md-none"></div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Status:</label>
-                                                <input  placeholder="Start time" type="text" disabled class="form-control clear-value-data" value="{{ $tracker->status }}" required/>
-                                            </div>
-                                            <div class="col-md-4">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox"  name="status_arrival" @if( $tracker->status == 'Arrived') disabled checked @endif>
                                                     <label class="form-check-label" >Arrival</label>
@@ -463,16 +456,14 @@
                                     <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label>Status:</label>
-                                    <select id="change-country-to" disabled class="form-control ">
-                                        <option value="Awaiting arrival" @if($tracker_end->status == 'Awaiting arrival') selected @endif>Awaiting arrival</option>
-                                        <option value="Arrived" @if($tracker_end->status == 'Arrived') selected @endif>Arrived</option>
-                                    </select>
+                                <div class="col-md-3 tracker_append" id="actual-time-end-signed">
+                                    <label>Signed:</label><input placeholder="Signed" type="text" name="end[signed]"
+                                                                 class="form-control " value="{{$tracker_end->signed}}"/>
+                                    <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"  name="end[status_arrival]" @if($tracker_end->status == 'Arrived') disabled checked @endif>
+                                    <div class="form-check" id="actual_time_end">
+                                        <input class="form-check-input"  type="checkbox"  name="end[status_arrival]" @if($tracker_end->status == 'Arrived') disabled checked @endif>
                                         <label class="form-check-label" >Arrival</label>
                                     </div>
                                 </div>
@@ -854,6 +845,14 @@
                 maxboostedstep: 10000000,
                 initval: 1,
             });
+
+            $('#actual_time').on('click', function () {
+                $('#actual_time_start input').attr("required", "required");
+            })
+            $('#actual_time_end').on('change', function () {
+                console.log('Залупа');
+                $('#actual-time-end-signed input').attr("required", "required");
+            })
 
             $('.clear-value-datatime').click(function (){
                 $('.zakupak').last().find('.col-md-4').find('.clear-value-data').removeAttr('value');

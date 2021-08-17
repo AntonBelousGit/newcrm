@@ -489,7 +489,7 @@ class OrderController extends Controller
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
         }
         if (Gate::any(['Agent', 'Driver'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', 2)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver')->whereIn('status_id', [2,3,4])->get();
             $title = 'Accepted in work';
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
 
@@ -558,26 +558,14 @@ class OrderController extends Controller
                     }
                     $tracker_start->end_time = now();
                     $tracker_start->status = 'Arrived';
+                    $tracker_start->signed = $request->start['signed'];
 
                     if ($tracker_start->end_time > $tracker_start->start_time) {
                         $tracker_start->alert = 'bad';
                     }
+                    $orders->status_id = 3;
+                    $orders->update();
                     $tracker_start->update();
-                }
-            }
-            if ($request->end) {
-                if (isset($request->end['status_arrival'])) {
-                    $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
-                    if ($tracker_end->status == 'Arrival') {
-                        return abort(403);
-                    }
-                    $tracker_end->end_time = now();
-                    $tracker_end->status = 'Arrived';
-
-                    if ($tracker_end->end_time > $tracker_end->start_time) {
-                        $tracker_end->alert = 'bad';
-                    }
-                    $tracker_end->update();
                 }
             }
             if (isset($request->time)) {
@@ -592,11 +580,33 @@ class OrderController extends Controller
                         if ($tracker->end_time > $tracker->start_time) {
                             $tracker->alert = 'bad';
                         }
-
+                        $orders->status_id = 4;
+                        $orders->update();
                         $tracker->update();
                     }
                 }
             }
+            if ($request->end) {
+                if (isset($request->end['status_arrival'])) {
+                    $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
+                    if ($tracker_end->status == 'Arrival') {
+                        return abort(403);
+                    }
+                    $tracker_end->end_time = now();
+                    $tracker_end->status = 'Arrived';
+
+                    $tracker_end->signed = $request->end['signed'];
+
+                    if ($tracker_end->end_time > $tracker_end->start_time) {
+                        $tracker_end->alert = 'bad';
+                    }
+                    $orders->status_id = 5;
+                    $orders->update();
+                    $tracker_end->update();
+                }
+            }
+
+
             return redirect()->route('admin.orders.in_work');
 
         }

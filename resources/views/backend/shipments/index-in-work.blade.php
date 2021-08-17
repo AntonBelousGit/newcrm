@@ -84,7 +84,7 @@
 
                                     <th>{{$shipment->locations}}</th>
 
-                                    <th>{{$shipment->substatus->name}}</th>
+                                    <th>{{$shipment->status->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -151,7 +151,7 @@
 
                                     <th>{{$shipment->locations}}</th>
 
-                                    <th>{{$shipment->substatus->name}}</th>
+                                    <th>{{$shipment->status->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -193,7 +193,7 @@
 
                                     <th>{{$shipment->locations}}</th>
 
-                                    <th>{{$shipment->substatus->name}}</th>
+                                    <th>{{$shipment->status->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -227,7 +227,7 @@
 
                                 <th>{{$shipment->locations}}</th>
 
-                                <th>{{$shipment->substatus->name}}</th>
+                                <th>{{$shipment->status->name}}</th>
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
