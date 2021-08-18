@@ -49,7 +49,7 @@
             <table id="table_id" class="">
                 <thead>
                 <tr>
-                    <th>Number order</th>
+                    <th>№</th>
                     <th>NWB number</th>
                     <th>Location</th>
                     <th>Mission</th>

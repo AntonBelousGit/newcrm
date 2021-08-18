@@ -52,11 +52,10 @@
                 <table id="table_id" class="">
                     <thead>
                     <tr>
-                        <th>Number order</th>
-                        <th>Shipper</th>
-                        <th>Phone shipper</th>
-                        <th>Consignee</th>
-                        <th>Phone consignee</th>
+                        <th>№</th>
+                        <th>Shipper's company name</th>
+                        <th>Consignee's company name</th>
+                        <th>Delivery type</th>
                         <th>NWB number</th>
                         <th>Location</th>
                         <th>Status</th>
@@ -73,9 +72,14 @@
                                 <tr>
                                     <th>{{$shipment->id}}</th>
                                     <th>{{$shipment->shipper}}</th>
-                                    <th>{{$shipment->phone_shipper}}</th>
                                     <th>{{$shipment->consignee}}</th>
-                                    <th>{{$shipment->phone_consignee}}</th>
+                                    <th>
+                                        @if($shipment->returned == 0)
+                                            Job
+                                        @else
+                                            Return Job
+                                        @endif
+                                    </th>
                                     <th>
                                         @php
                                             echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
@@ -118,46 +122,23 @@
                         @endforeach
                     @elsecan('Driver')
                         @foreach($orders as $key=>$shipment)
-
                             @can('manage-driver',$shipment)
-                                {{--                                <tr>--}}
-                                {{--                                    <th>{{$shipment->id}}</th>--}}
-                                {{--                                    <th>{{$shipment->shipper}}</th>--}}
-                                {{--                                    <th>{{$shipment->phone_shipper}}</th>--}}
-                                {{--                                    <th>{{$shipment->consignee}}</th>--}}
-                                {{--                                    <th>{{$shipment->phone_consignee}}</th>--}}
-                                {{--                                    <th>--}}
-                                {{--                                        @php--}}
-                                {{--                                            echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);--}}
-                                {{--                                        @endphp--}}
-                                {{--                                    </th>--}}
-
-                                {{--                                    <th>{{$shipment->cargolocation->name}}</th>--}}
-
-                                {{--                                    <th>{{$shipment->status->name}}</th>--}}
-                                {{--                                    <th>{{$shipment->created_at}}</th>--}}
-                                {{--                                    <td class="text-center">--}}
-                                {{--                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.show', $shipment->id)}}" title="Show">--}}
-                                {{--                                            <i class="las la-eye"></i>--}}
-                                {{--                                        </a>--}}
-                                {{--                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.orders.edit-driver', $shipment->id)}}" title="{{  ('Edit') }}">--}}
-                                {{--                                            <i class="las la-edit"></i>--}}
-                                {{--                                        </a>--}}
-                                {{--                                    </td>--}}
-
-                                {{--                                </tr>--}}
                                 <tr>
                                     <th>{{$shipment->id}}</th>
                                     <th>{{$shipment->shipper}}</th>
-                                    <th>{{$shipment->phone_shipper}}</th>
                                     <th>{{$shipment->consignee}}</th>
-                                    <th>{{$shipment->phone_consignee}}</th>
                                     <th>
                                         @php
                                             echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                         @endphp
                                     </th>
-
+                                    <th>
+                                        @if($shipment->returned == 0)
+                                            Job
+                                        @else
+                                            Return Job
+                                        @endif
+                                    </th>
                                     <th>{{$shipment->locations}}</th>
 
                                     @php
@@ -200,9 +181,14 @@
                                 <tr>
                                     <th>{{$shipment->id}}</th>
                                     <th>{{$shipment->shipper}}</th>
-                                    <th>{{$shipment->phone_shipper}}</th>
                                     <th>{{$shipment->consignee}}</th>
-                                    <th>{{$shipment->phone_consignee}}</th>
+                                    <th>
+                                        @if($shipment->returned == 0)
+                                            Job
+                                        @else
+                                            Return Job
+                                        @endif
+                                    </th>
                                     <th>
                                         @php
                                             echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
@@ -243,9 +229,14 @@
                             <tr>
                                 <th>{{$shipment->id}}</th>
                                 <th>{{$shipment->shipper}}</th>
-                                <th>{{$shipment->phone_shipper}}</th>
                                 <th>{{$shipment->consignee}}</th>
-                                <th>{{$shipment->phone_consignee}}</th>
+                                <th>
+                                    @if($shipment->returned == 0)
+                                        Job
+                                    @else
+                                        Return Job
+                                    @endif
+                                </th>
                                 <th>
                                     @php
                                         echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
@@ -254,9 +245,9 @@
 
                                 <th>{{$shipment->locations}}</th>
 
-                                    @php
-                                        echo '<th>'.$shipment->status->name.'</th>';
-                                    @endphp
+                                @php
+                                    echo '<th>'.$shipment->status->name.'</th>';
+                                @endphp
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -379,6 +370,7 @@
 
             return str_start_head;
         }
+
         @endcan
         $(document).ready(function () {
             var table = $('#table_id').DataTable({});

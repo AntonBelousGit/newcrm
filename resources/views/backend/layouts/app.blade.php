@@ -185,11 +185,6 @@
 					<div class="container text-center">
 
 						<!--begin::Copyright-->
-						<div class="order-2 text-dark order-md-1">
-							<span class="mr-1 text-muted font-weight-bold">Copyright</span>
-							<a href="http://keenthemes.com/metronic" target="_blank"
-								class="text-dark-75 text-hover-primary">Spotlayer</a> <span class="mr-2 text-muted font-weight-bold"></span>
-						</div>
 
 						<!--end::Copyright-->
 
