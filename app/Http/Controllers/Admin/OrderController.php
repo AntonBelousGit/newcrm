@@ -26,7 +26,7 @@ class OrderController extends Controller
     public function index()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent', 'Driver', 'Client'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'tracker.cargolocation')->where('status_id','!=',6)->get();
+            $orders = Order::with('cargo', 'user', 'tracker.cargolocation','order')->where('status_id','!=',6)->get();
             $title = 'All Shipments';
             return view('backend.shipments.index', compact('orders', 'title'));
         }
@@ -130,7 +130,7 @@ class OrderController extends Controller
             }
 
             if ( $order->return_sensor == 'on' || $order->return_container == 'on'){
-                $this->returned_order($request);
+                $this->returned_order($request, $order->id);
             }
 
 
@@ -140,9 +140,10 @@ class OrderController extends Controller
         return abort(403);
     }
 
-    public function returned_order($request)
+    public function returned_order($request,$id)
     {
         $order = new Order();
+
         $order->shipper = $request->shipper;
         $order->phone_shipper = $request->phone_shipper;
         $order->company_shipper = $request->company_shipper;
@@ -154,6 +155,7 @@ class OrderController extends Controller
         $order->shipment_description = $request->shipment_description ?? null;
         $order->comment = $request->comment ?? null;
         $order->returned = 1;
+        $order->order_id = $id;
 //        if (!is_null($request->sending_time)) {
 //            $order->sending_time = str_replace('T', ' ', $request->sending_time);
 //        }

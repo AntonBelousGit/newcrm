@@ -86,4 +86,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\User', 'driver_id');
     }
+    public function order()
+    {
+        return $this->belongsTo(Order::class,'order_id','id');
+    }
+
 }

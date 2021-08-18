@@ -39,6 +39,7 @@ class CreateOrdersTable extends Migration
             $table->enum('notifications',['on','off']);
             $table->string('user');
 
+            $table->bigInteger('order_id')->unsigned()->nullable();
             $table->bigInteger('client_id')->unsigned()->nullable();
             $table->bigInteger('cargo_location_id')->unsigned()->nullable();
             $table->bigInteger('status_id')->unsigned()->nullable();
@@ -48,6 +49,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('shipper_address_id')->unsigned()->nullable();
             $table->bigInteger('consignee_address_id')->unsigned()->nullable();
 
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('status_id')->references('id')->on('product_statuses');
             $table->foreign('substatus_id')->references('id')->on('sub_product_statuses');
             $table->foreign('client_id')->references('id')->on('users');

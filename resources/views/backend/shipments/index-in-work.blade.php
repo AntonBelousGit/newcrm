@@ -71,13 +71,26 @@
                             @can('manage-agent',$shipment)
                                 <tr>
                                     <th>{{$shipment->id}}</th>
-                                    <th>{{$shipment->shipper}}</th>
-                                    <th>{{$shipment->consignee}}</th>
+                                    <th>{{$shipment->company_shipper}}</th>
+                                    <th>
+                                        <div class="text_table">
+                                            {{$shipment->company_consignee}}
+                                            <div class="display_none_text">
+                                                {{$shipment->consignee}}
+                                                {{$shipment->phone_consignee}}
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>
                                         @if($shipment->returned == 0)
                                             Job
                                         @else
-                                            Return Job
+                                            <div class="text_table">
+                                                Return Job
+                                                <div class="display_none_text">
+                                                    Order №: {{ $shipment->order->id}}
+                                                </div>
+                                            </div>
                                         @endif
                                     </th>
                                     <th>
@@ -115,13 +128,26 @@
                             @can('manage-driver',$shipment)
                                 <tr>
                                     <th>{{$shipment->id}}</th>
-                                    <th>{{$shipment->shipper}}</th>
-                                    <th>{{$shipment->consignee}}</th>
+                                    <th>{{$shipment->company_shipper}}</th>
+                                    <th>
+                                        <div class="text_table">
+                                            {{$shipment->company_consignee}}
+                                            <div class="display_none_text">
+                                                {{$shipment->consignee}}
+                                                {{$shipment->phone_consignee}}
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>
                                         @if($shipment->returned == 0)
                                             Job
                                         @else
-                                            Return Job
+                                            <div class="text_table">
+                                                Return Job
+                                                <div class="display_none_text">
+                                                    Order №: {{ $shipment->order->id}}
+                                                </div>
+                                            </div>
                                         @endif
                                     </th>
                                     <th>
@@ -159,13 +185,26 @@
 
                                 <tr>
                                     <th>{{$shipment->id}}</th>
-                                    <th>{{$shipment->shipper}}</th>
-                                    <th>{{$shipment->consignee}}</th>
+                                    <th>{{$shipment->company_shipper}}</th>
+                                    <th>
+                                        <div class="text_table">
+                                            {{$shipment->company_consignee}}
+                                            <div class="display_none_text">
+                                                {{$shipment->consignee}}
+                                                {{$shipment->phone_consignee}}
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>
                                         @if($shipment->returned == 0)
                                             Job
                                         @else
-                                            Return Job
+                                            <div class="text_table">
+                                                Return Job
+                                                <div class="display_none_text">
+                                                    Order №: {{ $shipment->order->id}}
+                                                </div>
+                                            </div>
                                         @endif
                                     </th>
                                     <th>
@@ -197,13 +236,26 @@
                             {{--                            @dd($orders)--}}
                             <tr>
                                 <th>{{$shipment->id}}</th>
-                                <th>{{$shipment->shipper}}</th>
-                                <th>{{$shipment->consignee}}</th>
+                                <th>{{$shipment->company_shipper}}</th>
+                                <th>
+                                    <div class="text_table">
+                                        {{$shipment->company_consignee}}
+                                        <div class="display_none_text">
+                                            {{$shipment->consignee}}
+                                            {{$shipment->phone_consignee}}
+                                        </div>
+                                    </div>
+                                </th>
                                 <th>
                                     @if($shipment->returned == 0)
                                         Job
                                     @else
-                                        Return Job
+                                        <div class="text_table">
+                                            Return Job
+                                            <div class="display_none_text">
+                                                Order №: {{ $shipment->order->id}}
+                                            </div>
+                                        </div>
                                     @endif
                                 </th>
                                 <th>

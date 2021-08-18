@@ -137,3 +137,19 @@ input[type="checkbox"]~.custom_check i {
     display: block;
     color: red;
 }
+.text_table{
+    position: relative;
+}
+.text_table:hover .display_none_text{
+    display: block;
+}
+.display_none_text{
+    display: none;
+    position: absolute;
+    padding: 15px 15px 15px 15px;
+    border-radius: 5px;
+    border: 1px solid #f2f2f2;
+    background: #f2f2f2;
+    top: 20px;
+    left: 0px;
+}
