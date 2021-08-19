@@ -476,27 +476,6 @@
                                            value="{{ $orders->status->name }}"/>
                                 @endif
                             </div>
-                            {{--                                <div id="step2">--}}
-                            {{--                                    <label></label>--}}
-
-                            {{--                                    <select id="3" name="substatus_id" class="form-control ">--}}
-                            {{--                                        <option></option>--}}
-                            {{--                                        @foreach($substatus->where('status_id',3) as $item)--}}
-                            {{--                                            <option value="{{$item->id}}" >{{$item->name}}</option>--}}
-                            {{--                                            <option value="{{$item->id}}" @if($item->id == $orders->substatus_id) selected @endif >{{$item->name}}</option>--}}
-                            {{--                                        @endforeach--}}
-                            {{--                                    </select>--}}
-                            {{--                                    <label></label>--}}
-
-                            {{--                                    <select id="4" name="substatus_id" class="form-control ">--}}
-                            {{--                                        <option></option>--}}
-                            {{--                                        @foreach($substatus->where('status_id',4) as $item)--}}
-                            {{--                                            <option value="{{$item->id}}">{{$item->name}}</option>--}}
-                            {{--                                            <option value="{{$item->id}}" @if($item->id == $orders->substatus_id) selected @endif >{{$item->name}}</option>--}}
-                            {{--                                        @endforeach--}}
-                            {{--                                    </select>--}}
-                            {{--                                </div>--}}
-
                         </div>
                     </div>
                     <hr>
@@ -537,20 +516,6 @@
                             <label>Location:</label>
                             <select id="select2" name="locations" class="form-control " @if($orders->status_id > 2) readonly @endif >
                                 <option></option>
-                                {{--                                         @php--}}
-                                {{--                                             $last_city = '';--}}
-                                {{--                                         @endphp--}}
-
-                                {{--                                     @foreach($lupa as $city )--}}
-                                {{--                                         @if($last_city != '')--}}
-                                {{--                                            <option value="{{$last_city}}-{{$city['name']}}({{$city['city']}})" @if($last_city.'-'.$city['name'] == $orders->locations ) selected @endif  >{{$last_city}}-{{$city['name']}}({{$city['city']}})</option>--}}
-                                {{--                                         @endif--}}
-                                {{--                                            <option value="{{$city['name']}}({{$city['city']}})" @if($city['name'] == $orders->locations ) selected @endif >{{$city['name']}}({{$city['city']}})</option>--}}
-                                {{--                                         @php--}}
-                                {{--                                             $last_city = $city['name'].'('.$city['city'].')';--}}
-                                {{--                                         @endphp--}}
-                                {{--                                     @endforeach--}}
-
 
                                 @php
                                     $last_city = '';
@@ -599,13 +564,28 @@
                                        value="{{$tracker_start->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
+                            <div class="col-md-3">
+                                <label>Driver:</label>
+                                <select  name="start[driver_id]" class="form-control " @if($orders->status_id > 2) readonly @endif >
+                                    <option value=""></option>
+                                    @foreach($user as $item)
+                                        @if($item->roles->first()->name == 'Driver')
+                                            <option value="{{$item->id}}"
+                                                    @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
+                                                - {{$item->roles->first()->name}}  </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                             @php
                                 if (isset($tracker_start->start_time))
                                 {
                                      $start_time = str_replace(' ','T', $tracker_start->start_time);
                                 }
                                 $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
+                                $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);
                             @endphp
+
                             <div class="col-md-3">
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[start_time]"
@@ -616,6 +596,12 @@
                                 <label>Actual Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[end_time]"
                                        class="form-control" value="{{ $end_time }}"/>
+                                <div class="mb-2 d-md-none"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Left Time:</label>
+                                <input placeholder="Start time" type="datetime-local" name="start[left_the_point]"
+                                       class="form-control" value="{{ $left_the_point }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time_start">
@@ -646,6 +632,19 @@
                                                    class="form-control" value="{{$tracker->address}}" required/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
+                                        <div class="col-md-3">
+                                            <label>Driver:</label>
+                                            <select name="driver_id" class="form-control " @if($orders->status_id > 2) readonly @endif >
+                                                <option value=""></option>
+                                                @foreach($user as $item)
+                                                    @if($item->roles->first()->name == 'Driver')
+                                                        <option value="{{$item->id}}"
+                                                                @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
+                                                            - {{$item->roles->first()->name}}  </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div class="col-md-4">
                                             @php
                                                 if (isset($tracker->start_time))
@@ -653,6 +652,7 @@
                                                      $start_time = str_replace(' ','T', $tracker->start_time);
                                                 }
                                                 $end_time=is_null($tracker->end_time)?'':str_replace(' ','T', $tracker->end_time);
+                                                $left_the_point=is_null($tracker->left_the_point)?'':str_replace(' ','T', $tracker->left_the_point);
                                             @endphp
                                             <label>Estimated time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="start_time"
@@ -664,6 +664,12 @@
                                             <label>Actual Time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="end_time"
                                                    class="form-control clear-value-data" value="{{$end_time}}"/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Left Time:</label>
+                                            <input placeholder="Left Time" type="datetime-local" name="left_the_point"
+                                                   class="form-control clear-value-data" value="{{$left_the_point}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="row">
@@ -697,6 +703,18 @@
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-4">
+                                        <label>Driver:</label>
+                                        <select  name="driver_id" class="form-control " @if($orders->status_id > 2) readonly @endif >
+                                            <option value=""></option>
+                                            @foreach($user as $item)
+                                                @if($item->roles->first()->name == 'Driver')
+                                                    <option value="{{$item->id}}">{{$item->nickname}}
+                                                        - {{$item->roles->first()->name}}  </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
                                         <label>Estimated time:</label>
                                         <input placeholder="Start time" type="datetime-local" name="start_time"
                                                class="form-control clear-value-data"/>
@@ -705,6 +723,12 @@
                                     <div class="col-md-4">
                                         <label>Actual Time:</label>
                                         <input placeholder="Start time" type="datetime-local" name="end_time"
+                                               class="form-control clear-value-data"/>
+                                        <div class="mb-2 d-md-none"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Left Time:</label>
+                                        <input placeholder="Left Time" type="datetime-local" name="left_the_point"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
@@ -734,6 +758,19 @@
                                 <input placeholder="Start time" type="text" disabled class="form-control"
                                        value="{{$tracker_end->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Driver:</label>
+                                <select name="end[driver_id]" class="form-control " @if($orders->status_id > 2) readonly @endif >
+                                    <option value=""></option>
+                                    @foreach($user as $item)
+                                        @if($item->roles->first()->name == 'Driver')
+                                            <option value="{{$item->id}}"
+                                                    @if($item->id == $tracker_end->driver_id) selected @endif >{{$item->nickname}}
+                                                - {{$item->roles->first()->name}}  </option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                             @php
                                 if (isset($tracker_end->start_time))
