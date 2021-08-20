@@ -22,12 +22,13 @@ class CreateTrackersTable extends Migration
             $table->timestamp('end_time')->nullable();
             $table->timestamp('left_the_point')->nullable();
             $table->bigInteger('driver_id')->unsigned()->nullable();
-
+            $table->bigInteger('tracker_id')->unsigned()->nullable();
             $table->string('signed')->nullable();
             $table->enum('status',['Arrived','Awaiting arrival'])->default('Awaiting arrival');
             $table->enum('alert',['ok','bad'])->default('ok');
             $table->enum('position',[0,1,2])->default(1);
 
+            $table->foreign('tracker_id')->references('id')->on('trackers');
             $table->foreign('location_id')->references('id')->on('cargo_locations');
             $table->foreign('driver_id')->references('id')->on('users');
 

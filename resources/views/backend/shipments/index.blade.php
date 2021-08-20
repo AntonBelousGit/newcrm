@@ -297,7 +297,14 @@
                                 <th>{{$shipment->locations}}</th>
 
                                 @php
-                                    echo '<th>'.$shipment->status->name.'</th>';
+                                    if ($shipment->status_id == 8)
+                                    {
+                                      echo '<th>'.$shipment->tracker[1]->cargolocation->name.'</th>';
+                                    }
+                                    else
+                                    {
+                                       echo '<th>'.$shipment->status->name.'</th>';
+                                    }
                                 @endphp
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">

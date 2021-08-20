@@ -32,9 +32,9 @@ class TrackersRepository
 
     }
 
-    public function updateStartTracker($order, $request)
+    public function updateStartTracker($order, $request, $many)
     {
-
+//        dd($many);
         $tracker_start = $this->getStartTracker($order);
         $start = $request->start;
         $tracker_start->driver_id = $start['driver_id'] ?? null;
@@ -52,7 +52,13 @@ class TrackersRepository
         if (!is_null($start['end_time']) && !empty($start['signed'])) {
             $tracker_start->signed = $start['signed'];
             $tracker_start->status = 'Arrived';
-            $order->status_id = 3;
+
+            if ($many == false) {
+                $order->status_id = 5;
+            } else {
+                $order->status_id = 3;
+            }
+
             $order->update();
         }
 
@@ -73,22 +79,24 @@ class TrackersRepository
             $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
             $tracker_end->signed = $end['signed'];
             $tracker_end->status = 'Arrived';
-            $order->status_id = 5;
+            $order->status_id = 6;
             $order->update();
         }
         if (!is_null($request->checkout_number)) {
 
             $order->checkout_number = $request->checkout_number;
-            $order->status_id = 6;
+            $order->status_id = 7;
             $order->update();
         }
         $tracker_end->update();
     }
 
-    public function updateTransitionalTracker($order, $option_key)
+    public function updateTransitionalTracker($order, $option_key, $many)
     {
         $tracker = $this->getTrackerById($option_key['id']);
 
+        $pizda = Tracker::where('order_id', $order->id)->where('position', '1')->get();
+        
         $tracker->order_id = $order->id;
         $tracker->driver_id = $option_key['driver_id'] ?? null;
         $tracker->location_id = $option_key['cargo_location'];
@@ -96,21 +104,22 @@ class TrackersRepository
         if (!is_null($option_key['start_time'])) {
             $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
         }
-        if (!is_null($option_key['left_the_point'])) {
-            $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
-        }
         if (!is_null($option_key['end_time'])) {
             $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
             $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
             $tracker->status = 'Arrived';
-            $order->status_id = 4;
+            $order->status_id = 8;
             $order->update();
         }
-
+        if (!is_null($option_key['left_the_point'])) {
+            $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
+            $order->status_id = 5;
+            $order->update();
+        }
         $tracker->update();
     }
 
-    public function createTransitionalTracker($order, $option_key)
+    public function createTransitionalTracker($order, $option_key, $many)
     {
         $tracker = new Tracker();
         $tracker->order_id = $order->id;
@@ -127,7 +136,12 @@ class TrackersRepository
             $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
             $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : '';
             $tracker->status = 'Arrived';
-            $order->status_id = 4;
+            $order->status_id = 8;
+            $order->update();
+        }
+        if (!is_null($option_key['left_the_point'])) {
+            $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
+            $order->status_id = 5;
             $order->update();
         }
 

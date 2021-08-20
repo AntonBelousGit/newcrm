@@ -16,9 +16,9 @@ class TrackerService
         $this->trackerRepository = $trackerRepository;
     }
 
-    public function updateStartTracker($order, $request)
+    public function updateStartTracker($order, $request, $many)
     {
-        $this->trackerRepository->updateStartTracker($order, $request);
+        $this->trackerRepository->updateStartTracker($order, $request, $many);
     }
 
     public function updateEndTracker($order, $request)
@@ -41,13 +41,13 @@ class TrackerService
         $this->trackerRepository->getTrackerById($id);
     }
 
-    public function updateTransitionalTracker($order,$option_key)
+    public function updateTransitionalTracker($order, $option_key, $many)
     {
-        $this->trackerRepository->updateTransitionalTracker($order,$option_key);
+        $this->trackerRepository->updateTransitionalTracker($order, $option_key,$many);
     }
 
-    public function createTransitionalTracker($order,$option_key)
+    public function createTransitionalTracker($order, $option_key, $many)
     {
-        $this->trackerRepository->createTransitionalTracker($order,$option_key);
+        $this->trackerRepository->createTransitionalTracker($order, $option_key,$many);
     }
 }

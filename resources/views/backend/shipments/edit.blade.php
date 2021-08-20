@@ -803,7 +803,7 @@
                         </div>
 
                     </div>
-                    @if($orders->status_id >= 5)
+                    @if($orders->status_id == 6)
                         <br>
                             <div class="">
                                 <div class="col-md-12">

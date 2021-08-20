@@ -247,26 +247,36 @@ class OrderController extends Controller
             }
 
 
-            if ($request->start) {
-                $this->trakerService->updateStartTracker($order, $request);
-            }
+//            dd(isset($request->time));
 
-            if (isset($request->time)) {
+            if (!isset($request->time)) {
+
+                $this->trakerService->updateStartTracker($order, $request,false);
+                $this->trakerService->updateEndTracker($order, $request);
+
+            } elseif (count($request->time) == 1) {
+                $this->trakerService->updateStartTracker($order, $request, true);
+
                 foreach ($request->time as $option_key) {
-//                    dd(count($request->time));
-                    if (isset($option_key['id'])) {
 
-                        $this->trakerService->updateTransitionalTracker($order, $option_key);
-
-                    } else {
-
-                        $this->trakerService->createTransitionalTracker($order, $option_key);
-
+                    if (!isset($option_key['id'])) {
+                        $this->trakerService->createTransitionalTracker($order, $option_key,false);
+                    } else if (isset($option_key['id'])) {
+                        $this->trakerService->updateTransitionalTracker($order, $option_key,false);
                     }
                 }
-            }
+                $this->trakerService->updateEndTracker($order, $request);
+            } elseif (count($request->time) > 1) {
+                $this->trakerService->updateStartTracker($order, $request,true);
 
-            if ($request->end) {
+                foreach ($request->time as $option_key) {
+//                    dd(count($request->time));
+                    if (!isset($option_key['id'])) {
+                        $this->trakerService->createTransitionalTracker($order, $option_key,true);
+                    } else if (isset($option_key['id'])) {
+                        $this->trakerService->updateTransitionalTracker($order, $option_key,true);
+                    }
+                }
                 $this->trakerService->updateEndTracker($order, $request);
             }
 

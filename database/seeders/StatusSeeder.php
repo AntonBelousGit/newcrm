@@ -17,10 +17,10 @@ class StatusSeeder extends Seeder
         ProductStatus::create(['name'=>'New order']);
         ProductStatus::create(['name'=>'Accepted in work']);
         ProductStatus::create(['name'=>'Picked-up']);
-        ProductStatus::create(['name'=>'In Transit']);
+        ProductStatus::create(['name'=>'>']);
+        ProductStatus::create(['name'=>'POD Pending']);
         ProductStatus::create(['name'=>'Delivered']);
         ProductStatus::create(['name'=>'Invoiced']);
-        ProductStatus::create(['name'=>'POD Pending']);
-
+        ProductStatus::create(['name'=>'Point']);
     }
 }
