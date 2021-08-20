@@ -13,6 +13,7 @@ use App\Models\User;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\OrderService;
+use App\Services\TrackerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -21,10 +22,12 @@ class OrderController extends Controller
 {
 
     protected $orderService;
+    protected $trakerService;
 
-    public function __construct(OrderService $orderService)
+    public function __construct(OrderService $orderService, TrackerService $trackerService)
     {
         $this->orderService = $orderService;
+        $this->trakerService = $trackerService;
     }
 
     /**
@@ -107,10 +110,9 @@ class OrderController extends Controller
                 $cargo->save();
             }
 
-            if ( $order->return_sensor == 'on' || $order->return_container == 'on'){
+            if ($order->return_sensor == 'on' || $order->return_container == 'on') {
                 $this->returned_order($request, $order->id);
             }
-
 
 
             return redirect()->route('admin.orders.index');
@@ -118,10 +120,10 @@ class OrderController extends Controller
         return abort(403);
     }
 
-    public function returned_order($request,$id)
+    public function returned_order($request, $id)
     {
 
-        $order = $this->orderService->saveReturnedOrder($request,$id);
+        $order = $this->orderService->saveReturnedOrder($request, $id);
 
         if ($request->shipper_address_id) {
             $start_tracker = new Tracker;
@@ -189,7 +191,7 @@ class OrderController extends Controller
             $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
 
-            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa','trackers_count'));
+            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count'));
         }
         return abort(403);
     }
@@ -206,7 +208,7 @@ class OrderController extends Controller
 //        dd($request);
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
-            $order = $this->orderService->findAndUpdate($request,$id);
+            $order = $this->orderService->findAndUpdate($request, $id);
 
 
             if (isset($request->Package)) {
@@ -246,105 +248,26 @@ class OrderController extends Controller
 
 
             if ($request->start) {
-                $tracker_start = Tracker::with('cargolocation')->where('order_id', $order->id)->where('position', '0')->first();
-                $start = $request->start;
-                $tracker_start->driver_id = $start['driver_id'] ?? null;
-                if (!is_null($start['start_time'])) {
-                    $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
-                }
-                if (!is_null($start['left_the_point'])) {
-                    $tracker_start->left_the_point = str_replace('T', ' ', $start['left_the_point']);
-                }
-                if (!is_null($start['end_time'])) {
-                    $tracker_start->end_time = str_replace('T', ' ', $start['end_time']);
-                    $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : 'ok';
-
-                }
-                if (!is_null($start['end_time']) && !empty($start['signed']))
-                {
-//                    dd(isset($start['signed']));
-                    $tracker_start->signed = $start['signed'];
-                    $tracker_start->status = 'Arrived';
-                    $order->status_id = 3;
-                    $order->update();
-                }
-
-                $tracker_start->update();
-
+                $this->trakerService->updateStartTracker($order, $request);
             }
 
             if (isset($request->time)) {
                 foreach ($request->time as $option_key) {
 //                    dd(count($request->time));
                     if (isset($option_key['id'])) {
-                        $tracker = Tracker::findOrFail($option_key['id']);
-                        $tracker->order_id = $order->id;
-                        $tracker->driver_id = $option_key['driver_id'] ?? null;
-                        $tracker->location_id = $option_key['cargo_location'];
-                        $tracker->address = $option_key['address'];
-                        if (!is_null($option_key['start_time'])) {
-                            $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
-                        }
-                        if (!is_null($option_key['left_the_point'])) {
-                            $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
-                        }
-                        if (!is_null($option_key['end_time'])) {
-                            $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
-                            $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
-                            $tracker->status = 'Arrived';
-                            $order->status_id = 4;
-                            $order->update();
-                        }
 
-                        $tracker->update();
+                        $this->trakerService->updateTransitionalTracker($order, $option_key);
+
                     } else {
-                        $tracker = new Tracker();
-                        $tracker->order_id = $order->id;
-                        $tracker->driver_id = $option_key['driver_id'] ?? null;
-                        $tracker->location_id = $option_key['cargo_location'];
-                        $tracker->address = $option_key['address'];
-                        if (!is_null($option_key['start_time'])) {
-                            $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
-                        }
-                        if (!is_null($option_key['left_the_point'])) {
-                            $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
-                        }
-                        if (!is_null($option_key['end_time'])) {
-                            $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
-                            $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : '';
-                            $tracker->status = 'Arrived';
-                            $order->status_id = 4;
-                            $order->update();
-                        }
 
-                        $tracker->save();
+                        $this->trakerService->createTransitionalTracker($order, $option_key);
+
                     }
                 }
             }
 
             if ($request->end) {
-                $tracker_end = Tracker::with('cargolocation')->where('order_id', $order->id)->where('position', '2')->first();
-                $end = $request->end;
-                $tracker_end->signed = '';
-                $tracker_end->driver_id = $end['driver_id'] ?? null;
-                if (!is_null($end['start_time'])) {
-                    $tracker_end->start_time = str_replace('T', ' ', $end['start_time']);
-                }
-                if (!is_null($end['end_time'])) {
-                    $tracker_end->end_time = str_replace('T', ' ', $end['end_time']);
-                    $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
-                    $tracker_end->signed = $end['signed'];
-                    $tracker_end->status = 'Arrived';
-                    $order->status_id = 5;
-                    $order->update();
-                }
-                if (!is_null($request->checkout_number)) {
-
-                    $order->checkout_number = $request->checkout_number;
-                    $order->status_id = 6;
-                    $order->update();
-                }
-                $tracker_end->update();
+                $this->trakerService->updateEndTracker($order, $request);
             }
 
 
@@ -412,7 +335,7 @@ class OrderController extends Controller
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
         }
         if (Gate::any(['Agent', 'Driver'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->whereIn('status_id', [2,3,4])->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver')->whereIn('status_id', [2, 3, 4])->get();
             $title = 'Accepted in work';
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
 
@@ -545,6 +468,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+//
     }
 }
