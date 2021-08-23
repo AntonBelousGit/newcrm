@@ -85,7 +85,7 @@ class TrackersRepository
         if (!is_null($request->checkout_number)) {
 
             $order->checkout_number = $request->checkout_number;
-            $order->status_id = 7;
+            $order->status_id = 9;
             $order->update();
         }
         $tracker_end->update();

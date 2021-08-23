@@ -328,18 +328,6 @@ class OrderController extends Controller
         return abort(403);
     }
 
-    public function in_processing()
-    {
-        if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent')->where('status_id', 2)->get();
-
-            $title = 'In processing';
-            return view('backend.shipments.index', compact('orders', 'title'));
-        }
-
-        return abort(403);
-    }
-
     public function in_work()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
@@ -359,7 +347,7 @@ class OrderController extends Controller
     public function delivered()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 5)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 6)->get();
             $title = 'Delivered';
             return view('backend.shipments.index-delivered', compact('orders', 'title'));
         }
@@ -369,7 +357,7 @@ class OrderController extends Controller
     public function archives()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 6)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 9)->get();
             $title = 'Archives';
             return view('backend.shipments.index', compact('orders', 'title'));
         }
