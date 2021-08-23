@@ -96,7 +96,9 @@ class TrackersRepository
         $tracker = $this->getTrackerById($option_key['id']);
 
         $pizda = Tracker::where('order_id', $order->id)->where('position', '1')->get();
-        
+
+//        dd($option_key);
+
         $tracker->order_id = $order->id;
         $tracker->driver_id = $option_key['driver_id'] ?? null;
         $tracker->location_id = $option_key['cargo_location'];

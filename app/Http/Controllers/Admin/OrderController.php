@@ -255,13 +255,16 @@ class OrderController extends Controller
                 $this->trakerService->updateEndTracker($order, $request);
 
             } elseif (count($request->time) == 1) {
-                $this->trakerService->updateStartTracker($order, $request, true);
 
+
+                $this->trakerService->updateStartTracker($order, $request, true);
                 foreach ($request->time as $option_key) {
 
                     if (!isset($option_key['id'])) {
                         $this->trakerService->createTransitionalTracker($order, $option_key,false);
                     } else if (isset($option_key['id'])) {
+//                        dd($option_key['id']);
+
                         $this->trakerService->updateTransitionalTracker($order, $option_key,false);
                     }
                 }

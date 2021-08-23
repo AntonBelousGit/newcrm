@@ -299,7 +299,10 @@
                                 @php
                                     if ($shipment->status_id == 8)
                                     {
-                                      echo '<th>'.$shipment->tracker[1]->cargolocation->name.'</th>';
+                                      echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                    }
+                                    elseif ($shipment->status_id == 3){
+                                       echo '<th>'.$shipment->status->name.' ->'.'</th>';
                                     }
                                     else
                                     {
