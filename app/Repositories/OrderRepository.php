@@ -18,7 +18,7 @@ class OrderRepository
     }
 
     public function getAll(){
-        return $this->order->with('cargo', 'user', 'tracker.cargolocation','order')->where('status_id','!=',6)->get();
+        return $this->order->with('cargo', 'user', 'tracker.cargolocation','order')->where('status_id','!=',9)->get();
     }
     public function saveOrder($request){
 
