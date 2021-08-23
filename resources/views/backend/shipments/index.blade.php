@@ -299,10 +299,18 @@
                                 @php
                                     if ($shipment->status_id == 8)
                                     {
-                                      echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                        if ($shipment->tracker->where('position','1')->count() == 1){
+                                            echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                        }
+                                        else{
+                                            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.'</th>';
+                                        }
                                     }
                                     elseif ($shipment->status_id == 3){
-                                       echo '<th>'.$shipment->status->name.' ->'.'</th>';
+                                       echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                    }
+                                    elseif ($shipment->status_id == 4){
+                                       echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
                                     }
                                     else
                                     {

@@ -95,29 +95,60 @@ class TrackersRepository
     {
         $tracker = $this->getTrackerById($option_key['id']);
 
-        $pizda = Tracker::where('order_id', $order->id)->where('position', '1')->get();
-
 //        dd($option_key);
 
         $tracker->order_id = $order->id;
         $tracker->driver_id = $option_key['driver_id'] ?? null;
         $tracker->location_id = $option_key['cargo_location'];
         $tracker->address = $option_key['address'];
-        if (!is_null($option_key['start_time'])) {
-            $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
+
+        if (!$many) {
+
+            if (!is_null($option_key['start_time'])) {
+                $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
+            }
+            if (!is_null($option_key['end_time'])) {
+                $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
+                $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
+                $tracker->status = 'Arrived';
+                $order->status_id = 8;
+                $order->update();
+            }
+            if (!is_null($option_key['left_the_point'])) {
+                $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
+                $order->status_id = 5;
+                $order->update();
+            }
+        } else {
+            if (!is_null($option_key['start_time'])) {
+                $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
+            }
+            if (!is_null($option_key['end_time'])) {
+                $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
+                $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
+                $tracker->status = 'Arrived';
+                $order->status_id = 8;
+                $order->update();
+            }
+            if (!is_null($option_key['left_the_point'])) {
+                $count = Tracker::where('order_id', $order->id)->where('position', '1')->where('status', 'Awaiting arrival')->count();
+                if ($count != 0 )
+                {
+                    $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
+                    $order->status_id = 4;
+                    $order->update();
+                }
+                else
+                {
+                    $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
+                    $order->status_id = 5;
+                    $order->update();
+                }
+
+            }
         }
-        if (!is_null($option_key['end_time'])) {
-            $tracker->end_time = str_replace('T', ' ', $option_key['end_time']);
-            $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
-            $tracker->status = 'Arrived';
-            $order->status_id = 8;
-            $order->update();
-        }
-        if (!is_null($option_key['left_the_point'])) {
-            $tracker->left_the_point = str_replace('T', ' ', $option_key['left_the_point']);
-            $order->status_id = 5;
-            $order->update();
-        }
+
+
         $tracker->update();
     }
 
