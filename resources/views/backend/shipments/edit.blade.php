@@ -31,7 +31,6 @@
     </div>
     <!--end::Subheader-->
 @endsection
-@section('sub_title') Create New Shipment @endsection
 @section('content')
     @php
         /*   $auth_user = Auth::user();
@@ -492,58 +491,6 @@
                                     @endif
                                 @endforeach
                             </select>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="">
-                        <div class="col-md-6" data-select2-id="66">
-                            <label>Driver:</label>
-                            <select id="change-country-to" name="driver_id" class="form-control " @if($orders->status_id > 2) readonly @endif >
-                                <option value=""></option>
-                                @foreach($user as $item)
-                                    @if($item->roles->first()->name == 'Driver')
-                                        <option value="{{$item->id}}"
-                                                @if($item->id == $orders->driver_id) selected @endif >{{$item->nickname}}
-                                            - {{$item->roles->first()->name}}  </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="">
-                        <div class="col-md-6" data-select2-id="66">
-                            <label>Location:</label>
-                            <select id="select2" name="locations" class="form-control " @if($orders->status_id > 2) readonly @endif >
-                                <option></option>
-
-                                @php
-                                    $last_city = '';
-                                @endphp
-
-                                @foreach($lupa as $key => $city )
-                                    @php
-                                        $cur_city = $city['name'].'('.$city['city'].')';
-                                    @endphp
-                                    @if($last_city != '')
-                                        <option value="{{$last_city}}-{{$city['name']}}({{$city['city']}})"
-                                                data-id="city_{{$key+20}}"
-                                                @if('city_' . ($key+20) == $orders->locations_id) selected @endif>{{$last_city}}
-                                            -{{$cur_city}}</option>
-                                    @endif
-
-                                    <option value="{{$cur_city}}" data-id="city_{{$key+1}}"
-                                            @if('city_' . ($key+1) == $orders->locations_id ) selected @endif >{{$cur_city}}</option>
-
-                                    @php
-                                        $last_city = $cur_city;
-                                    @endphp
-
-                                @endforeach
-
-
-                            </select>
-                            <input type="hidden" name="city_id" id="city" value="{{$orders->locations_id}}" >
                         </div>
                     </div>
                     <hr>

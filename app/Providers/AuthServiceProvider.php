@@ -57,7 +57,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id == $order->agent_id;
         });
         Gate::define('manage-driver', function (User $user, Order $order) {
-            return $user->id == $order->driver_id;
+//            dd($order);
+            foreach ($order->tracker as $item)
+            {
+                if ($user->id == $item->driver_id){
+                    return true;
+                }
+            }
+            return false;
         });
         Gate::define('manage-client', function (User $user, Order $order) {
             return $user->id == $order->client_id;

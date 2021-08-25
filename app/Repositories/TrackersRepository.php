@@ -95,8 +95,6 @@ class TrackersRepository
     {
         $tracker = $this->getTrackerById($option_key['id']);
 
-//        dd($option_key);
-
         $tracker->order_id = $order->id;
         $tracker->driver_id = $option_key['driver_id'] ?? null;
         $tracker->location_id = $option_key['cargo_location'];
@@ -180,4 +178,107 @@ class TrackersRepository
 
         $tracker->save();
     }
+
+
+    public function updateDriverStartTracker($order, $request, $many)
+    {
+//        dd($request);
+        $tracker_start = $this->getStartTracker($order);
+//        dd($tracker_start);
+        $start = $request->start;
+        $tracker_start->driver_id = $start['driver_id'] ?? null;
+
+        if (isset($start['status_arrival'])) {
+            $tracker_start->end_time = now();
+            $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : 'ok';
+        }
+        if (isset($start['status_arrival']) && !empty($start['signed'])) {
+            $tracker_start->signed = $start['signed'];
+            $tracker_start->status = 'Arrived';
+
+            if ($many == false) {
+                $order->status_id = 5;
+            } else {
+                $order->status_id = 3;
+            }
+
+            $order->update();
+        }
+
+        $tracker_start->update();
+    }
+
+    public function updateDriverEndTracker($order, $request)
+    {
+        $tracker_end = $this->getEndTracker($order);
+        $end = $request->end;
+        $tracker_end->signed = '';
+        $tracker_end->driver_id = $end['driver_id'] ?? null;
+
+
+        if (isset($end['status_arrival'])) {
+            $tracker_end->end_time = now();
+            $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
+            $tracker_end->signed = $end['signed'];
+            $tracker_end->status = 'Arrived';
+            $order->status_id = 6;
+            $order->update();
+        }
+        $tracker_end->update();
+    }
+
+    public function updateDriverTransitionalTracker($order, $option_key, $many)
+    {
+//        dd($option_key);
+
+        $tracker = $this->getTrackerById($option_key['tracker_id']);
+
+        $tracker->order_id = $order->id;
+
+        if (!$many) {
+
+
+            if (isset($option_key['status_arrival'])) {
+                $tracker->end_time = now();
+                $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
+                $tracker->status = 'Arrived';
+                $order->status_id = 8;
+                $order->update();
+            }
+            if (isset($option_key['status_left'])) {
+                $tracker->left_the_point = now();
+                $order->status_id = 5;
+                $order->update();
+            }
+        } else {
+            if (isset($option_key['status_arrival'])) {
+                $tracker->end_time = now();
+                $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
+                $tracker->status = 'Arrived';
+                $order->status_id = 8;
+                $order->update();
+            }
+            if (isset($option_key['status_left'])) {
+                $count = Tracker::where('order_id', $order->id)->where('position', '1')->where('status', 'Awaiting arrival')->count();
+                if ($count != 0 )
+                {
+                    $tracker->left_the_point = now();
+                    $order->status_id = 4;
+                    $order->update();
+                }
+                else
+                {
+                    $tracker->left_the_point = now();
+                    $order->status_id = 5;
+                    $order->update();
+                }
+
+            }
+        }
+
+
+        $tracker->update();
+    }
+
+
 }

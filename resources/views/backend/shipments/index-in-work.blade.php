@@ -57,7 +57,6 @@
                         <th>Consignee's company name</th>
                         <th>Delivery type</th>
                         <th>NWB number</th>
-                        <th>Location</th>
                         <th>Status</th>
                         <th>Created at</th>
                         <th>Mission</th>
@@ -98,8 +97,27 @@
                                             echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                         @endphp
                                     </th>
-                                    <th>{{$shipment->locations}}</th>
-                                    <th>{{$shipment->status->name}}</th>
+                                    @php
+                                        if ($shipment->status_id == 8)
+                                        {
+                                            if ($shipment->tracker->where('position','1')->count() == 1){
+                                                echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                            }
+                                            else{
+                                                echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.'</th>';
+                                            }
+                                        }
+                                        elseif ($shipment->status_id == 3){
+                                           echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                        }
+                                        elseif ($shipment->status_id == 4){
+                                           echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
+                                        }
+                                        else
+                                        {
+                                           echo '<th>'.$shipment->status->name.'</th>';
+                                        }
+                                    @endphp
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -155,8 +173,27 @@
                                             echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                         @endphp
                                     </th>
-                                    <th>{{$shipment->locations}}</th>
-                                    <th>{{$shipment->status->name}}</th>
+                                    @php
+                                        if ($shipment->status_id == 8)
+                                        {
+                                            if ($shipment->tracker->where('position','1')->count() == 1){
+                                                echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                            }
+                                            else{
+                                                echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.'</th>';
+                                            }
+                                        }
+                                        elseif ($shipment->status_id == 3){
+                                           echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                        }
+                                        elseif ($shipment->status_id == 4){
+                                           echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
+                                        }
+                                        else
+                                        {
+                                           echo '<th>'.$shipment->status->name.'</th>';
+                                        }
+                                    @endphp
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -213,8 +250,27 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->locations}}</th>
-                                    <th>{{$shipment->status->name}}</th>
+                                    @php
+                                        if ($shipment->status_id == 8)
+                                        {
+                                            if ($shipment->tracker->where('position','1')->count() == 1){
+                                                echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                            }
+                                            else{
+                                                echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.'</th>';
+                                            }
+                                        }
+                                        elseif ($shipment->status_id == 3){
+                                           echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                        }
+                                        elseif ($shipment->status_id == 4){
+                                           echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
+                                        }
+                                        else
+                                        {
+                                           echo '<th>'.$shipment->status->name.'</th>';
+                                        }
+                                    @endphp
                                     <th>{{$shipment->created_at}}</th>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -263,8 +319,27 @@
                                         echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                     @endphp
                                 </th>
-                                <th>{{$shipment->locations}}</th>
-                                <th>{{$shipment->status->name}}</th>
+                                @php
+                                    if ($shipment->status_id == 8)
+                                    {
+                                        if ($shipment->tracker->where('position','1')->count() == 1){
+                                            echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                        }
+                                        else{
+                                            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.'</th>';
+                                        }
+                                    }
+                                    elseif ($shipment->status_id == 3){
+                                       echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                    }
+                                    elseif ($shipment->status_id == 4){
+                                       echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
+                                    }
+                                    else
+                                    {
+                                       echo '<th>'.$shipment->status->name.'</th>';
+                                    }
+                                @endphp
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"

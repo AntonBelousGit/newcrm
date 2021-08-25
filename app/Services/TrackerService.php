@@ -33,7 +33,7 @@ class TrackerService
 
     public function getEndTracker($order)
     {
-        $this->trackerRepository->getStartTracker($order);
+        $this->trackerRepository->getEndTracker($order);
     }
 
     public function getTrackerById($id)
@@ -49,5 +49,21 @@ class TrackerService
     public function createTransitionalTracker($order, $option_key, $many)
     {
         $this->trackerRepository->createTransitionalTracker($order, $option_key,$many);
+    }
+
+
+
+    public function updateDriverStartTracker($order, $request, $many)
+    {
+        $this->trackerRepository->updateDriverStartTracker($order, $request, $many);
+    }
+
+    public function updateDriverEndTracker($order, $request)
+    {
+        $this->trackerRepository->updateDriverEndTracker($order, $request);
+    }
+    public function updateDriverTransitionalTracker($order, $option_key, $many)
+    {
+        $this->trackerRepository->updateDriverTransitionalTracker($order, $option_key,$many);
     }
 }

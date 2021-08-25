@@ -57,7 +57,6 @@
                         <th>Consignee's company name</th>
                         <th>Delivery type</th>
                         <th>NWB number</th>
-                        <th>Location</th>
                         <th>Status</th>
                         <th>Created at</th>
                         <th>Mission</th>
@@ -99,7 +98,6 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->locations}}</th>
 
                                     <th>{{$shipment->status->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
@@ -157,7 +155,6 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->locations}}</th>
 
                                     <th>{{$shipment->status->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
@@ -217,7 +214,6 @@
                                         @endphp
                                     </th>
 
-                                    <th>{{$shipment->locations}}</th>
 
                                     <th>{{$shipment->status->name}}</th>
                                     <th>{{$shipment->created_at}}</th>
@@ -269,7 +265,6 @@
                                     @endphp
                                 </th>
 
-                                <th>{{$shipment->locations}}</th>
 
                                 <th>{{$shipment->status->name}}</th>
                                 <th>{{$shipment->created_at}}</th>

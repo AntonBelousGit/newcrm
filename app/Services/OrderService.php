@@ -18,7 +18,6 @@ class OrderService
     {
         return $this->orderRepository->getAll();
     }
-
     public function saveOrder($request){
         return $this->orderRepository->saveOrder($request);
     }

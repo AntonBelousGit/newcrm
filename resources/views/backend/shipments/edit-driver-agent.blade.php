@@ -326,20 +326,6 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Driver:</label>
-                                <select id="change-country-to" disabled class="form-control ">
-                                    <option value=""></option>
-                                    @foreach($user as $item)
-                                        @if($item->roles->first()->name == 'Driver')
-                                            <option value="{{$item->id}}" @if($item->id == $orders->driver_id) selected @endif >{{$item->nickname}} - {{$item->roles->first()->name}}  </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
                     </div>
                     <div id="kt_repeater_12">
                         <div class="" id="">
@@ -376,10 +362,11 @@
                                                                  class="form-control" value="{{$tracker_start->signed}}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-1">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="actual_time" name="start[status_arrival]" @if($tracker_start->status == 'Arrived') disabled checked @endif>
-                                        <label class="form-check-label" >Arrival</label>
+                                        <label class="form-check-label" >Arrived</label>
+
                                     </div>
                                 </div>
                             </div>
@@ -395,7 +382,8 @@
                                                         <option value="{{$item->id}}" @if($item->id == $tracker->cargolocation->id) selected @endif>{{$item->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <input type="hidden" name="id" value="{{$tracker->id}}">
+                                                <input type="hidden" name="tracker_id" value="{{$tracker->id}}">
+                                                <input type="hidden" name="id" value="{{$orders->id}}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Address:</label>
@@ -419,10 +407,16 @@
                                                 <input  placeholder="Start time" type="datetime-local" disabled class="form-control clear-value-data" value="{{$end_time}}" />
                                                 <div class="mb-2 d-md-none"></div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-1">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox"  name="status_arrival" @if( $tracker->status == 'Arrived') disabled checked @endif>
-                                                    <label class="form-check-label" >Arrival</label>
+                                                    <label class="form-check-label" >Arrived</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="left_time" name="status_left" @if(!empty($tracker->left_the_point)) disabled checked @endif>
+                                                    <label class="form-check-label" >Leave</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -464,7 +458,7 @@
                                 <div class="col-md-4">
                                     <div class="form-check" id="actual_time_end">
                                         <input class="form-check-input"  type="checkbox"  name="end[status_arrival]" @if($tracker_end->status == 'Arrived') disabled checked @endif>
-                                        <label class="form-check-label" >Arrival</label>
+                                        <label class="form-check-label" >Arrived</label>
                                     </div>
                                 </div>
                             </div>
