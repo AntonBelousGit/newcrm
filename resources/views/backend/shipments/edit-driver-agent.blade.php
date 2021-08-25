@@ -353,7 +353,7 @@
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Actual Time:</label>
+                                    <label>Arrived Time:</label>
                                     <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
@@ -403,7 +403,7 @@
                                                 <div class="mb-2 d-md-none"></div>
                                             </div>
                                             <div class="col-md-3">
-                                                <label>Actual Time:</label>
+                                                <label>Arrived Time:</label>
                                                 <input  placeholder="Start time" type="datetime-local" disabled class="form-control clear-value-data" value="{{$end_time}}" />
                                                 <div class="mb-2 d-md-none"></div>
                                             </div>
@@ -446,7 +446,7 @@
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Actual Time:</label>
+                                    <label>Arrived Time:</label>
                                     <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>

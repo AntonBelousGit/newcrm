@@ -540,21 +540,21 @@
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time">
-                                <label>Actual Time:</label>
+                                <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[end_time]"
                                        class="form-control" value="{{ $end_time }}"/>
-                                <div class="mb-2 d-md-none"></div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Left Time:</label>
-                                <input placeholder="Start time" type="datetime-local" name="start[left_the_point]"
-                                       class="form-control" value="{{ $left_the_point }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time_start">
                                 <label>Signed:</label><input placeholder="Signed" type="text" name="start[signed]"
                                                              class="form-control" value="{{$tracker_start->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"  name="status_arrival" @if( $tracker_start->status == 'Arrived') disabled checked @endif>
+                                    <label class="form-check-label" >Arrived</label>
+                                </div>
                             </div>
                         </div>
                         <div data-repeater-list="time" class="col-lg-12">
@@ -592,7 +592,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             @php
                                                 if (isset($tracker->start_time))
                                                 {
@@ -607,17 +607,29 @@
                                                    required/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label>Actual Time:</label>
+                                        <div class="col-md-3">
+                                            <label>Arrived Time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="end_time"
                                                    class="form-control clear-value-data" value="{{$end_time}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label>Left Time:</label>
                                             <input placeholder="Left Time" type="datetime-local" name="left_the_point"
                                                    class="form-control clear-value-data" value="{{$left_the_point}}"/>
                                             <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"  name="status_arrival" @if( $tracker->status == 'Arrived') disabled checked @endif>
+                                                <label class="form-check-label" >Arrived</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="left_time" name="status_left" @if(!empty($tracker->left_the_point)) disabled checked @endif>
+                                                <label class="form-check-label" >Leave</label>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -661,23 +673,35 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label>Estimated time:</label>
                                         <input placeholder="Start time" type="datetime-local" name="start_time"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label>Actual Time:</label>
+                                    <div class="col-md-3">
+                                        <label>Arrived Time:</label>
                                         <input placeholder="Start time" type="datetime-local" name="end_time"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label>Left Time:</label>
                                         <input placeholder="Left Time" type="datetime-local" name="left_the_point"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"  name="status_arrival">
+                                            <label class="form-check-label" >Arrived</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="left_time" name="status_left">
+                                            <label class="form-check-label" >Leave</label>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -733,7 +757,7 @@
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual-time-end">
-                                <label>Actual Time:</label>
+                                <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="end[end_time]"
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
@@ -747,6 +771,14 @@
                                                              class="form-control " value="{{$tracker_end->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
+
+                            <div class="col-md-1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"  name="status_arrival" @if( $tracker_end->status == 'Arrived') disabled checked @endif>
+                                    <label class="form-check-label" >Arrived</label>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
