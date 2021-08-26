@@ -541,7 +541,7 @@
                             </div>
                             <div class="col-md-3" id="actual_time">
                                 <label>Arrived Time:</label>
-                                <input placeholder="Start time" type="datetime-local" name="start[end_time]"
+                                <input placeholder="Start time" type="datetime-local" disabled
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -552,7 +552,7 @@
                             </div>
                             <div class="col-md-1">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"  name="status_arrival" @if( $tracker_start->status == 'Arrived') disabled checked @endif>
+                                    <input class="form-check-input" type="checkbox"  name="start[status_arrival]" @if( $tracker_start->status == 'Arrived') disabled checked @endif>
                                     <label class="form-check-label" >Arrived</label>
                                 </div>
                             </div>
@@ -609,13 +609,13 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Arrived Time:</label>
-                                            <input placeholder="Start time" type="datetime-local" name="end_time"
+                                            <input placeholder="Start time" type="datetime-local" disabled
                                                    class="form-control clear-value-data" value="{{$end_time}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Left Time:</label>
-                                            <input placeholder="Left Time" type="datetime-local" name="left_the_point"
+                                            <input placeholder="Left Time" type="datetime-local" disabled
                                                    class="form-control clear-value-data" value="{{$left_the_point}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -681,13 +681,13 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Arrived Time:</label>
-                                        <input placeholder="Start time" type="datetime-local" name="end_time"
+                                        <input placeholder="Start time" type="datetime-local" disabled
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Left Time:</label>
-                                        <input placeholder="Left Time" type="datetime-local" name="left_the_point"
+                                        <input placeholder="Left Time" type="datetime-local" disabled
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
@@ -758,7 +758,7 @@
                             </div>
                             <div class="col-md-3" id="actual-time-end">
                                 <label>Arrived Time:</label>
-                                <input placeholder="Start time" type="datetime-local" name="end[end_time]"
+                                <input placeholder="Start time" type="datetime-local" disabled
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -774,7 +774,7 @@
 
                             <div class="col-md-1">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"  name="status_arrival" @if( $tracker_end->status == 'Arrived') disabled checked @endif>
+                                    <input class="form-check-input" type="checkbox"  name="end[status_arrival]" @if( $tracker_end->status == 'Arrived') disabled checked @endif>
                                     <label class="form-check-label" >Arrived</label>
                                 </div>
                             </div>
@@ -1452,7 +1452,7 @@
             {{--);--}}
 
             $('.clear-value-datatime').click(function () {
-                $('.zakupak').last().find('.col-md-4').find('.clear-value-data').removeAttr('value');
+                $('.zakupak').last().find('.col-md-3').find('.clear-value-data').removeAttr('value');
             });
         });
     </script>
