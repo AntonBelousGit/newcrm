@@ -70,6 +70,7 @@
                                     <span class="menu-text">Add User</span>
                                 </a>
                             </li>
+
                             <li class="menu-item " aria-haspopup="true">
                                 <a href="{{route('admin.users.index')}}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
@@ -97,7 +98,30 @@
 
                                 </a>
                             </li>
+                            <li class="menu-item " aria-haspopup="true">
+                                <a href="{{route('admin.payer.create')}}" class="menu-link">
+                                    <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
+                                    <span class="menu-text">Add Payer</span>
+                                </a>
+                            </li>
+                            <li class="menu-item " aria-haspopup="true">
+                                <a href="{{route('admin.payer.index')}}" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">All Payer</span>
 
+                                </a>
+                            </li>
+                            <li class="menu-item " aria-haspopup="true">
+                                <a href="{{route('admin.show-client')}}" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Payer</span>
+
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

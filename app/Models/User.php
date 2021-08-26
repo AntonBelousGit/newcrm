@@ -64,4 +64,13 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\AgentUser','agent_id');
 
     }
+    public function payer()
+    {
+        return $this->belongsToMany(
+            Payer::class,
+            'payer_user',
+            'user_id',
+            'payer_id'
+        );
+    }
 }
