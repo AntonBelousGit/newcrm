@@ -18,12 +18,12 @@ class PayerController extends Controller
      */
     public function index()
     {
-        if(Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())){
+        if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             $payers = Payer::all();
             $title = 'All payers';
-            return view('backend.payer.index',compact('payers','title'));
+            return view('backend.payer.index', compact('payers', 'title'));
         }
-        return  abort(403);
+        return abort(403);
     }
 
     /**
@@ -33,22 +33,22 @@ class PayerController extends Controller
      */
     public function create()
     {
-        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+        if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             return view('backend.payer.create');
         }
-        return  abort(403);
+        return abort(403);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
 
-        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+        if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             $payer = new Payer;
             $payer->customer_account_number = $request->customer_account_number;
             $payer->customer_name = $request->customer_name;
@@ -66,13 +66,13 @@ class PayerController extends Controller
 
             return redirect()->route('admin.payer.index');
         }
-        return  abort(403);
+        return abort(403);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -83,28 +83,28 @@ class PayerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        if(Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())){
+        if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             $payer = Payer::find($id);
-            return view('backend.payer.edit',compact('payer'));
+            return view('backend.payer.edit', compact('payer'));
         }
-        return  abort(403);
+        return abort(403);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+        if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             $payer = Payer::find($id);
             $payer->customer_account_number = $request->customer_account_number;
             $payer->customer_name = $request->customer_name;
@@ -122,13 +122,13 @@ class PayerController extends Controller
 
             return redirect()->route('admin.payer.index');
         }
-        return  abort(403);
+        return abort(403);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -141,38 +141,38 @@ class PayerController extends Controller
 
     public function showClient()
     {
-        if(Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())){
-            $users = User::whereHas('roles', function($q)
-            {
+        if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
+            $users = User::whereHas('roles', function ($q) {
                 $q->where('name', 'Client');
             })->get();
-            return view('backend.payer.client',compact('users'));
+            return view('backend.payer.client', compact('users'));
         }
-        return  abort(403);
+        return abort(403);
     }
+
     public function clientPayerEdit($id)
     {
-        if(Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())){
+        if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             $users = User::with('payer')->find($id);
 //            dd($users);
             $payer = Payer::all();
-            return view('backend.payer.addpayer',compact('users','payer'));
+            return view('backend.payer.addpayer', compact('users', 'payer'));
         }
-        return  abort(403);
+        return abort(403);
     }
-    public function clientPayerUpdate(Request $request,$id)
+
+    public function clientPayerUpdate(Request $request, $id)
     {
 //        dd($request);
-        if(Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())){
+        if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             $users = User::find($id);
             $users->payer()->sync([]);
 
-            foreach($request->payer as $item)
-            {
+            foreach ($request->payer as $item) {
                 $users->payer()->attach([$item]);
             }
-            return  redirect()->route('admin.payer.client');
+            return redirect()->route('admin.show-client');
         }
-        return  abort(403);
+        return abort(403);
     }
 }

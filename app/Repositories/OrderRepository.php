@@ -17,10 +17,13 @@ class OrderRepository
         $this->order = $order;
     }
 
-    public function getAll(){
-        return $this->order->with('cargo', 'user', 'tracker.cargolocation','order')->where('status_id','!=',9)->get();
+    public function getAll()
+    {
+        return $this->order->with('cargo', 'user', 'tracker.cargolocation', 'order')->where('status_id', '!=', 9)->get();
     }
-    public function saveOrder($request){
+
+    public function saveOrder($request)
+    {
 
         $order = new Order();
         $order->shipper = $request->shipper;
@@ -60,7 +63,8 @@ class OrderRepository
         return $order;
     }
 
-    public function saveReturnedOrder($request,$id){
+    public function saveReturnedOrder($request, $id)
+    {
         $order = new Order();
 
         $order->shipper = $request->shipper;
@@ -103,7 +107,8 @@ class OrderRepository
         return $order;
     }
 
-    public function findAndUpdate($request,$id){
+    public function findAndUpdate($request, $id)
+    {
         $order = $this->findById($id);
 
         $order->shipper = $request->shipper;
@@ -139,7 +144,8 @@ class OrderRepository
         return $order;
     }
 
-    public function findById($id){
-       return Order::with('cargo')->findOrFail($id);
+    public function findById($id)
+    {
+        return Order::with('cargo')->findOrFail($id);
     }
 }

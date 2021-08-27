@@ -10,7 +10,7 @@
         <!--begin::Logo-->
         <a href="{{ route('admin.index') }}" class="brand-logo">
 
-                <img src="{{ asset('assets/img/logo.png') }}" style="max-height: 50px;" >
+            <img src="{{ asset('assets/img/logo.png') }}" style="max-height: 50px;">
 
         </a>
 
@@ -24,7 +24,7 @@
 
         <!--begin::Menu Container-->
         <div id="kt_aside_menu" class="my-4 aside-menu" data-menu-vertical="1" data-menu-scroll="1"
-            data-menu-dropdown-timeout="500">
+             data-menu-dropdown-timeout="500">
 
             <!--begin::Menu Nav-->
             <ul class="menu-nav">
@@ -41,90 +41,66 @@
                             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                         </li>
 
-                            @foreach(\File::files(base_path('resources/views/backend/inc/addons/')) as $path)
-                                @include('backend.inc.addons.'.str_replace('.blade','',pathinfo($path)['filename']))
-                            @endforeach
+                        @foreach(\File::files(base_path('resources/views/backend/inc/addons/')) as $path)
+                            @include('backend.inc.addons.'.str_replace('.blade','',pathinfo($path)['filename']))
+                        @endforeach
 
                     @endif
                 @endcanany
 
                 @canany(['SuperUser','Manager','Security Officer'], Auth::user())
-                <li class="menu-section">
-                    <h4 class="menu-text">Administration</h4>
-                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                </li>
+                    <li class="menu-section">
+                        <h4 class="menu-text">Administration</h4>
+                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                    </li>
 
 
                     <li class="menu-item menu-item-submenu  " aria-haspopup="true" data-menu-toggle="hover">
-                    <a href="javascript:;" class="menu-link menu-toggle">
-                        <i class="menu-icon flaticon-users"></i>
-                        <span class="menu-text">Users</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="menu-submenu">
-                        <i class="menu-arrow"></i>
-                        <ul class="menu-subnav">
-                            <li class="menu-item " aria-haspopup="true">
-                                <a href="{{route('admin.users.create')}}" class="menu-link">
-                                    <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
-                                    <span class="menu-text">Add User</span>
-                                </a>
-                            </li>
+                        <a href="javascript:;" class="menu-link menu-toggle">
+                            <i class="menu-icon flaticon-users"></i>
+                            <span class="menu-text">Users</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="menu-submenu">
+                            <i class="menu-arrow"></i>
+                            <ul class="menu-subnav">
+                                <li class="menu-item " aria-haspopup="true">
+                                    <a href="{{route('admin.users.create')}}" class="menu-link">
+                                        <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
+                                        <span class="menu-text">Add User</span>
+                                    </a>
+                                </li>
 
-                            <li class="menu-item " aria-haspopup="true">
-                                <a href="{{route('admin.users.index')}}" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">All Users</span>
+                                <li class="menu-item " aria-haspopup="true">
+                                    <a href="{{route('admin.users.index')}}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-dot">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">All Users</span>
 
-                                </a>
-                            </li>
-                            <li class="menu-item " aria-haspopup="true">
-                                <a href="{{route('admin.driver.index')}}" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Drivers</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item " aria-haspopup="true">
+                                    <a href="{{route('admin.driver.index')}}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-dot">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Drivers</span>
 
-                                </a>
-                            </li>
-                            <li class="menu-item " aria-haspopup="true">
-                                <a href="{{route('admin.agent.index')}}" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Agents</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item " aria-haspopup="true">
+                                    <a href="{{route('admin.agent.index')}}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-dot">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Agents</span>
 
-                                </a>
-                            </li>
-                            <li class="menu-item " aria-haspopup="true">
-                                <a href="{{route('admin.payer.create')}}" class="menu-link">
-                                    <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
-                                    <span class="menu-text">Add Payer</span>
-                                </a>
-                            </li>
-                            <li class="menu-item " aria-haspopup="true">
-                                <a href="{{route('admin.payer.index')}}" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">All Payer</span>
-
-                                </a>
-                            </li>
-                            <li class="menu-item " aria-haspopup="true">
-                                <a href="{{route('admin.show-client')}}" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Shipping Payer</span>
-
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 @endcanany
 
 

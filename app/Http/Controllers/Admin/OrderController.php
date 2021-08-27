@@ -59,7 +59,7 @@ class OrderController extends Controller
             $user = User::all();
             $payers = Payer::all();
             $cargo_location = CargoLocation::all();
-            return view('backend.shipments.create', compact('user', 'cargo_location','payers'));
+            return view('backend.shipments.create', compact('user', 'cargo_location', 'payers'));
         }
         return abort(403);
     }
@@ -195,7 +195,7 @@ class OrderController extends Controller
             $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
 
-            return view('backend.shipments.edit', compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end', 'substatus', 'lupa', 'trackers_count','payers'));
+            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers'));
         }
         return abort(403);
     }
@@ -255,7 +255,7 @@ class OrderController extends Controller
 
             if (!isset($request->time)) {
 
-                $this->trakerService->updateStartTracker($order, $request,false);
+                $this->trakerService->updateStartTracker($order, $request, false);
                 $this->trakerService->updateEndTracker($order, $request);
 
             } elseif (count($request->time) == 1) {
@@ -265,23 +265,23 @@ class OrderController extends Controller
                 foreach ($request->time as $option_key) {
 
                     if (!isset($option_key['id'])) {
-                        $this->trakerService->createTransitionalTracker($order, $option_key,false);
+                        $this->trakerService->createTransitionalTracker($order, $option_key, false);
                     } else if (isset($option_key['id'])) {
 //                        dd($option_key['id']);
 
-                        $this->trakerService->updateTransitionalTracker($order, $option_key,false);
+                        $this->trakerService->updateTransitionalTracker($order, $option_key, false);
                     }
                 }
                 $this->trakerService->updateEndTracker($order, $request);
             } elseif (count($request->time) > 1) {
-                $this->trakerService->updateStartTracker($order, $request,true);
+                $this->trakerService->updateStartTracker($order, $request, true);
 
                 foreach ($request->time as $option_key) {
 //                    dd(count($request->time));
                     if (!isset($option_key['id'])) {
-                        $this->trakerService->createTransitionalTracker($order, $option_key,true);
+                        $this->trakerService->createTransitionalTracker($order, $option_key, true);
                     } else if (isset($option_key['id'])) {
-                        $this->trakerService->updateTransitionalTracker($order, $option_key,true);
+                        $this->trakerService->updateTransitionalTracker($order, $option_key, true);
                     }
                 }
                 $this->trakerService->updateEndTracker($order, $request);
@@ -340,7 +340,7 @@ class OrderController extends Controller
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
         }
         if (Gate::any(['Agent', 'Driver'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->whereIn('status_id', [2, 3, 4, 5,8])->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
             $title = 'Accepted in work';
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
 
@@ -403,7 +403,7 @@ class OrderController extends Controller
 
             if (!isset($request->time)) {
 
-                $this->trakerService->updateDriverStartTracker($order, $request,false);
+                $this->trakerService->updateDriverStartTracker($order, $request, false);
                 $this->trakerService->updateDriverEndTracker($order, $request);
 
             } elseif (count($request->time) == 1) {
@@ -412,16 +412,16 @@ class OrderController extends Controller
                 $this->trakerService->updateDriverStartTracker($order, $request, true);
                 foreach ($request->time as $option_key) {
 
-                        $this->trakerService->updateDriverTransitionalTracker($order, $option_key,false);
+                    $this->trakerService->updateDriverTransitionalTracker($order, $option_key, false);
                 }
                 $this->trakerService->updateDriverEndTracker($order, $request);
             } elseif (count($request->time) > 1) {
-                $this->trakerService->updateDriverStartTracker($order, $request,true);
+                $this->trakerService->updateDriverStartTracker($order, $request, true);
 
                 foreach ($request->time as $option_key) {
 //
-                     if (isset($option_key['id'])) {
-                        $this->trakerService->updateDriverTransitionalTracker($order, $option_key,true);
+                    if (isset($option_key['id'])) {
+                        $this->trakerService->updateDriverTransitionalTracker($order, $option_key, true);
                     }
                 }
                 $this->trakerService->updateDriverEndTracker($order, $request);
