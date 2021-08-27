@@ -37,7 +37,7 @@ class CreateOrdersTable extends Migration
             $table->integer('returned')->default(0);
             $table->string('delivery_comment')->nullable();
             $table->enum('notifications',['on','off']);
-            $table->string('user');
+            $table->integer('payer_id');
 
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->bigInteger('client_id')->unsigned()->nullable();

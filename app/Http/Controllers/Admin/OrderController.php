@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cargo;
 use App\Models\CargoLocation;
 use App\Models\Order;
+use App\Models\Payer;
 use App\Models\ProductStatus;
 use App\Models\SubProductStatus;
 use App\Models\Tracker;
@@ -56,8 +57,9 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $user = User::all();
+            $payers = Payer::all();
             $cargo_location = CargoLocation::all();
-            return view('backend.shipments.create', compact('user', 'cargo_location'));
+            return view('backend.shipments.create', compact('user', 'cargo_location','payers'));
         }
         return abort(403);
     }
@@ -189,11 +191,11 @@ class OrderController extends Controller
 //            dd($trackers_count);
 
             $status = ProductStatus::all();
-
+            $payers = Payer::all();
             $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
 
-            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count'));
+            return view('backend.shipments.edit', compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end', 'substatus', 'lupa', 'trackers_count','payers'));
         }
         return abort(403);
     }

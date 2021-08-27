@@ -153,17 +153,25 @@ class PayerController extends Controller
     public function clientPayerEdit($id)
     {
         if(Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())){
-            $users = User::find($id);
-
-            return view('backend.payer.client',compact('users'));
+            $users = User::with('payer')->find($id);
+//            dd($users);
+            $payer = Payer::all();
+            return view('backend.payer.addpayer',compact('users','payer'));
         }
         return  abort(403);
     }
     public function clientPayerUpdate(Request $request,$id)
     {
+//        dd($request);
         if(Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())){
+            $users = User::find($id);
+            $users->payer()->sync([]);
 
-            return  redirect()->route('admin.payer.index');
+            foreach($request->payer as $item)
+            {
+                $users->payer()->attach([$item]);
+            }
+            return  redirect()->route('admin.payer.client');
         }
         return  abort(403);
     }

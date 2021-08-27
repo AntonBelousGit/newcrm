@@ -118,7 +118,7 @@
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
-                                    <span class="menu-text">Payer</span>
+                                    <span class="menu-text">Shipping Payer</span>
 
                                 </a>
                             </li>

@@ -411,53 +411,28 @@
                         </div>
                         <hr>
                         <div class="">
-                            {{--                        <div class="col-md-6" data-select2-id="66">--}}
-                            {{--                            <label>Shipping Payer:</label>--}}
-                            {{--                            <select id="change-country-to" name="user_id" class="form-control ">--}}
-                            {{--                                <option value="">----</option>--}}
-                            {{--                                @foreach($user as $item)--}}
-                            {{--                                    <option value="{{$item->id}}" @if($item->id == $orders->user_id) selected @endif>{{$item->email}}</option>--}}
-                            {{--                                @endforeach--}}
-                            {{--                            </select>--}}
-                            {{--                        </div>--}}
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Shipping Payer:</label>
-                                    <input type="text" placeholder="Shipping Payer" name="user" required
-                                           class="form-control" @if($orders->status_id > 2) readonly @endif  value="{{ $orders->user }}"/>
+                                    <select  name="payer_id" @if($orders->status_id > 2) readonly @endif  class="form-control " >
+
+                                        @if ( Auth::user()->roles->first()->id == 8)
+                                            @foreach(Auth::user()->payer as $item)
+                                                <option value="{{$item->id}}" @if($item->id == $orders->payer_id) selected @endif>{{$item->customer_name}}</option>
+                                            @endforeach
+                                        @else
+                                            @foreach($payers as $item)
+                                                <option value="{{$item->id}}" @if($item->id == $orders->payer_id) selected @endif >{{$item->customer_name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+
+
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            {{--                            <div class="col-md-6" data-select2-id="66">--}}
-                            {{--                                <label>Status:</label>--}}
-                            {{--                                <select id="select1" name="status_id" class="form-control ">--}}
-                            {{--                                    @foreach($status as $item)--}}
-                            {{--                                        <option value="{{$item->id}}" @if($item->id == $orders->status->id) selected @endif >{{$item->name}}</option>--}}
-                            {{--                                    @endforeach--}}
-                            {{--                            </select>--}}
-                            {{--                            </div>--}}
-
-                            {{--                            <div id="step2">--}}
-                            {{--                                <div class="col-md-6" data-select2-id="66" id="3">--}}
-                            {{--                                    <select  name="substatus_id" class="form-control ">--}}
-                            {{--                                        @foreach($substatus->where('status_id',3) as $item)--}}
-                            {{--                                            <option value="{{$item->id}}" >{{$item->name}}</option>--}}
-                            {{--                                            <option value="{{$item->id}}" @if($item->id == $orders->substatus->id) selected @endif >{{$item->name}}</option>--}}
-                            {{--                                        @endforeach--}}
-                            {{--                                    </select>--}}
-                            {{--                                </div>--}}
-                            {{--                                <div class="col-md-6" data-select2-id="66" id="4">--}}
-                            {{--                                    <select name="substatus_id" class="form-control ">--}}
-                            {{--                                        @foreach($substatus->where('status_id',4) as $item)--}}
-                            {{--                                            <option value="{{$item->id}}">{{$item->name}}</option>--}}
-                            {{--                                            <option value="{{$item->id}}" @if($item->id == $orders->substatus->id) selected @endif >{{$item->name}}</option>--}}
-                            {{--                                        @endforeach--}}
-                            {{--                                    </select>--}}
-                            {{--                                </div>--}}
-
-
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Status</label>
                                 @if($orders->status->id <= 2)

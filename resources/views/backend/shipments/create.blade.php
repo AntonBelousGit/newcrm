@@ -340,7 +340,21 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="red-star">Shipping Payer:</label>
-                                    <input type="text" placeholder="Shipping Payer" name="user" class="form-control" value="" required />
+{{--                                    @dd(Auth::user()->roles->first()->id)--}}
+                                    <select id="change-country-to" name="payer_id" class="form-control "   >
+
+                                        @if ( Auth::user()->roles->first()->id == 8)
+                                            @foreach(Auth::user()->payer as $item)
+                                                <option value="{{$item->id}}" >{{$item->customer_name}}</option>
+                                            @endforeach
+                                        @else
+                                            @foreach($payers as $item)
+                                                <option value="{{$item->id}}" >{{$item->customer_name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+
+
                                 </div>
                             </div>
                         </div>

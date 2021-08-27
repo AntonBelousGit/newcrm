@@ -41,7 +41,7 @@ class OrderRepository
             $order->delivery_time = str_replace('T', ' ', $request->delivery_time);
         }
         $order->delivery_comment = $request->delivery_comment;
-        $order->user = $request->user;
+        $order->payer_id = $request->payer_id;
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';
@@ -82,7 +82,7 @@ class OrderRepository
             $order->sending_time = str_replace('T', ' ', $request->delivery_time);
         }
         $order->delivery_comment = $request->delivery_comment;
-        $order->user = $request->user;
+        $order->payer_id = $request->payer_id;
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';
@@ -123,7 +123,7 @@ class OrderRepository
 
         $order->delivery_time = $request->delivery_time;
         $order->delivery_comment = $request->delivery_comment;
-        $order->user = $request->user;
+        $order->payer_id = $request->payer_id;
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->notifications = $request->notifications ?? 'off';

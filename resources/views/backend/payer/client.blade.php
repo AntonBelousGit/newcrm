@@ -39,7 +39,7 @@
                         <td>{{$item->email}}</td>
                         <td class="text-center">
                             @canany(['SuperUser','Manager','Security Officer'], Auth::user())
-                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.payer.edit', $item->id)}}" title="Edit">
+                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.client-payer-edit', $item->id)}}" title="Edit">
                                     <i class="las la-edit"></i>
                                 </a>
                             @endcanany
