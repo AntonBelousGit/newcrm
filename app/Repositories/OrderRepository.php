@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Cargo;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -45,6 +46,8 @@ class OrderRepository
         }
         $order->delivery_comment = $request->delivery_comment;
         $order->payer_id = $request->payer_id;
+        $order->my_sensor = $request->my_sensor ?? 'off';
+        $order->my_container = $request->my_container ?? 'off';
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';
@@ -87,6 +90,8 @@ class OrderRepository
         }
         $order->delivery_comment = $request->delivery_comment;
         $order->payer_id = $request->payer_id;
+        $order->my_sensor = $request->my_sensor ?? 'off';
+        $order->my_container = $request->my_container ?? 'off';
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';
@@ -129,6 +134,8 @@ class OrderRepository
         $order->delivery_time = $request->delivery_time;
         $order->delivery_comment = $request->delivery_comment;
         $order->payer_id = $request->payer_id;
+        $order->my_sensor = $request->my_sensor ?? 'off';
+        $order->my_container = $request->my_container ?? 'off';
         $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
         $order->container = $request->container ?? 'off';
         $order->notifications = $request->notifications ?? 'off';
@@ -148,4 +155,28 @@ class OrderRepository
     {
         return Order::with('cargo')->findOrFail($id);
     }
+
+    public function createCargo($request,$order)
+    {
+        foreach ($request->Package as $item) {
+
+            $cargo = new Cargo();
+            $cargo->order_id = $order->id;
+            $cargo->type = $item['type'];
+            $cargo->actual_weight = $item['actual_weight'];
+            $cargo->quantity = $item['quantity'];
+            $cargo->serial_number = $item['serial_number'];
+            $cargo->serial_number_sensor = $item['serial_number_sensor'];
+            $cargo->un_number = $item['un_number'];
+            $cargo->temperature_conditions = $item['temperature_conditions'];
+            $cargo->сargo_dimensions_length = $item['сargo_dimensions_length'];
+            $cargo->сargo_dimensions_width = $item['сargo_dimensions_width'];
+            $cargo->сargo_dimensions_height = $item['сargo_dimensions_height'];
+            $cargo->volume_weight = ($item['сargo_dimensions_height'] * $item['сargo_dimensions_width'] * $item['сargo_dimensions_length']) / 6000;
+            $cargo->save();
+        }
+
+        return true;
+    }
+
 }

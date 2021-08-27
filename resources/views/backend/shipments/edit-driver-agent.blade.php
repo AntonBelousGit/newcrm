@@ -255,6 +255,14 @@
                         </div>
                         <div class="">
                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox7" name="my_container" disabled @if($orders->my_container == 'on') checked  @endif>
+                                <label class="form-check-label" for="inlineCheckbox7">My container</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="my_sensor" disabled @if($orders->my_sensor == 'on') checked  @endif>
+                                <label class="form-check-label" for="inlineCheckbox6">My sensor</label>
+                            </div>
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="sensor_for_rent" disabled @if($orders->sensor_for_rent == 'on') checked  @endif>
                                 <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
                             </div>

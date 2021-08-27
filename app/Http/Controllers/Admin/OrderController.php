@@ -96,23 +96,8 @@ class OrderController extends Controller
                 $start_tracker->position = '2';
                 $start_tracker->save();
             }
-            foreach ($request->Package as $item) {
 
-                $cargo = new Cargo();
-                $cargo->order_id = $order->id;
-                $cargo->type = $item['type'];
-                $cargo->actual_weight = $item['actual_weight'];
-                $cargo->quantity = $item['quantity'];
-                $cargo->serial_number = $item['serial_number'];
-                $cargo->serial_number_sensor = $item['serial_number_sensor'];
-                $cargo->un_number = $item['un_number'];
-                $cargo->temperature_conditions = $item['temperature_conditions'];
-                $cargo->сargo_dimensions_length = $item['сargo_dimensions_length'];
-                $cargo->сargo_dimensions_width = $item['сargo_dimensions_width'];
-                $cargo->сargo_dimensions_height = $item['сargo_dimensions_height'];
-                $cargo->volume_weight = ($item['сargo_dimensions_height'] * $item['сargo_dimensions_width'] * $item['сargo_dimensions_length']) / 6000;
-                $cargo->save();
-            }
+            $this->orderService->createCargo($request, $order);
 
             if ($order->return_sensor == 'on' || $order->return_container == 'on') {
                 $this->returned_order($request, $order->id);
@@ -147,6 +132,8 @@ class OrderController extends Controller
             $start_tracker->position = '0';
             $start_tracker->save();
         }
+
+        $this->orderService->createCargo($request, $order);
 
         return true;
     }

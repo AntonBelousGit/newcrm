@@ -299,12 +299,20 @@
                         <hr>
                         <div class="">
                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox7" name="my_container">
+                                <label class="form-check-label" for="inlineCheckbox7">My container</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="my_sensor">
+                                <label class="form-check-label" for="inlineCheckbox6">My sensor</label>
+                            </div>
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="sensor_for_rent">
                                 <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container">
-                                <label class="form-check-label" for="inlineCheckbox2">Container</label>
+                                <label class="form-check-label" for="inlineCheckbox2">Container for rent</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="return_sensor">

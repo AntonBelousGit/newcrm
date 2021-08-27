@@ -27,4 +27,7 @@ class OrderService
     public function findAndUpdate($request,$id){
         return $this->orderRepository->findAndUpdate($request,$id);
     }
+    public function createCargo($request,$order){
+        return $this->orderRepository->createCargo($request,$order);
+    }
 }

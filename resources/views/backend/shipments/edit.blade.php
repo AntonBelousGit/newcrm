@@ -399,16 +399,32 @@
                         </div>
                         <div class="">
                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox7"
+                                       name="my_container"
+                                       @if($orders->status_id > 2) disabled @endif
+                                       @if($orders->my_container == 'on') checked @endif
+                                >
+                                <label class="form-check-label" for="inlineCheckbox7">My container</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="my_sensor"
+                                       @if($orders->status_id > 2) disabled @endif
+                                       @if($orders->my_sensor == 'on') checked @endif
+                                >
+                                <label class="form-check-label" for="inlineCheckbox6">My sensor</label>
+                            </div>
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
-                                       name="sensor_for_rent" @if($orders->status_id > 2) disabled
-                                       @endif   @if($orders->sensor_for_rent == 'on') checked @endif>
+                                       name="sensor_for_rent"
+                                       @if($orders->status_id > 2) disabled @endif
+                                       @if($orders->sensor_for_rent == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container"
                                        @if($orders->status_id > 2) disabled
                                        @endif      @if($orders->container == 'on') checked @endif>
-                                <label class="form-check-label" for="inlineCheckbox2">Container</label>
+                                <label class="form-check-label" for="inlineCheckbox2">Container for rent</label>
                             </div>
                             {{--                            <div class="form-check">--}}
                             {{--                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="return_sensor" @if($orders->return_sensor == 'on') checked @endif>--}}
