@@ -70,16 +70,17 @@ class OrderRepository
     {
         $order = new Order();
 
-        $order->shipper = $request->shipper;
-        $order->phone_shipper = $request->phone_shipper;
-        $order->company_shipper = $request->company_shipper;
-        $order->consignee = $request->consignee;
-        $order->phone_consignee = $request->phone_consignee;
+        $order->shipper = $request->consignee;
+        $order->phone_shipper = $request->phone_consignee;
+        $order->company_shipper = $request->company_consignee;
+        $order->consignee = $request->shipper;
+        $order->phone_consignee = $request->phone_shipper;
+        $order->company_consignee = $request->company_shipper;
         $order->shipper_address_id = $request->shipper_address_id;
         $order->consignee_address_id = $request->consignee_address_id;
-        $order->company_consignee = $request->company_consignee;
-        $order->shipment_description = $request->shipment_description ?? null;
-        $order->comment = $request->comment ?? null;
+
+        $order->shipment_description = '';
+        $order->comment = '';
         $order->returned = 1;
         $order->order_id = $id;
 //        if (!is_null($request->sending_time)) {
@@ -88,7 +89,7 @@ class OrderRepository
         if (!is_null($request->delivery_time)) {
             $order->sending_time = str_replace('T', ' ', $request->delivery_time);
         }
-        $order->delivery_comment = $request->delivery_comment;
+        $order->delivery_comment = '';
         $order->payer_id = $request->payer_id;
         $order->my_sensor = $request->my_sensor ?? 'off';
         $order->my_container = $request->my_container ?? 'off';
