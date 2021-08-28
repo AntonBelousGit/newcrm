@@ -173,7 +173,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="red-star">Parent order</label>
+                                <label class="red-star">Parent order HWB</label>
                                 <select class="form-control kt-select2 delivery-time" id="shipper_address" name="parent_id" required>
                                     @foreach($parentOrder as $item)
                                         <option value="{{$item->id}}">

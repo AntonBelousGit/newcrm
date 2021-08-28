@@ -67,7 +67,12 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
         Gate::define('manage-client', function (User $user, Order $order) {
-            return $user->id == $order->client_id;
+            if ($user->id == $order->client_id){
+                if ($user->payer()->get()->pluck('id')->contains($order->payer_id)){
+                    return true;
+                }
+            }
+            return false;
 
         });
         Gate::define('settings', function ($user)
