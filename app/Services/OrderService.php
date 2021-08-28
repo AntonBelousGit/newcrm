@@ -18,6 +18,10 @@ class OrderService
     {
         return $this->orderRepository->getAll();
     }
+    public function getAllParentOrder()
+    {
+        return $this->orderRepository->getAllParentOrder();
+    }
     public function saveOrder($request){
         return $this->orderRepository->saveOrder($request);
     }

@@ -88,7 +88,14 @@
                     </a>
                 </li>
             @endcan
-
+            @canany(['SuperUser','Manager','OPS'], Auth::user())
+                <li class="menu-item " aria-haspopup="true">
+                    <a href="{{route('admin.orders.create-return-job')}}" class="menu-link">
+                        <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
+                        <span class="menu-text">Add return job</span>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
 </li>

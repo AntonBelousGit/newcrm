@@ -22,6 +22,10 @@ class OrderRepository
     {
         return $this->order->with('cargo', 'user', 'tracker.cargolocation', 'order')->where('status_id', '!=', 9)->get();
     }
+    public function getAllParentOrder()
+    {
+        return $this->order->where('returned', '!=', 1)->get();
+    }
 
     public function saveOrder($request)
     {
@@ -68,6 +72,7 @@ class OrderRepository
 
     public function saveReturnedOrder($request, $id)
     {
+//        dd($id);
         $order = new Order();
 
         $order->shipper = $request->consignee;
@@ -102,6 +107,9 @@ class OrderRepository
         $order->cargo_location_id = 1;
         if (Gate::any(['Client'], Auth::user())) {
             $order->client_id = Auth::id();
+        }
+        if (isset($request->client_id)){
+            $order->client_id = $request->client_id;
         }
 
         $order->save();

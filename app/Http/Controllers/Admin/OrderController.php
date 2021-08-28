@@ -109,6 +109,55 @@ class OrderController extends Controller
         return abort(403);
     }
 
+    public function create_returned_order()
+    {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+            $users = User::whereHas('roles', function ($q) {
+                $q->where('name', 'Client');
+            })->get();
+            $parentOrder = $this->orderService->getAllParentOrder();
+            $payers = Payer::all();
+            $cargo_location = CargoLocation::all();
+            return view('backend.shipments.create-return', compact('users', 'cargo_location', 'payers', 'parentOrder'));
+        }
+        return abort(403);
+    }
+
+    public function store_returned_order(Request $request)
+    {
+//        dd($request);
+        if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+
+            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id);
+
+            if ($request->shipper_address_id) {
+                $start_tracker = new Tracker;
+                $start_tracker->order_id = $order->id;
+                $start_tracker->location_id = $request->shipper_address_id;
+                $start_tracker->address = $request->address_shipper;
+                $start_tracker->start_time = $request->sending_time;
+                $start_tracker->position = '0';
+                $start_tracker->save();
+            }
+            if ($request->consignee_address_id) {
+                $start_tracker = new Tracker;
+                $start_tracker->order_id = $order->id;
+                $start_tracker->location_id = $request->consignee_address_id;
+                $start_tracker->address = $request->address_consignee;
+                $start_tracker->start_time = $request->delivery_time;
+                $start_tracker->position = '2';
+                $start_tracker->save();
+            }
+
+            $this->orderService->createCargo($request, $order);
+
+
+            return redirect()->route('admin.orders.index');
+        }
+        return abort(403);
+    }
+
+    //Автоматически создаваемая обратная заявка
     public function returned_order($request, $id)
     {
 
