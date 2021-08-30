@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AgentUserController;
 use App\Http\Controllers\Admin\DriverUserController;
 use App\Http\Controllers\Admin\PayerController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\TrackerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -29,6 +30,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
         Route::get('/users/client-payer',[PayerController::class,'showClient'])->name('show-client');
         Route::get('/users/client-payer/{user}',[PayerController::class,'clientPayerEdit'])->name('client-payer-edit');
         Route::post('/users/client-payer/{user}',[PayerController::class,'clientPayerUpdate'])->name('client-payer-update');
+        Route::get('/reports', [ReportController::class,'export'])->name('reports');
 
         Route::resources([
             'orders'=> OrderController::class,
@@ -36,7 +38,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
             'driver'=> DriverUserController::class,
             'agent'=> AgentUserController::class,
             'payer'=> PayerController::class,
-//            'tracker'=> TrackerController::class,
+            'report'=> ReportController::class,
         ]);
         Route::post('/tracker/child-row',[TrackerController::class,'show_child_row'])->name('orders.children');
         Route::post('/orders/remove-cargo', [OrderController::class,'remove_cargo']);
