@@ -97,7 +97,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="City, street, postal code" name="address_shipper" class="form-control" required value="{{old('address_shipper')}}" />
+                                    <input type="text" placeholder="City, street" name="address_shipper" class="form-control" required value="{{old('address_shipper')}}" />
 
                                 </div>
                             </div>
@@ -111,7 +111,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">Post code:</label>
+                                    <input type="text" placeholder="Post code" name="shipper_postcode" class="form-control" required value="{{old('shipper_postcode')}}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Name')}}:</label>
                                     <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" class="form-control" required value="{{old('shipper')}}" />
@@ -138,7 +144,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="City, street, postal code" name="address_consignee" class="form-control" required value="{{old('address_consignee')}}"  />
+                                    <input type="text" placeholder="City, street" name="address_consignee" class="form-control" required value="{{old('address_consignee')}}"  />
 
                                 </div>
                             </div>
@@ -152,7 +158,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">Post code:</label>
+                                    <input type="text" placeholder="Post code" name="consignee_postcode" class="form-control" required value="{{old('shipper')}}" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Name')}}:</label>
                                     <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" class="form-control" required value="{{old('consignee')}}" />

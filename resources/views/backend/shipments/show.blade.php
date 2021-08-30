@@ -190,7 +190,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Volume weight:</label>
-                                            <input type="text"  placeholder="Temperature conditions" name="volume_weight" disabled class="form-control  "  value="{{$item['volume_weight']}}" />
+                                            <input type="text"  placeholder="Volume weight" name="volume_weight" disabled class="form-control  "  value="{{$item['volume_weight']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-12" style="margin-top: 10px;">

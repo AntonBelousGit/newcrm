@@ -18,6 +18,7 @@ class CreateTrackersTable extends Migration
             $table->foreignId('order_id');
             $table->bigInteger('location_id')->unsigned()->nullable();
             $table->string('address')->nullable();
+            $table->string('post_code')->nullable();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
             $table->timestamp('left_the_point')->nullable();

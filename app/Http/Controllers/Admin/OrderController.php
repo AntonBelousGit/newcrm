@@ -84,6 +84,7 @@ class OrderController extends Controller
                 $start_tracker->location_id = $request->shipper_address_id;
                 $start_tracker->address = $request->address_shipper;
                 $start_tracker->start_time = $request->sending_time;
+                $start_tracker->post_code = $request->shipper_post_code;
                 $start_tracker->position = '0';
                 $start_tracker->save();
             }
@@ -93,6 +94,8 @@ class OrderController extends Controller
                 $start_tracker->location_id = $request->consignee_address_id;
                 $start_tracker->address = $request->address_consignee;
                 $start_tracker->start_time = $request->delivery_time;
+                $start_tracker->post_code = $request->consignee_post_code;
+
                 $start_tracker->position = '2';
                 $start_tracker->save();
             }
@@ -135,6 +138,7 @@ class OrderController extends Controller
                 $start_tracker->order_id = $order->id;
                 $start_tracker->location_id = $request->shipper_address_id;
                 $start_tracker->address = $request->address_shipper;
+                $start_tracker->post_code = $request->shipper_postcode;
                 $start_tracker->start_time = $request->sending_time;
                 $start_tracker->position = '0';
                 $start_tracker->save();
@@ -144,6 +148,7 @@ class OrderController extends Controller
                 $start_tracker->order_id = $order->id;
                 $start_tracker->location_id = $request->consignee_address_id;
                 $start_tracker->address = $request->address_consignee;
+                $start_tracker->post_code = $request->consignee_postcode;
                 $start_tracker->start_time = $request->delivery_time;
                 $start_tracker->position = '2';
                 $start_tracker->save();
@@ -168,6 +173,8 @@ class OrderController extends Controller
             $start_tracker->order_id = $order->id;
             $start_tracker->location_id = $request->shipper_address_id;
             $start_tracker->address = $request->address_shipper;
+            $start_tracker->post_code = $request->shipper_postcode;
+
 //            $start_tracker->start_time = $request->sending_time;
             $start_tracker->position = '2';
             $start_tracker->save();
@@ -177,6 +184,7 @@ class OrderController extends Controller
             $start_tracker->order_id = $order->id;
             $start_tracker->location_id = $request->consignee_address_id;
             $start_tracker->address = $request->address_consignee;
+            $start_tracker->post_code = $request->consignee_postcode;
             $start_tracker->start_time = $request->delivery_time;
             $start_tracker->position = '0';
             $start_tracker->save();
@@ -328,6 +336,8 @@ class OrderController extends Controller
                 $tracker_start = Tracker::with('cargolocation')->where('order_id', $order->id)->where('position', '0')->first();
                 $tracker_start->location_id = $request->shipper_address_id;
                 $tracker_start->address = $request->address_shipper;
+                $tracker_start->post_code = $request->shipper_postcode;
+
 //                $tracker_start->start_time = $request->sending_time;
                 $tracker_start->update();
             }
@@ -335,6 +345,8 @@ class OrderController extends Controller
                 $tracker_end = Tracker::with('cargolocation')->where('order_id', $order->id)->where('position', '2')->first();
                 $tracker_end->location_id = $request->consignee_address_id;
                 $tracker_end->address = $request->address_consignee;
+                $tracker_end->post_code = $request->consignee_postcode;
+
 //                $tracker_end->start_time = $request->delivery_time;
                 $tracker_end->update();
             }

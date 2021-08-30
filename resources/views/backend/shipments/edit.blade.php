@@ -108,6 +108,12 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">Post code:</label>
+                                    <input type="text" placeholder="Post code" name="shipper_postcode" class="form-control" required value="{{$tracker_start->post_code}}" />
+                                </div>
+                            </div>
                         @else
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -127,8 +133,14 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">Post code:</label>
+                                    <input type="text" placeholder="Post code"  class="form-control" disabled value="{{$tracker_start->post_code}}" />
+                                </div>
+                            </div>
                         @endif
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper"
@@ -179,6 +191,12 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">Post code:</label>
+                                    <input type="text" placeholder="Post code" name="consignee_postcode" class="form-control" required value="{{$tracker_end->post_code}}" />
+                                </div>
+                            </div>
                         @else
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -198,8 +216,14 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">Post code:</label>
+                                    <input type="text" placeholder="Post code"  class="form-control" disabled value="{{$tracker_end->post_code}}" />
+                                </div>
+                            </div>
                         @endif
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Name')}}"
@@ -342,7 +366,7 @@
                                         <div class="col-md-3">
                                             <label>Volume weight:</label>
                                             <input type="text" @if($orders->status_id > 2) disabled
-                                                   @endif  placeholder="Temperature conditions" name="volume_weight"
+                                                   @endif  placeholder="Volume weight" name="volume_weight"
                                                    disabled class="form-control  " value="{{$item['volume_weight']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -596,7 +620,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label>Address:</label>
-                                            <input placeholder="City, street, postal code" type="text" name="address"
+                                            <input placeholder="City, street" type="text" name="address"
                                                    class="form-control" value="{{$tracker->address}}" required/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -682,7 +706,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label>Address:</label>
-                                        <input placeholder="City, street, postal code" type="text" name="address"
+                                        <input placeholder="City, street, " type="text" name="address"
                                                class="form-control"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>

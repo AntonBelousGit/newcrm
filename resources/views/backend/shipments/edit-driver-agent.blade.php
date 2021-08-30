@@ -232,7 +232,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Volume weight:</label>
-                                            <input type="text"  placeholder="Temperature conditions" name="volume_weight" disabled class="form-control  "  value="{{$item['volume_weight']}}" />
+                                            <input type="text"  placeholder="Volume weight" name="volume_weight" disabled class="form-control  "  value="{{$item['volume_weight']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-12" style="margin-top: 10px;">
@@ -395,7 +395,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Address:</label>
-                                                <input  placeholder="City, street, postal code" type="text" disabled  class="form-control" value="{{$tracker->address}}" required/>
+                                                <input  placeholder="City, street" type="text" disabled  class="form-control" value="{{$tracker->address}}" required/>
                                                 <div class="mb-2 d-md-none"></div>
                                             </div>
                                             <div class="col-md-4">
