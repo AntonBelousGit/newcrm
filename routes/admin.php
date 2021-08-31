@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
         Route::get('/users/client-payer',[PayerController::class,'showClient'])->name('show-client');
         Route::get('/users/client-payer/{user}',[PayerController::class,'clientPayerEdit'])->name('client-payer-edit');
         Route::post('/users/client-payer/{user}',[PayerController::class,'clientPayerUpdate'])->name('client-payer-update');
+        Route::post('/reports', [ReportController::class,'export'])->name('reports');
         Route::get('/reports', [ReportController::class,'export'])->name('reports');
 
         Route::resources([

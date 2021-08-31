@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\OrderExport;
 use App\Http\Controllers\Controller;
+use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -16,12 +19,32 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+
+            $reports = Report::all();
+            $title = 'All Shipments';
+            return view('backend.reports.index',compact('reports'));
+        }
+        elseif (Gate::any(['Client'],Auth::user()))
+        {
+            $reports = Report::where('user_id',Auth::id())->get();
+            return view('backend.reports.index',compact('reports'));
+        }
+
+
+        return abort(403);
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new OrderExport, 'reports.xlsx');
+        $file = Excel::download(new OrderExport($request), 'reports.xlsx');
+        if (isset($file)){
+           $reports = new Report;
+           $reports->range = $request->start . '  -  '  . $request->end;
+           $reports->user_id = Auth::id();
+           $reports->save();
+        }
+        return $file;
     }
     /**
      * Show the form for creating a new resource.

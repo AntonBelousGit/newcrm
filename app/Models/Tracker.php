@@ -14,4 +14,9 @@ class Tracker extends Model
         return $this->belongsTo('App\Models\CargoLocation','location_id');
 
     }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'driver_id');
+
+    }
 }

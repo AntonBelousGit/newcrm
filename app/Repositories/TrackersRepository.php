@@ -76,6 +76,7 @@ class TrackersRepository
             $tracker_end->signed = $end['signed'];
             $tracker_end->status = 'Arrived';
             $order->status_id = 6;
+            $order->delivery_time = now()->format('Y-m-d');
             $order->update();
         }
         if (!is_null($request->checkout_number)) {

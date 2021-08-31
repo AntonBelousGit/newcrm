@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Order;
+use App\Models\Report;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -55,6 +56,12 @@ class AuthServiceProvider extends ServiceProvider
         });
         Gate::define('manage-agent', function (User $user, Order $order) {
             return $user->id == $order->agent_id;
+        });
+        Gate::define('manage-client-exel', function (User $user, Order $order) {
+            return $user->id == $order->client_id;
+        });
+        Gate::define('manage-client-report',function (User $user, Report $report){
+            return $user->id == $report->user_id;
         });
         Gate::define('manage-driver', function (User $user, Order $order) {
 //            dd($order);

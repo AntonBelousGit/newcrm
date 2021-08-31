@@ -1,4 +1,4 @@
-@canany(['SuperUser','Manager','Security Officer'], Auth::user())
+@canany(['SuperUser','Manager','Security Officer','Client'], Auth::user())
 
     <li class="menu-item menu-item-submenu  " aria-haspopup="true" data-menu-toggle="hover">
         <a href="javascript:;" class="menu-link menu-toggle">
@@ -15,28 +15,9 @@
                                 </span>
                 </li>
                 <li class="menu-item " aria-haspopup="true">
-                    <a href="" class="menu-link">
+                    <a href="{{route('admin.report.index')}}" class="menu-link">
                         <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
-                        <span class="menu-text">New</span>
-                    </a>
-                </li>
-
-                <li class="menu-item " aria-haspopup="true">
-                    <a href="" class="menu-link">
-                        <i class="menu-bullet menu-bullet-dot">
-                            <span></span>
-                        </i>
                         <span class="menu-text">All</span>
-
-                    </a>
-                </li>
-                <li class="menu-item " aria-haspopup="true">
-                    <a href="{{route('admin.reports')}}" class="menu-link">
-                        <i class="menu-bullet menu-bullet-dot">
-                            <span></span>
-                        </i>
-                        <span class="menu-text">All download</span>
-
                     </a>
                 </li>
             </ul>

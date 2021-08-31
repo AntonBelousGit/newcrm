@@ -66,6 +66,12 @@ class Order extends Model
 
     }
 
+    public function payer()
+    {
+        return $this->belongsTo('App\Models\Payer', 'payer_id');
+
+    }
+
     public function substatus()
     {
         return $this->belongsTo('App\Models\SubProductStatus', 'substatus_id');
