@@ -25,7 +25,8 @@
         text-transform: uppercase;
     }
 
-    .table_first tr {}
+    .table_first tr {
+    }
 
     .table_first tbody td {
         padding: 0;
@@ -108,7 +109,11 @@
         <span>Air</span>express
     </div>
     <div class="number">
-        <span>300</span> hwb Number
+        <span>
+            @php
+                echo str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
+            @endphp
+        </span>
     </div>
 </div>
 <div class="wrap-table">
@@ -125,11 +130,11 @@
                 <div class="content_td">
                     <div>
                         <p>Name</p>
-                        <span>Shipper Name</span>
+                        <span>{{$invoices->shipper}}</span>
                     </div>
                     <div>
                         <p>Telephone</p>
-                        <span>Consignee Phone</span>
+                        <span>{{$invoices->phone_shipper}}</span>
                     </div>
                 </div>
             </td>
@@ -137,11 +142,11 @@
                 <div class="content_td">
                     <div>
                         <p>Name</p>
-                        <span>Shipper Name</span>
+                        <span>{{$invoices->consignee}}</span>
                     </div>
                     <div>
                         <p>Telephone</p>
-                        <span>Consignee Phone</span>
+                        <span>{{$invoices->phone_consignee}}</span>
                     </div>
                 </div>
             </td>
@@ -151,7 +156,7 @@
                 <div class="content_td">
                     <div>
                         <p>Company</p>
-                        <span>Shipper Name</span>
+                        <span>{{$invoices->company_shipper}}</span>
                     </div>
                 </div>
             </td>
@@ -159,7 +164,7 @@
                 <div class="content_td">
                     <div>
                         <p>Company</p>
-                        <span>Shipper Name</span>
+                        <span>{{$invoices->company_consignee}}</span>
                     </div>
                 </div>
             </td>
@@ -169,7 +174,7 @@
                 <div class="content_td">
                     <div>
                         <p>Adress</p>
-                        <span>Shipper Name</span>
+                        <span>{{$tracker_start->address}}</span>
                     </div>
                 </div>
             </td>
@@ -177,7 +182,7 @@
                 <div class="content_td">
                     <div>
                         <p>Adress</p>
-                        <span>Shipper Name</span>
+                        <span>{{$tracker_end->address}}</span>
                     </div>
                 </div>
             </td>
@@ -197,7 +202,7 @@
                 <div class="content_td">
                     <div>
                         <p>City</p>
-                        <span>Shipper city</span>
+                        <span>{{$invoices->shipper_city->city}}</span>
                     </div>
                     <div>
                         <p>State/country</p>
@@ -205,7 +210,7 @@
                     </div>
                     <div>
                         <p>postcode</p>
-                        <span>Втянуть с адреса или отделить в отдельный интпут</span>
+                        <span>{{$tracker_start->post_code}}</span>
                     </div>
                 </div>
             </td>
@@ -213,7 +218,7 @@
                 <div class="content_td">
                     <div>
                         <p>City</p>
-                        <span>Shipper city</span>
+                        <span>{{$invoices->consignee_city->city}}</span>
                     </div>
                     <div>
                         <p>State/country</p>
@@ -221,7 +226,7 @@
                     </div>
                     <div>
                         <p>postcode</p>
-                        <span>Втянуть с адреса или отделить в отдельный интпут</span>
+                        <span>{{$tracker_end->post_code}}</span>
                     </div>
                 </div>
             </td>
@@ -240,7 +245,7 @@
                 <div class="content_td">
                     <div>
                         <p>full description of contents</p>
-                        <span>Shippment Description, если оно заполнено</span>
+                        <span>{{$invoices->shipment_description}}</span>
                     </div>
                 </div>
             </td>
@@ -266,16 +271,25 @@
                             Temperature(TT)
                         </th>
                     </tr>
-                    <tr>
-                        <td>
-                            Порядковый номер
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    @foreach($invoices->cargo as $cargo)
+                        <tr>
+                            <td>
+                                {{$cargo->id}}
+                            </td>
+                            <td>
+                                {{$cargo->type}}
+                            </td>
+                            <td>
+                                {{$cargo->сargo_dimensions_length}}x{{$cargo->сargo_dimensions_width}}
+                                x{{$cargo->сargo_dimensions_height}}
+                            </td>
+                            <td>
+                                {{$cargo->serial_number}}
+                            </td>
+                            <td>{{$cargo->serial_number_sensor}}</td>
+                            <td>{{$cargo->temperature_conditions}}</td>
+                        </tr>
+                    @endforeach
                 </table>
             </td>
         </tr>
@@ -284,14 +298,44 @@
                 <div class="content_td">
                     <div>
                         <p>#Of PCS quantity</p>
+                        <p>{{$invoices->cargo->sum('quantity')}}</p>
                     </div>
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
                     <div>
-                        <p>weight................kgs</p>
-                        <p>Chargeable weight................kgs</p>
+                        <p>weight
+                            @php
+                                $actual_weight = 0;
+                            @endphp
+                            @foreach($invoices->cargo as $item)
+                                @for ($i = 0; $i < $item->quantity; $i++)
+                                    @php
+                                        $actual_weight += $item->actual_weight;
+                                    @endphp
+                                @endfor
+                            @endforeach
+                            @php
+                                echo $actual_weight;
+                            @endphp
+                             kgs</p>
+                        <p>Chargeable weight
+                            @php
+                                $weight = 0;
+                            @endphp
+                            @foreach($invoices->cargo as $item)
+                                @for ($i = 0; $i < $item->quantity; $i++)
+                                    @php
+                                        $weight += $item->volume_weight;
+                                    @endphp
+                                @endfor
+                            @endforeach
+                            @php
+                                echo $weight;
+                            @endphp
+                            kgs
+                        </p>
                     </div>
                 </div>
             </td>
@@ -305,16 +349,18 @@
         <tr>
             <td colspan="4">
                 <div class="content_td">
-                    tardigrat liability is limited
+                    AirExpress liability is limited
                 </div>
             </td>
         </tr>
         <tr>
             <td colspan="4">
                 <div class="content_td">
-                    shipper's security endorsement: I certify that this cargo does not contain any unanthorized explosilver,
+                    SHIPPER'S SECURITY ENDORSEMENT: I certify that this cargo does not contain any unanthorized
+                    explosilver,
                     incendiaries, or hazardous matelrials. I consent of this cargo, I am aware that this endorsement and
-                    original signature, along with other shipping documents, will be retained on file for at least thirty
+                    original signature, along with other shipping documents, will be retained on file for at least
+                    thirty
                     days.
                 </div>
             </td>
@@ -322,44 +368,44 @@
         <tr>
             <td colspan="1">
                 <div class="content_td">
-                    signature of shipper or shipper's agent:
+                    SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    date:
+                    DATE:
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    print name of consignee or consignee's agent
+                    PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    date
+                    DATE
                 </div>
             </td>
         </tr>
         <tr>
             <td colspan="1">
                 <div class="content_td">
-                    signature of shipper or shipper's agent:
+                    SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    date:
+                    DATE
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    print name of consignee or consignee's agent
+                    PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    date
+                    DATE
                 </div>
             </td>
         </tr>

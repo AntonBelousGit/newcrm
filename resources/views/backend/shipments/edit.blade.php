@@ -861,7 +861,7 @@
                     @can('SuperUser', 'Manager', 'OPS', 'Client')
                         <div class="form-group ">
                             <div class="">
-                                <label class="text-right col-form-label">Print Invoice</label>
+                                <label class="text-right col-form-label">Print HWB</label>
                                 <div>
                                     <a href="{!! route('admin.download_pdf', $orders->id) !!}"
                                        class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">

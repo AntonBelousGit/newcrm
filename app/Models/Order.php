@@ -59,7 +59,16 @@ class Order extends Model
         return $this->belongsTo('App\Models\CargoLocation', 'cargo_location_id');
 
     }
+    public function shipper_city()
+    {
+        return $this->belongsTo('App\Models\CargoLocation', 'shipper_address_id');
 
+    }
+    public function consignee_city()
+    {
+        return $this->belongsTo('App\Models\CargoLocation', 'consignee_address_id');
+
+    }
     public function status()
     {
         return $this->belongsTo('App\Models\ProductStatus', 'status_id');
