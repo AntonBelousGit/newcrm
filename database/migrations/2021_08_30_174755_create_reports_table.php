@@ -17,6 +17,7 @@ class CreateReportsTable extends Migration
             $table->id();
             $table->string('range')->nullable();
             $table->integer('user_id')->nullable();
+            $table->string('file_name')->nullable();
             $table->timestamps();
         });
     }

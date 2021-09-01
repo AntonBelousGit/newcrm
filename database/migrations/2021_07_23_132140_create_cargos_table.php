@@ -23,9 +23,9 @@ class CreateCargosTable extends Migration
             $table->integer('сargo_dimensions_length');
             $table->integer('сargo_dimensions_width');
             $table->float('volume_weight');
-            $table->string('serial_number')->nullable()->unique();
+            $table->string('serial_number')->nullable();
             $table->string('serial_number_sensor')->nullable();
-            $table->string('un_number')->nullable()->unique();
+            $table->string('un_number')->nullable();
             $table->string('temperature_conditions')->nullable();
 
             $table->timestamps();

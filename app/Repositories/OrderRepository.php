@@ -140,7 +140,7 @@ class OrderRepository
             $order->sending_time = str_replace('T', ' ', $request->sending_time);
         }
 
-        $order->delivery_time = $request->delivery_time;
+//        $order->delivery_time = $request->delivery_time;
         $order->delivery_comment = $request->delivery_comment;
         $order->payer_id = $request->payer_id;
         $order->my_sensor = $request->my_sensor ?? 'off';

@@ -84,7 +84,7 @@ class OrderController extends Controller
                 $start_tracker->location_id = $request->shipper_address_id;
                 $start_tracker->address = $request->address_shipper;
                 $start_tracker->start_time = $request->sending_time;
-                $start_tracker->post_code = $request->shipper_post_code;
+                $start_tracker->post_code = $request->shipper_postcode;
                 $start_tracker->position = '0';
                 $start_tracker->save();
             }
@@ -94,7 +94,7 @@ class OrderController extends Controller
                 $start_tracker->location_id = $request->consignee_address_id;
                 $start_tracker->address = $request->address_consignee;
                 $start_tracker->start_time = $request->delivery_time;
-                $start_tracker->post_code = $request->consignee_post_code;
+                $start_tracker->post_code = $request->consignee_postcode;
 
                 $start_tracker->position = '2';
                 $start_tracker->save();

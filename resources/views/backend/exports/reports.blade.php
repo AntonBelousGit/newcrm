@@ -74,6 +74,7 @@
 @else
     @foreach($orders as $order)
             @foreach($order->cargo as $item)
+                @dd($order->agent)
                 <tr>
                     <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
                     <td>@php echo str_pad($order->invoice_number, 6, "0", STR_PAD_LEFT);  @endphp</td>
@@ -94,7 +95,7 @@
                     <td>{{$item->temperature_conditions}}</td>
                     <td>{{$order->tracker->first()->user->fullname}}</td>
                     <td></td>
-                    <td>{{$order->agent->fullname}}</td>
+                    <td>{{$order->agent->fullname ?? ''}}</td>
                     <td></td>
                     <td>...$</td>
                 </tr>
