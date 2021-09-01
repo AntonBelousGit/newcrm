@@ -15,9 +15,10 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('range')->nullable();
+            $table->date('start')->nullable();
+            $table->date('end')->nullable();
+            $table->integer('status')->nullable();
             $table->integer('user_id')->nullable();
-            $table->string('file_name')->nullable();
             $table->timestamps();
         });
     }

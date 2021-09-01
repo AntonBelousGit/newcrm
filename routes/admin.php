@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
         Route::post('/users/client-payer/{user}',[PayerController::class,'clientPayerUpdate'])->name('client-payer-update');
         Route::post('/reports', [ReportController::class,'export'])->name('reports');
         Route::get('/reports', [ReportController::class,'export'])->name('reports');
+        Route::get('/reports/{report}', [ReportController::class,'exportExist'])->name('download');
 
         Route::resources([
             'orders'=> OrderController::class,

@@ -8,6 +8,7 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -39,14 +40,23 @@ class ReportController extends Controller
         $file = Excel::download(new OrderExport($request), 'reports.xlsx');
         if (isset($file)){
            $reports = new Report;
-           $reports->range = $request->start . '  -  '  . $request->end;
+           $reports->start = $request->start;
+           $reports->end = $request->end;
            $reports->user_id = Auth::id();
-           $reports->file_name = $file->getFile()->getFilename();
+           $reports->status = $request->status;
            $reports->save();
         }
 
         return $file;
     }
+    public function exportExist($id)
+    {
+        $request = Report::find($id);
+        $file = Excel::download(new OrderExport($request), 'reports.xlsx');
+
+        return $file;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

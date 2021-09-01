@@ -203,8 +203,10 @@ class OrderController extends Controller
      */
     public function show($id)
     {
+        $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
+        $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
         $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver')->findOrFail($id);
-        return view('backend.shipments.show', compact('orders'));
+        return view('backend.shipments.show', compact('orders','tracker_start','tracker_end'));
     }
 
     /**

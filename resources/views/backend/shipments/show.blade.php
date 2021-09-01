@@ -47,10 +47,17 @@
                                 <input type="text" placeholder="{{ ('Shipper Phone')}}" disabled class="form-control" value="{{$orders->phone_shipper}}"/>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ ('Shipper Address')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Address')}}" disabled class="form-control" value="{{$orders->address_shipper}}" />
+                                <label class="red-star">{{ ('Shipper Address')}}:</label>
+                                <input type="text" placeholder="{{ ('Shipper Address')}}"
+                                       disabled class="form-control" value="{{$tracker_start->address}}"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">Post code:</label>
+                                <input type="text" placeholder="Post code"  class="form-control" disabled value="{{$tracker_start->post_code}}" />
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -59,6 +66,7 @@
                                 <input type="text" placeholder="{{ ('Shipper Name')}}" disabled class="form-control"  value="{{$orders->shipper}}" />
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Number order:</label>
@@ -91,10 +99,17 @@
                                 <input type="text" placeholder="{{ ('Consignee Phone')}}" disabled class="form-control" value="{{$orders->phone_consignee}}" />
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>{{ ('Consignee Address')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee" disabled class="form-control" value="{{$orders->address_consignee}}"/>
+                                <label class="red-star">{{ ('Consignee Address')}}:</label>
+                                <input type="text" placeholder="{{ ('Consignee Address')}}"
+                                       disabled class="form-control" value="{{$tracker_end->address}}"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">Post code:</label>
+                                <input type="text" placeholder="Post code"  class="form-control" disabled value="{{$tracker_end->post_code}}" />
                             </div>
                         </div>
                         <div class="col-md-12">

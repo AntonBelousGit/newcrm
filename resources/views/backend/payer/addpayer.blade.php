@@ -68,7 +68,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Roles</label>
+                                <label>Payers</label>
                                 <select name="payer[]" class="change-country-client-address form-control select-country" multiple required>
                                     @foreach($payer as $item)
                                         <option value="{{$item->id}}" @if($users->payer->pluck('id')->contains($item->id)) selected @endif>{{$item->customer_name}}</option>

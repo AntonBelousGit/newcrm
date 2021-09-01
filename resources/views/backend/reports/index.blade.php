@@ -39,18 +39,21 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Range</th>
                     <th>Created at</th>
+                    <th>Period</th>
+                    <th>Mission</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($reports as $user)
+                @foreach($reports as $report)
 
                     <tr>
-                        <td>{{$user->id}}</td>
-                        <td>{{$user->range}}</td>
-                        <td>{{$user->created_at}}</td>
+                        <td>{{$report->id}}</td>
+                        <td>{{$report->created_at->format('d.m.Y H:s:i')}}</td>
+                        <td>({{$report->start->format('d.m.Y')}} - {{$report->end->format('d.m.Y')}})</td>
 
+{{--                        <td><a href="./storage/framework/laravel-excel/{{$report->file_name}}" download>Скачать файл</a></td>--}}
+                        <td><a href="{!! route('admin.download', $report->id) !!}">Download</a></td>
 
 {{--                        <td class="text-center">--}}
 {{--                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.users.show', $user->id)}}" title="Show">--}}
