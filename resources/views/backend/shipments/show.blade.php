@@ -285,13 +285,6 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Driver:</label>
-                                <input type="text" placeholder="Driver" class="form-control" disabled value="@php if(isset($orders->driver)){ echo $orders->driver->fullname;} @endphp" />
-                            </div>
-                        </div>
-                        <hr>
                     </div>
                 </div>
             </div>

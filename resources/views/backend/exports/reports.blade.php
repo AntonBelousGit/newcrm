@@ -30,26 +30,6 @@
 {{--    @dd($orders)--}}
 {{--    @dd($orders->first()->tracker->where('position',2)->first())--}}
     <tbody>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
 @canany('SuperUser','OPS','Manager','Agent')
     @foreach($orders as $order)
         @foreach($order->cargo as $item)
@@ -69,7 +49,7 @@
                 <td>{{$item->quantity}}</td>
                 <td>{{$item->actual_weight}}</td>
                 <td>{{$item->volume_weight}}</td>
-                <td>{{$item->сargo_dimensions_height}}x{{$item->сargo_dimensions_length}}x{{$item->сargo_dimensions_width}}</td>
+                <td>{{$item->сargo_dimensions_length}}x{{$item->сargo_dimensions_width}}x{{$item->сargo_dimensions_height}}</td>
                 <td>{{$item->temperature_conditions}}</td>
                 <td>{{$order->tracker->first()->user->fullname ?? ''}}</td>
                 <td></td>

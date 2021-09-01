@@ -16,8 +16,11 @@
                 </li>
                 <li class="menu-item " aria-haspopup="true">
                     <a href="{{route('admin.report.index')}}" class="menu-link">
-                        <i class="menu-bullet menu-icon flaticon2-plus" style="font-size: 10px;"></i>
+                        <i class="menu-bullet menu-bullet-dot">
+                            <span></span>
+                        </i>
                         <span class="menu-text">All</span>
+
                     </a>
                 </li>
             </ul>
