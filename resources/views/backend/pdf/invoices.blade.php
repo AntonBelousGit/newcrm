@@ -16,6 +16,11 @@
         border-collapse: collapse;
     }
 
+     body {
+         font-family: DejaVu Sans, sans-serif;
+         font-size:12px;
+     }
+
     .table_first thead th {
 
         border: 2px solid #12469a;
@@ -415,3 +420,4 @@
 </body>
 
 </html>
+
