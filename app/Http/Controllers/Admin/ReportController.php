@@ -31,7 +31,6 @@ class ReportController extends Controller
             return view('backend.reports.index',compact('reports'));
         }
 
-
         return abort(403);
     }
 
@@ -42,8 +41,10 @@ class ReportController extends Controller
            $reports = new Report;
            $reports->range = $request->start . '  -  '  . $request->end;
            $reports->user_id = Auth::id();
+           $reports->file_name = $file->getFile()->getFilename();
            $reports->save();
         }
+
         return $file;
     }
     /**
