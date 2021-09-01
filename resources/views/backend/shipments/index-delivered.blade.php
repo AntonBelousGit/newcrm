@@ -56,7 +56,7 @@
                         <th>Shipper's company name</th>
                         <th>Consignee's company name</th>
                         <th>Delivery type</th>
-                        <th>NWB number</th>
+                        <th>HWB number</th>
                         <th>Status</th>
                         <th>Created at</th>
                         <th>Mission</th>

@@ -858,7 +858,21 @@
                             </div>
                         </div>
                     </div>
+                    @can('SuperUser', 'Manager', 'OPS', 'Client')
+                        <div class="form-group ">
+                            <div class="">
+                                <label class="text-right col-form-label">Print Invoice</label>
+                                <div>
+                                    <a href="{!! route('admin.download_pdf', $orders->id) !!}"
+                                       class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
+                                        Print PDF
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
                 </div>
+
                 <div class="form-group ">
                     <div class="">
                         <div>

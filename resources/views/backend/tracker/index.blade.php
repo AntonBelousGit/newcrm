@@ -50,7 +50,7 @@
                 <thead>
                 <tr>
                     <th>№</th>
-                    <th>NWB number</th>
+                    <th>HWB number</th>
                     <th>Location</th>
                     <th>Mission</th>
                 </tr>

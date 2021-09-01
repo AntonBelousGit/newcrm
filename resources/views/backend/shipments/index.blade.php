@@ -56,7 +56,7 @@
                         <th>Shipper's company name</th>
                         <th>Consignee's company name</th>
                         <th>Delivery type</th>
-                        <th>NWB number</th>
+                        <th>HWB number</th>
                         <th>Status</th>
                         <th>Created at</th>
                         <th>Mission</th>
@@ -131,6 +131,11 @@
                                            href="{{route('admin.orders.edit-agent', $shipment->id)}}"
                                            title="{{  ('Edit') }}">
                                             <i class="las la-edit"></i>
+                                        </a>
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{!! route('admin.download_pdf', $shipment->id) !!}"
+                                           title="Print">
+                                            <i class="las la-print"></i>
                                         </a>
                                     </td>
                                     <td class="details-control">
@@ -208,6 +213,11 @@
                                            title="{{  ('Edit') }}">
                                             <i class="las la-edit"></i>
                                         </a>
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{!! route('admin.download_pdf', $shipment->id) !!}"
+                                           title="Print">
+                                            <i class="las la-print"></i>
+                                        </a>
                                     </td>
                                     <td class="details-control">
                                         <input type="hidden" value="{{$shipment->id}}">
@@ -281,13 +291,20 @@
                                            href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                             <i class="las la-eye"></i>
                                         </a>
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{!! route('admin.download_pdf', $shipment->id) !!}"
+                                           title="Print">
+                                            <i class="las la-print"></i>
+                                        </a>
                                     </td>
+
                                     <td class="details-control">
                                         <input type="hidden" value="{{$shipment->id}}">
                                         <div class="btn_arr">
                                             <i class="fas fa-chevron-left"></i>
                                         </div>
                                     </td>
+
                                 </tr>
                             @endcan
                         @endforeach
@@ -355,6 +372,11 @@
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                            href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
                                             <i class="las la-edit"></i>
+                                        </a>
+                                        <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                           href="{!! route('admin.download_pdf', $shipment->id) !!}"
+                                           title="Print">
+                                            <i class="las la-print"></i>
                                         </a>
                                     @endcanany
                                 </td>

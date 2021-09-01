@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\InvoiceController;
 
 Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
     function () {
@@ -33,6 +34,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin', 'as' => 'admin.'],
         Route::post('/reports', [ReportController::class,'export'])->name('reports');
         Route::get('/reports', [ReportController::class,'export'])->name('reports');
         Route::get('/reports/{report}', [ReportController::class,'exportExist'])->name('download');
+        Route::get('/print/{id}', [InvoiceController::class,'downloadPDF'])->name('download_pdf');
 
         Route::resources([
             'orders'=> OrderController::class,
