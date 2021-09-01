@@ -865,7 +865,7 @@
                                 <div>
                                     <a href="{!! route('admin.download_pdf', $orders->id) !!}"
                                        class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
-                                        Print PDF
+                                        HWB
                                     </a>
                                 </div>
                             </div>
