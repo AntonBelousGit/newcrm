@@ -77,7 +77,7 @@
                     </a>
                 </li>
             @endcan
-            @canany(['SuperUser','Manager','OPS'], Auth::user())
+            @canany(['SuperUser','Manager','OPS','Client'], Auth::user())
                 <li class="menu-item " aria-haspopup="true">
                     <a href="{{route('admin.orders.archives')}}" class="menu-link">
                         <i class="menu-bullet menu-bullet-dot">

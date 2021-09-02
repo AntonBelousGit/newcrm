@@ -410,7 +410,7 @@ class OrderController extends Controller
 
     public function archives()
     {
-        if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS','Client'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 9)->get();
             $title = 'Archives';
             return view('backend.shipments.index', compact('orders', 'title'));
