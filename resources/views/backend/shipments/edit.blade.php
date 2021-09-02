@@ -109,13 +109,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="red-star">Site Number :</label>
-                                <input type="text" placeholder="City, street" @if($orders->status_id > 1) readonly @endif  name="site_shipper" class="form-control" required value="{{$orders->site_shipper}}" />
 
-                            </div>
-                        </div>
                         @if($orders->status_id == 1)
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -180,6 +174,13 @@
                                 <input type="hidden" id="order" value="{{$orders->id}}">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">Site Number :</label>
+                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper" class="form-control" required value="{{$orders->site_shipper}}" />
+
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
@@ -201,13 +202,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="red-star">Site Number :</label>
-                                <input type="text" placeholder="City, street" @if($orders->status_id > 1) readonly @endif  name="site_consignee" class="form-control" required value="{{$orders->site_consignee}}" />
 
-                            </div>
-                        </div>
                         @if($orders->status_id == 1)
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -269,6 +264,13 @@
                                 <input type="text" placeholder="{{ ('Consignee Name')}}"
                                        @if($orders->status_id > 1) readonly @endif  required name="consignee"
                                        class="form-control" value="{{$orders->consignee}}"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">Site Number :</label>
+                                <input type="text"  @if($orders->status_id > 1) readonly @endif  name="site_consignee" class="form-control" required value="{{$orders->site_consignee}}" />
+
                             </div>
                         </div>
                         <div class="col-md-12">
