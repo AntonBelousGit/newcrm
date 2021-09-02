@@ -287,7 +287,7 @@
                     @foreach($invoices->cargo as $cargo)
                         <tr>
                             <td>
-                                {{$cargo->id}}
+                                {{$loop->iteration}}
                             </td>
                             <td>
                                 {{$cargo->type}}
