@@ -4,6 +4,15 @@
 
     <!--begin::Container-->
     <div class="container-fluid d-flex align-items-stretch justify-content-between">
+        <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
+            <!--begin::Header Menu-->
+            <div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default header-menu-root-arrow">
+                <!--begin::Header Nav-->
+
+                <!--end::Header Nav-->
+            </div>
+            <!--end::Header Menu-->
+        </div>
 
         <!--begin::Topbar-->
         <div class="topbar">
@@ -14,16 +23,16 @@
 
             <!--begin::Languages-->
             <div class="dropdown">
-                @php
-                    if(Session::has('locale')){
-                        $locale = Session::get('locale', Config::get('app.locale'));
-                    }
-                    else{
-                        $locale = env('DEFAULT_LANGUAGE');
-                    }
-                @endphp
+            @php
+                if(Session::has('locale')){
+                    $locale = Session::get('locale', Config::get('app.locale'));
+                }
+                else{
+                    $locale = env('DEFAULT_LANGUAGE');
+                }
+            @endphp
 
-                <!--begin::Toggle-->
+            <!--begin::Toggle-->
 
 
                 <!--end::Toggle-->
@@ -91,7 +100,7 @@
 
                         <!--begin::Item-->
                         <a href=""
-                            class="navi-item px-8">
+                           class="navi-item px-8">
                             <div class="navi-link">
                                 <div class="navi-icon mr-2">
                                     <i class="flaticon2-calendar-3 text-success"></i>
@@ -109,7 +118,7 @@
                         <div class="navi-separator mt-3"></div>
                         <div class="navi-footer px-8 py-5">
                             <a href="{{ route('logout')}}"
-                                class="btn btn-light-primary font-weight-bold">Logout</a>
+                               class="btn btn-light-primary font-weight-bold">Logout</a>
                         </div>
 
                         <!--end::Footer-->
