@@ -18,7 +18,7 @@ class CreateCargosTable extends Migration
             $table->foreignId('order_id');
             $table->string('type');
             $table->integer('quantity');
-            $table->integer('actual_weight');
+            $table->float('actual_weight');
             $table->integer('сargo_dimensions_height');
             $table->integer('сargo_dimensions_length');
             $table->integer('сargo_dimensions_width');

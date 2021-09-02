@@ -405,7 +405,6 @@
 
         @can('Client')
         function format(d) {
-            console.log(d);
             // `d` is the original data object for the row
             var str_start_head = '<table class="table_custom"><thead><tr><th></th>';
             var str_end_head = '</tr></thead>';
@@ -492,7 +491,9 @@
 
         @endcan
         $(document).ready(function () {
-            var table = $('#table_id').DataTable({});
+            var table = $('#table_id').DataTable({
+                stateSave: true
+            });
             $('#table_id tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var id = $(this).find('input[type="hidden"]').val();

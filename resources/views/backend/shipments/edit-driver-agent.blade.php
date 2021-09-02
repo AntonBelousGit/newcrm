@@ -201,8 +201,8 @@
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
-                                            <label>Actual weight:</label>
-                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" disabled class="form-control" value="{{$item['actual_weight']}}" />
+                                            <label>Actual weight  (kg):</label>
+                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" step="0.1" disabled class="form-control" value="{{$item['actual_weight']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">

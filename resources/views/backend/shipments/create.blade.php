@@ -96,11 +96,19 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label class="red-star">Site Number :</label>
+                                    <input type="text" placeholder="City, street" name="site_shipper" class="form-control" required value="{{old('site_shipper')}}" />
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <input type="text" placeholder="City, street" name="address_shipper" class="form-control" required value="{{old('address_shipper')}}" />
 
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
@@ -138,6 +146,13 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Phone')}}:</label>
                                     <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" class="form-control" required value="{{old('phone_consignee')}}" />
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">Site Number :</label>
+                                    <input type="text" placeholder="City, street" name="site_consignee" class="form-control" required value="{{old('site_consignee')}}" />
 
                                 </div>
                             </div>
@@ -222,8 +237,8 @@
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3">
-                                        <label class="red-star">Actual weight:</label>
-                                        <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="1"  required/>
+                                        <label class="red-star">Actual weight  (kg):</label>
+                                        <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" step="0.1" name="actual_weight" class="form-control" value="1"  required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
 

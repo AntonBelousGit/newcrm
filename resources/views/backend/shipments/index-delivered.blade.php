@@ -349,7 +349,9 @@
         }
 
         $(document).ready(function () {
-            var table = $('#table_id').DataTable({});
+            var table = $('#table_id').DataTable({
+                stateSave: true
+            });
             $('#table_id tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var id = $(this).find('input[type="hidden"]').val();

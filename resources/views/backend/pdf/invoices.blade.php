@@ -16,10 +16,10 @@
         border-collapse: collapse;
     }
 
-     body {
-         font-family: DejaVu Sans, sans-serif;
-         font-size:12px;
-     }
+    body {
+        font-family: DejaVu Sans, sans-serif;
+        font-size:12px;
+    }
 
     .table_first thead th {
 
@@ -43,13 +43,15 @@
     .content_td {
         padding: 5px;
         /* Поля вокруг содержимого ячеек */
-        display: flex;
-        justify-content: space-between;
+        /* display: flex;
+        justify-content: space-between; */
         min-height: 48px;
     }
 
     .content_td div {
         /* width: 33%; */
+        display: inline-block;
+        margin-right: 10px;
     }
 
     .content_td p {
@@ -80,13 +82,17 @@
     }
 
     .header {
-        display: flex;
+        /* display: flex;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: baseline; */
         width: 1000px;
+        height: 100px;
+
     }
 
     .logo {
+        display: inline-block;
+        float: left;
         font-size: 60px;
         font-weight: bold;
         color: #c00056;
@@ -98,10 +104,12 @@
 
     .number span {
         color: #000;
-        font-size: 30px;
+        font-size: 50px;
     }
 
     .number {
+        float: right;
+        display: inline-block;
         color: #c00056;
         font-size: 20px;
         font-weight: bold;
@@ -285,8 +293,7 @@
                                 {{$cargo->type}}
                             </td>
                             <td>
-                                {{$cargo->сargo_dimensions_length}}x{{$cargo->сargo_dimensions_width}}
-                                x{{$cargo->сargo_dimensions_height}}
+                                {{$cargo->сargo_dimensions_length}}x{{$cargo->сargo_dimensions_width}}x{{$cargo->сargo_dimensions_height}}
                             </td>
                             <td>
                                 {{$cargo->serial_number}}
@@ -324,7 +331,7 @@
                             @php
                                 echo $actual_weight;
                             @endphp
-                             kgs</p>
+                            kgs</p>
                         <p>Chargeable weight
                             @php
                                 $weight = 0;

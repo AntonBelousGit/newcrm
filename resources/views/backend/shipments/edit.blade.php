@@ -66,6 +66,28 @@
         @method('PUT')
         <div class="card-body">
             <div class="row">
+                <div class="col-md-4">
+                    <p>
+                        <b>Number Order:</b>
+                        {{$orders->id}}
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        <b>HWB Number:</b>
+                        @php
+                            echo str_pad($orders->invoice_number, 6, "0", STR_PAD_LEFT);
+                        @endphp
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        <b>Created ad:</b>
+                        {{$orders->created_at->format('d-m-Y H:s:i')}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12">
                     <hr>
                     <div class="row">
@@ -73,7 +95,7 @@
 
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper`s company name')}}:</label>
-                                <input type="text" @if($orders->status_id > 2) readonly
+                                <input type="text" @if($orders->status_id > 1) readonly
                                        @endif placeholder="{{ ('Shipper company name')}}" name="company_shipper"
                                        required class="form-control" value="{{$orders->company_shipper}}"/>
                             </div>
@@ -82,12 +104,19 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Phone')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Phone')}}"
-                                       @if($orders->status_id > 2) readonly @endif  name="phone_shipper" required
+                                       @if($orders->status_id > 1) readonly @endif  name="phone_shipper" required
                                        class="form-control" value="{{$orders->phone_shipper}}"/>
 
                             </div>
                         </div>
-                        @if($orders->status_id == 2 || $orders->status_id == 1)
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">Site Number :</label>
+                                <input type="text" placeholder="City, street" @if($orders->status_id > 1) readonly @endif  name="site_shipper" class="form-control" required value="{{$orders->site_shipper}}" />
+
+                            </div>
+                        </div>
+                        @if($orders->status_id == 1)
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
@@ -99,7 +128,7 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time"
-                                            @if($orders->status_id > 2) readonly @endif  id="shipper_address"
+                                            @if($orders->status_id > 1) readonly @endif  id="shipper_address"
                                             name="shipper_address_id" required>
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}"
@@ -111,7 +140,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" name="shipper_postcode" class="form-control" required value="{{$tracker_start->post_code}}" />
+                                    <input type="text" placeholder="Post code" name="shipper_postcode"
+                                           class="form-control" required value="{{$tracker_start->post_code}}"/>
                                 </div>
                             </div>
                         @else
@@ -136,7 +166,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code"  class="form-control" disabled value="{{$tracker_start->post_code}}" />
+                                    <input type="text" placeholder="Post code" class="form-control" disabled
+                                           value="{{$tracker_start->post_code}}"/>
                                 </div>
                             </div>
                         @endif
@@ -144,7 +175,7 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper"
-                                       @if($orders->status_id > 2) readonly @endif   required
+                                       @if($orders->status_id > 1) readonly @endif   required
                                        class="form-control" value="{{$orders->shipper}}"/>
                                 <input type="hidden" id="order" value="{{$orders->id}}">
                             </div>
@@ -156,7 +187,7 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee`s company name')}}:</label>
                                 <input type="text" placeholder="{{ ('Company Consignee')}}"
-                                       @if($orders->status_id > 2) readonly @endif name="company_consignee"
+                                       @if($orders->status_id > 1) readonly @endif name="company_consignee"
                                        required class="form-control" value="{{ $orders->company_consignee }}"/>
                             </div>
                         </div>
@@ -164,13 +195,20 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Phone')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Phone')}}" required
-                                       @if($orders->status_id > 2) readonly @endif
+                                       @if($orders->status_id > 1) readonly @endif
                                        name="phone_consignee" class="form-control"
                                        value="{{$orders->phone_consignee}}"/>
 
                             </div>
                         </div>
-                        @if($orders->status_id == 2 || $orders->status_id == 1)
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">Site Number :</label>
+                                <input type="text" placeholder="City, street" @if($orders->status_id > 1) readonly @endif  name="site_consignee" class="form-control" required value="{{$orders->site_consignee}}" />
+
+                            </div>
+                        </div>
+                        @if($orders->status_id == 1)
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
@@ -182,7 +220,7 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time"
-                                            @if($orders->status_id > 2) readonly @endif  id="consignee_address"
+                                            @if($orders->status_id > 1) readonly @endif  id="consignee_address"
                                             name="consignee_address_id" required>
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}"
@@ -194,7 +232,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" name="consignee_postcode" class="form-control" required value="{{$tracker_end->post_code}}" />
+                                    <input type="text" placeholder="Post code" name="consignee_postcode"
+                                           class="form-control" required value="{{$tracker_end->post_code}}"/>
                                 </div>
                             </div>
                         @else
@@ -219,7 +258,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code"  class="form-control" disabled value="{{$tracker_end->post_code}}" />
+                                    <input type="text" placeholder="Post code" class="form-control" disabled
+                                           value="{{$tracker_end->post_code}}"/>
                                 </div>
                             </div>
                         @endif
@@ -227,21 +267,21 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Name')}}"
-                                       @if($orders->status_id > 2) readonly @endif  required name="consignee"
+                                       @if($orders->status_id > 1) readonly @endif  required name="consignee"
                                        class="form-control" value="{{$orders->consignee}}"/>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Shipment description')}}:</label>
-                                <textarea class="form-control" @if($orders->status_id > 2) readonly @endif
+                                <textarea class="form-control" @if($orders->status_id > 1) readonly @endif
                                 name="shipment_description">{{ $orders->shipment_description }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Pick-up Instruction</label>
-                                <textarea class="form-control" @if($orders->status_id > 2) readonly
+                                <textarea class="form-control" @if($orders->status_id > 1) readonly
                                           @endif  name="comment">{{ $orders->comment }}</textarea>
                             </div>
                         </div>
@@ -311,16 +351,19 @@
                                         <div class="col-md-3">
                                             <label class="red-star">{{ ('Type')}}:</label>
                                             <input type="text" placeholder="{{ ('type')}}" class="form-control" required
-                                                   name="type" @if($orders->status_id > 2) disabled
+                                                   name="type" @if($orders->status_id > 1) disabled
                                                    @endif  value="{{$item['type']}}">
-                                            <input type="hidden" name="id" @if($orders->status_id > 2) disabled
+                                            <input type="hidden" name="id" @if($orders->status_id > 1) disabled
                                                    @endif value="{{$item['id']}}">
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="red-star">Actual weight:</label>
-                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number"
-                                                   required @if($orders->status_id > 2) disabled @endif  min="1"
+                                            <label class="red-star">Actual weight (kg):</label>
+                                            <input
+{{--                                                class="kt_touchspin_weight"--}}
+                                                placeholder="Actual weight" type="number"
+                                                   required @if($orders->status_id > 1) disabled @endif  min="1"
+                                                   step="0.1"
                                                    name="actual_weight" class="form-control"
                                                    value="{{$item['actual_weight']}}"/>
                                             <div class="mb-2 d-md-none"></div>
@@ -328,21 +371,21 @@
                                         <div class="col-md-3">
                                             <label class="red-star">{{ ('Quantity')}}:</label>
                                             <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required
-                                                   type="number" @if($orders->status_id > 2) disabled @endif  min="1"
+                                                   type="number" @if($orders->status_id > 1) disabled @endif  min="1"
                                                    name="quantity" class="form-control"
                                                    value="{{$item['quantity']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number box:</label>
-                                            <input type="text" @if($orders->status_id > 2) disabled
+                                            <input type="text" @if($orders->status_id > 1) disabled
                                                    @endif  placeholder="Serial number" name="serial_number"
                                                    class="form-control " value="{{$item['serial_number']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number sensor:</label>
-                                            <input type="text" @if($orders->status_id > 2) disabled
+                                            <input type="text" @if($orders->status_id > 1) disabled
                                                    @endif  placeholder="Serial number sensor"
                                                    name="serial_number_sensor" class="form-control  "
                                                    value="{{$item['serial_number_sensor']}}"/>
@@ -350,14 +393,14 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>UN number:</label>
-                                            <input type="text" @if($orders->status_id > 2) disabled
+                                            <input type="text" @if($orders->status_id > 1) disabled
                                                    @endif  placeholder="UN number" name="un_number"
                                                    class="form-control  " value="{{$item['un_number']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="red-star">Temperature conditions:</label>
-                                            <input type="text" @if($orders->status_id > 2) disabled
+                                            <input type="text" @if($orders->status_id > 1) disabled
                                                    @endif  placeholder="Temperature conditions"
                                                    name="temperature_conditions" required class="form-control  "
                                                    value="{{$item['temperature_conditions']}}"/>
@@ -365,7 +408,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Volume weight:</label>
-                                            <input type="text" @if($orders->status_id > 2) disabled
+                                            <input type="text" @if($orders->status_id > 1) disabled
                                                    @endif  placeholder="Volume weight" name="volume_weight"
                                                    disabled class="form-control  " value="{{$item['volume_weight']}}"/>
                                             <div class="mb-2 d-md-none"></div>
@@ -375,21 +418,21 @@
                                                 :</label>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if($orders->status_id > 2) disabled
+                                            <input class="dimensions_r" @if($orders->status_id > 1) disabled
                                                    @endif  type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Length')}}"
                                                    name="сargo_dimensions_length"
                                                    value="{{$item['сargo_dimensions_length']}}"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if($orders->status_id > 2) disabled
+                                            <input class="dimensions_r" @if($orders->status_id > 1) disabled
                                                    @endif  type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Width')}}"
                                                    name="сargo_dimensions_width"
                                                    value="{{$item['сargo_dimensions_width']}}"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if($orders->status_id > 2) disabled
+                                            <input class="dimensions_r" @if($orders->status_id > 1) disabled
                                                    @endif  type="number" min="1" required
                                                    class="form-control " placeholder="{{ ('Height')}}"
                                                    name="сargo_dimensions_height"
@@ -425,14 +468,14 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox7"
                                        name="my_container"
-                                       @if($orders->status_id > 2) disabled @endif
+                                       @if($orders->status_id > 1) disabled @endif
                                        @if($orders->my_container == 'on') checked @endif
                                 >
                                 <label class="form-check-label" for="inlineCheckbox7">My container</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="my_sensor"
-                                       @if($orders->status_id > 2) disabled @endif
+                                       @if($orders->status_id > 1) disabled @endif
                                        @if($orders->my_sensor == 'on') checked @endif
                                 >
                                 <label class="form-check-label" for="inlineCheckbox6">My sensor</label>
@@ -440,13 +483,13 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
                                        name="sensor_for_rent"
-                                       @if($orders->status_id > 2) disabled @endif
+                                       @if($orders->status_id > 1) disabled @endif
                                        @if($orders->sensor_for_rent == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container"
-                                       @if($orders->status_id > 2) disabled
+                                       @if($orders->status_id > 1) disabled
                                        @endif      @if($orders->container == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox2">Container for rent</label>
                             </div>
@@ -460,7 +503,7 @@
                             {{--                            </div>--}}
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox5"
-                                       name="notifications" @if($orders->status_id > 2) disabled
+                                       name="notifications" @if($orders->status_id > 1) disabled
                                        @endif   @if($orders->notifications == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
@@ -471,7 +514,7 @@
                                 <label>Delivery Instruction</label>
                                 <textarea class="form-control"
                                           name="delivery_comment"
-                                          @if($orders->status_id > 2) readonly @endif >{{$orders->delivery_comment}}</textarea>
+                                          @if($orders->status_id > 1) readonly @endif >{{$orders->delivery_comment}}</textarea>
                             </div>
                         </div>
                         <hr>
@@ -479,7 +522,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Shipping Payer:</label>
-                                    <select name="payer_id" @if($orders->status_id > 2) readonly
+                                    <select name="payer_id" @if($orders->status_id > 1) readonly
                                             @endif  class="form-control ">
 
                                         @if ( Auth::user()->roles->first()->id == 8)
@@ -501,9 +544,9 @@
                         <div class="row">
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Status</label>
-                                @if($orders->status->id <= 2)
+                                @if($orders->status->id < 2)
                                     <select id="select1" name="status_id" class="form-control "
-                                            @if($orders->status_id > 2) readonly @endif >
+                                            @if($orders->status_id > 1) readonly @endif >
                                         @foreach($status as $item)
                                             @if($item->id > 2)
                                                 @break
@@ -524,7 +567,7 @@
                         <div class="col-md-6" data-select2-id="66">
                             <label>Agent:</label>
                             <select id="change-country-to" name="agent_id" class="form-control "
-                                    @if($orders->status_id > 2) readonly @endif >
+                                    @if($orders->status_id > 1) readonly @endif >
                                 <option value=""></option>
                                 @foreach($user as $item)
                                     @if($item->roles->first()->name == 'Agent')
@@ -557,7 +600,7 @@
                             <div class="col-md-3">
                                 <label>Driver:</label>
                                 <select name="start[driver_id]" class="form-control "
-                                        @if($orders->status_id > 2) readonly @endif >
+                                        @if($orders->status_id > 1) readonly @endif >
                                     <option value=""></option>
                                     @foreach($user as $item)
                                         @if($item->roles->first()->name == 'Driver')
@@ -577,13 +620,13 @@
                                 $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);
                             @endphp
 
-                            <div class="col-md-3">
+                            <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[start_time]"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
-                            <div class="col-md-3" id="actual_time">
+                            <div class="col-md-3 col-md-4" id="actual_time">
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" disabled
                                        class="form-control" value="{{ $end_time }}"/>
@@ -638,7 +681,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 col-md-4">
                                             @php
                                                 if (isset($tracker->start_time))
                                                 {
@@ -653,13 +696,13 @@
                                                    required/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 col-md-4">
                                             <label>Arrived Time:</label>
                                             <input placeholder="Start time" type="datetime-local" disabled
                                                    class="form-control clear-value-data" value="{{$end_time}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 col-md-4">
                                             <label>Left Time:</label>
                                             <input placeholder="Left Time" type="datetime-local" disabled
                                                    class="form-control clear-value-data" value="{{$left_the_point}}"/>
@@ -713,7 +756,7 @@
                                     <div class="col-md-4">
                                         <label>Driver:</label>
                                         <select name="driver_id" class="form-control "
-                                                @if($orders->status_id > 2) readonly @endif >
+                                                @if($orders->status_id > 1) readonly @endif >
                                             <option value=""></option>
                                             @foreach($user as $item)
                                                 @if($item->roles->first()->name == 'Driver')
@@ -723,13 +766,13 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 col-md-4">
                                         <label>Estimated time:</label>
                                         <input placeholder="Start time" type="datetime-local" name="start_time"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 col-md-4">
                                         <label>Arrived Time:</label>
                                         <input placeholder="Start time" type="datetime-local" disabled
                                                class="form-control clear-value-data"/>
@@ -781,20 +824,20 @@
                                        value="{{$tracker_end->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
-                            <div class="col-md-3">
-                                <label>Driver:</label>
-                                <select name="end[driver_id]" class="form-control "
-                                        @if($orders->status_id > 2) readonly @endif >
-                                    <option value=""></option>
-                                    @foreach($user as $item)
-                                        @if($item->roles->first()->name == 'Driver')
-                                            <option value="{{$item->id}}"
-                                                    @if($item->id == $tracker_end->driver_id) selected @endif >{{$item->nickname}}
-                                                - {{$item->roles->first()->name}}  </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
+{{--                            <div class="col-md-3">--}}
+{{--                                <label>Driver:</label>--}}
+{{--                                <select name="end[driver_id]" class="form-control "--}}
+{{--                                        @if($orders->status_id > 1) readonly @endif >--}}
+{{--                                    <option value=""></option>--}}
+{{--                                    @foreach($user as $item)--}}
+{{--                                        @if($item->roles->first()->name == 'Driver')--}}
+{{--                                            <option value="{{$item->id}}"--}}
+{{--                                                    @if($item->id == $tracker_end->driver_id) selected @endif >{{$item->nickname}}--}}
+{{--                                                - {{$item->roles->first()->name}}  </option>--}}
+{{--                                        @endif--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
                             @php
                                 if (isset($tracker_end->start_time))
                                 {
@@ -802,13 +845,13 @@
                                 }
                                 $end_time=is_null($tracker_end->end_time)?'':str_replace(' ','T', $tracker_end->end_time);
                             @endphp
-                            <div class="col-md-3">
+                            <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="end[start_time]"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
-                            <div class="col-md-3" id="actual-time-end">
+                            <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" disabled
                                        class="form-control" value="{{ $end_time }}"/>
@@ -1250,21 +1293,20 @@
                     $('.kt_touchspin_weight').TouchSpin({
                         buttondown_class: 'btn btn-secondary',
                         buttonup_class: 'btn btn-secondary',
-                        min: 1,
+                        min: 0.1,
                         max: 1000000000,
                         stepinterval: 50,
                         maxboostedstep: 10000000,
-                        initval: 1,
-                        prefix: 'Kg'
+                        step: 0.1,
                     });
                     $('.kt_touchspin_qty').TouchSpin({
                         buttondown_class: 'btn btn-secondary',
                         buttonup_class: 'btn btn-secondary',
-                        min: 1,
+                        min: 0.1,
                         max: 1000000000,
                         stepinterval: 50,
                         maxboostedstep: 10000000,
-                        initval: 1,
+                        initval: 0.1,
                     });
                     calcTotalWeight();
                 },
@@ -1322,21 +1364,21 @@
             $('.kt_touchspin_weight').TouchSpin({
                 buttondown_class: 'btn btn-secondary',
                 buttonup_class: 'btn btn-secondary',
-                min: 1,
+                min: 0.1,
                 max: 1000000000,
                 stepinterval: 50,
                 maxboostedstep: 10000000,
-                initval: 1,
-                prefix: 'Kg'
+                initval: 0.1,
+                step: 0.1,
             });
             $('.kt_touchspin_qty').TouchSpin({
                 buttondown_class: 'btn btn-secondary',
                 buttonup_class: 'btn btn-secondary',
-                min: 1,
+                min: 0.1,
                 max: 1000000000,
                 stepinterval: 50,
                 maxboostedstep: 10000000,
-                initval: 1,
+                initval: 0.1,
             });
             $('.dimensions_r').TouchSpin({
                 buttondown_class: 'btn btn-secondary',

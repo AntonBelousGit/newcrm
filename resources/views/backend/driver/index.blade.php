@@ -76,6 +76,8 @@
 @endsection
 @section('script')
     <script type="text/javascript">
-            var table = $('#table_id').DataTable({});
+            var table = $('#table_id').DataTable({
+                stateSave: true
+            });
     </script>
 @endsection

@@ -266,8 +266,8 @@
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3">
-                                        <label class="red-star">Actual weight:</label>
-                                        <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" name="actual_weight" class="form-control" value="1"  required/>
+                                        <label class="red-star">Actual weight (kg):</label>
+                                        <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" step="0.1" name="actual_weight" class="form-control" value="1"  required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
 

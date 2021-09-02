@@ -271,6 +271,7 @@ class OrderController extends Controller
                         $cargo->serial_number = $option_key['serial_number'];
                         $cargo->serial_number_sensor = $option_key['serial_number_sensor'];
                         $cargo->un_number = $option_key['un_number'];
+                        $cargo->actual_weight = $option_key['actual_weight'];
                         $cargo->temperature_conditions = $option_key['temperature_conditions'];
                         $cargo->сargo_dimensions_length = $option_key['сargo_dimensions_length'];
                         $cargo->сargo_dimensions_width = $option_key['сargo_dimensions_width'];
@@ -353,7 +354,7 @@ class OrderController extends Controller
                 $tracker_end->update();
             }
 
-            return redirect()->route('admin.orders.index');
+            return redirect()->back();
         }
         return abort(403);
     }
@@ -385,7 +386,7 @@ class OrderController extends Controller
     public function in_work()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', 2)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', [2, 3, 4, 5, 8])->get();
             $title = 'Accepted in work';
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
         }
@@ -477,7 +478,7 @@ class OrderController extends Controller
                 $this->trakerService->updateDriverEndTracker($order, $request);
             }
 
-            return redirect()->route('admin.orders.in_work');
+            return redirect()->back();
 
         }
 //        dd($tracker_start);

@@ -97,7 +97,9 @@
         //     $('#table_id').DataTable();
         // } );
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                stateSave: true
+            });
         } );
         function newReports(){
             // e.preventDefault();

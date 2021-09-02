@@ -16,12 +16,14 @@ class CreateOrdersTable extends Migration
             $table->string('shipper');
             $table->integer('number_order')->unique()->nullable();
             $table->integer('invoice_number')->unique()->nullable();
-            $table->string('checkout_number')->unique()->nullable();
+            $table->string('checkout_number')->nullable();
             $table->string('phone_shipper');
+            $table->string('site_shipper')->nullable();
 //            $table->string('address_shipper');
             $table->string('company_shipper');
             $table->string('consignee');
             $table->string('phone_consignee');
+            $table->string('site_consignee')->nullable();
 //            $table->string('address_consignee');
             $table->string('company_consignee');
             $table->string('shipment_description')->nullable();

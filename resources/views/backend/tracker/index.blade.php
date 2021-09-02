@@ -149,7 +149,11 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable(
+                {
+                    stateSave: true
+                }
+            );
         } );
     </script>
     <script type="text/javascript">

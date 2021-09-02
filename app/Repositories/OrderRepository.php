@@ -34,8 +34,10 @@ class OrderRepository
         $order->shipper = $request->shipper;
         $order->phone_shipper = $request->phone_shipper;
         $order->company_shipper = $request->company_shipper;
+        $order->site_shipper = $request->site_shipper;
         $order->consignee = $request->consignee;
         $order->phone_consignee = $request->phone_consignee;
+        $order->site_consignee = $request->site_consignee;
         $order->shipper_address_id = $request->shipper_address_id;
         $order->consignee_address_id = $request->consignee_address_id;
         $order->company_consignee = $request->company_consignee;
@@ -78,9 +80,11 @@ class OrderRepository
         $order->shipper = $request->consignee;
         $order->phone_shipper = $request->phone_consignee;
         $order->company_shipper = $request->company_consignee;
+        $order->site_shipper = $request->site_consignee;
         $order->consignee = $request->shipper;
         $order->phone_consignee = $request->phone_shipper;
         $order->company_consignee = $request->company_shipper;
+        $order->site_consignee = $request->site_shipper;
         $order->shipper_address_id = $request->shipper_address_id;
         $order->consignee_address_id = $request->consignee_address_id;
 
@@ -128,9 +132,11 @@ class OrderRepository
         $order->shipper = $request->shipper;
         $order->phone_shipper = $request->phone_shipper;
         $order->company_shipper = $request->company_shipper;
+        $order->site_shipper = $request->site_shipper;
         $order->consignee = $request->consignee;
         $order->phone_consignee = $request->phone_consignee;
         $order->company_consignee = $request->company_consignee;
+        $order->site_consignee = $request->site_consignee;
         $order->shipment_description = $request->shipment_description ?? null;
         $order->comment = $request->comment ?? null;
         $order->locations = $request->locations;

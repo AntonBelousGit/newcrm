@@ -174,8 +174,8 @@
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
-                                            <label>Actual weight:</label>
-                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" disabled  class="form-control" value="{{$item['actual_weight']}}" />
+                                            <label>Actual weight  (kg):</label>
+                                            <input class="kt_touchspin_qty" placeholder="Actual weight" type="number" min="1" step="0.1" disabled  class="form-control" value="{{$item['actual_weight']}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -277,14 +277,17 @@
                             </div>
                         </div>
                         <hr>
-                        <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Agent:</label>
-                                <input type="text" placeholder="Agent" class="form-control" disabled value="@php if(isset($orders->agent)){ echo $orders->agent->fullname;} @endphp" />
+                        @cannot('Client')
+                            <hr>
+                            <div class="">
+                                <div class="col-md-6" data-select2-id="66">
+                                    <label>Agent:</label>
+                                    <input type="text" placeholder="Agent" class="form-control" disabled value="@php if(isset($orders->agent)){ echo $orders->agent->fullname;} @endphp" />
+                                </div>
                             </div>
-                        </div>
-                        <hr>
+                            <hr>
+                        @endcan
+
                     </div>
                 </div>
             </div>

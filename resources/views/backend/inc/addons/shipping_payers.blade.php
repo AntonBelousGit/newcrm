@@ -2,7 +2,7 @@
 
     <li class="menu-item menu-item-submenu  " aria-haspopup="true" data-menu-toggle="hover">
         <a href="javascript:;" class="menu-link menu-toggle">
-            <i class="menu-icon fas fa-box-open"></i>
+            <i class="menu-icon fas fa-address-card"></i>
             <span class="menu-text">Shipping payers</span>
             <i class="menu-arrow"></i>
         </a>
