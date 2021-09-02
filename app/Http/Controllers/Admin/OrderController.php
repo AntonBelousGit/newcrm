@@ -386,7 +386,8 @@ class OrderController extends Controller
     public function in_work()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', [2, 3, 4, 5, 8])->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
+
             $title = 'Accepted in work';
             return view('backend.shipments.index-in-work', compact('orders', 'title'));
         }
