@@ -33,6 +33,28 @@
     <form class="form-horizontal" action="" id="kt_form_1" enctype="multipart/form-data">
         <div class="card-body">
             <div class="row">
+                <div class="col-md-4">
+                    <p>
+                        <b>Number Order:</b>
+                        {{$orders->id}}
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        <b>HWB Number:</b>
+                        @php
+                            echo str_pad($orders->invoice_number, 6, "0", STR_PAD_LEFT);
+                        @endphp
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        <b>Created ad:</b>
+                        {{$orders->created_at->format('d-m-Y H:s:i')}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12">
                     <hr>
                     <div class="row">
