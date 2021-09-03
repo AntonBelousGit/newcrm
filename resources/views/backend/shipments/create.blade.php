@@ -354,6 +354,22 @@
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="notifications">
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
+                            <div class="form-check">
+
+                                <label for="inlineCheckbox11">1</label><input class="form-check-input" type="email" id="inlineCheckbox11" name="email[]">
+                            </div>
+                            <div class="form-check">
+                                <label for="inlineCheckbox12">2</label><input class="form-check-input" type="email" id="inlineCheckbox12" name="email[]">
+                            </div>
+                            <div class="form-check">
+                                <label for="inlineCheckbox13">3</label><input class="form-check-input" type="email" id="inlineCheckbox13" name="email[]">
+                            </div>
+                            <div class="form-check">
+                                <label for="inlineCheckbox14">4</label><input class="form-check-input" type="email" id="inlineCheckbox14" name="email[]">
+                            </div>
+                            <div class="form-check">
+                                <label for="inlineCheckbox15"5></label><input class="form-check-input" type="email" id="inlineCheckbox15" name="email[]">
+                            </div>
                         </div>
                         <hr>
                         <div class="col-md-12">

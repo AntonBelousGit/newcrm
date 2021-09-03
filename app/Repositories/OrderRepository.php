@@ -43,6 +43,7 @@ class OrderRepository
         $order->company_consignee = $request->company_consignee;
         $order->shipment_description = $request->shipment_description ?? null;
         $order->comment = $request->comment ?? null;
+        $order->email = $request->email ?? null;
 
         if (!is_null($request->sending_time)) {
             $order->sending_time = str_replace('T', ' ', $request->sending_time);

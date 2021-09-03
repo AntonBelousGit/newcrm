@@ -30,6 +30,7 @@
 {{--    @dd($orders)--}}
 {{--    @dd($orders->first()->tracker->where('position',2)->first())--}}
     <tbody>
+{{--    @dd($orders);--}}
 @canany('SuperUser','OPS','Manager','Agent')
     @foreach($orders as $order)
         @foreach($order->cargo as $item)
@@ -61,7 +62,7 @@
     @endforeach
 @elsecanany('Client')
     @foreach($orders as $order)
-        @can('manage-client-exelt',$order)
+        @can('manage-client-exel',$order)
             @foreach($order->cargo as $item)
                 <tr>
                     <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
