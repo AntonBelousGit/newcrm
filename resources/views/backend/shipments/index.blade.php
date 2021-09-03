@@ -4,6 +4,7 @@
     $staff_permission = json_decode(Auth::user()->staff->role->permissions ?? "[]");
     $auth_user = Auth::user();
 @endphp
+@if(!isset($dashboard))
 @section('subheader')
     <!--begin::Subheader-->
     <div class="py-2 subheader py-lg-6 subheader-solid" id="kt_subheader">
@@ -36,6 +37,7 @@
     </div>
     <!--end::Subheader-->
 @endsection
+@endif
 @section('content')
     <!--begin::Card-->
     <div class="card card-custom gutter-b">
@@ -70,13 +72,23 @@
                             @can('manage-agent',$shipment)
                                 <tr>
                                     <th>{{$shipment->id}}</th>
-                                    <th>{{$shipment->company_shipper}}</th>
+                                    <th>
+                                        <div class="text_table">
+                                            {{$shipment->company_shipper}}
+                                            <div class="display_none_text">
+                                                {{$shipment->shipper}}<br>
+                                                {{$shipment->phone_shipper}}<br>
+                                                {{$shipment->tracker->where('position','0')->first()->address}}
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>
                                         <div class="text_table">
                                             {{$shipment->company_consignee}}
                                             <div class="display_none_text">
-                                                {{$shipment->consignee}}
-                                                {{$shipment->phone_consignee}}
+                                                {{$shipment->consignee}}<br>
+                                                {{$shipment->phone_consignee}}<br>
+                                                {{$shipment->tracker->where('position','2')->first()->address}}
                                             </div>
                                         </div>
                                     </th>
@@ -152,13 +164,23 @@
                             @can('manage-driver',$shipment)
                                 <tr>
                                     <th>{{$shipment->id}}</th>
-                                    <th>{{$shipment->company_shipper}}</th>
+                                    <th>
+                                        <div class="text_table">
+                                            {{$shipment->company_shipper}}
+                                            <div class="display_none_text">
+                                                {{$shipment->shipper}}<br>
+                                                {{$shipment->phone_shipper}}<br>
+                                                {{$shipment->tracker->where('position','0')->first()->address}}
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>
                                         <div class="text_table">
                                             {{$shipment->company_consignee}}
                                             <div class="display_none_text">
-                                                {{$shipment->consignee}}
-                                                {{$shipment->phone_consignee}}
+                                                {{$shipment->consignee}}<br>
+                                                {{$shipment->phone_consignee}}<br>
+                                                {{$shipment->tracker->where('position','2')->first()->address}}
                                             </div>
                                         </div>
                                     </th>
@@ -235,13 +257,23 @@
 
                                 <tr>
                                     <th>{{$shipment->id}}</th>
-                                    <th>{{$shipment->company_shipper}}</th>
+                                    <th>
+                                        <div class="text_table">
+                                        {{$shipment->company_shipper}}
+                                            <div class="display_none_text">
+                                                {{$shipment->shipper}}<br>
+                                                {{$shipment->phone_shipper}}<br>
+                                                {{$shipment->tracker->where('position','0')->first()->address}}
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>
                                         <div class="text_table">
                                             {{$shipment->company_consignee}}
                                             <div class="display_none_text">
-                                                {{$shipment->consignee}}
-                                                {{$shipment->phone_consignee}}
+                                                {{$shipment->consignee}}<br>
+                                                {{$shipment->phone_consignee}}<br>
+                                                {{$shipment->tracker->where('position','2')->first()->address}}
                                             </div>
                                         </div>
                                     </th>
@@ -312,13 +344,23 @@
                         @foreach($orders as $key=>$shipment)
                             <tr>
                                 <th>{{$shipment->id}}</th>
-                                <th>{{$shipment->company_shipper}}</th>
+                                <th>
+                                    <div class="text_table">
+                                        {{$shipment->company_shipper}}
+                                        <div class="display_none_text">
+                                            {{$shipment->shipper}}<br>
+                                            {{$shipment->phone_shipper}}<br>
+                                            {{$shipment->tracker->where('position','0')->first()->address}}
+                                        </div>
+                                    </div>
+                                </th>
                                 <th>
                                     <div class="text_table">
                                         {{$shipment->company_consignee}}
                                         <div class="display_none_text">
-                                            {{$shipment->consignee}}
-                                            {{$shipment->phone_consignee}}
+                                            {{$shipment->consignee}}<br>
+                                            {{$shipment->phone_consignee}}<br>
+                                            {{$shipment->tracker->where('position','2')->first()->address}}
                                         </div>
                                     </div>
                                 </th>
