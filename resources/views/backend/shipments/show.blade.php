@@ -545,29 +545,29 @@
                             </div>
                         </div>
 
-                        @cannot('Client')
-                            <hr>
-                            <div class="">
-                                <div class="col-md-6" data-select2-id="66">
-                                    <label>Cargo location:</label>
-                                    <input type="text" placeholder="Cargo location" class="form-control" disabled
-                                           value="{{$orders->cargolocation->name }}"/>
-                                </div>
-                            </div>
-                        @endcannot
+{{--                        @cannot('Client')--}}
+{{--                            <hr>--}}
+{{--                            <div class="">--}}
+{{--                                <div class="col-md-6" data-select2-id="66">--}}
+{{--                                    <label>Cargo location:</label>--}}
+{{--                                    <input type="text" placeholder="Cargo location" class="form-control" disabled--}}
+{{--                                           value="{{$orders->cargolocation->name }}"/>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        @endcannot--}}
 
-                        @can('Client')
-                            @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)
-                                <hr>
-                                <div class="">
-                                    <div class="col-md-6" data-select2-id="66">
-                                        <label>Cargo location:</label>
-                                        <input type="text" placeholder="Cargo location" class="form-control" disabled
-                                               value="{{$orders->cargolocation->name }}"/>
-                                    </div>
-                                </div>
-                            @endif
-                        @endcan
+{{--                        @can('Client')--}}
+{{--                            @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)--}}
+{{--                                <hr>--}}
+{{--                                <div class="">--}}
+{{--                                    <div class="col-md-6" data-select2-id="66">--}}
+{{--                                        <label>Cargo location:</label>--}}
+{{--                                        <input type="text" placeholder="Cargo location" class="form-control" disabled--}}
+{{--                                               value="{{$orders->cargolocation->name }}"/>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
+{{--                        @endcan--}}
                         <hr>
                         @cannot('Client')
                             <hr>
