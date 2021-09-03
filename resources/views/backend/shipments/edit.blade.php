@@ -176,8 +176,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="red-star">Site Number :</label>
-                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper" class="form-control" required value="{{$orders->site_shipper}}" />
+                                <label >Site Number :</label>
+                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper" class="form-control"  value="{{$orders->site_shipper}}" />
 
                             </div>
                         </div>
@@ -268,8 +268,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="red-star">Site Number :</label>
-                                <input type="text"  @if($orders->status_id > 1) readonly @endif  name="site_consignee" class="form-control" required value="{{$orders->site_consignee}}" />
+                                <label >Site Number :</label>
+                                <input type="text"  @if($orders->status_id > 1) readonly @endif  name="site_consignee" class="form-control"  value="{{$orders->site_consignee}}" />
 
                             </div>
                         </div>

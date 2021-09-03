@@ -127,7 +127,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label >Site Number :</label>
-                                    <input type="text"  name="site_shipper" class="form-control" required value="{{old('site_shipper')}}" />
+                                    <input type="text"  name="site_shipper" class="form-control"  value="{{old('site_shipper')}}" />
 
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Site Number :</label>
-                                    <input type="text"  name="site_consignee" class="form-control" required value="{{old('site_consignee')}}" />
+                                    <input type="text"  name="site_consignee" class="form-control"  value="{{old('site_consignee')}}" />
 
                                 </div>
                             </div>
