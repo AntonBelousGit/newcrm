@@ -20,7 +20,9 @@ class CreateTrackersTable extends Migration
             $table->string('address')->nullable();
             $table->string('post_code')->nullable();
             $table->timestamp('start_time')->nullable();
+            $table->timestamp('start_time_stop')->nullable();
             $table->timestamp('end_time')->nullable();
+            $table->timestamp('end_time_stop')->nullable();
             $table->timestamp('left_the_point')->nullable();
             $table->bigInteger('driver_id')->unsigned()->nullable();
             $table->bigInteger('tracker_id')->unsigned()->nullable();

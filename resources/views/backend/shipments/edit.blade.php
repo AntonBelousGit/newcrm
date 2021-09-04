@@ -176,8 +176,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label >Site Number :</label>
-                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper" class="form-control"  value="{{$orders->site_shipper}}" />
+                                <label>Site Number :</label>
+                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper"
+                                       class="form-control" value="{{$orders->site_shipper}}"/>
 
                             </div>
                         </div>
@@ -268,8 +269,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label >Site Number :</label>
-                                <input type="text"  @if($orders->status_id > 1) readonly @endif  name="site_consignee" class="form-control"  value="{{$orders->site_consignee}}" />
+                                <label>Site Number :</label>
+                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_consignee"
+                                       class="form-control" value="{{$orders->site_consignee}}"/>
 
                             </div>
                         </div>
@@ -362,12 +364,12 @@
                                         <div class="col-md-3">
                                             <label class="red-star">Actual weight (kg):</label>
                                             <input
-{{--                                                class="kt_touchspin_weight"--}}
+                                                {{--                                                class="kt_touchspin_weight"--}}
                                                 placeholder="Actual weight" type="number"
-                                                   required @if($orders->status_id > 1) disabled @endif  min="1"
-                                                   step="0.1"
-                                                   name="actual_weight" class="form-control"
-                                                   value="{{$item['actual_weight']}}"/>
+                                                required @if($orders->status_id > 1) disabled @endif  min="1"
+                                                step="0.1"
+                                                name="actual_weight" class="form-control"
+                                                value="{{$item['actual_weight']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -509,6 +511,14 @@
                                        @endif   @if($orders->notifications == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
+                            @foreach($orders->email as $mail)
+                                <div class="form-check">
+                                    <label for="inlineCheckbox{{$loop->iteration}}">{{$loop->iteration}}</label><input
+                                        class="form-check-input" value="{{$mail}}" type="email"
+                                        @if($orders->status_id > 1) readonly
+                                        @endif    id="inlineCheckbox{{$loop->iteration}}" name="email[]">
+                                </div>
+                            @endforeach
                         </div>
                         <hr>
                         <div class="col-md-12">
@@ -546,7 +556,7 @@
                         <div class="row">
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Status</label>
-                                @if($orders->status->id < 2)
+                                @if($orders->status_id < 2)
                                     <select id="select1" name="status_id" class="form-control "
                                             @if($orders->status_id > 1) readonly @endif >
                                         @foreach($status as $item)
@@ -554,7 +564,7 @@
                                                 @break
                                             @endif
                                             <option value="{{$item->id}}"
-                                                    @if($item->id == $orders->status->id) selected @endif >{{$item->name}}</option>
+                                                    @if($item->id == $orders->status_id) selected @endif >{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 @else
@@ -617,6 +627,7 @@
                                 if (isset($tracker_start->start_time))
                                 {
                                      $start_time = str_replace(' ','T', $tracker_start->start_time);
+                                     $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);
                                 }
                                 $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
                                 $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);
@@ -627,6 +638,7 @@
                                 <input placeholder="Start time" type="datetime-local" name="start[start_time]"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
+                                <input type="hidden" name="start[start_time_stop]" value="{{$start_time_stop}}">
                             </div>
                             <div class="col-md-3 col-md-4" id="actual_time">
                                 <label>Arrived Time:</label>
@@ -826,24 +838,25 @@
                                        value="{{$tracker_end->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
-{{--                            <div class="col-md-3">--}}
-{{--                                <label>Driver:</label>--}}
-{{--                                <select name="end[driver_id]" class="form-control "--}}
-{{--                                        @if($orders->status_id > 1) readonly @endif >--}}
-{{--                                    <option value=""></option>--}}
-{{--                                    @foreach($user as $item)--}}
-{{--                                        @if($item->roles->first()->name == 'Driver')--}}
-{{--                                            <option value="{{$item->id}}"--}}
-{{--                                                    @if($item->id == $tracker_end->driver_id) selected @endif >{{$item->nickname}}--}}
-{{--                                                - {{$item->roles->first()->name}}  </option>--}}
-{{--                                        @endif--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
+                            {{--                            <div class="col-md-3">--}}
+                            {{--                                <label>Driver:</label>--}}
+                            {{--                                <select name="end[driver_id]" class="form-control "--}}
+                            {{--                                        @if($orders->status_id > 1) readonly @endif >--}}
+                            {{--                                    <option value=""></option>--}}
+                            {{--                                    @foreach($user as $item)--}}
+                            {{--                                        @if($item->roles->first()->name == 'Driver')--}}
+                            {{--                                            <option value="{{$item->id}}"--}}
+                            {{--                                                    @if($item->id == $tracker_end->driver_id) selected @endif >{{$item->nickname}}--}}
+                            {{--                                                - {{$item->roles->first()->name}}  </option>--}}
+                            {{--                                        @endif--}}
+                            {{--                                    @endforeach--}}
+                            {{--                                </select>--}}
+                            {{--                            </div>--}}
                             @php
                                 if (isset($tracker_end->start_time))
                                 {
                                      $start_time = str_replace(' ','T', $tracker_end->start_time);
+                                     $start_time_stop = str_replace(' ','T', $tracker_end->start_time_stop);
                                 }
                                 $end_time=is_null($tracker_end->end_time)?'':str_replace(' ','T', $tracker_end->end_time);
                             @endphp
@@ -852,6 +865,7 @@
                                 <input placeholder="Start time" type="datetime-local" name="end[start_time]"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
+                                <input type="hidden" name="end[start_time_stop]" value="{{$start_time_stop}}">
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
@@ -892,17 +906,19 @@
                             </div>
                         </div>
                     @endif
-                    <div class="form-group ">
-                        <div class="">
-                            <label class="text-right col-form-label">{{ ('Add')}}</label>
-                            <div>
-                                <a href="javascript:;" data-repeater-create-time=""
-                                   class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
-                                    <i class="la la-plus"></i>{{ ('Add')}}
-                                </a>
+                    @if($orders->status_id < 2)
+                        <div class="form-group ">
+                            <div class="">
+                                <label class="text-right col-form-label">{{ ('Add')}}</label>
+                                <div>
+                                    <a href="javascript:;" data-repeater-create-time=""
+                                       class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
+                                        <i class="la la-plus"></i>{{ ('Add')}}
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     @can('SuperUser', 'Manager', 'OPS', 'Client')
                         <div class="form-group ">
                             <div class="">

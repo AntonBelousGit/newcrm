@@ -34,7 +34,7 @@ class Order extends Model
         'notifications',
         'user_id',
         'number_order',
-        'invoice_number'
+        'invoice_number',
     ];
 
 //    public function cargo()

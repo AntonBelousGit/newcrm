@@ -73,7 +73,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
-//            dd($request);
 
             $order = $this->orderService->saveOrder($request);
 
@@ -84,6 +83,7 @@ class OrderController extends Controller
                 $start_tracker->location_id = $request->shipper_address_id;
                 $start_tracker->address = $request->address_shipper;
                 $start_tracker->start_time = $request->sending_time;
+                $start_tracker->start_time_stop = $request->sending_time_stop;
                 $start_tracker->post_code = $request->shipper_postcode;
                 $start_tracker->position = '0';
                 $start_tracker->save();
@@ -94,6 +94,7 @@ class OrderController extends Controller
                 $start_tracker->location_id = $request->consignee_address_id;
                 $start_tracker->address = $request->address_consignee;
                 $start_tracker->start_time = $request->delivery_time;
+                $start_tracker->start_time_stop = $request->delivery_time_stop;
                 $start_tracker->post_code = $request->consignee_postcode;
 
                 $start_tracker->position = '2';
@@ -140,6 +141,7 @@ class OrderController extends Controller
                 $start_tracker->address = $request->address_shipper;
                 $start_tracker->post_code = $request->shipper_postcode;
                 $start_tracker->start_time = $request->sending_time;
+                $start_tracker->start_time_stop = $request->sending_time_stop;
                 $start_tracker->position = '0';
                 $start_tracker->save();
             }
@@ -150,6 +152,7 @@ class OrderController extends Controller
                 $start_tracker->address = $request->address_consignee;
                 $start_tracker->post_code = $request->consignee_postcode;
                 $start_tracker->start_time = $request->delivery_time;
+                $start_tracker->start_time_stop = $request->delivery_time_stop;
                 $start_tracker->position = '2';
                 $start_tracker->save();
             }
@@ -186,6 +189,7 @@ class OrderController extends Controller
             $start_tracker->address = $request->address_consignee;
             $start_tracker->post_code = $request->consignee_postcode;
             $start_tracker->start_time = $request->delivery_time;
+            $start_tracker->start_time_stop = $request->delivery_time_stop;
             $start_tracker->position = '0';
             $start_tracker->save();
         }
@@ -259,7 +263,6 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
             $order = $this->orderService->findAndUpdate($request, $id);
-
 
             if (isset($request->Package)) {
                 foreach ($request->Package as $option_key) {

@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Mail\ReceiveNotifications;
 use App\Models\Tracker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class TrackersRepository
 {
@@ -34,50 +36,75 @@ class TrackersRepository
 
     public function updateStartTracker($order, $request, $many)
     {
-//        dd($many);
+//        dd($order);
         $tracker_start = $this->getStartTracker($order);
         $start = $request->start;
         $tracker_start->driver_id = $start['driver_id'] ?? null;
-        if (!is_null($start['start_time'])) {
+        if (!is_null($start['start_time']) && !is_null($start['start_time_stop'])) {
             $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
+            $tracker_start->start_time_stop = str_replace('T', ' ', $start['start_time_stop']);
         }
         if (isset($start['status_arrival'])) {
             $tracker_start->end_time = now();
-            $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : 'ok';
+//            $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : $tracker_start->end_time > $tracker_start->start_time ? 'ok': 'bad';
+            $tracker_start->alert = ($tracker_start->start_time < $tracker_start->end_time && $tracker_start->end_time < $tracker_start->start_time_stop)? 'ok':'bad';
+
+
             $tracker_start->status = 'Arrived';
+//            dd($tracker_start->status);
         }
+//        dd($start['status_arrival']);
         if (!empty($start['signed'])) {
             $tracker_start->signed = $start['signed'];
             if ($many == false) {
                 $order->status_id = 5;
+
             } else {
                 $order->status_id = 3;
             }
-
-            $order->update();
+            if (isset($start['status_arrival']) && $order->notifications == 'on') {
+                foreach ($order->email as $mail) {
+                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
+                }
+            }
         }
+        $order->update();
+
 
         $tracker_start->update();
+
+        $tracker_end = $this->getEndTracker($order);
+        $tracker_end->driver_id = $tracker_start->driver_id;
+        $tracker_end->update();
+
     }
 
     public function updateEndTracker($order, $request)
     {
-//        dd($request);
         $tracker_end = $this->getEndTracker($order);
         $end = $request->end;
         $tracker_end->signed = '';
-        $tracker_end->driver_id = $end['driver_id'] ?? null;
+//        $tracker_end->driver_id = $end['driver_id'] ?? null;
         if (!is_null($end['start_time'])) {
             $tracker_end->start_time = str_replace('T', ' ', $end['start_time']);
+            $tracker_end->start_time_stop = str_replace('T', ' ', $end['start_time_stop']);
         }
         if (isset($end['status_arrival']) && !empty($end['signed'])) {
             $tracker_end->end_time = now();
             $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
+            $tracker_end->alert = ($tracker_end->start_time < $tracker_end->end_time && $tracker_end->end_time < $tracker_end->start_time_stop)? 'ok':'bad';
+
             $tracker_end->signed = $end['signed'];
             $tracker_end->status = 'Arrived';
             $order->status_id = 6;
             $order->delivery_time = now()->format('Y-m-d');
             $order->update();
+
+            if (isset($end['status_arrival']) && $order->notifications == 'on') {
+                foreach ($order->email as $mail) {
+                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
+                }
+            }
         }
         if (!is_null($request->checkout_number)) {
 
@@ -127,14 +154,11 @@ class TrackersRepository
             }
             if (isset($option_key['status_left'])) {
                 $count = Tracker::where('order_id', $order->id)->where('position', '1')->where('status', 'Awaiting arrival')->count();
-                if ($count != 0 )
-                {
+                if ($count != 0) {
                     $tracker->left_the_point = now();
                     $order->status_id = 4;
                     $order->update();
-                }
-                else
-                {
+                } else {
                     $tracker->left_the_point = now();
                     $order->status_id = 5;
                     $order->update();
@@ -145,6 +169,10 @@ class TrackersRepository
 
 
         $tracker->update();
+
+        $tracker_end = $this->getEndTracker($order);
+        $tracker_end->driver_id = $tracker->driver_id;
+        $tracker_end->update();
     }
 
     public function createTransitionalTracker($order, $option_key, $many)
@@ -178,7 +206,6 @@ class TrackersRepository
 
     public function updateDriverStartTracker($order, $request, $many)
     {
-//        dd($request);
         $tracker_start = $this->getStartTracker($order);
 //        dd($tracker_start);
         $start = $request->start;
@@ -186,7 +213,9 @@ class TrackersRepository
 
         if (isset($start['status_arrival'])) {
             $tracker_start->end_time = now();
-            $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : 'ok';
+//            $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : 'ok';
+            $tracker_start->alert = ($tracker_start->start_time < $tracker_start->end_time && $tracker_start->end_time < $tracker_start->start_time_stop)? 'ok':'bad';
+
         }
         if (isset($start['status_arrival']) && !empty($start['signed'])) {
             $tracker_start->signed = $start['signed'];
@@ -197,7 +226,11 @@ class TrackersRepository
             } else {
                 $order->status_id = 3;
             }
-
+            if (isset($start['status_arrival']) && $order->notifications == 'on') {
+                foreach ($order->email as $mail) {
+                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
+                }
+            }
             $order->update();
         }
 
@@ -215,10 +248,18 @@ class TrackersRepository
         if (isset($end['status_arrival'])) {
             $tracker_end->end_time = now();
             $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
+            $tracker_end->alert = ($tracker_end->start_time < $tracker_end->end_time && $tracker_end->end_time < $tracker_end->start_time_stop)? 'ok':'bad';
+
             $tracker_end->signed = $end['signed'];
             $tracker_end->status = 'Arrived';
             $order->status_id = 6;
             $order->update();
+
+            if (isset($end['status_arrival']) && $order->notifications == 'on') {
+                foreach ($order->email as $mail) {
+                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
+                }
+            }
         }
         $tracker_end->update();
     }
@@ -256,14 +297,11 @@ class TrackersRepository
             }
             if (isset($option_key['status_left'])) {
                 $count = Tracker::where('order_id', $order->id)->where('position', '1')->where('status', 'Awaiting arrival')->count();
-                if ($count != 0 )
-                {
+                if ($count != 0) {
                     $tracker->left_the_point = now();
                     $order->status_id = 4;
                     $order->update();
-                }
-                else
-                {
+                } else {
                     $tracker->left_the_point = now();
                     $order->status_id = 5;
                     $order->update();

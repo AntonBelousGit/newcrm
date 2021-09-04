@@ -22,6 +22,7 @@ class OrderRepository
     {
         return $this->order->with('cargo', 'user', 'tracker.cargolocation', 'order')->where('status_id', '!=', 9)->get();
     }
+
     public function getAllParentOrder()
     {
         return $this->order->where('returned', '!=', 1)->get();
@@ -43,7 +44,7 @@ class OrderRepository
         $order->company_consignee = $request->company_consignee;
         $order->shipment_description = $request->shipment_description ?? null;
         $order->comment = $request->comment ?? null;
-        $order->email = $request->email ?? null;
+        $order->email = array_filter($request->email,'strlen') ?? '';
 
         if (!is_null($request->sending_time)) {
             $order->sending_time = str_replace('T', ' ', $request->sending_time);
@@ -75,7 +76,7 @@ class OrderRepository
 
     public function saveReturnedOrder($request, $id)
     {
-//        dd($id);
+//        dd($request);
         $order = new Order();
 
         $order->shipper = $request->consignee;
@@ -108,12 +109,13 @@ class OrderRepository
         $order->return_sensor = $request->return_sensor ?? 'off';
         $order->return_container = $request->return_container ?? 'off';
         $order->notifications = $request->notifications ?? 'off';
+        $order->email = array_filter($request->email,'strlen') ?? '';
         $order->status_id = 1;
         $order->cargo_location_id = 1;
         if (Gate::any(['Client'], Auth::user())) {
             $order->client_id = Auth::id();
         }
-        if (isset($request->client_id)){
+        if (isset($request->client_id)) {
             $order->client_id = $request->client_id;
         }
 
@@ -129,50 +131,57 @@ class OrderRepository
     public function findAndUpdate($request, $id)
     {
         $order = $this->findById($id);
+//        dd($order);
+        if ($order->status_id < 3 && $request->status_id < 3) {
+            $order->shipper = $request->shipper;
+            $order->phone_shipper = $request->phone_shipper;
+            $order->company_shipper = $request->company_shipper;
+            $order->site_shipper = $request->site_shipper;
+            $order->consignee = $request->consignee;
+            $order->phone_consignee = $request->phone_consignee;
+            $order->company_consignee = $request->company_consignee;
+            $order->site_consignee = $request->site_consignee;
+            $order->shipment_description = $request->shipment_description ?? null;
+            $order->comment = $request->comment ?? null;
+            $order->locations = $request->locations;
+            $order->locations_id = $request->city_id;
 
-        $order->shipper = $request->shipper;
-        $order->phone_shipper = $request->phone_shipper;
-        $order->company_shipper = $request->company_shipper;
-        $order->site_shipper = $request->site_shipper;
-        $order->consignee = $request->consignee;
-        $order->phone_consignee = $request->phone_consignee;
-        $order->company_consignee = $request->company_consignee;
-        $order->site_consignee = $request->site_consignee;
-        $order->shipment_description = $request->shipment_description ?? null;
-        $order->comment = $request->comment ?? null;
-        $order->locations = $request->locations;
-        $order->locations_id = $request->city_id;
-
-        if (!is_null($request->sending_time)) {
-            $order->sending_time = str_replace('T', ' ', $request->sending_time);
-        }
+            if (!is_null($request->sending_time)) {
+                $order->sending_time = str_replace('T', ' ', $request->sending_time);
+            }
 
 //        $order->delivery_time = $request->delivery_time;
-        $order->delivery_comment = $request->delivery_comment;
-        $order->payer_id = $request->payer_id;
-        $order->my_sensor = $request->my_sensor ?? 'off';
-        $order->my_container = $request->my_container ?? 'off';
-        $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
-        $order->container = $request->container ?? 'off';
-        $order->notifications = $request->notifications ?? 'off';
-        $order->status_id = $request->status_id;
-        $order->agent_id = $request->agent_id ?? null;
-        if (!is_null($request->substatus_id)) {
-            $order->substatus_id = $request->substatus_id;
+            $order->delivery_comment = $request->delivery_comment;
+            $order->payer_id = $request->payer_id;
+            if ($order->status_id < 2 && $request->status_id < 3) {
+                $order->my_sensor = $request->my_sensor ?? 'off';
+                $order->my_container = $request->my_container ?? 'off';
+                $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
+                $order->container = $request->container ?? 'off';
+                $order->notifications = $request->notifications ?? 'off';
+                $order->email = array_filter($request->email,'strlen') ?? '';
+                $order->status_id = $request->status_id;
+
+            }
+
+            $order->agent_id = $request->agent_id ?? null;
+            if (!is_null($request->substatus_id)) {
+                $order->substatus_id = $request->substatus_id;
+            }
+            $order->cargo_location_id = $request->cargo_location_id ?? 1;
+            $order->update();
         }
-        $order->cargo_location_id = $request->cargo_location_id ?? 1;
-
-        $order->update();
-
         return $order;
     }
 
-    public function findById($id)
+    public
+    function findById($id)
     {
         return Order::with('cargo')->findOrFail($id);
     }
 
-    public function createCargo($request,$order)
+    public
+    function createCargo($request, $order)
     {
         foreach ($request->Package as $item) {
 
