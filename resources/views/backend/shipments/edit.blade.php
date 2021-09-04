@@ -647,7 +647,7 @@
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time_start">
-                                <label>Signed:</label><input placeholder="Signed" type="text" name="start[signed]"
+                                <label class="red-star">Signed:</label><input placeholder="Signed" type="text" required name="start[signed]"
                                                              class="form-control" value="{{$tracker_start->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
