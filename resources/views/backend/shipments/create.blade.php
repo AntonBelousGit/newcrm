@@ -202,10 +202,12 @@
                             <div class="col-md-6">
                                 <div class="form-group fv-plugins-icon-container">
                                     <label class="red-star">Shipping Date:</label>
+                                    <div><span>From</span></div>
                                     <div class="input-group date">
                                         <input  placeholder="Start time" type="datetime-local" name="sending_time" class="form-control" value=""/>
                                     </div><i data-field="sending_time" class="fv-plugins-icon"></i>
                                     <div class="fv-plugins-message-container"></div>
+                                    <div><span>To</span></div>
                                     <div class="input-group date">
                                         <input  placeholder="Start time" type="datetime-local" name="sending_time_stop" class="form-control" value=""/>
                                     </div><i data-field="sending_time" class="fv-plugins-icon"></i>
@@ -216,11 +218,13 @@
                             <div class="col-md-6">
                                 <div class="form-group fv-plugins-icon-container">
                                     <label class="red-star">Delivery Date:</label>
+                                    <div><span>From</span></div>
                                     <div class="input-group date">
                                         <input  placeholder="Start time" type="datetime-local" name="delivery_time" class="form-control" value=""/>
                                     </div>
                                     <i data-field="delivery_time" class="fv-plugins-icon"></i>
                                     <div class="fv-plugins-message-container"></div>
+                                    <div><span>To</span></div>
                                     <div class="input-group date">
                                         <input  placeholder="Start time" type="datetime-local" name="delivery_time_stop" class="form-control" value=""/>
                                     </div><i data-field="delivery_time" class="fv-plugins-icon"></i>
