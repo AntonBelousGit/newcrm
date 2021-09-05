@@ -591,6 +591,24 @@
                             </select>
                         </div>
                     </div>
+                    <div>
+                        @php
+                            if (isset($tracker_start->start_time))
+                            {
+                                 $start_time = date('d.m.Y, H:i',strtotime($tracker_start->start_time));
+                                 $start_time_stop = date('H:i',strtotime($tracker_start->start_time_stop));
+                            }
+                        @endphp
+                        <br><p>Estimated Shipping Time: {{$start_time}} - {{$start_time_stop}}</p>
+                        @php
+                            if (isset($tracker_end->start_time))
+                            {
+                                 $start_time = date('d.m.Y, H:i',strtotime($tracker_end->start_time));
+                                 $start_time_stop = date('H:i',strtotime($tracker_end->start_time_stop));
+                            }
+                        @endphp
+                        <p>Estimated Delivery Time: {{$start_time}} - {{$start_time_stop}}</p>
+                    </div>
                     <hr>
                 </div>
                 <div id="kt_repeater_12">
