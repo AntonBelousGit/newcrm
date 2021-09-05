@@ -107,11 +107,15 @@ class OrderRepository
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';
         $order->return_container = $request->return_container ?? 'off';
+
         if ($email) {
             $order->notifications = $request->notifications ?? 'off';
             $order->email = $request->email ?? '';
         }
-
+        else
+        {
+            $order->notifications = 'off';
+        }
         $order->status_id = 1;
         $order->cargo_location_id = 1;
         if (Gate::any(['Client'], Auth::user())) {
