@@ -110,8 +110,10 @@ class OrderController extends Controller
             if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
                 return redirect()->route('admin.orders.index');
             }
-            if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-                return response('Hello World', 200);
+            if (Gate::any(['Client'], Auth::user())) {
+                return redirect()->action(
+                    [OrderController::class, 'show'], ['order' => $order->id]
+                );
 
             }
 
@@ -138,7 +140,7 @@ class OrderController extends Controller
 //        dd($request);
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
-            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id,true);
+            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id, true);
 
             if ($request->shipper_address_id) {
                 $start_tracker = new Tracker;
@@ -175,7 +177,7 @@ class OrderController extends Controller
     public function returned_order($request, $id)
     {
 
-        $order = $this->orderService->saveReturnedOrder($request, $id,false);
+        $order = $this->orderService->saveReturnedOrder($request, $id, false);
 
         if ($request->shipper_address_id) {
             $start_tracker = new Tracker;

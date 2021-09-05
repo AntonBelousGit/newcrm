@@ -411,6 +411,7 @@
                             </div>
                             <div class="form-check">
                                 <label for="inlineCheckbox11"></label><input class="form-check-input"
+                                                                             placeholder="myemail@mail.com,myemail2@mail.com"
                                                                              style="width: 350px;" type="text"
                                                                              id="inlineCheckbox11" name="email"
                                                                              value="{{old('email')}}">
@@ -571,10 +572,14 @@
                     var mailArray = mail.split(',');
 
                     console.log(mailArray);
+                    console.log(testSeparator);
 
                     if(mailPattern === false && testSeparator === -1){
+                        $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
+                    }else{
                         $(mailArray).each(function(index,item){
                             if(pattern.test(item.trim()) === false){
+                                console.log(pattern.test(item[index].trim()));
                                 $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
                             }
                         });
@@ -585,7 +590,6 @@
             });
 
         });
-
         // Get Addressess After Select Client
         function selectIsTriggered() {
             getAdressess(document.getElementById("client-id").value);

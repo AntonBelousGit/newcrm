@@ -385,7 +385,7 @@
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
                             <div class="form-check">
-                                <label for="inlineCheckbox11"></label><input class="form-check-input" type="email" id="inlineCheckbox11" name="email">
+                                <label for="inlineCheckbox11"></label><input class="form-check-input" type="email" placeholder="myemail@mail.com,myemail2@mail.com"  id="inlineCheckbox11" name="email">
                             </div>
                             <div class="form-check"></div>
                             <div class="form-check"></div>
@@ -523,10 +523,14 @@
                     var mailArray = mail.split(',');
 
                     console.log(mailArray);
+                    console.log(testSeparator);
 
                     if(mailPattern === false && testSeparator === -1){
+                        $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
+                    }else{
                         $(mailArray).each(function(index,item){
                             if(pattern.test(item.trim()) === false){
+                                console.log(pattern.test(item[index].trim()));
                                 $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
                             }
                         });
