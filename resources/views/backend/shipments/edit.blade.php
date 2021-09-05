@@ -660,13 +660,13 @@
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time_start">
-                                <label class="red-star">Signed:</label><input placeholder="Signed" type="text" required name="start[signed]"
+                                <label>Signed:</label><input placeholder="Signed" type="text"  name="start[signed]"
                                                              class="form-control" value="{{$tracker_start->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="start[status_arrival]"
+                                    <input class="form-check-input" type="checkbox" id="actual_status" name="start[status_arrival]"
                                            @if( $tracker_start->status == 'Arrived') disabled checked @endif>
                                     <label class="form-check-label">Arrived</label>
                                 </div>
@@ -897,7 +897,7 @@
                             </div>
 
                             <div class="col-md-1">
-                                <div class="form-check">
+                                <div class="form-check" >
                                     <input class="form-check-input" type="checkbox" name="end[status_arrival]"
                                            @if( $tracker_end->status == 'Arrived') disabled checked @endif>
                                     <label class="form-check-label">Arrived</label>
@@ -1243,6 +1243,15 @@
             })
             $('#actual-time-end').on('input', function () {
                 $('#actual-time-end-signed input').attr("required", "required");
+            })
+
+            $('#actual_status').on('change', function () {
+                if(document.getElementById('actual_status').checked){
+                    $('#actual_time_start input').attr("required", "required");
+                }
+                else{
+                    $('#actual_time_start input').removeAttr("required");
+                }
             })
 
             $('.select-country').select2({
