@@ -1008,46 +1008,53 @@
                 $("input[data-client=lng]").val(latLng.lng());
             });
         });
+
         $('document').ready(function(){
 
+            if($('#inlineCheckbox5').is(':checked')){
+            $('#inlineCheckbox11').show(100);
+        }else{
             $('#inlineCheckbox11').hide(100);
-            $('#inlineCheckbox5').on('click', function(){
+        }
+
+        $('#inlineCheckbox5').on('click', function(){
+            $('p.aletr-email').remove();
+            if ($(this).is(':checked')){
+                $('#inlineCheckbox11').show(100);
+            } else {
+                $('#inlineCheckbox11').hide(100);
+            }
+
+            var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,7}$/i;
+
+            $('#inlineCheckbox11').blur(function(){
                 $('p.aletr-email').remove();
-                if ($(this).is(':checked')){
-                    $('#inlineCheckbox11').show(100);
-                } else {
-                    $('#inlineCheckbox11').hide(100);
+
+                var mail = $('#inlineCheckbox11').val();
+                var mailPattern = pattern.test(mail);
+                var testSeparator = mail.indexOf(',');
+                var mailArray = mail.split(',');
+
+                console.log(mailArray);
+                console.log(testSeparator);
+
+                if(mailPattern === false && testSeparator === -1){
+                    $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
+                }else{
+                    $(mailArray).each(function(index,item){
+                        if(pattern.test(item.trim()) === false){
+                            console.log(pattern.test(item[index].trim()));
+                            $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
+                        }
+                    });
                 }
-
-                var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,7}$/i;
-
-                $('#inlineCheckbox11').blur(function(){
-                    $('p.aletr-email').remove();
-
-                    var mail = $('#inlineCheckbox11').val();
-                    var mailPattern = pattern.test(mail);
-                    var testSeparator = mail.indexOf(',');
-                    var mailArray = mail.split(',');
-
-                    console.log(mailArray);
-                    console.log(testSeparator);
-
-                    if(mailPattern === false && testSeparator === -1){
-                        $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
-                    }else{
-                        $(mailArray).each(function(index,item){
-                            if(pattern.test(item.trim()) === false){
-                                console.log(pattern.test(item[index].trim()));
-                                $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
-                            }
-                        });
-                    }
-
-                });
 
             });
 
         });
+
+        });
+
         // Get Addressess After Select Client
         function selectIsTriggered() {
             getAdressess(document.getElementById("client-id").value);

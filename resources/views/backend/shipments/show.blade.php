@@ -658,9 +658,15 @@
                 $("input[data-client=lng]").val(latLng.lng());
             });
         });
+
         $('document').ready(function(){
 
-            $('#inlineCheckbox11').hide(100);
+            if($('#inlineCheckbox5').is(':checked')){
+                $('#inlineCheckbox11').show(100);
+            }else{
+                $('#inlineCheckbox11').hide(100);
+            }
+
             $('#inlineCheckbox5').on('click', function(){
                 $('p.aletr-email').remove();
                 if ($(this).is(':checked')){
