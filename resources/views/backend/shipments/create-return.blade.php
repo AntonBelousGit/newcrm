@@ -501,6 +501,8 @@
                 $("input[data-client=lng]").val(latLng.lng());
             });
         });
+
+
         $('document').ready(function(){
 
             if($('#inlineCheckbox5').is(':checked')){
@@ -546,7 +548,6 @@
             });
 
         });
-
         // Get Addressess After Select Client
         function selectIsTriggered()
         {

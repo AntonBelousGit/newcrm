@@ -637,28 +637,6 @@
             });
         });
         // Map Address For Client
-        $('.address-client').each(function () {
-            var address = $(this);
-            address.geocomplete({
-                map: ".map_canvas.map-client",
-                mapOptions: {
-                    zoom: 8,
-                    center: {lat: -34.397, lng: 150.644},
-                },
-                markerOptions: {
-                    draggable: true
-                },
-                details: ".location-client",
-                detailsAttribute: 'data-client',
-                autoselect: true,
-                restoreValueAfterBlur: true,
-            });
-            address.bind("geocode:dragged", function (event, latLng) {
-                $("input[data-client=lat]").val(latLng.lat());
-                $("input[data-client=lng]").val(latLng.lng());
-            });
-        });
-
         $('document').ready(function(){
 
             if($('#inlineCheckbox5').is(':checked')){
