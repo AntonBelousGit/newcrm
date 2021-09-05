@@ -66,10 +66,13 @@ class TrackersRepository
             } else {
                 $order->status_id = 3;
             }
-            if (isset($start['status_arrival']) || isset($start['arrived_time'])  && $order->notifications == 'on' && !empty($order->email)) {
+
+            if (isset($start['status_arrival']) || isset($start['arrived_time'])  && $order->notifications == 'on' ) {
+               if (!empty($order->email)){
                 foreach (explode(',',$order->email) as $mail) {
                     Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
                 }
+               }
             }
         }
         $order->update();
@@ -108,10 +111,11 @@ class TrackersRepository
             $order->status_id = 6;
             $order->delivery_time = now()->format('Y-m-d');
             $order->update();
-
-            if (isset($end['status_arrival']) || isset($end['arrived_time']) && $order->notifications == 'on' && !empty($order->email)) {
-                foreach (explode(',',$order->email) as $mail) {
-                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
+            if (isset($end['status_arrival']) || isset($end['arrived_time']) && $order->notifications == 'on') {
+                if (!empty($order->email)) {
+                    foreach (explode(',', $order->email) as $mail) {
+                        Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
+                    }
                 }
             }
         }
@@ -243,9 +247,11 @@ class TrackersRepository
             } else {
                 $order->status_id = 3;
             }
-            if (isset($start['status_arrival']) && $order->notifications == 'on' && !empty($order->email)) {
-                foreach (explode(',',$order->email) as $mail) {
-                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
+            if (isset($start['status_arrival']) && $order->notifications == 'on') {
+                if (!empty($order->email)) {
+                    foreach (explode(',', $order->email) as $mail) {
+                        Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
+                    }
                 }
             }
             $order->update();
@@ -272,9 +278,11 @@ class TrackersRepository
             $order->status_id = 6;
             $order->update();
 
-            if (isset($end['status_arrival']) && $order->notifications == 'on' && !empty($order->email)) {
-                foreach (explode(',',$order->email) as $mail) {
-                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
+            if (isset($end['status_arrival']) && $order->notifications == 'on') {
+                if (!empty($order->email)) {
+                    foreach (explode(',', $order->email) as $mail) {
+                        Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
+                    }
                 }
             }
         }
