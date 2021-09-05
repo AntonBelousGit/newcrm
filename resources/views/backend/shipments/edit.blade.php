@@ -660,7 +660,7 @@
                             </div>
                             <div class="col-md-3 col-md-4" id="actual_time">
                                 <label>Arrived Time:</label>
-                                <input placeholder="Start time" type="datetime-local" disabled
+                                <input placeholder="Start time" type="datetime-local"  name="start[arrived_time]"
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -730,7 +730,7 @@
                                         </div>
                                         <div class="col-md-3 col-md-4">
                                             <label>Arrived Time:</label>
-                                            <input placeholder="Start time" type="datetime-local" disabled
+                                            <input placeholder="Start time" type="datetime-local" name="arrived_time"
                                                    class="form-control clear-value-data" value="{{$end_time}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -806,7 +806,7 @@
                                     </div>
                                     <div class="col-md-3 col-md-4">
                                         <label>Arrived Time:</label>
-                                        <input placeholder="Start time" type="datetime-local" disabled
+                                        <input placeholder="Start time" type="datetime-local" name="arrived_time"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
@@ -887,7 +887,7 @@
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
-                                <input placeholder="Start time" type="datetime-local" disabled
+                                <input placeholder="Start time" type="datetime-local" name="end[arrived_time]"
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
