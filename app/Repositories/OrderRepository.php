@@ -107,8 +107,8 @@ class OrderRepository
         $order->container = $request->container ?? 'off';
         $order->return_sensor = $request->return_sensor ?? 'off';
         $order->return_container = $request->return_container ?? 'off';
-        $order->notifications = $request->notifications ?? 'off';
         if ($email) {
+            $order->notifications = $request->notifications ?? 'off';
             $order->email = $request->email ?? '';
         }
 
