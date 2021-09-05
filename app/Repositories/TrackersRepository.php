@@ -44,8 +44,12 @@ class TrackersRepository
             $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
             $tracker_start->start_time_stop = str_replace('T', ' ', $start['start_time_stop']);
         }
-        if (isset($start['status_arrival'])) {
-            $tracker_start->end_time = now();
+        if (!is_null($start['arrived_time'])) {
+            $tracker_start->end_time = str_replace('T', ' ', $start['arrived_time']);
+        }
+
+        if (isset($start['status_arrival']) || isset($start['arrived_time'])) {
+            $tracker_start->end_time = $tracker_start->end_time ?? now();
 //            $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : $tracker_start->end_time > $tracker_start->start_time ? 'ok': 'bad';
             $tracker_start->alert = ($tracker_start->start_time < $tracker_start->end_time && $tracker_start->end_time < $tracker_start->start_time_stop)? 'ok':'bad';
 
@@ -62,8 +66,8 @@ class TrackersRepository
             } else {
                 $order->status_id = 3;
             }
-            if (isset($start['status_arrival']) && $order->notifications == 'on') {
-                foreach ($order->email as $mail) {
+            if (isset($start['status_arrival']) || isset($start['arrived_time'])  && $order->notifications == 'on') {
+                foreach (explode(',',$order->email) as $mail) {
                     Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
                 }
             }
@@ -89,8 +93,13 @@ class TrackersRepository
             $tracker_end->start_time = str_replace('T', ' ', $end['start_time']);
             $tracker_end->start_time_stop = str_replace('T', ' ', $end['start_time_stop']);
         }
-        if (isset($end['status_arrival']) && !empty($end['signed'])) {
-            $tracker_end->end_time = now();
+
+        if (!is_null($end['arrived_time'])) {
+            $tracker_end->end_time = str_replace('T', ' ', $end['arrived_time']);
+        }
+
+        if (isset($end['status_arrival']) || isset($end['arrived_time'])  &&  !empty($end['signed'])) {
+            $tracker_end->end_time = $tracker_end->end_time ?? now();
             $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
             $tracker_end->alert = ($tracker_end->start_time < $tracker_end->end_time && $tracker_end->end_time < $tracker_end->start_time_stop)? 'ok':'bad';
 
@@ -100,8 +109,8 @@ class TrackersRepository
             $order->delivery_time = now()->format('Y-m-d');
             $order->update();
 
-            if (isset($end['status_arrival']) && $order->notifications == 'on') {
-                foreach ($order->email as $mail) {
+            if (isset($end['status_arrival']) || isset($end['arrived_time']) && $order->notifications == 'on') {
+                foreach (explode(',',$order->email) as $mail) {
                     Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
                 }
             }
@@ -129,8 +138,11 @@ class TrackersRepository
             if (!is_null($option_key['start_time'])) {
                 $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
             }
-            if (isset($option_key['status_arrival'])) {
-                $tracker->end_time = now();
+            if (!is_null($option_key['arrived_time'])) {
+                $tracker->end_time = str_replace('T', ' ', $option_key['arrived_time']);
+            }
+            if (isset($option_key['status_arrival']) || $option_key['arrived_time']) {
+                $tracker->end_time = $tracker->end_time ?? now();
                 $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
                 $tracker->status = 'Arrived';
                 $order->status_id = 8;
@@ -145,8 +157,11 @@ class TrackersRepository
             if (!is_null($option_key['start_time'])) {
                 $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
             }
-            if (isset($option_key['status_arrival'])) {
-                $tracker->end_time = now();
+            if (!is_null($option_key['arrived_time'])) {
+                $tracker->end_time = str_replace('T', ' ', $option_key['arrived_time']);
+            }
+            if (isset($option_key['status_arrival']) || $option_key['arrived_time']) {
+                $tracker->end_time = $tracker->end_time ?? now();
                 $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
                 $tracker->status = 'Arrived';
                 $order->status_id = 8;
@@ -185,9 +200,11 @@ class TrackersRepository
         if (!is_null($option_key['start_time'])) {
             $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
         }
-
-        if (isset($option_key['status_arrival'])) {
-            $tracker->end_time = now();
+        if (!is_null($option_key['arrived_time'])) {
+            $tracker->end_time = str_replace('T', ' ', $option_key['arrived_time']);
+        }
+        if (isset($option_key['status_arrival']) || isset($option_key['arrived_time'])) {
+            $tracker->end_time = $tracker->end_time ?? now();
             $tracker->alert = $tracker->end_time > $tracker->start_time ? 'bad' : 'ok';
             $tracker->status = 'Arrived';
             $order->status_id = 8;
@@ -217,7 +234,7 @@ class TrackersRepository
             $tracker_start->alert = ($tracker_start->start_time < $tracker_start->end_time && $tracker_start->end_time < $tracker_start->start_time_stop)? 'ok':'bad';
 
         }
-        if (isset($start['status_arrival']) && !empty($start['signed'])) {
+        if (isset($start['status_arrival'])  && !empty($start['signed'])) {
             $tracker_start->signed = $start['signed'];
             $tracker_start->status = 'Arrived';
 
@@ -227,7 +244,7 @@ class TrackersRepository
                 $order->status_id = 3;
             }
             if (isset($start['status_arrival']) && $order->notifications == 'on') {
-                foreach ($order->email as $mail) {
+                foreach (explode(',',$order->email) as $mail) {
                     Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
                 }
             }
@@ -256,7 +273,7 @@ class TrackersRepository
             $order->update();
 
             if (isset($end['status_arrival']) && $order->notifications == 'on') {
-                foreach ($order->email as $mail) {
+                foreach (explode(',',$order->email) as $mail) {
                     Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
                 }
             }

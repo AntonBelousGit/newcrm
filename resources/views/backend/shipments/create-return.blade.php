@@ -385,20 +385,12 @@
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
                             <div class="form-check">
-                                <label for="inlineCheckbox11">1</label><input class="form-check-input" type="email" id="inlineCheckbox11" name="email[]">
+                                <label for="inlineCheckbox11"></label><input class="form-check-input" type="email" id="inlineCheckbox11" name="email">
                             </div>
-                            <div class="form-check">
-                                <label for="inlineCheckbox12">2</label><input class="form-check-input" type="email" id="inlineCheckbox12" name="email[]">
-                            </div>
-                            <div class="form-check">
-                                <label for="inlineCheckbox13">3</label><input class="form-check-input" type="email" id="inlineCheckbox13" name="email[]">
-                            </div>
-                            <div class="form-check">
-                                <label for="inlineCheckbox14">4</label><input class="form-check-input" type="email" id="inlineCheckbox14" name="email[]">
-                            </div>
-                            <div class="form-check">
-                                <label for="inlineCheckbox15"5></label><input class="form-check-input" type="email" id="inlineCheckbox15" name="email[]">
-                            </div>
+                            <div class="form-check"></div>
+                            <div class="form-check"></div>
+                            <div class="form-check"></div>
+                            <div class="form-check"></div>
                         </div>
                         <hr>
                         <div class="col-md-12">
@@ -509,7 +501,42 @@
                 $("input[data-client=lng]").val(latLng.lng());
             });
         });
+        $('document').ready(function(){
 
+            $('#inlineCheckbox11').hide(100);
+            $('#inlineCheckbox5').on('click', function(){
+                $('p.aletr-email').remove();
+                if ($(this).is(':checked')){
+                    $('#inlineCheckbox11').show(100);
+                } else {
+                    $('#inlineCheckbox11').hide(100);
+                }
+
+                var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,7}$/i;
+
+                $('#inlineCheckbox11').blur(function(){
+                    $('p.aletr-email').remove();
+
+                    var mail = $('#inlineCheckbox11').val();
+                    var mailPattern = pattern.test(mail);
+                    var testSeparator = mail.indexOf(',');
+                    var mailArray = mail.split(',');
+
+                    console.log(mailArray);
+
+                    if(mailPattern === false && testSeparator === -1){
+                        $(mailArray).each(function(index,item){
+                            if(pattern.test(item.trim()) === false){
+                                $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
+                            }
+                        });
+                    }
+
+                });
+
+            });
+
+        });
 
         // Get Addressess After Select Client
         function selectIsTriggered()

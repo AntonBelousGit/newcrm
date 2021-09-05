@@ -107,8 +107,14 @@ class OrderController extends Controller
                 $this->returned_order($request, $order->id);
             }
 
+            if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+                return redirect()->route('admin.orders.index');
+            }
+            if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+                return response('Hello World', 200);
 
-            return redirect()->route('admin.orders.index');
+            }
+
         }
         return abort(403);
     }
@@ -132,7 +138,7 @@ class OrderController extends Controller
 //        dd($request);
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
-            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id);
+            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id,true);
 
             if ($request->shipper_address_id) {
                 $start_tracker = new Tracker;
@@ -169,7 +175,7 @@ class OrderController extends Controller
     public function returned_order($request, $id)
     {
 
-        $order = $this->orderService->saveReturnedOrder($request, $id);
+        $order = $this->orderService->saveReturnedOrder($request, $id,false);
 
         if ($request->shipper_address_id) {
             $start_tracker = new Tracker;
@@ -210,7 +216,7 @@ class OrderController extends Controller
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
         $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver')->findOrFail($id);
-        return view('backend.shipments.show', compact('orders','tracker_start','tracker_end'));
+        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end'));
     }
 
     /**
@@ -415,7 +421,7 @@ class OrderController extends Controller
 
     public function archives()
     {
-        if (Gate::any(['SuperUser', 'Manager', 'OPS','Client'], Auth::user())) {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 9)->get();
             $title = 'Archives';
             return view('backend.shipments.index', compact('orders', 'title'));
@@ -425,7 +431,7 @@ class OrderController extends Controller
 
     public function return_job()
     {
-        if (Gate::any(['SuperUser', 'Manager', 'OPS','Client'], Auth::user())) {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('returned', 1)->get();
             $title = 'Return Job';
             return view('backend.shipments.index', compact('orders', 'title'));

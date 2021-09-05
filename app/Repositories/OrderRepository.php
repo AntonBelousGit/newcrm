@@ -30,7 +30,6 @@ class OrderRepository
 
     public function saveOrder($request)
     {
-
         $order = new Order();
         $order->shipper = $request->shipper;
         $order->phone_shipper = $request->phone_shipper;
@@ -44,7 +43,7 @@ class OrderRepository
         $order->company_consignee = $request->company_consignee;
         $order->shipment_description = $request->shipment_description ?? null;
         $order->comment = $request->comment ?? null;
-        $order->email = array_filter($request->email,'strlen') ?? '';
+        $order->email = $request->email ?? '';
 
         if (!is_null($request->sending_time)) {
             $order->sending_time = str_replace('T', ' ', $request->sending_time);
@@ -74,7 +73,7 @@ class OrderRepository
         return $order;
     }
 
-    public function saveReturnedOrder($request, $id)
+    public function saveReturnedOrder($request, $id,$email)
     {
 //        dd($request);
         $order = new Order();
@@ -109,7 +108,10 @@ class OrderRepository
         $order->return_sensor = $request->return_sensor ?? 'off';
         $order->return_container = $request->return_container ?? 'off';
         $order->notifications = $request->notifications ?? 'off';
-        $order->email = array_filter($request->email,'strlen') ?? '';
+        if ($email) {
+            $order->email = $request->email ?? '';
+        }
+
         $order->status_id = 1;
         $order->cargo_location_id = 1;
         if (Gate::any(['Client'], Auth::user())) {
@@ -159,7 +161,7 @@ class OrderRepository
                 $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
                 $order->container = $request->container ?? 'off';
                 $order->notifications = $request->notifications ?? 'off';
-                $order->email = array_filter($request->email,'strlen') ?? '';
+                $order->email = $request->email ?? '';
                 $order->status_id = $request->status_id;
 
             }
