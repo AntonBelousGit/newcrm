@@ -176,8 +176,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label >Site Number :</label>
-                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper" class="form-control"  value="{{$orders->site_shipper}}" />
+                                <label>Site Number :</label>
+                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper"
+                                       class="form-control" value="{{$orders->site_shipper}}"/>
 
                             </div>
                         </div>
@@ -268,8 +269,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label >Site Number :</label>
-                                <input type="text"  @if($orders->status_id > 1) readonly @endif  name="site_consignee" class="form-control"  value="{{$orders->site_consignee}}" />
+                                <label>Site Number :</label>
+                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_consignee"
+                                       class="form-control" value="{{$orders->site_consignee}}"/>
 
                             </div>
                         </div>
@@ -362,12 +364,12 @@
                                         <div class="col-md-3">
                                             <label class="red-star">Actual weight (kg):</label>
                                             <input
-{{--                                                class="kt_touchspin_weight"--}}
+                                                {{--                                                class="kt_touchspin_weight"--}}
                                                 placeholder="Actual weight" type="number"
-                                                   required @if($orders->status_id > 1) disabled @endif  min="1"
-                                                   step="0.1"
-                                                   name="actual_weight" class="form-control"
-                                                   value="{{$item['actual_weight']}}"/>
+                                                required @if($orders->status_id > 1) disabled @endif  min="1"
+                                                step="0.1"
+                                                name="actual_weight" class="form-control"
+                                                value="{{$item['actual_weight']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -509,6 +511,9 @@
                                        @endif   @if($orders->notifications == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
+                            <div class="form-check">
+                                <label for="inlineCheckbox11"></label><input class="form-check-input" style="width: 350px;"  placeholder="myemail@mail.com,myemail2@mail.com"  type="text" id="inlineCheckbox11" name="email" value="{{$orders->email}}">
+                            </div>
                         </div>
                         <hr>
                         <div class="col-md-12">
@@ -546,7 +551,7 @@
                         <div class="row">
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Status</label>
-                                @if($orders->status->id < 2)
+                                @if($orders->status_id < 2)
                                     <select id="select1" name="status_id" class="form-control "
                                             @if($orders->status_id > 1) readonly @endif >
                                         @foreach($status as $item)
@@ -554,7 +559,7 @@
                                                 @break
                                             @endif
                                             <option value="{{$item->id}}"
-                                                    @if($item->id == $orders->status->id) selected @endif >{{$item->name}}</option>
+                                                    @if($item->id == $orders->status_id) selected @endif >{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 @else
@@ -580,6 +585,24 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div>
+                        @php
+                            if (isset($tracker_start->start_time))
+                            {
+                                 $start_time = date('d.m.Y, H:i',strtotime($tracker_start->start_time));
+                                 $start_time_stop = date('H:i',strtotime($tracker_start->start_time_stop));
+                            }
+                        @endphp
+                        <br><p>Estimated Shipping Time: {{$start_time}} - {{$start_time_stop}}</p>
+                        @php
+                            if (isset($tracker_end->start_time))
+                            {
+                                 $start_time = date('d.m.Y, H:i',strtotime($tracker_end->start_time));
+                                 $start_time_stop = date('H:i',strtotime($tracker_end->start_time_stop));
+                            }
+                        @endphp
+                        <p>Estimated Delivery Time: {{$start_time}} - {{$start_time_stop}}</p>
                     </div>
                     <hr>
                 </div>
@@ -617,6 +640,7 @@
                                 if (isset($tracker_start->start_time))
                                 {
                                      $start_time = str_replace(' ','T', $tracker_start->start_time);
+                                     $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);
                                 }
                                 $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
                                 $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);
@@ -627,21 +651,22 @@
                                 <input placeholder="Start time" type="datetime-local" name="start[start_time]"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
+                                <input type="hidden" name="start[start_time_stop]" value="{{$start_time_stop}}">
                             </div>
                             <div class="col-md-3 col-md-4" id="actual_time">
                                 <label>Arrived Time:</label>
-                                <input placeholder="Start time" type="datetime-local" disabled
+                                <input placeholder="Start time" type="datetime-local"  name="start[arrived_time]"
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time_start">
-                                <label>Signed:</label><input placeholder="Signed" type="text" name="start[signed]"
+                                <label>Signed:</label><input placeholder="Signed" type="text"  name="start[signed]"
                                                              class="form-control" value="{{$tracker_start->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="start[status_arrival]"
+                                    <input class="form-check-input" type="checkbox" id="actual_status" name="start[status_arrival]"
                                            @if( $tracker_start->status == 'Arrived') disabled checked @endif>
                                     <label class="form-check-label">Arrived</label>
                                 </div>
@@ -700,7 +725,7 @@
                                         </div>
                                         <div class="col-md-3 col-md-4">
                                             <label>Arrived Time:</label>
-                                            <input placeholder="Start time" type="datetime-local" disabled
+                                            <input placeholder="Start time" type="datetime-local" name="arrived_time"
                                                    class="form-control clear-value-data" value="{{$end_time}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -776,7 +801,7 @@
                                     </div>
                                     <div class="col-md-3 col-md-4">
                                         <label>Arrived Time:</label>
-                                        <input placeholder="Start time" type="datetime-local" disabled
+                                        <input placeholder="Start time" type="datetime-local" name="arrived_time"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
@@ -826,24 +851,25 @@
                                        value="{{$tracker_end->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
-{{--                            <div class="col-md-3">--}}
-{{--                                <label>Driver:</label>--}}
-{{--                                <select name="end[driver_id]" class="form-control "--}}
-{{--                                        @if($orders->status_id > 1) readonly @endif >--}}
-{{--                                    <option value=""></option>--}}
-{{--                                    @foreach($user as $item)--}}
-{{--                                        @if($item->roles->first()->name == 'Driver')--}}
-{{--                                            <option value="{{$item->id}}"--}}
-{{--                                                    @if($item->id == $tracker_end->driver_id) selected @endif >{{$item->nickname}}--}}
-{{--                                                - {{$item->roles->first()->name}}  </option>--}}
-{{--                                        @endif--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
+                            {{--                            <div class="col-md-3">--}}
+                            {{--                                <label>Driver:</label>--}}
+                            {{--                                <select name="end[driver_id]" class="form-control "--}}
+                            {{--                                        @if($orders->status_id > 1) readonly @endif >--}}
+                            {{--                                    <option value=""></option>--}}
+                            {{--                                    @foreach($user as $item)--}}
+                            {{--                                        @if($item->roles->first()->name == 'Driver')--}}
+                            {{--                                            <option value="{{$item->id}}"--}}
+                            {{--                                                    @if($item->id == $tracker_end->driver_id) selected @endif >{{$item->nickname}}--}}
+                            {{--                                                - {{$item->roles->first()->name}}  </option>--}}
+                            {{--                                        @endif--}}
+                            {{--                                    @endforeach--}}
+                            {{--                                </select>--}}
+                            {{--                            </div>--}}
                             @php
                                 if (isset($tracker_end->start_time))
                                 {
                                      $start_time = str_replace(' ','T', $tracker_end->start_time);
+                                     $start_time_stop = str_replace(' ','T', $tracker_end->start_time_stop);
                                 }
                                 $end_time=is_null($tracker_end->end_time)?'':str_replace(' ','T', $tracker_end->end_time);
                             @endphp
@@ -852,10 +878,11 @@
                                 <input placeholder="Start time" type="datetime-local" name="end[start_time]"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
+                                <input type="hidden" name="end[start_time_stop]" value="{{$start_time_stop}}">
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
-                                <input placeholder="Start time" type="datetime-local" disabled
+                                <input placeholder="Start time" type="datetime-local" name="end[arrived_time]"
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -870,7 +897,7 @@
                             </div>
 
                             <div class="col-md-1">
-                                <div class="form-check">
+                                <div class="form-check" >
                                     <input class="form-check-input" type="checkbox" name="end[status_arrival]"
                                            @if( $tracker_end->status == 'Arrived') disabled checked @endif>
                                     <label class="form-check-label">Arrived</label>
@@ -892,17 +919,19 @@
                             </div>
                         </div>
                     @endif
-                    <div class="form-group ">
-                        <div class="">
-                            <label class="text-right col-form-label">{{ ('Add')}}</label>
-                            <div>
-                                <a href="javascript:;" data-repeater-create-time=""
-                                   class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
-                                    <i class="la la-plus"></i>{{ ('Add')}}
-                                </a>
+                    @if($orders->status_id < 2)
+                        <div class="form-group ">
+                            <div class="">
+                                <label class="text-right col-form-label">{{ ('Add')}}</label>
+                                <div>
+                                    <a href="javascript:;" data-repeater-create-time=""
+                                       class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
+                                        <i class="la la-plus"></i>{{ ('Add')}}
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     @can('SuperUser', 'Manager', 'OPS', 'Client')
                         <div class="form-group ">
                             <div class="">
@@ -978,6 +1007,52 @@
                 $("input[data-client=lat]").val(latLng.lat());
                 $("input[data-client=lng]").val(latLng.lng());
             });
+        });
+
+        $('document').ready(function(){
+
+            if($('#inlineCheckbox5').is(':checked')){
+            $('#inlineCheckbox11').show(100);
+        }else{
+            $('#inlineCheckbox11').hide(100);
+        }
+
+        $('#inlineCheckbox5').on('click', function(){
+            $('p.aletr-email').remove();
+            if ($(this).is(':checked')){
+                $('#inlineCheckbox11').show(100);
+            } else {
+                $('#inlineCheckbox11').hide(100);
+            }
+
+            var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,7}$/i;
+
+            $('#inlineCheckbox11').blur(function(){
+                $('p.aletr-email').remove();
+
+                var mail = $('#inlineCheckbox11').val();
+                var mailPattern = pattern.test(mail);
+                var testSeparator = mail.indexOf(',');
+                var mailArray = mail.split(',');
+
+                console.log(mailArray);
+                console.log(testSeparator);
+
+                if(mailPattern === false && testSeparator === -1){
+                    $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
+                }else{
+                    $(mailArray).each(function(index,item){
+                        if(pattern.test(item.trim()) === false){
+                            console.log(pattern.test(item[index].trim()));
+                            $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
+                        }
+                    });
+                }
+
+            });
+
+        });
+
         });
 
         // Get Addressess After Select Client
@@ -1168,6 +1243,15 @@
             })
             $('#actual-time-end').on('input', function () {
                 $('#actual-time-end-signed input').attr("required", "required");
+            })
+
+            $('#actual_status').on('change', function () {
+                if(document.getElementById('actual_status').checked){
+                    $('#actual_time_start input').attr("required", "required");
+                }
+                else{
+                    $('#actual_time_start input').removeAttr("required");
+                }
             })
 
             $('.select-country').select2({

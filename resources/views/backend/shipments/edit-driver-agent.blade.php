@@ -390,8 +390,10 @@
                                                         <option value="{{$item->id}}" @if($item->id == $tracker->cargolocation->id) selected @endif>{{$item->name}}</option>
                                                     @endforeach
                                                 </select>
+
                                                 <input type="hidden" name="tracker_id" value="{{$tracker->id}}">
                                                 <input type="hidden" name="id" value="{{$orders->id}}">
+                                                <input type="hidden" name="cargo_location" value="{{$tracker->cargolocation->id}}">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Address:</label>
@@ -409,6 +411,7 @@
                                                 <label>Estimated time:</label>
                                                 <input  placeholder="Start time" type="datetime-local" disabled class="form-control clear-value-data" value="{{ $start_time }}" required/>
                                                 <div class="mb-2 d-md-none"></div>
+
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Arrived Time:</label>

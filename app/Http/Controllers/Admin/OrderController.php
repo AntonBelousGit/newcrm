@@ -73,7 +73,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
-//            dd($request);
 
             $order = $this->orderService->saveOrder($request);
 
@@ -84,6 +83,7 @@ class OrderController extends Controller
                 $start_tracker->location_id = $request->shipper_address_id;
                 $start_tracker->address = $request->address_shipper;
                 $start_tracker->start_time = $request->sending_time;
+                $start_tracker->start_time_stop = $request->sending_time_stop;
                 $start_tracker->post_code = $request->shipper_postcode;
                 $start_tracker->position = '0';
                 $start_tracker->save();
@@ -94,6 +94,7 @@ class OrderController extends Controller
                 $start_tracker->location_id = $request->consignee_address_id;
                 $start_tracker->address = $request->address_consignee;
                 $start_tracker->start_time = $request->delivery_time;
+                $start_tracker->start_time_stop = $request->delivery_time_stop;
                 $start_tracker->post_code = $request->consignee_postcode;
 
                 $start_tracker->position = '2';
@@ -106,8 +107,16 @@ class OrderController extends Controller
                 $this->returned_order($request, $order->id);
             }
 
+            if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+                return redirect()->route('admin.orders.index');
+            }
+            if (Gate::any(['Client'], Auth::user())) {
+                return redirect()->action(
+                    [OrderController::class, 'show'], ['order' => $order->id]
+                );
 
-            return redirect()->route('admin.orders.index');
+            }
+
         }
         return abort(403);
     }
@@ -131,7 +140,7 @@ class OrderController extends Controller
 //        dd($request);
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
-            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id);
+            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id, true);
 
             if ($request->shipper_address_id) {
                 $start_tracker = new Tracker;
@@ -140,6 +149,7 @@ class OrderController extends Controller
                 $start_tracker->address = $request->address_shipper;
                 $start_tracker->post_code = $request->shipper_postcode;
                 $start_tracker->start_time = $request->sending_time;
+                $start_tracker->start_time_stop = $request->sending_time_stop;
                 $start_tracker->position = '0';
                 $start_tracker->save();
             }
@@ -150,6 +160,7 @@ class OrderController extends Controller
                 $start_tracker->address = $request->address_consignee;
                 $start_tracker->post_code = $request->consignee_postcode;
                 $start_tracker->start_time = $request->delivery_time;
+                $start_tracker->start_time_stop = $request->delivery_time_stop;
                 $start_tracker->position = '2';
                 $start_tracker->save();
             }
@@ -166,7 +177,7 @@ class OrderController extends Controller
     public function returned_order($request, $id)
     {
 
-        $order = $this->orderService->saveReturnedOrder($request, $id);
+        $order = $this->orderService->saveReturnedOrder($request, $id, false);
 
         if ($request->shipper_address_id) {
             $start_tracker = new Tracker;
@@ -186,6 +197,7 @@ class OrderController extends Controller
             $start_tracker->address = $request->address_consignee;
             $start_tracker->post_code = $request->consignee_postcode;
             $start_tracker->start_time = $request->delivery_time;
+            $start_tracker->start_time_stop = $request->delivery_time_stop;
             $start_tracker->position = '0';
             $start_tracker->save();
         }
@@ -206,7 +218,7 @@ class OrderController extends Controller
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
         $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver')->findOrFail($id);
-        return view('backend.shipments.show', compact('orders','tracker_start','tracker_end'));
+        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end'));
     }
 
     /**
@@ -259,7 +271,6 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
             $order = $this->orderService->findAndUpdate($request, $id);
-
 
             if (isset($request->Package)) {
                 foreach ($request->Package as $option_key) {
@@ -412,7 +423,7 @@ class OrderController extends Controller
 
     public function archives()
     {
-        if (Gate::any(['SuperUser', 'Manager', 'OPS','Client'], Auth::user())) {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 9)->get();
             $title = 'Archives';
             return view('backend.shipments.index', compact('orders', 'title'));
@@ -422,7 +433,7 @@ class OrderController extends Controller
 
     public function return_job()
     {
-        if (Gate::any(['SuperUser', 'Manager', 'OPS','Client'], Auth::user())) {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('returned', 1)->get();
             $title = 'Return Job';
             return view('backend.shipments.index', compact('orders', 'title'));

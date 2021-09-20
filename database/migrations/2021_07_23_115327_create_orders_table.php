@@ -32,7 +32,7 @@ class CreateOrdersTable extends Migration
             $table->string('locations_id')->nullable();
             $table->timestamp('sending_time')->nullable();
             $table->timestamp('delivery_time')->nullable();
-            $table->json('email')->nullable();
+            $table->string('email')->nullable();
             $table->enum('my_sensor',['on','off']);
             $table->enum('my_container',['on','off']);
             $table->enum('sensor_for_rent',['on','off']);

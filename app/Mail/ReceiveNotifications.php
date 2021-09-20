@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\CargoLocation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,41 +12,46 @@ class ReceiveNotifications extends Mailable
 {
     use Queueable, SerializesModels;
 
-
     private $orders;
+    private $request;
+    private $tracker;
+    /**
+     * @var mixed|null
+     */
+
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($orders)
+    public function __construct($orders, $request = null, $tracker = null)
     {
         $this->orders = $orders;
+        $this->request = $request;
+        $this->tracker = $tracker;
+
+    }
+
+    public function searchLocation($request)
+    {
+//        dd($request);
+        $location = CargoLocation::find($request->time[0]['cargo_location']);
+//        dd($location);
+        return $location->city;
     }
 
     public function subjectNotifications($shipment)
     {
 
-        if ($shipment->status_id == 8)
-        {
-            if ($shipment->tracker->where('position','1')->count() == 1){
-                return $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name;
-            }
-            else{
-                return $shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name;
-            }
+        if ($shipment->status_id == 3) {
+            return 'Picked-up>' . $this->searchLocation($this->request);
+        } elseif ($shipment->status_id == 5) {
+            return 'POD pending';
+        } elseif ($shipment->status_id == 6) {
+            return 'Delivered';
         }
-        elseif ($shipment->status_id == 3){
-            return $shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name;
-        }
-        elseif ($shipment->status_id == 4){
-            return $shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name;
-        }
-        else
-        {
-            return $shipment->status->name;
-        }
-
+        abort(503);
     }
 
     /**
@@ -55,6 +61,9 @@ class ReceiveNotifications extends Mailable
      */
     public function build()
     {
-        return $this->from('NoReplay@g-star.network', 'Shipment Airxps Notification')->subject($this->subjectNotifications($this->orders))->view('backend.mail.receiveNotifications');
+
+        return $this->from('NoReplay@g-star.network', 'Shipment Airxps Notification')
+            ->subject($this->subjectNotifications($this->orders))
+            ->view('backend.mail.receiveNotifications', ['orders' => $this->orders, 'tracker' => $this->tracker]);
     }
 }
