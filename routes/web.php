@@ -23,7 +23,7 @@ Route::get('/', function () {
 //    return view('dashboard');
 //})->middleware(['auth'])->name('dashboard');
 
-Route::get('/clearcacheall', function() {
+Route::get('/clear', function() {
 
     Artisan::call('view:clear');
     Artisan::call('cache:clear');

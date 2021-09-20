@@ -4,10 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Cargo extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    protected static $logOnlyDirty = true;
+    protected static $logAttributes = ['*'];
+    protected static $logAttributesToIgnore = [ 'updated_at','created_at' ];
+    protected static $submitEmptyLogs = false;
+    protected static $logName = 'Cargo';
+
     protected $fillable = [
         'quantity',
         'actual_weight',
@@ -21,3 +29,5 @@ class Cargo extends Model
     ];
 
 }
+
+

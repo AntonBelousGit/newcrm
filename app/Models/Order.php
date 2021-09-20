@@ -4,10 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    protected static $logOnlyDirty = true;
+    protected static $logAttributes = ['*'];
+    protected static $logAttributesToIgnore = [ 'updated_at','created_at' ];
+    protected static $submitEmptyLogs = false;
+    protected static $logName = 'Order';
+
 
     protected $casts = [
         'email' => 'array',
@@ -48,62 +57,62 @@ class Order extends Model
 //    }
     public function cargo()
     {
-        return $this->hasMany('App\Models\Cargo');
+        return $this->hasMany(Cargo::class);
 
     }
 
     public function tracker()
     {
-        return $this->hasMany('App\Models\Tracker');
+        return $this->hasMany(Tracker::class);
 
     }
 
     public function cargolocation()
     {
-        return $this->belongsTo('App\Models\CargoLocation', 'cargo_location_id');
+        return $this->belongsTo(CargoLocation::class, 'cargo_location_id');
 
     }
     public function shipper_city()
     {
-        return $this->belongsTo('App\Models\CargoLocation', 'shipper_address_id');
+        return $this->belongsTo(CargoLocation::class, 'shipper_address_id');
 
     }
     public function consignee_city()
     {
-        return $this->belongsTo('App\Models\CargoLocation', 'consignee_address_id');
+        return $this->belongsTo(CargoLocation::class, 'consignee_address_id');
 
     }
     public function status()
     {
-        return $this->belongsTo('App\Models\ProductStatus', 'status_id');
+        return $this->belongsTo(ProductStatus::class, 'status_id');
 
     }
 
     public function payer()
     {
-        return $this->belongsTo('App\Models\Payer', 'payer_id');
+        return $this->belongsTo(Payer::class, 'payer_id');
 
     }
 
     public function substatus()
     {
-        return $this->belongsTo('App\Models\SubProductStatus', 'substatus_id');
+        return $this->belongsTo(SubProductStatus::class, 'substatus_id');
 
     }
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function agent()
     {
-        return $this->belongsTo('App\Models\User', 'agent_id');
+        return $this->belongsTo(User::class, 'agent_id');
     }
 
     public function driver()
     {
-        return $this->belongsTo('App\Models\User', 'driver_id');
+        return $this->belongsTo(User::class, 'driver_id');
     }
     public function order()
     {
