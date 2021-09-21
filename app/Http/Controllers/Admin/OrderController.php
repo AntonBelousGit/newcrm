@@ -233,6 +233,8 @@ class OrderController extends Controller
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
             $user = User::all();
 
+//            dd($orders);
+
             $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '1')->get();
             $trackers_count = count($trackers);
@@ -246,7 +248,7 @@ class OrderController extends Controller
 
             $lupa[] = $tracker_end->cargolocation->toArray();
 
-//            dd($trackers_count);
+//            dd($lupa);
 
             $status = ProductStatus::all();
             $payers = Payer::all();

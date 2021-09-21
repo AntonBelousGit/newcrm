@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
@@ -44,11 +46,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected static $logOnlyDirty = true;
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = [ 'updated_at','created_at' ];
-    protected static $submitEmptyLogs = false;
+    public function tapActivity(Activity $activity, string $eventName)
+    {
+            $activity->order_id = null;
+    }
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName('User')
+            ->logAll()
+            ->logExcept(['updated_at','created_at'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+
+    }
 
     public function roles()
     {

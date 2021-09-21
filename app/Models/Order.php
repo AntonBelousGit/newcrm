@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\Activitylog\ActivitylogServiceProvider;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 
@@ -11,12 +15,16 @@ class Order extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected static $logOnlyDirty = true;
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = [ 'updated_at','created_at' ];
-    protected static $submitEmptyLogs = false;
-    protected static $logName = 'Order';
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName('Order')
+            ->logAll()
+            ->logOnlyDirty()
+            ->logExcept(['updated_at','created_at'])
+            ->dontSubmitEmptyLogs();
 
+    }
 
     protected $casts = [
         'email' => 'array',
