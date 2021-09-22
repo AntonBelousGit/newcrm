@@ -217,7 +217,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{ ('Shipment description')}}:</label>
-                                    <textarea class="form-control" disabled>{{ $orders->shipment_description }}</textarea>
+                                    <textarea class="form-control"
+                                              disabled>{{ $orders->shipment_description }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -233,7 +234,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{ ('Shipment description')}}:</label>
-                                        <textarea class="form-control" disabled>{{ $orders->shipment_description }}</textarea>
+                                        <textarea class="form-control"
+                                                  disabled>{{ $orders->shipment_description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -244,7 +246,6 @@
                                 </div>
                             @endif
                         @endcan
-
 
 
                         <div class="col-md-6">
@@ -296,7 +297,8 @@
                                         @cannot('Client')
                                             <div class="col-md-3">
                                                 <label>{{ ('Type')}}:</label>
-                                                <input type="text" placeholder="{{ ('type')}}" class="form-control" disabled
+                                                <input type="text" placeholder="{{ ('type')}}" class="form-control"
+                                                       disabled
                                                        value="{{$item['type']}}">
                                                 <input type="hidden" name="id" value="{{$item['id']}}">
                                                 <div class="mb-2 d-md-none"></div>
@@ -306,13 +308,14 @@
                                         @can('Client')
                                             @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)
 
-                                                    <div class="col-md-3">
-                                                        <label>{{ ('Type')}}:</label>
-                                                        <input type="text" placeholder="{{ ('type')}}" class="form-control" disabled
-                                                               value="{{$item['type']}}">
-                                                        <input type="hidden" name="id" value="{{$item['id']}}">
-                                                        <div class="mb-2 d-md-none"></div>
-                                                    </div>
+                                                <div class="col-md-3">
+                                                    <label>{{ ('Type')}}:</label>
+                                                    <input type="text" placeholder="{{ ('type')}}" class="form-control"
+                                                           disabled
+                                                           value="{{$item['type']}}">
+                                                    <input type="hidden" name="id" value="{{$item['id']}}">
+                                                    <div class="mb-2 d-md-none"></div>
+                                                </div>
                                             @endif
                                         @endcan
 
@@ -331,7 +334,31 @@
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
 
-                                            @cannot('Client')
+                                        @cannot('Client')
+                                            <div class="col-md-3">
+                                                <label>Serial number box:</label>
+                                                <input type="text" placeholder="Serial number" disabled
+                                                       class="form-control " value="{{$item['serial_number']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>Serial number sensor:</label>
+                                                <input type="text" placeholder="Serial number sensor" disabled
+                                                       class="form-control  "
+                                                       value="{{$item['serial_number_sensor']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>UN number:</label>
+                                                <input type="text" placeholder="UN number" disabled
+                                                       class="form-control  "
+                                                       value="{{$item['un_number']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                        @endcannot
+
+                                        @can('Client')
+                                            @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)
                                                 <div class="col-md-3">
                                                     <label>Serial number box:</label>
                                                     <input type="text" placeholder="Serial number" disabled
@@ -341,39 +368,19 @@
                                                 <div class="col-md-3">
                                                     <label>Serial number sensor:</label>
                                                     <input type="text" placeholder="Serial number sensor" disabled
-                                                           class="form-control  " value="{{$item['serial_number_sensor']}}"/>
+                                                           class="form-control  "
+                                                           value="{{$item['serial_number_sensor']}}"/>
                                                     <div class="mb-2 d-md-none"></div>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label>UN number:</label>
-                                                    <input type="text" placeholder="UN number" disabled class="form-control  "
+                                                    <input type="text" placeholder="UN number" disabled
+                                                           class="form-control  "
                                                            value="{{$item['un_number']}}"/>
                                                     <div class="mb-2 d-md-none"></div>
                                                 </div>
-                                            @endcannot
-
-                                            @can('Client')
-                                                @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)
-                                                    <div class="col-md-3">
-                                                        <label>Serial number box:</label>
-                                                        <input type="text" placeholder="Serial number" disabled
-                                                               class="form-control " value="{{$item['serial_number']}}"/>
-                                                        <div class="mb-2 d-md-none"></div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label>Serial number sensor:</label>
-                                                        <input type="text" placeholder="Serial number sensor" disabled
-                                                               class="form-control  " value="{{$item['serial_number_sensor']}}"/>
-                                                        <div class="mb-2 d-md-none"></div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label>UN number:</label>
-                                                        <input type="text" placeholder="UN number" disabled class="form-control  "
-                                                               value="{{$item['un_number']}}"/>
-                                                        <div class="mb-2 d-md-none"></div>
-                                                    </div>
-                                                @endif
-                                            @endcan
+                                            @endif
+                                        @endcan
                                         <div class="col-md-3">
                                             <label>Temperature conditions:</label>
                                             <input type="text" placeholder="Temperature conditions" disabled
@@ -382,10 +389,40 @@
                                         </div>
 
 
-                                            @cannot('Client')
+                                        @cannot('Client')
+                                            <div class="col-md-3">
+                                                <label>Volume weight:</label>
+                                                <input type="text" placeholder="Volume weight" name="volume_weight"
+                                                       disabled
+                                                       class="form-control  " value="{{$item['volume_weight']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="dimensions_r" type="number" min="1" class="form-control"
+                                                       placeholder="{{ ('Length')}}" disabled
+                                                       value="{{$item['сargo_dimensions_length']}}"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="dimensions_r" type="number" min="1" class="form-control"
+                                                       placeholder="{{ ('Width')}}" disabled
+                                                       value="{{$item['сargo_dimensions_width']}}"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="dimensions_r" type="number" min="1" class="form-control "
+                                                       placeholder="{{ ('Height')}}" disabled
+                                                       value="{{$item['сargo_dimensions_height']}}"/>
+                                            </div>
+                                        @endcannot
+
+                                        @can('Client')
+                                            @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)
                                                 <div class="col-md-3">
                                                     <label>Volume weight:</label>
-                                                    <input type="text" placeholder="Volume weight" name="volume_weight" disabled
+                                                    <input type="text" placeholder="Volume weight" name="volume_weight"
+                                                           disabled
                                                            class="form-control  " value="{{$item['volume_weight']}}"/>
                                                     <div class="mb-2 d-md-none"></div>
                                                 </div>
@@ -393,50 +430,25 @@
                                                     <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input class="dimensions_r" type="number" min="1" class="form-control"
+                                                    <input class="dimensions_r" type="number" min="1"
+                                                           class="form-control"
                                                            placeholder="{{ ('Length')}}" disabled
                                                            value="{{$item['сargo_dimensions_length']}}"/>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input class="dimensions_r" type="number" min="1" class="form-control"
+                                                    <input class="dimensions_r" type="number" min="1"
+                                                           class="form-control"
                                                            placeholder="{{ ('Width')}}" disabled
                                                            value="{{$item['сargo_dimensions_width']}}"/>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input class="dimensions_r" type="number" min="1" class="form-control "
+                                                    <input class="dimensions_r" type="number" min="1"
+                                                           class="form-control "
                                                            placeholder="{{ ('Height')}}" disabled
                                                            value="{{$item['сargo_dimensions_height']}}"/>
                                                 </div>
-                                            @endcannot
-
-                                            @can('Client')
-                                                @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)
-                                                    <div class="col-md-3">
-                                                        <label>Volume weight:</label>
-                                                        <input type="text" placeholder="Volume weight" name="volume_weight" disabled
-                                                               class="form-control  " value="{{$item['volume_weight']}}"/>
-                                                        <div class="mb-2 d-md-none"></div>
-                                                    </div>
-                                                    <div class="col-md-12" style="margin-top: 10px;">
-                                                        <label>{{ ('Dimensions [Length x Width x Height] (cm):')}}:</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input class="dimensions_r" type="number" min="1" class="form-control"
-                                                               placeholder="{{ ('Length')}}" disabled
-                                                               value="{{$item['сargo_dimensions_length']}}"/>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input class="dimensions_r" type="number" min="1" class="form-control"
-                                                               placeholder="{{ ('Width')}}" disabled
-                                                               value="{{$item['сargo_dimensions_width']}}"/>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input class="dimensions_r" type="number" min="1" class="form-control "
-                                                               placeholder="{{ ('Height')}}" disabled
-                                                               value="{{$item['сargo_dimensions_height']}}"/>
-                                                    </div>
-                                                @endif
-                                            @endcan
+                                            @endif
+                                        @endcan
 
                                     </div>
                                 @endforeach
@@ -475,35 +487,42 @@
 
                             @can('Client')
                                 @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" disabled
-                                                   @if($orders->sensor_for_rent == 'on') checked @endif>
-                                            <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" disabled
-                                                   @if($orders->container == 'on') checked @endif>
-                                            <label class="form-check-label" for="inlineCheckbox2">Container</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" disabled
-                                                   @if($orders->return_sensor == 'on') checked @endif>
-                                            <label class="form-check-label" for="inlineCheckbox3">Returning the sensor</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" disabled
-                                                   @if($orders->return_container == 'on') checked @endif>
-                                            <label class="form-check-label" for="inlineCheckbox4">Returning a shipping
-                                                container</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" disabled
-                                                   @if($orders->notifications == 'on') checked @endif>
-                                            <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <label for="inlineCheckbox11"></label><input class="form-check-input" style="width: 350px;"  placeholder="myemail@mail.com,myemail2@mail.com"  type="text" id="inlineCheckbox11" disabled value="{{$orders->email}}">
-                                        </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" disabled
+                                               @if($orders->sensor_for_rent == 'on') checked @endif>
+                                        <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" disabled
+                                               @if($orders->container == 'on') checked @endif>
+                                        <label class="form-check-label" for="inlineCheckbox2">Container</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" disabled
+                                               @if($orders->return_sensor == 'on') checked @endif>
+                                        <label class="form-check-label" for="inlineCheckbox3">Returning the
+                                            sensor</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" disabled
+                                               @if($orders->return_container == 'on') checked @endif>
+                                        <label class="form-check-label" for="inlineCheckbox4">Returning a shipping
+                                            container</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox5" disabled
+                                               @if($orders->notifications == 'on') checked @endif>
+                                        <label class="form-check-label" for="inlineCheckbox5">Receive
+                                            notifications</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label for="inlineCheckbox11"></label><input class="form-check-input"
+                                                                                     style="width: 350px;"
+                                                                                     placeholder="myemail@mail.com,myemail2@mail.com"
+                                                                                     type="text" id="inlineCheckbox11"
+                                                                                     disabled
+                                                                                     value="{{$orders->email}}">
+                                    </div>
                                 @endif
                             @endcan
                         </div>
@@ -548,29 +567,29 @@
                             </div>
                         </div>
 
-{{--                        @cannot('Client')--}}
-{{--                            <hr>--}}
-{{--                            <div class="">--}}
-{{--                                <div class="col-md-6" data-select2-id="66">--}}
-{{--                                    <label>Cargo location:</label>--}}
-{{--                                    <input type="text" placeholder="Cargo location" class="form-control" disabled--}}
-{{--                                           value="{{$orders->cargolocation->name }}"/>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        @endcannot--}}
+                        {{--                        @cannot('Client')--}}
+                        {{--                            <hr>--}}
+                        {{--                            <div class="">--}}
+                        {{--                                <div class="col-md-6" data-select2-id="66">--}}
+                        {{--                                    <label>Cargo location:</label>--}}
+                        {{--                                    <input type="text" placeholder="Cargo location" class="form-control" disabled--}}
+                        {{--                                           value="{{$orders->cargolocation->name }}"/>--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+                        {{--                        @endcannot--}}
 
-{{--                        @can('Client')--}}
-{{--                            @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)--}}
-{{--                                <hr>--}}
-{{--                                <div class="">--}}
-{{--                                    <div class="col-md-6" data-select2-id="66">--}}
-{{--                                        <label>Cargo location:</label>--}}
-{{--                                        <input type="text" placeholder="Cargo location" class="form-control" disabled--}}
-{{--                                               value="{{$orders->cargolocation->name }}"/>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            @endif--}}
-{{--                        @endcan--}}
+                        {{--                        @can('Client')--}}
+                        {{--                            @if($orders->status_id != 6 && $orders->status_id != 7 && $orders->status_id != 9)--}}
+                        {{--                                <hr>--}}
+                        {{--                                <div class="">--}}
+                        {{--                                    <div class="col-md-6" data-select2-id="66">--}}
+                        {{--                                        <label>Cargo location:</label>--}}
+                        {{--                                        <input type="text" placeholder="Cargo location" class="form-control" disabled--}}
+                        {{--                                               value="{{$orders->cargolocation->name }}"/>--}}
+                        {{--                                    </div>--}}
+                        {{--                                </div>--}}
+                        {{--                            @endif--}}
+                        {{--                        @endcan--}}
                         <hr>
                         @cannot('Client')
                             <hr>
@@ -609,6 +628,56 @@
             </div>
         </div>
     </div>
+    @cannot('Client')
+        <hr>
+        <div class="">
+            <div class="col-md-12" data-select2-id="66">
+                <label>Logging:</label>
+                @php
+
+                @endphp
+                @foreach($logs as $log)
+                    @php
+                        $change_fields = (array)$change_fields = json_decode($log->properties);
+                        if(isset($change_fields['old'])){
+                            $old = (array)$change_fields['old'];
+                        }
+                        if(isset($change_fields['attributes'])){
+                            $new = (array)$change_fields['attributes'];
+
+                        }
+                    @endphp
+
+                    @if(isset($new))
+                        @for($i = 0,$iMax = count($new); $i < $iMax; $i++)
+
+                            <p>{{$log->updated_at->format('d.m.Y - H:s:i') }} -
+                                User {{$log->user->name}} {{$log->description}} {{key($new)}} -
+                                @if(isset($old))
+                                    @php
+                                     $shift_old = array_shift($old);
+                                    @endphp
+                                    @if ($shift_old == null)
+                                        Null
+                                    @else
+                                        {{$shift_old}}
+                                    @endif
+                                     -
+                                @endif  new {{array_shift($new) ?? 'null'}}  </p>
+                        @endfor
+                    @endif
+                    @if($log->description === "deleted" )
+                        <b>{{$log->updated_at->format('d.m.Y - H:s:i') }} -
+                            User {{$log->user->name}} {{$log->description}} - {{$log->log_name}}  </b>
+                    @endif
+                    <hr>
+                @endforeach
+            </div>
+        </div>
+        <hr>
+    @endcan
+
+
 @endsection
 @section('script')
     <script src="{{ static_asset('assets/dashboard/js/geocomplete/jquery.geocomplete.js') }}"></script>
@@ -637,17 +706,17 @@
             });
         });
         // Map Address For Client
-        $('document').ready(function(){
+        $('document').ready(function () {
 
-            if($('#inlineCheckbox5').is(':checked')){
+            if ($('#inlineCheckbox5').is(':checked')) {
                 $('#inlineCheckbox11').show(100);
-            }else{
+            } else {
                 $('#inlineCheckbox11').hide(100);
             }
 
-            $('#inlineCheckbox5').on('click', function(){
+            $('#inlineCheckbox5').on('click', function () {
                 $('p.aletr-email').remove();
-                if ($(this).is(':checked')){
+                if ($(this).is(':checked')) {
                     $('#inlineCheckbox11').show(100);
                 } else {
                     $('#inlineCheckbox11').hide(100);
@@ -655,7 +724,7 @@
 
                 var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,7}$/i;
 
-                $('#inlineCheckbox11').blur(function(){
+                $('#inlineCheckbox11').blur(function () {
                     $('p.aletr-email').remove();
 
                     var mail = $('#inlineCheckbox11').val();
@@ -666,11 +735,11 @@
                     console.log(mailArray);
                     console.log(testSeparator);
 
-                    if(mailPattern === false && testSeparator === -1){
+                    if (mailPattern === false && testSeparator === -1) {
                         $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
-                    }else{
-                        $(mailArray).each(function(index,item){
-                            if(pattern.test(item.trim()) === false){
+                    } else {
+                        $(mailArray).each(function (index, item) {
+                            if (pattern.test(item.trim()) === false) {
                                 console.log(pattern.test(item[index].trim()));
                                 $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
                             }
@@ -682,6 +751,7 @@
             });
 
         });
+
         // Get Addressess After Select Client
         function selectIsTriggered() {
             getAdressess(document.getElementById("client-id").value);

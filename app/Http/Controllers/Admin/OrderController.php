@@ -17,7 +17,9 @@ use App\Services\OrderService;
 use App\Services\TrackerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Models\Activity;
 
 class OrderController extends Controller
 {
@@ -218,7 +220,16 @@ class OrderController extends Controller
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
         $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver')->findOrFail($id);
-        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end'));
+
+        $logs = Activity::with('user')->where('order_id', $id)
+            ->orWhere(function ($query) use ($id) {
+                $query->where('log_name', 'Order')
+                    ->where('subject_id', $id);
+            })->get();
+
+//            dd(json_decode($huyny[0]->properties));
+
+        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end','logs'));
     }
 
     /**
