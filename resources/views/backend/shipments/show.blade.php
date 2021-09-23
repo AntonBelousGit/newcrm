@@ -652,7 +652,7 @@
                         @for($i = 0,$iMax = count($new); $i < $iMax; $i++)
 
                             <p>{{$log->updated_at->format('d.m.Y - H:i:s') }} -
-                                User {{$log->user->name}} {{$log->description}} {{key($new)}} -
+                                User {{$log->user->name}} {{$log->description}} {{__('activitylog.'.key($new))}} -
                                 @if(isset($old))
                                     @php
                                      $shift_old = array_shift($old);
