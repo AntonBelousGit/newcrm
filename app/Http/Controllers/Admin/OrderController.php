@@ -225,7 +225,7 @@ class OrderController extends Controller
             ->orWhere(function ($query) use ($id) {
                 $query->where('log_name', 'Order')
                     ->where('subject_id', $id);
-            })->get();
+            })->orderBy('created_at', 'DESC')->get();
 
 //            dd(json_decode($huyny[0]->properties));
 

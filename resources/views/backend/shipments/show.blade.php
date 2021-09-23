@@ -628,7 +628,7 @@
             </div>
         </div>
     </div>
-    @cannot('Client')
+    @canany('SuperUser','OPS','Manager')
         <hr>
         <div class="">
             <div class="col-md-12" data-select2-id="66">
@@ -651,7 +651,7 @@
                     @if(isset($new))
                         @for($i = 0,$iMax = count($new); $i < $iMax; $i++)
 
-                            <p>{{$log->updated_at->format('d.m.Y - H:s:i') }} -
+                            <p>{{$log->updated_at->format('d.m.Y - H:i:s') }} -
                                 User {{$log->user->name}} {{$log->description}} {{key($new)}} -
                                 @if(isset($old))
                                     @php
@@ -670,12 +670,12 @@
                         <b>{{$log->updated_at->format('d.m.Y - H:s:i') }} -
                             User {{$log->user->name}} {{$log->description}} - {{$log->log_name}}  </b>
                     @endif
-                    <hr>
+
                 @endforeach
             </div>
         </div>
         <hr>
-    @endcan
+    @endcanany
 
 
 @endsection

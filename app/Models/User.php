@@ -46,16 +46,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function tapActivity(Activity $activity, string $eventName)
-    {
-            $activity->order_id = null;
-    }
+//    protected static $recordEvents = ['deleted'];
+    protected static $recordEvents = ['deleted'];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->useLogName('User')
-            ->logAll()
+            ->logOnly(['*','roles'])
             ->logExcept(['updated_at','created_at'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
@@ -73,6 +71,7 @@ class User extends Authenticatable
         }
         return false;
     }
+
     public function driver()
     {
         return $this->belongsTo('App\Models\DriverUser','driver_id');

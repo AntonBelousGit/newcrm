@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -21,7 +22,8 @@ class UserController extends Controller
     {
         if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
             $users = User::where('id','!=',1)->get();
-            return view('backend.clients.index',compact('users'));
+            $logs = Activity::with('user')->whereIn('log_name',['User','Role'])->orderBy('created_at', 'DESC')->get();
+            return view('backend.clients.index',compact('users','logs'));
         }
         return  abort(403);
     }
@@ -62,6 +64,17 @@ class UserController extends Controller
                 return abort(403);
             }
             $user->roles()->attach($request->roles);
+
+//            dd($user->roles);
+
+            activity()
+                ->event('created')
+                ->useLog('User')
+                ->causedBy(Auth::user())
+                ->performedOn($user)
+                ->withProperties(['status' => $user, 'rol' => $user->roles->pluck('name')->first()])
+                ->log('created');
+
 
             return redirect()->route('admin.users.index');
         }
@@ -142,10 +155,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+            $user = User::find($id);
+            $user->delete();
+            return redirect()->route('admin.users.index');
+        }
     }
     public function deleteClient($id)
     {
-        //
+        if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
+            $user = User::find($id);
+            $user->delete();
+            return redirect()->route('admin.users.index');
+        }
     }
 }
