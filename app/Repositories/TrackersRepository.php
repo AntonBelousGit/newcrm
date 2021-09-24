@@ -67,7 +67,7 @@ class TrackersRepository
                 $order->status_id = 3;
             }
 
-            if (isset($start['status_arrival']) || isset($start['arrived_time'])  && $order->notifications == 'on' ) {
+            if (isset($start['status_arrival']) || (isset($start['arrived_time']) && $order->notifications === 'on')) {
                if (!empty($order->email)){
                 foreach (explode(',',$order->email) as $mail) {
                     Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
