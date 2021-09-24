@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
             $users = User::where('id','!=',1)->get();
-            $logs = Activity::with('user')->whereIn('log_name',['User','Role'])->orderBy('created_at', 'DESC')->get();
+            $logs = Activity::with('user','client')->whereIn('log_name',['User','Role'])->orderBy('created_at', 'DESC')->get();
             return view('backend.clients.index',compact('users','logs'));
         }
         return  abort(403);

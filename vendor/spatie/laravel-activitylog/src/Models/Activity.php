@@ -36,6 +36,11 @@ class Activity extends Model implements ActivityContract
         return $this->belongsTo('App\Models\User', 'causer_id');
     }
 
+    public function client()
+    {
+        return $this->belongsTo('App\Models\User', 'subject_id');
+    }
+
     public function subject(): MorphTo
     {
         if (config('activitylog.subject_returns_soft_deleted_models')) {

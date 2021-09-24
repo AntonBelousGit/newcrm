@@ -80,11 +80,7 @@
                 <div class="">
                     <div class="col-md-12" data-select2-id="66">
                         <label>Logging:</label>
-                        @php
-
-                            @endphp
                         @foreach($logs as $log)
-                            {{--                        @dd($logs)--}}
                             @php
                                 $change_fields = (array)$change_fields = json_decode($log->properties);
                                 if(isset($change_fields['status'])){
@@ -92,19 +88,46 @@
                                 }
                                 if(isset($change_fields['rol'])){
                                     $rol = (array)$change_fields['rol'];
-
                                 }
                                 if(isset($change_fields['old'])){
                                     $old = (array)$change_fields['old'];
                                 }
+                                if(isset($change_fields['attributes'])){
+                                    $new = (array)$change_fields['attributes'];
+                                }
                             @endphp
-                            {{--                        @dd($status->pluck('name'))--}}
+                            @if(isset($new) && $log->description === "updated")
+                                @php
+                                    unset($old['roles'],$new['roles']);
+                                @endphp
+                                @for($i = 0,$iMax = count($new); $i < $iMax; $i++)
 
-                            <p>{{$log->updated_at->format('d.m.Y - H:i:s') }} -
-                                User {{$log->user->name}} {{$log->description}} user {{ $status['name'] ?? $old['name'] }} -
-                                role {{$rol[0] ?? $old['roles'][0]->name}} </p>
-
-
+                                    <p>{{$log->updated_at->format('d.m.Y - H:i:s') }} -
+                                        User {{$log->user->name}} {{$log->description}}
+                                        User {{$log->client->name}} {{__('activitylog.'.key($new))}}
+                                        @if(isset($old))
+                                            @php $shift_old = array_shift($old); @endphp
+                                            @if ($shift_old == null)
+                                                -  Null
+                                            @else
+                                                @if(key($new) !== 'password')
+                                                    -  {{$shift_old}}
+                                                @endif
+                                            @endif
+                                        @endif
+                                        - new
+                                        @if(key($new) !== 'password')
+                                            -  {{array_shift($new) ?? 'null'}}
+                                        @endif
+                                    </p>
+                                @endfor
+                            @endif
+                            @if($log->description !== "updated" )
+                                <p>{{$log->updated_at->format('d.m.Y - H:i:s') }} -
+                                    User {{$log->user->name}} {{$log->description}}
+                                    user {{ $status['name'] ?? $old['name'] ?? $log->client->name ?? '' }} -
+                                    role {{$rol[0] ?? $old['roles'][0]->name ?? ''}} </p>
+                            @endif
                         @endforeach
                     </div>
                 </div>

@@ -47,7 +47,7 @@ class User extends Authenticatable
     ];
 
 //    protected static $recordEvents = ['deleted'];
-    protected static $recordEvents = ['deleted'];
+    protected static $recordEvents = ['deleted','updated'];
 
     public function getActivitylogOptions(): LogOptions
     {

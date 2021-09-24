@@ -65,5 +65,10 @@ return [
     'alert'=>'Alert',
     'agent_id'=>'Id agent',
     'status'=>'Status',
+    'fullname'=>'Fullname',
+    'password'=>'Password',
+    'name'=>'Name',
+    'surname'=>'Surname',
+    'nickname'=>'Nickname',
 
 ];
