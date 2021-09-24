@@ -77,8 +77,13 @@
             </div>
             @canany('SuperUser','OPS','Manager')
                 <hr>
+                <div class="card-body">
+                    <div>
+                        <button id="logging" class="btn btn-sm font-weight-bolder btn-light-primary">Logging</button>
+                    </div>
+                </div>
                 <div class="">
-                    <div class="col-md-12" data-select2-id="66">
+                    <div id="hider" class="col-md-12" data-select2-id="66" hidden>
                         <label>Logging:</label>
                         @foreach($logs as $log)
                             @php
@@ -147,6 +152,15 @@
 
 @section('script')
     <script>
+        document.getElementById('logging').onclick = function() {
+            if(document.getElementById('hider').hidden == true){
+                document.getElementById('hider').hidden = false;
+            }
+            else
+            {
+                document.getElementById('hider').hidden = true;
+            }
+        }
         // $(document).ready(() => {
         //     $('#table_id').DataTable();
         // });
