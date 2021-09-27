@@ -75,7 +75,7 @@
             <div class="aiz-pagination">
                 {{--            {{ $users->links() }}--}}
             </div>
-            @canany('SuperUser','OPS','Manager')
+            @canany(['SuperUser','OPS','Manager','Security Officer'],Auth::user())
                 <hr>
                 <div class="card-body">
                     <div>
