@@ -219,7 +219,7 @@ class OrderController extends Controller
     {
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
-        $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver')->findOrFail($id);
+        $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver','payer')->findOrFail($id);
 
         $logs = Activity::with('user')->where('order_id', $id)
             ->orWhere(function ($query) use ($id) {
@@ -280,7 +280,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        dd($request);
+;
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
             $order = $this->orderService->findAndUpdate($request, $id);
@@ -378,7 +378,12 @@ class OrderController extends Controller
                 $tracker_end->update();
             }
 
-            return redirect()->back();
+            if ($request->submitted === "Save and return") {
+                return redirect()->back();
+            }
+
+            return redirect()->route('admin.orders.index');
+
         }
         return abort(403);
     }

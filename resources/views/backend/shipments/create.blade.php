@@ -84,7 +84,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Shipper’s company name</label>
-                                <input type="text" placeholder="Shipper’s company name" name="company_shipper"
+                                <input type="text" placeholder="Shipper’s company name" name="company_shipper" autocomplete="off"
                                        class="form-control" required value="{{old('company_shipper')}}"/>
 
                             </div>
@@ -92,7 +92,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper"
+                                <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" autocomplete="off"
                                        class="form-control" required value="{{old('phone_shipper')}}"/>
 
                             </div>
@@ -100,7 +100,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Address')}}:</label>
-                                <input type="text" placeholder="City, street" name="address_shipper"
+                                <input type="text" placeholder="City, street" name="address_shipper" autocomplete="off"
                                        class="form-control" required value="{{old('address_shipper')}}"/>
 
                             </div>
@@ -120,21 +120,21 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Post code:</label>
-                                <input type="text" placeholder="Post code" name="shipper_postcode" class="form-control"
+                                <input type="text" placeholder="Post code" name="shipper_postcode" class="form-control" autocomplete="off"
                                        required value="{{old('shipper_postcode')}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper"
+                                <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" autocomplete="off"
                                        class="form-control" required value="{{old('shipper')}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Site Number :</label>
-                                <input type="text" name="site_shipper" class="form-control"
+                                <input type="text" name="site_shipper" class="form-control" autocomplete="off"
                                        value="{{old('site_shipper')}}"/>
 
                             </div>
@@ -146,7 +146,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Consignee’s company name</label>
-                                <input type="text" placeholder="Consignee’s company name" name="company_consignee"
+                                <input type="text" placeholder="Consignee’s company name" name="company_consignee" autocomplete="off"
                                        class="form-control" required value="{{old('company_consignee')}}"/>
 
                             </div>
@@ -154,7 +154,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee"
+                                <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" autocomplete="off"
                                        class="form-control" required value="{{old('phone_consignee')}}"/>
 
                             </div>
@@ -163,7 +163,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Address')}}:</label>
-                                <input type="text" placeholder="City, street" name="address_consignee"
+                                <input type="text" placeholder="City, street" name="address_consignee" autocomplete="off"
                                        class="form-control" required value="{{old('address_consignee')}}"/>
 
                             </div>
@@ -182,14 +182,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Post code:</label>
-                                <input type="text" placeholder="Post code" name="consignee_postcode"
+                                <input type="text" placeholder="Post code" name="consignee_postcode" autocomplete="off"
                                        class="form-control" required value="{{old('shipper')}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee"
+                                <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" autocomplete="off"
                                        class="form-control" required value="{{old('consignee')}}"/>
 
                             </div>
@@ -197,7 +197,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Site Number :</label>
-                                <input type="text" name="site_consignee" class="form-control"
+                                <input type="text" name="site_consignee" class="form-control" autocomplete="off"
                                        value="{{old('site_consignee')}}"/>
 
                             </div>
@@ -220,14 +220,14 @@
                                 <label class="red-star">Shipping Date:</label>
                                 <div><span>From</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="sending_time"
+                                    <input placeholder="Start time" type="datetime-local" name="sending_time" autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="sending_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>
                                 <div><span>To</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="sending_time_stop"
+                                    <input placeholder="Start time" type="datetime-local" name="sending_time_stop" autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="sending_time" class="fv-plugins-icon"></i>
@@ -240,14 +240,14 @@
                                 <label class="red-star">Delivery Date:</label>
                                 <div><span>From</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="delivery_time"
+                                    <input placeholder="Start time" type="datetime-local" name="delivery_time" autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="delivery_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>
                                 <div><span>To</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="delivery_time_stop"
+                                    <input placeholder="Start time" type="datetime-local" name="delivery_time_stop" autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="delivery_time" class="fv-plugins-icon"></i>
@@ -271,20 +271,20 @@
 
                                     <div class="col-md-3">
                                         <label class="red-star">{{ ('Type')}}:</label>
-                                        <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type"
+                                        <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" autocomplete="off"
                                                required>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="red-star">Actual weight (kg):</label>
-                                        <input placeholder="Actual weight" type="number" min="1" step="0.1"
+                                        <input placeholder="Actual weight" type="number" min="1" step="0.1" autocomplete="off"
                                                name="actual_weight" class="form-control" value="1" required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <label class="red-star">{{ ('Quantity')}}:</label>
-                                        <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number"
+                                        <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" autocomplete="off"
                                                min="1 " name="quantity" class="form-control" value="1" required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
@@ -293,7 +293,7 @@
 
                                         <label>Serial number box:</label>
 
-                                        <input type="text" placeholder="Serial number" name="serial_number"
+                                        <input type="text" placeholder="Serial number" name="serial_number" autocomplete="off"
                                                class="form-control " value=""/>
                                         <div class="mb-2 d-md-none"></div>
 
@@ -302,7 +302,7 @@
 
                                         <label>Serial number sensor:</label>
 
-                                        <input type="text" placeholder="Serial number sensor"
+                                        <input type="text" placeholder="Serial number sensor" autocomplete="off"
                                                name="serial_number_sensor" class="form-control  " value=""/>
                                         <div class="mb-2 d-md-none"></div>
 
@@ -311,7 +311,7 @@
 
                                         <label>UN number:</label>
 
-                                        <input type="text" placeholder="UN number" name="un_number"
+                                        <input type="text" placeholder="UN number" name="un_number" autocomplete="off"
                                                class="form-control  " value=""/>
                                         <div class="mb-2 d-md-none"></div>
 
@@ -321,7 +321,7 @@
                                         <label class="red-star">Temperature conditions:</label>
 
                                         <input type="text" placeholder="Temperature conditions" required
-                                               name="temperature_conditions" class="form-control  " value="1"/>
+                                               name="temperature_conditions" autocomplete="off" class="form-control  " value="1"/>
                                         <div class="mb-2 d-md-none"></div>
 
                                     </div>
@@ -412,7 +412,7 @@
                             <div class="form-check">
                                 <label for="inlineCheckbox11"></label><input class="form-check-input"
                                                                              placeholder="myemail@mail.com,myemail2@mail.com"
-                                                                             style="width: 350px;" type="text"
+                                                                             style="width: 350px;" type="text" autocomplete="off"
                                                                              id="inlineCheckbox11" name="email"
                                                                              value="{{old('email')}}">
                             </div>

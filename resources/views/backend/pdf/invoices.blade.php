@@ -380,7 +380,7 @@
         <tr>
             <td colspan="1">
                 <div class="content_td">
-                    SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
+                    <span>{{$invoices->shipper}}</span>
                 </div>
             </td>
             <td colspan="1">
@@ -395,7 +395,7 @@
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    DATE
+                    Time:
                 </div>
             </td>
         </tr>
@@ -403,6 +403,7 @@
             <td colspan="1">
                 <div class="content_td">
                     SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
+
                 </div>
             </td>
             <td colspan="1">
@@ -412,12 +413,12 @@
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT
+                   <span>{{$invoices->consignee}}</span>
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    DATE
+                    Time:
                 </div>
             </td>
         </tr>

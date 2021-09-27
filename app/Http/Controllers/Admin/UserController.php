@@ -44,15 +44,16 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
         if (Gate::any(['SuperUser','Manager','Security Officer'], Auth::user())) {
             $user = new User;
 
-            $user->name = $request->name;
+            $user->name = $request->name ?? 'User-' . random_int(100000, 99999999);
             $user->surname = $request->surname;
             $user->nickname = $request->nickname;
             $user->email = $request->email;

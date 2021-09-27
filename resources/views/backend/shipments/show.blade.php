@@ -554,7 +554,7 @@
                                 <div class="form-group">
                                     <label>Shipping Payer:</label>
                                     <input type="text" placeholder="Shipping Payer" class="form-control" disabled
-                                           value="{{ $orders->user }}"/>
+                                           value="{{ $orders->payer->customer_name }}"/>
                                 </div>
                             </div>
                         </div>
@@ -638,10 +638,7 @@
         <div class="">
             <div id="hider" class="col-md-12" data-select2-id="66" hidden>
                 <label>Logging:</label>
-                @php
-
-                @endphp
-                @foreach($logs as $log)
+                 @foreach($logs as $log)
                     @php
                         $change_fields = (array)$change_fields = json_decode($log->properties);
                         if(isset($change_fields['old'])){

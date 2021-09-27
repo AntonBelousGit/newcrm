@@ -60,7 +60,7 @@
             display: block !important;
         }
     </style>
-    <form class="form-horizontal" action="{{route('admin.orders.update',$orders->id)}}" id="kt_form_1" method="POST"
+    <form class="form-horizontal" action="{{route('admin.orders.update',$orders->id)}}" autocomplete="off" id="kt_form_1" method="POST"
           enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -97,13 +97,14 @@
                                 <label class="red-star">{{ ('Shipper`s company name')}}:</label>
                                 <input type="text" @if($orders->status_id > 1) readonly
                                        @endif placeholder="{{ ('Shipper company name')}}" name="company_shipper"
+                                       autocomplete="off"
                                        required class="form-control" value="{{$orders->company_shipper}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Phone')}}"
+                                <input type="text" placeholder="{{ ('Shipper Phone')}}" autocomplete="off"
                                        @if($orders->status_id > 1) readonly @endif  name="phone_shipper" required
                                        class="form-control" value="{{$orders->phone_shipper}}"/>
 
@@ -115,13 +116,14 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper"
+                                           autocomplete="off"
                                            required class="form-control" value="{{$tracker_start->address}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
-                                    <select class="form-control kt-select2 delivery-time"
+                                    <select class="form-control kt-select2 delivery-time" autocomplete="off"
                                             @if($orders->status_id > 1) readonly @endif  id="shipper_address"
                                             name="shipper_address_id" required>
                                         @foreach($cargo_location as $location)
@@ -135,6 +137,7 @@
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
                                     <input type="text" placeholder="Post code" name="shipper_postcode"
+                                           autocomplete="off"
                                            class="form-control" required value="{{$tracker_start->post_code}}"/>
                                 </div>
                             </div>
@@ -143,13 +146,15 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <input type="text" placeholder="{{ ('Shipper Address')}}" disabled
+                                           autocomplete="off"
                                            class="form-control" value="{{$tracker_start->address}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
-                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled>
+                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled
+                                            autocomplete="off">
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}"
                                                     @if($tracker_start->location_id == $location->id) selected @endif>{{ $location->name}}</option>
@@ -161,6 +166,7 @@
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
                                     <input type="text" placeholder="Post code" class="form-control" disabled
+                                           autocomplete="off"
                                            value="{{$tracker_start->post_code}}"/>
                                 </div>
                             </div>
@@ -168,7 +174,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper"
+                                <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" autocomplete="off"
                                        @if($orders->status_id > 1) readonly @endif   required
                                        class="form-control" value="{{$orders->shipper}}"/>
                                 <input type="hidden" id="order" value="{{$orders->id}}">
@@ -178,6 +184,7 @@
                             <div class="form-group">
                                 <label>Site Number :</label>
                                 <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper"
+                                       autocomplete="off"
                                        class="form-control" value="{{$orders->site_shipper}}"/>
 
                             </div>
@@ -190,6 +197,7 @@
                                 <label class="red-star">{{ ('Consignee`s company name')}}:</label>
                                 <input type="text" placeholder="{{ ('Company Consignee')}}"
                                        @if($orders->status_id > 1) readonly @endif name="company_consignee"
+                                       autocomplete="off"
                                        required class="form-control" value="{{ $orders->company_consignee }}"/>
                             </div>
                         </div>
@@ -198,7 +206,7 @@
                                 <label class="red-star">{{ ('Consignee Phone')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Phone')}}" required
                                        @if($orders->status_id > 1) readonly @endif
-                                       name="phone_consignee" class="form-control"
+                                       name="phone_consignee" class="form-control" autocomplete="off"
                                        value="{{$orders->phone_consignee}}"/>
 
                             </div>
@@ -209,13 +217,14 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
                                     <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee"
+                                           autocomplete="off"
                                            required class="form-control" value="{{$tracker_end->address}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
-                                    <select class="form-control kt-select2 delivery-time"
+                                    <select class="form-control kt-select2 delivery-time" autocomplete="off"
                                             @if($orders->status_id > 1) readonly @endif  id="consignee_address"
                                             name="consignee_address_id" required>
                                         @foreach($cargo_location as $location)
@@ -229,6 +238,7 @@
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
                                     <input type="text" placeholder="Post code" name="consignee_postcode"
+                                           autocomplete="off"
                                            class="form-control" required value="{{$tracker_end->post_code}}"/>
                                 </div>
                             </div>
@@ -237,13 +247,15 @@
                                 <div class="form-group">
                                     <label>{{ ('Consignee Address')}}:</label>
                                     <input type="text" placeholder="{{ ('Consignee Address')}}" class="form-control"
+                                           autocomplete="off"
                                            disabled value="{{$tracker_end->address}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Shipper City')}}:</label>
-                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled>
+                                    <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled
+                                            autocomplete="off">
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}"
                                                     @if($tracker_end->location_id == $location->id) selected @endif>{{ $location->name}}</option>
@@ -255,6 +267,7 @@
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
                                     <input type="text" placeholder="Post code" class="form-control" disabled
+                                           autocomplete="off"
                                            value="{{$tracker_end->post_code}}"/>
                                 </div>
                             </div>
@@ -264,6 +277,7 @@
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Name')}}"
                                        @if($orders->status_id > 1) readonly @endif  required name="consignee"
+                                       autocomplete="off"
                                        class="form-control" value="{{$orders->consignee}}"/>
                             </div>
                         </div>
@@ -271,6 +285,7 @@
                             <div class="form-group">
                                 <label>Site Number :</label>
                                 <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_consignee"
+                                       autocomplete="off"
                                        class="form-control" value="{{$orders->site_consignee}}"/>
 
                             </div>
@@ -279,14 +294,15 @@
                             <div class="form-group">
                                 <label>{{ ('Shipment description')}}:</label>
                                 <textarea class="form-control" @if($orders->status_id > 1) readonly @endif
-                                name="shipment_description">{{ $orders->shipment_description }}</textarea>
+                                name="shipment_description"
+                                          autocomplete="off">{{ $orders->shipment_description }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Pick-up Instruction</label>
                                 <textarea class="form-control" @if($orders->status_id > 1) readonly
-                                          @endif  name="comment">{{ $orders->comment }}</textarea>
+                                          @endif  name="comment" autocomplete="off">{{ $orders->comment }}</textarea>
                             </div>
                         </div>
                         {{--                        <div class="col-md-6">--}}
@@ -355,6 +371,7 @@
                                         <div class="col-md-3">
                                             <label class="red-star">{{ ('Type')}}:</label>
                                             <input type="text" placeholder="{{ ('type')}}" class="form-control" required
+                                                   autocomplete="off"
                                                    name="type" @if($orders->status_id > 1) disabled
                                                    @endif  value="{{$item['type']}}">
                                             <input type="hidden" name="id" @if($orders->status_id > 1) disabled
@@ -368,7 +385,7 @@
                                                 placeholder="Actual weight" type="number"
                                                 required @if($orders->status_id > 1) disabled @endif  min="1"
                                                 step="0.1"
-                                                name="actual_weight" class="form-control"
+                                                name="actual_weight" class="form-control" autocomplete="off"
                                                 value="{{$item['actual_weight']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -376,7 +393,7 @@
                                             <label class="red-star">{{ ('Quantity')}}:</label>
                                             <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required
                                                    type="number" @if($orders->status_id > 1) disabled @endif  min="1"
-                                                   name="quantity" class="form-control"
+                                                   name="quantity" class="form-control" autocomplete="off"
                                                    value="{{$item['quantity']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -384,13 +401,14 @@
                                             <label>Serial number box:</label>
                                             <input type="text" @if($orders->status_id > 1) disabled
                                                    @endif  placeholder="Serial number" name="serial_number"
+                                                   autocomplete="off"
                                                    class="form-control " value="{{$item['serial_number']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number sensor:</label>
                                             <input type="text" @if($orders->status_id > 1) disabled
-                                                   @endif  placeholder="Serial number sensor"
+                                                   @endif  placeholder="Serial number sensor" autocomplete="off"
                                                    name="serial_number_sensor" class="form-control  "
                                                    value="{{$item['serial_number_sensor']}}"/>
                                             <div class="mb-2 d-md-none"></div>
@@ -398,7 +416,7 @@
                                         <div class="col-md-3">
                                             <label>UN number:</label>
                                             <input type="text" @if($orders->status_id > 1) disabled
-                                                   @endif  placeholder="UN number" name="un_number"
+                                                   @endif  placeholder="UN number" name="un_number" autocomplete="off"
                                                    class="form-control  " value="{{$item['un_number']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -407,6 +425,7 @@
                                             <input type="text" @if($orders->status_id > 1) disabled
                                                    @endif  placeholder="Temperature conditions"
                                                    name="temperature_conditions" required class="form-control  "
+                                                   autocomplete="off"
                                                    value="{{$item['temperature_conditions']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -414,6 +433,7 @@
                                             <label>Volume weight:</label>
                                             <input type="text" @if($orders->status_id > 1) disabled
                                                    @endif  placeholder="Volume weight" name="volume_weight"
+                                                   autocomplete="off"
                                                    disabled class="form-control  " value="{{$item['volume_weight']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -423,6 +443,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r" @if($orders->status_id > 1) disabled
+                                                   autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Length')}}"
                                                    name="сargo_dimensions_length"
@@ -430,6 +451,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r" @if($orders->status_id > 1) disabled
+                                                   autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Width')}}"
                                                    name="сargo_dimensions_width"
@@ -437,6 +459,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r" @if($orders->status_id > 1) disabled
+                                                   autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control " placeholder="{{ ('Height')}}"
                                                    name="сargo_dimensions_height"
@@ -470,7 +493,7 @@
                         </div>
                         <div class="">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox7"
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox7" autocomplete="off"
                                        name="my_container"
                                        @if($orders->status_id > 1) disabled @endif
                                        @if($orders->my_container == 'on') checked @endif
@@ -479,13 +502,14 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="my_sensor"
+                                       autocomplete="off"
                                        @if($orders->status_id > 1) disabled @endif
                                        @if($orders->my_sensor == 'on') checked @endif
                                 >
                                 <label class="form-check-label" for="inlineCheckbox6">My sensor</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" autocomplete="off"
                                        name="sensor_for_rent"
                                        @if($orders->status_id > 1) disabled @endif
                                        @if($orders->sensor_for_rent == 'on') checked @endif>
@@ -493,6 +517,7 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container"
+                                       autocomplete="off"
                                        @if($orders->status_id > 1) disabled
                                        @endif      @if($orders->container == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox2">Container for rent</label>
@@ -506,13 +531,18 @@
                             {{--                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>--}}
                             {{--                            </div>--}}
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5"
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" autocomplete="off"
                                        name="notifications" @if($orders->status_id > 1) disabled
                                        @endif   @if($orders->notifications == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
                             <div class="form-check">
-                                <label for="inlineCheckbox11"></label><input class="form-check-input" style="width: 350px;"  placeholder="myemail@mail.com,myemail2@mail.com"  type="text" id="inlineCheckbox11" name="email" value="{{$orders->email}}">
+                                <label for="inlineCheckbox11"></label><input class="form-check-input"
+                                                                             style="width: 350px;" autocomplete="off"
+                                                                             autocomplete="off"
+                                                                             placeholder="myemail@mail.com,myemail2@mail.com"
+                                                                             type="text" id="inlineCheckbox11"
+                                                                             name="email" value="{{$orders->email}}">
                             </div>
                         </div>
                         <hr>
@@ -529,7 +559,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Shipping Payer:</label>
-                                    <select name="payer_id" @if($orders->status_id > 1) readonly
+                                    <select name="payer_id" @if($orders->status_id > 1) readonly autocomplete="off"
                                             @endif  class="form-control ">
 
                                         @if ( Auth::user()->roles->first()->id == 8)
@@ -552,7 +582,7 @@
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Status</label>
                                 @if($orders->status_id < 2)
-                                    <select id="select1" name="status_id" class="form-control "
+                                    <select id="select1" name="status_id" class="form-control " autocomplete="off"
                                             @if($orders->status_id > 1) readonly @endif >
                                         @foreach($status as $item)
                                             @if($item->id > 2)
@@ -563,7 +593,7 @@
                                         @endforeach
                                     </select>
                                 @else
-                                    <input type="text" disabled class="form-control"
+                                    <input type="text" disabled class="form-control" autocomplete="off"
                                            value="{{ $orders->status->name }}"/>
                                 @endif
                             </div>
@@ -573,7 +603,7 @@
                     <div class="">
                         <div class="col-md-6" data-select2-id="66">
                             <label>Agent:</label>
-                            <select id="change-country-to" name="agent_id" class="form-control "
+                            <select id="change-country-to" name="agent_id" class="form-control " autocomplete="off"
                                     @if($orders->status_id > 1) readonly @endif >
                                 <option value=""></option>
                                 @foreach($user as $item)
@@ -594,7 +624,8 @@
                                  $start_time_stop = date('H:i',strtotime($tracker_start->start_time_stop));
                             }
                         @endphp
-                        <br><p>Estimated Shipping Time: {{$start_time}} - {{$start_time_stop}}</p>
+                        <br>
+                        <p>Estimated Shipping Time: {{$start_time}} - {{$start_time_stop}}</p>
                         @php
                             if (isset($tracker_end->start_time))
                             {
@@ -614,17 +645,19 @@
                             <div class="col-md-3">
                                 <label>Location:</label>
                                 <input placeholder="Start time" type="text" disabled class="form-control"
+                                       autocomplete="off"
                                        value="{{$tracker_start->cargolocation->name}}"/>
                             </div>
                             <div class="col-md-3">
                                 <label>Address:</label>
                                 <input placeholder="Start time" type="text" disabled class="form-control"
+                                       autocomplete="off"
                                        value="{{$tracker_start->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3">
                                 <label>Driver:</label>
-                                <select name="start[driver_id]" class="form-control "
+                                <select name="start[driver_id]" class="form-control " autocomplete="off"
                                         @if($orders->status_id > 1) readonly @endif >
                                     <option value=""></option>
                                     @foreach($user as $item)
@@ -649,24 +682,29 @@
                             <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[start_time]"
+                                       autocomplete="off"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                                 <input type="hidden" name="start[start_time_stop]" value="{{$start_time_stop}}">
                             </div>
                             <div class="col-md-3 col-md-4" id="actual_time">
                                 <label>Arrived Time:</label>
-                                <input placeholder="Start time" type="datetime-local"  name="start[arrived_time]"
+                                <input placeholder="Start time" type="datetime-local" name="start[arrived_time]"
+                                       autocomplete="off"
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time_start">
-                                <label>Signed:</label><input placeholder="Signed" type="text"  name="start[signed]"
+                                <label>Signed:</label><input placeholder="Signed" type="text" name="start[signed]"
+                                                             autocomplete="off"
                                                              class="form-control" value="{{$tracker_start->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="actual_status" name="start[status_arrival]"
+                                    <input class="form-check-input" type="checkbox" id="actual_status"
+                                           autocomplete="off"
+                                           name="start[status_arrival]"
                                            @if( $tracker_start->status == 'Arrived') disabled checked @endif>
                                     <label class="form-check-label">Arrived</label>
                                 </div>
@@ -686,11 +724,12 @@
                                                             @if($item->id == $tracker->cargolocation->id) selected @endif>{{$item->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <input type="hidden" name="id" value="{{$tracker->id}}">
+                                            <input type="hidden" name="id" value="{{$tracker->id}}" autocomplete="off">
                                         </div>
                                         <div class="col-md-4">
                                             <label>Address:</label>
                                             <input placeholder="City, street" type="text" name="address"
+                                                   autocomplete="off"
                                                    class="form-control" value="{{$tracker->address}}" required/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -719,6 +758,7 @@
                                             @endphp
                                             <label>Estimated time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="start_time"
+                                                   autocomplete="off"
                                                    class="form-control clear-value-data" value="{{ $start_time }}"
                                                    required/>
                                             <div class="mb-2 d-md-none"></div>
@@ -726,18 +766,21 @@
                                         <div class="col-md-3 col-md-4">
                                             <label>Arrived Time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="arrived_time"
+                                                   autocomplete="off"
                                                    class="form-control clear-value-data" value="{{$end_time}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3 col-md-4">
                                             <label>Left Time:</label>
                                             <input placeholder="Left Time" type="datetime-local" disabled
+                                                   autocomplete="off"
                                                    class="form-control clear-value-data" value="{{$left_the_point}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-1">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="status_arrival"
+                                                       autocomplete="off"
                                                        @if( $tracker->status == 'Arrived') disabled checked @endif>
                                                 <label class="form-check-label">Arrived</label>
                                             </div>
@@ -745,6 +788,7 @@
                                         <div class="col-md-1">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="left_time"
+                                                       autocomplete="off"
                                                        name="status_left" @if(!empty($tracker->left_the_point)) disabled
                                                        checked @endif>
                                                 <label class="form-check-label">Leave</label>
@@ -777,6 +821,7 @@
                                     <div class="col-md-4">
                                         <label>Address:</label>
                                         <input placeholder="City, street, " type="text" name="address"
+                                               autocomplete="off"
                                                class="form-control"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
@@ -796,30 +841,34 @@
                                     <div class="col-md-3 col-md-4">
                                         <label>Estimated time:</label>
                                         <input placeholder="Start time" type="datetime-local" name="start_time"
+                                               autocomplete="off"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3 col-md-4">
                                         <label>Arrived Time:</label>
                                         <input placeholder="Start time" type="datetime-local" name="arrived_time"
+                                               autocomplete="off"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Left Time:</label>
-                                        <input placeholder="Left Time" type="datetime-local" disabled
+                                        <input placeholder="Left Time" type="datetime-local" disabled autocomplete="off"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="status_arrival">
+                                            autocomplete="off"
                                             <label class="form-check-label">Arrived</label>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="left_time"
+                                                   autocomplete="off"
                                                    name="status_left">
                                             <label class="form-check-label">Leave</label>
                                         </div>
@@ -843,11 +892,13 @@
                             <div class="col-md-3">
                                 <label>Location:</label>
                                 <input placeholder="Start time" type="text" disabled class="form-control"
+                                       autocomplete="off"
                                        value="{{$tracker_end->cargolocation->name}}"/>
                             </div>
                             <div class="col-md-3">
                                 <label>Address:</label>
                                 <input placeholder="Start time" type="text" disabled class="form-control"
+                                       autocomplete="off"
                                        value="{{$tracker_end->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -876,6 +927,7 @@
                             <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="end[start_time]"
+                                       autocomplete="off"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                                 <input type="hidden" name="end[start_time_stop]" value="{{$start_time_stop}}">
@@ -883,6 +935,7 @@
                             <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="end[arrived_time]"
+                                       autocomplete="off"
                                        class="form-control" value="{{ $end_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -892,13 +945,15 @@
                             {{--                                </div>--}}
                             <div class="col-md-3 tracker_append" id="actual-time-end-signed">
                                 <label>Signed:</label><input placeholder="Signed" type="text" name="end[signed]"
+                                                             autocomplete="off"
                                                              class="form-control " value="{{$tracker_end->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
 
                             <div class="col-md-1">
-                                <div class="form-check" >
+                                <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="end[status_arrival]"
+                                           autocomplete="off"
                                            @if( $tracker_end->status == 'Arrived') disabled checked @endif>
                                     <label class="form-check-label">Arrived</label>
                                 </div>
@@ -914,6 +969,7 @@
                                 <div class="form-group">
                                     <label class="red-star">Invoice number:</label>
                                     <input type="text" placeholder="Invoice number" name="checkout_number" required
+                                           autocomplete="off"
                                            class="form-control" value="{{ $orders->checkout_number }}"/>
                                 </div>
                             </div>
@@ -932,7 +988,7 @@
                             </div>
                         </div>
                     @endif
-                    @can('SuperUser', 'Manager', 'OPS', 'Client')
+                    @canany(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())
                         <div class="form-group ">
                             <div class="">
                                 <label class="text-right col-form-label">Print HWB</label>
@@ -944,13 +1000,18 @@
                                 </div>
                             </div>
                         </div>
-                    @endcan
+                    @endcanany
                 </div>
 
                 <div class="form-group ">
                     <div class="">
                         <div>
-                            <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
+                            <input type="submit" name="submitted"
+                                   class="btn btn-sm font-weight-bolder btn-light-primary" value="Save and return">
+                        </div>
+                        <div>
+                            <input type="submit" name="submitted"
+                                   class="btn btn-sm font-weight-bolder btn-light-primary" value="Save and back">
                         </div>
                     </div>
                 </div>
@@ -1009,49 +1070,49 @@
             });
         });
 
-        $('document').ready(function(){
+        $('document').ready(function () {
 
-            if($('#inlineCheckbox5').is(':checked')){
-            $('#inlineCheckbox11').show(100);
-        }else{
-            $('#inlineCheckbox11').hide(100);
-        }
-
-        $('#inlineCheckbox5').on('click', function(){
-            $('p.aletr-email').remove();
-            if ($(this).is(':checked')){
+            if ($('#inlineCheckbox5').is(':checked')) {
                 $('#inlineCheckbox11').show(100);
             } else {
                 $('#inlineCheckbox11').hide(100);
             }
 
-            var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,7}$/i;
-
-            $('#inlineCheckbox11').blur(function(){
+            $('#inlineCheckbox5').on('click', function () {
                 $('p.aletr-email').remove();
-
-                var mail = $('#inlineCheckbox11').val();
-                var mailPattern = pattern.test(mail);
-                var testSeparator = mail.indexOf(',');
-                var mailArray = mail.split(',');
-
-                console.log(mailArray);
-                console.log(testSeparator);
-
-                if(mailPattern === false && testSeparator === -1){
-                    $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
-                }else{
-                    $(mailArray).each(function(index,item){
-                        if(pattern.test(item.trim()) === false){
-                            console.log(pattern.test(item[index].trim()));
-                            $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
-                        }
-                    });
+                if ($(this).is(':checked')) {
+                    $('#inlineCheckbox11').show(100);
+                } else {
+                    $('#inlineCheckbox11').hide(100);
                 }
 
-            });
+                var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,7}$/i;
 
-        });
+                $('#inlineCheckbox11').blur(function () {
+                    $('p.aletr-email').remove();
+
+                    var mail = $('#inlineCheckbox11').val();
+                    var mailPattern = pattern.test(mail);
+                    var testSeparator = mail.indexOf(',');
+                    var mailArray = mail.split(',');
+
+                    console.log(mailArray);
+                    console.log(testSeparator);
+
+                    if (mailPattern === false && testSeparator === -1) {
+                        $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
+                    } else {
+                        $(mailArray).each(function (index, item) {
+                            if (pattern.test(item.trim()) === false) {
+                                console.log(pattern.test(item[index].trim()));
+                                $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
+                            }
+                        });
+                    }
+
+                });
+
+            });
 
         });
 
@@ -1246,10 +1307,9 @@
             })
 
             $('#actual_status').on('change', function () {
-                if(document.getElementById('actual_status').checked){
+                if (document.getElementById('actual_status').checked) {
                     $('#actual_time_start input').attr("required", "required");
-                }
-                else{
+                } else {
                     $('#actual_time_start input').removeAttr("required");
                 }
             })
