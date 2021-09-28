@@ -1,4 +1,4 @@
-@canany(['SuperUser','Manager','Security Officer','Client'], Auth::user())
+@canany(['SuperUser','Manager','Security Officer','Client','OPS'], Auth::user())
 
     <li class="menu-item menu-item-submenu  " aria-haspopup="true" data-menu-toggle="hover">
         <a href="javascript:;" class="menu-link menu-toggle">

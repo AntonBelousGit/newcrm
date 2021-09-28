@@ -726,11 +726,18 @@
                                             </select>
                                             <input type="hidden" name="id" value="{{$tracker->id}}" autocomplete="off">
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label>Address:</label>
                                             <input placeholder="City, street" type="text" name="address"
                                                    autocomplete="off"
                                                    class="form-control" value="{{$tracker->address}}" required/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Signed:</label>
+                                            <input placeholder="Signed" type="text" name="signed"
+                                                   autocomplete="off"
+                                                   class="form-control" value="{{$tracker->signed}}" />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -780,7 +787,7 @@
                                         <div class="col-md-1">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="status_arrival"
-                                                       autocomplete="off"
+
                                                        @if( $tracker->status == 'Arrived') disabled checked @endif>
                                                 <label class="form-check-label">Arrived</label>
                                             </div>
@@ -818,14 +825,21 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label>Address:</label>
                                         <input placeholder="City, street, " type="text" name="address"
                                                autocomplete="off"
                                                class="form-control"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <label>Signed:</label>
+                                        <input placeholder="Signed" type="text" name="signed"
+                                               autocomplete="off"
+                                               class="form-control"/>
+                                        <div class="mb-2 d-md-none"></div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <label>Driver:</label>
                                         <select name="driver_id" class="form-control "
                                                 @if($orders->status_id > 1) readonly @endif >
@@ -861,7 +875,6 @@
                                     <div class="col-md-1">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="status_arrival">
-                                            autocomplete="off"
                                             <label class="form-check-label">Arrived</label>
                                         </div>
                                     </div>

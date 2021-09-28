@@ -136,6 +136,7 @@ class TrackersRepository
         $tracker->driver_id = $option_key['driver_id'] ?? null;
         $tracker->location_id = $option_key['cargo_location'];
         $tracker->address = $option_key['address'];
+        $tracker->signed = $option_key['signed'] ?? null;
 
         if (!$many) {
 
@@ -201,6 +202,7 @@ class TrackersRepository
         $tracker->driver_id = $option_key['driver_id'] ?? null;
         $tracker->location_id = $option_key['cargo_location'];
         $tracker->address = $option_key['address'];
+        $tracker->signed = $option_key['signed'] ?? null;
         if (!is_null($option_key['start_time'])) {
             $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
         }
