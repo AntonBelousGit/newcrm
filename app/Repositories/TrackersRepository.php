@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Mail\ReceiveNotifications;
+use App\Models\Order;
 use App\Models\Tracker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Mail;
 class TrackersRepository
 {
     protected $tracker;
-
 
     public function __construct(Tracker $tracker)
     {
@@ -101,9 +101,8 @@ class TrackersRepository
             $tracker_end->end_time = str_replace('T', ' ', $end['arrived_time']);
         }
 
-        if (isset($end['status_arrival']) || isset($end['arrived_time'])  &&  !empty($end['signed'])) {
+        if (isset($end['status_arrival']) || (isset($end['arrived_time']) && !empty($end['signed']))) {
             $tracker_end->end_time = $tracker_end->end_time ?? now();
-            $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
             $tracker_end->alert = ($tracker_end->start_time < $tracker_end->end_time && $tracker_end->end_time < $tracker_end->start_time_stop)? 'ok':'bad';
 
             $tracker_end->signed = $end['signed'];
@@ -111,7 +110,7 @@ class TrackersRepository
             $order->status_id = 6;
             $order->delivery_time = now()->format('Y-m-d');
             $order->update();
-            if (isset($end['status_arrival']) || isset($end['arrived_time']) && $order->notifications == 'on') {
+            if (isset($end['status_arrival']) || (isset($end['arrived_time']) && $order->notifications == 'on')) {
                 if (!empty($order->email)) {
                     foreach (explode(',', $order->email) as $mail) {
                         Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
@@ -272,7 +271,6 @@ class TrackersRepository
 
         if (isset($end['status_arrival'])) {
             $tracker_end->end_time = now();
-            $tracker_end->alert = $tracker_end->end_time > $tracker_end->start_time ? 'bad' : 'ok';
             $tracker_end->alert = ($tracker_end->start_time < $tracker_end->end_time && $tracker_end->end_time < $tracker_end->start_time_stop)? 'ok':'bad';
 
             $tracker_end->signed = $end['signed'];
