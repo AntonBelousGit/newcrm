@@ -72,6 +72,12 @@ class User extends Authenticatable
         return false;
     }
 
+    public function hasRoles($role){
+        if($this->roles()->whereIn('name',$role)->first()){
+            return true;
+        }
+        return false;
+    }
     public function driver()
     {
         return $this->belongsTo('App\Models\DriverUser','driver_id');

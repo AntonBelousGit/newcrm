@@ -154,3 +154,33 @@ input[type="checkbox"]~.custom_check i {
     left: 0px;
     z-index: 1;
 }
+.hint_search {
+    position: absolute;
+    display: none;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 10px 15px;
+    border: 1px solid #E4E6EF;
+    overflow: auto;
+
+}
+.hint_search ul li:hover{
+    color:#ff7324;
+}
+.hint_search ul li{
+    list-style: none;
+    display: block;
+    cursor: pointer;
+}
+.hint_search ul{
+    margin: 0;
+    padding: 0;
+}
+.supper-input{
+    position: relative;
+
+}
