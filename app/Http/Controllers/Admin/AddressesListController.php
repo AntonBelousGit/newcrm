@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\AddressesListImport;
 use App\Models\AddressesList;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AddressesListController extends Controller
 {
@@ -86,6 +88,7 @@ class AddressesListController extends Controller
 
             return redirect()->route('admin.addresses-list.index');
         }
+        return abort(403);
     }
 
     /**
@@ -109,7 +112,7 @@ class AddressesListController extends Controller
         $addresses = AddressesList::with('user')->findOrFail($id);
 
 //        dd($addresses);
-        if (Gate::check('Client') && Gate::check('manage-client-address',$addresses)) {
+        if (Gate::check('Client') && Gate::check('manage-client-address', $addresses)) {
             return view('backend.addresses_list.edit', compact('addresses'));
         }
         if (Gate::check('Administration')) {
@@ -128,7 +131,7 @@ class AddressesListController extends Controller
     public function update(Request $request, $id)
     {
         $addresses = AddressesList::findOrFail($id);
-        if (Gate::check('Administration') || (Gate::check('Client') && Gate::check('manage-client-address',$addresses))) {
+        if (Gate::check('Administration') || (Gate::check('Client') && Gate::check('manage-client-address', $addresses))) {
 
             $addresses->address = $request->address;
             $addresses->update();
@@ -138,9 +141,33 @@ class AddressesListController extends Controller
         return abort(403);
     }
 
+    public function viewImport()
+    {
+        if (Gate::check('Administration') || Gate::check('Client')) {
+            return view('backend.addresses_list.import');
+        }
+        return abort(403);
+    }
+
     public function import(Request $request)
     {
 
+        if ($request->isMethod('post') && $_FILES['file']) {
+
+            if ($_FILES['file']['error'] == 0) {
+                //> Получаем имя загружаемого файла (удобно судить, нужен ли для загрузки файл суффикса)
+                $name = $_FILES['file']['name'];
+                //> Получить суффикс загруженного файла, например (xls exe xlsx и т. Д.)
+                $ext = strtolower(trim(substr($name, (strpos($name, '.') + 1))));
+                //> Определить, является ли файл указанным суффиксом загружаемого файла
+                if (!in_array($ext, array('xls', 'xlsx'))) {
+                    //> Вернуться в последнее запрошенное место с сообщением об ошибке
+                    return redirect()->back()->withErrors('Пожалуйста, введите файл суффикса xls или xlsx')->withInput();
+                }
+                Excel::import(new AddressesListImport, request()->file('file'));
+            }
+        }
+        return redirect()->route('admin.addresses-list.index');
     }
 
     /**

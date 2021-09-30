@@ -37,7 +37,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::get('/reports/{report}', [ReportController::class, 'exportExist'])->name('download');
         Route::get('/print/{id}', [InvoiceController::class, 'downloadPDF'])->name('download_pdf');
         Route::post('/search', [AddressesListController::class, 'search'])->name('search');
-        Route::post('/import-address', [AddressesListController::class, 'import'])->name('import-address');
+        Route::get('/addresses-list/import', [AddressesListController::class, 'viewImport'])->name('view-import');
+        Route::post('/addresses-list/import', [AddressesListController::class, 'import'])->name('import-address');
 
         Route::resources([
             'orders' => OrderController::class,

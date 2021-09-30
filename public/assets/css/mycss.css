@@ -166,6 +166,7 @@ input[type="checkbox"]~.custom_check i {
     padding: 10px 15px;
     border: 1px solid #E4E6EF;
     overflow: auto;
+    z-index: 10;
 
 }
 .hint_search ul li:hover{
@@ -183,4 +184,7 @@ input[type="checkbox"]~.custom_check i {
 .supper-input{
     position: relative;
 
+}
+.alert.alert-danger{
+    margin-top: 5px;
 }

@@ -7,7 +7,12 @@
             <div class="col-md-6">
                 <h1 class="h3">All Addresses</h1>
             </div>
-            <div class="col-md-6 text-md-right">
+            <div class="col-md-3 text-md-right">
+                <a href="{{ route('admin.view-import') }}" class="btn btn-circle btn-info">
+                    <span>Import</span>
+                </a>
+            </div>
+            <div class="col-md-3 text-md-right">
                 <a href="{{ route('admin.addresses-list.create') }}" class="btn btn-circle btn-info">
                     <span>Add New Addresses</span>
                 </a>
