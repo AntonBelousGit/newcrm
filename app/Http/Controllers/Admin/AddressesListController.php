@@ -38,7 +38,11 @@ class AddressesListController extends Controller
      */
     public function create()
     {
-        if (Gate::any(['Administration', 'Client'], Auth::user())) {
+        if (Gate::any(['Administration'], Auth::user())) {
+            $users = User::all(['id', 'name']);
+            return view('backend.addresses_list.create-admin', compact('users'));
+        }
+        if (Gate::any(['Client'], Auth::user())) {
             return view('backend.addresses_list.create');
         }
         return abort(403);
@@ -74,7 +78,22 @@ class AddressesListController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::check('Administration') || Gate::check('Client')) {
+        if (Gate::check('Administration')) {
+
+            $validated_data = $this->validate($request, [
+                'address' => 'required|string|unique:addresses_lists',
+                'user_id' => 'integer',
+            ],
+                ['unique' => 'The address has already exists.']);
+
+            $address = new AddressesList;
+            $address->fill($validated_data);
+            $address->user_id = $request->user_id ?? Auth::id();
+            $address->save();
+
+            return redirect()->route('admin.addresses-list.index');
+        }
+        if (Gate::check('Client')) {
 
             $validated_data = $this->validate($request, [
                 'address' => 'required|string|unique:addresses_lists',
@@ -116,7 +135,8 @@ class AddressesListController extends Controller
             return view('backend.addresses_list.edit', compact('addresses'));
         }
         if (Gate::check('Administration')) {
-            return view('backend.addresses_list.edit', compact('addresses'));
+            $users = User::all(['id', 'name']);
+            return view('backend.addresses_list.edit-admin', compact('addresses', 'users'));
         }
         return abort(403);
     }
@@ -131,7 +151,15 @@ class AddressesListController extends Controller
     public function update(Request $request, $id)
     {
         $addresses = AddressesList::findOrFail($id);
-        if (Gate::check('Administration') || (Gate::check('Client') && Gate::check('manage-client-address', $addresses))) {
+        if (Gate::check('Administration')) {
+
+            $addresses->address = $request->address;
+            $addresses->user_id = $request->user_id;
+            $addresses->update();
+
+            return redirect()->route('admin.addresses-list.index');
+        }
+        if (Gate::check('Client') && Gate::check('manage-client-address', $addresses)) {
 
             $addresses->address = $request->address;
             $addresses->update();
