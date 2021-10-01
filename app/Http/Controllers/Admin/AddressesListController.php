@@ -50,11 +50,14 @@ class AddressesListController extends Controller
 
     public function search(Request $request)
     {
-        if (Gate::any(['Administration', 'Client'], Auth::user()) && $request->ajax()) {
-
-            $output = "";
+        if (Gate::check('Administration', Auth::user())) {
             $addresses = AddressesList::where('address', 'like', '%' . $request->search . '%')->get(['address']);
-//            dd($addresses);
+        }
+        if (Gate::check('Client', Auth::user())) {
+            $addresses = AddressesList::where('user_id', Auth::id())->where('address', 'like', '%' . $request->search . '%')->get(['address']);
+        }
+        if ($request->ajax()) {
+            $output = "";
             if (!$addresses->isEmpty()) {
                 $output .= '<ul>';
                 foreach ($addresses as $address) {
@@ -171,7 +174,11 @@ class AddressesListController extends Controller
 
     public function viewImport()
     {
-        if (Gate::check('Administration') || Gate::check('Client')) {
+        if (Gate::check('Administration')) {
+            $users = User::all(['id', 'name']);
+            return view('backend.addresses_list.import-admin', compact('users'));
+        }
+        if (Gate::check('Client')) {
             return view('backend.addresses_list.import');
         }
         return abort(403);
@@ -192,7 +199,13 @@ class AddressesListController extends Controller
                     //> Вернуться в последнее запрошенное место с сообщением об ошибке
                     return redirect()->back()->withErrors('Пожалуйста, введите файл суффикса xls или xlsx')->withInput();
                 }
-                Excel::import(new AddressesListImport, request()->file('file'));
+                if (Gate::check('Administration')) {
+                    Excel::import(new AddressesListImport($request->user_id), request()->file('file'));
+                }
+                if (Gate::check('Client')) {
+                    Excel::import(new AddressesListImport(Auth::id()), request()->file('file'));
+                }
+
             }
         }
         return redirect()->route('admin.addresses-list.index');

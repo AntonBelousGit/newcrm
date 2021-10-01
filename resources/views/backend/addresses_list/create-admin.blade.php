@@ -48,29 +48,6 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            {{--$("#search").on('keyup', function(){--}}
-            {{--    $search = $(this).val();--}}
-            {{--    $.ajax({--}}
-            {{--        type: 'POST',--}}
-            {{--        url: '{{route('admin.search')}}',--}}
-            {{--        data: {'search': $search},--}}
-            {{--        success: function(data){--}}
-            {{--            console.log(data);--}}
-            {{--        }--}}
-
-            {{--    });--}}
-            {{--});--}}
-            // $( '#search' ).on( "focusout", function(){
-            //     $('.hint_search').slideUp(300);
-            // });
-
-            // $( '#search' ).on( "focusin", function(){
-            //     var count = $(this).val().length;
-            //     if(count > 2) {
-            //         $('.hint_search').slideDown(300);
-            //     }
-            // });
-
             let count;
 
             $('#search').keyup(function(){

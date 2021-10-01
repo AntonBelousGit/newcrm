@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\AddressesList;
 use App\Models\Cargo;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
@@ -70,10 +71,17 @@ class OrderRepository
         $order->invoice_number = $order->id;
         $order->update();
 
+        if (isset($request->address_shipper_checkbox)) {
+            $this->saveAddress($request->address_shipper);
+        }
+        if (isset($request->address_consignee_checkbox)) {
+            $this->saveAddress($request->address_consignee);
+        }
+
         return $order;
     }
 
-    public function saveReturnedOrder($request, $id,$email)
+    public function saveReturnedOrder($request, $id, $email)
     {
 //        dd($request);
         $order = new Order();
@@ -111,9 +119,7 @@ class OrderRepository
         if ($email) {
             $order->notifications = $request->notifications ?? 'off';
             $order->email = $request->email ?? '';
-        }
-        else
-        {
+        } else {
             $order->notifications = 'off';
         }
         $order->status_id = 1;
@@ -124,14 +130,20 @@ class OrderRepository
         if (isset($request->client_id)) {
             $order->client_id = $request->client_id;
         }
-
         $order->save();
-
         $order->invoice_number = $order->id;
-
         $order->update();
 
         return $order;
+    }
+
+    public function saveAddress($address)
+    {
+        $new_address = new AddressesList;
+        $new_address->address = $address;
+        $new_address->user_id = Auth::id();
+        $new_address->save();
+        return true;
     }
 
     public function findAndUpdate($request, $id)

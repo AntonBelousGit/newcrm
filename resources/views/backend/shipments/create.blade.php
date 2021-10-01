@@ -98,11 +98,17 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group supper-input">
                                 <label class="red-star">{{ ('Shipper Address')}}:</label>
                                 <input type="text" placeholder="City, street" name="address_shipper" autocomplete="off"
-                                       class="form-control" required value="{{old('address_shipper')}}"/>
+                                       class="form-control search" onkeyup="Search(this)" required value="{{old('address_shipper')}}"/>
+                                <div class="hint_search">
+                                </div>
+                                @can('Client',Auth::user())
 
+                                    <input type="checkbox" id="address_shipper_checkbox" name="address_shipper_checkbox"/>
+                                    <label for="address_shipper_checkbox"> - add address to addresses list</label>
+                                @endcan
                             </div>
                         </div>
 
@@ -161,11 +167,17 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group supper-input">
                                 <label class="red-star">{{ ('Consignee Address')}}:</label>
                                 <input type="text" placeholder="City, street" name="address_consignee" autocomplete="off"
-                                       class="form-control" required value="{{old('address_consignee')}}"/>
+                                       class="form-control search" onkeyup="Search(this)" required value="{{old('address_consignee')}}"/>
+                                <div class="hint_search">
+                                </div>
+                                @can('Client',Auth::user())
 
+                                    <input type="checkbox" id="address_consignee_checkbox" name="address_consignee_checkbox"/>
+                                    <label for="address_consignee_checkbox"> - add address to addresses list</label>
+                                @endcan
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -401,8 +413,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox4"
                                        name="return_container">
-                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping
-                                    container</label>
+                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox5"
@@ -502,7 +513,69 @@
 @section('script')
     <script src="{{ static_asset('assets/dashboard/js/geocomplete/jquery.geocomplete.js') }}"></script>
     {{--<script src="//maps.googleapis.com/maps/api/js?libraries=places&key={{$checked_google_map->key}}"></script>--}}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            {{--let count;--}}
 
+            {{--$('.search').keyup(function(){--}}
+            {{--    count = $(this).val().length;--}}
+            {{--    if(count > 2) {--}}
+            {{--        $('.hint_search').slideDown(300);--}}
+
+            {{--        $search = $(this).val();--}}
+            {{--        $.ajax({--}}
+            {{--            type: 'POST',--}}
+            {{--            url: '{{route('admin.search')}}',--}}
+            {{--            data: {'search': $search},--}}
+            {{--            success: function(data){--}}
+            {{--                $('.hint_search').text('').append($(data));--}}
+            {{--            }--}}
+
+            {{--        });--}}
+
+            {{--    } else {--}}
+            {{--        $('.hint_search').slideUp(300);--}}
+            {{--    }--}}
+            {{--});--}}
+
+            $(document).mouseup(function (e) {
+                if (!$('.supper-input').is(e.target) // если клик был не по нашему блоку
+                    && $('.supper-input').has(e.target).length === 0) { // и не по его дочерним элементам
+                    $('.hint_search').slideUp(500);
+                }
+            });
+
+        });
+
+        let count = 0;
+        function Search(elem)
+        {
+
+            count = $(elem).val().length;
+            if(count > 2) {
+                $(elem).siblings('.hint_search').slideDown(300);
+
+                $search = $(elem).val();
+                $.ajax({
+                    type: 'POST',
+                    url: '{{route('admin.search')}}',
+                    data: {'search': $search},
+                    success: function(data){
+                        $(elem).siblings('.hint_search').text('').append($(data));
+                    }
+
+                });
+
+            } else {
+                $(elem).siblings('.hint_search').slideUp(300);
+            }
+        }
+
+        function clickItem(elem) {
+            $(elem).parent('ul').parent('.hint_search').parent('.supper-input').find('.search').val($(elem).html());
+            $('.hint_search').slideUp(500);
+        }
+    </script>
     <script type="text/javascript">
 
         // Map Address For Receiver
@@ -958,183 +1031,6 @@
                 maxboostedstep: 10000000,
                 initval: 1,
             });
-
-
-            {{--FormValidation.formValidation(--}}
-            {{--    document.getElementById('kt_form_1'), {--}}
-            {{--        fields: {--}}
-            {{--            "Shipment[type]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[shipping_date]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[branch_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[client_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    callback: {--}}
-            {{--                        message: '{{ ("This is required!")}}',--}}
-            {{--                        callback: function(input) {--}}
-            {{--                            // Get the selected options--}}
-            {{--                            if ((input.value !== "")) {--}}
-            {{--                                $('.client-select').removeClass('has-errors');--}}
-            {{--                            } else {--}}
-            {{--                                $('.client-select').addClass('has-errors');--}}
-            {{--                            }--}}
-            {{--                            return (input.value !== "");--}}
-            {{--                        }--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[client_address]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[client_phone]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[payment_type]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[payment_method_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[tax]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[insurance]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[shipping_cost]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[delivery_time]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[delivery_time]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[total_weight]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[from_country_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[to_country_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[reciver_name]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[reciver_phone]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[reciver_address]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Package[0][package_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            }--}}
-
-
-
-            {{--        },--}}
-
-
-            {{--        plugins: {--}}
-            {{--            autoFocus: new FormValidation.plugins.AutoFocus(),--}}
-            {{--            trigger: new FormValidation.plugins.Trigger(),--}}
-            {{--            // Bootstrap Framework Integration--}}
-            {{--            bootstrap: new FormValidation.plugins.Bootstrap(),--}}
-            {{--            // Validate fields when clicking the Submit button--}}
-            {{--            submitButton: new FormValidation.plugins.SubmitButton(),--}}
-            {{--            // Submit the form when all fields are valid--}}
-            {{--            defaultSubmit: new FormValidation.plugins.DefaultSubmit(),--}}
-            {{--            icon: new FormValidation.plugins.Icon({--}}
-            {{--                valid: '',--}}
-            {{--                invalid: 'fa fa-times',--}}
-            {{--                validating: 'fa fa-refresh',--}}
-            {{--            }),--}}
-            {{--        }--}}
-            {{--    }--}}
-            {{--);--}}
         });
     </script>
 @endsection

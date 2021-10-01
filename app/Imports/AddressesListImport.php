@@ -11,6 +11,15 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 class AddressesListImport implements ToModel, WithChunkReading
 {
     use RemembersRowNumber;
+
+    /**
+     * @param int $user_id
+     */
+    public function  __construct(int $user_id)
+    {
+        $this->user_id = $user_id;
+    }
+
     /**
     * @param array $row
     *
@@ -20,7 +29,7 @@ class AddressesListImport implements ToModel, WithChunkReading
     {
         return new AddressesList([
             'address' => $row[0],
-            'user_id' => Auth::id(),
+            'user_id' => $this->user_id,
         ]);
     }
 
