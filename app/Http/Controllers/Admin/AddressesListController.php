@@ -206,6 +206,8 @@ class AddressesListController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $address = AddressesList::find($id);
+        $address->delete();
+        return redirect()->route('admin.addresses-list.index');
     }
 }

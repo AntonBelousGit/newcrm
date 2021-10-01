@@ -62,13 +62,13 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id == $order->agent_id;
         });
         Gate::define('manage-client-exel', function (User $user, Order $order) {
-            return $user->id === $order->client_id;
+            return (int)$user->id === (int)$order->client_id;
         });
         Gate::define('manage-client-address', function (User $user, AddressesList $addressesList) {
-            return $user->id === $addressesList->user_id;
+            return (int)$user->id === (int)$addressesList->user_id;
         });
         Gate::define('manage-client-report',function (User $user, Report $report){
-            return $user->id === $report->user_id;
+            return (int)$user->id === (int)$report->user_id;
         });
         Gate::define('manage-driver', function (User $user, Order $order) {
 //            dd($order);
