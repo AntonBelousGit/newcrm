@@ -12,6 +12,9 @@
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
+                        <p>To import addresses from excel, create an xls file and add a column with the Address column to it. Add addresses one at a time in the cell (line)</p>
+                    </div>
+                    <div class="form-group">
                         <label>Import xls,xlsx:</label>
                         <input type="file" id="search" class="form-control" name="file" required>
                         <div class="hint_search">

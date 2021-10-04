@@ -52,7 +52,7 @@
 
             $('#search').keyup(function(){
                 count = $(this).val().length;
-                if(count > 2) {
+                if(count >= 2) {
                     $('.hint_search').slideDown(300);
 
                     $search = $(this).val();

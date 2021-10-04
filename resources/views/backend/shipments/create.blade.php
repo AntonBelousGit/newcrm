@@ -515,28 +515,6 @@
     {{--<script src="//maps.googleapis.com/maps/api/js?libraries=places&key={{$checked_google_map->key}}"></script>--}}
     <script type="text/javascript">
         $(document).ready(function(){
-            {{--let count;--}}
-
-            {{--$('.search').keyup(function(){--}}
-            {{--    count = $(this).val().length;--}}
-            {{--    if(count > 2) {--}}
-            {{--        $('.hint_search').slideDown(300);--}}
-
-            {{--        $search = $(this).val();--}}
-            {{--        $.ajax({--}}
-            {{--            type: 'POST',--}}
-            {{--            url: '{{route('admin.search')}}',--}}
-            {{--            data: {'search': $search},--}}
-            {{--            success: function(data){--}}
-            {{--                $('.hint_search').text('').append($(data));--}}
-            {{--            }--}}
-
-            {{--        });--}}
-
-            {{--    } else {--}}
-            {{--        $('.hint_search').slideUp(300);--}}
-            {{--    }--}}
-            {{--});--}}
 
             $(document).mouseup(function (e) {
                 if (!$('.supper-input').is(e.target) // если клик был не по нашему блоку
@@ -552,7 +530,7 @@
         {
 
             count = $(elem).val().length;
-            if(count > 2) {
+            if(count >= 2) {
                 $(elem).siblings('.hint_search').slideDown(300);
 
                 $search = $(elem).val();
