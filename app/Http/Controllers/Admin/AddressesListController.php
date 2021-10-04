@@ -39,7 +39,10 @@ class AddressesListController extends Controller
     public function create()
     {
         if (Gate::any(['Administration'], Auth::user())) {
-            $users = User::all(['id', 'name']);
+            $users = User::whereHas('roles', function($q)
+            {
+                $q->where('name', 'Client');
+            })->get(['id', 'name']);
             return view('backend.addresses_list.create-admin', compact('users'));
         }
         if (Gate::any(['Client'], Auth::user())) {
@@ -175,7 +178,10 @@ class AddressesListController extends Controller
     public function viewImport()
     {
         if (Gate::check('Administration')) {
-            $users = User::all(['id', 'name']);
+            $users = User::whereHas('roles', function($q)
+            {
+                $q->where('name', 'Client');
+            })->get(['id', 'name']);
             return view('backend.addresses_list.import-admin', compact('users'));
         }
         if (Gate::check('Client')) {
