@@ -35,10 +35,8 @@ class ReceiveNotifications extends Mailable
 
     public function searchLocation($request)
     {
-//        dd($request);
-        $location = CargoLocation::find($request->time[0]['cargo_location']);
-//        dd($location);
-        return $location->city;
+
+        return CargoLocation::find($request->time[0]['cargo_location'])->city;
     }
 
     public function subjectNotifications($shipment)
@@ -46,9 +44,13 @@ class ReceiveNotifications extends Mailable
 
         if ($shipment->status_id == 3) {
             return 'Picked-up>' . $this->searchLocation($this->request);
-        } elseif ($shipment->status_id == 5) {
+        }
+
+        if ($shipment->status_id == 5) {
             return 'POD pending';
-        } elseif ($shipment->status_id == 6) {
+        }
+
+        if ($shipment->status_id == 6) {
             return 'Delivered';
         }
         abort(503);

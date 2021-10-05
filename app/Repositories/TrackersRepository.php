@@ -38,7 +38,10 @@ class TrackersRepository
     {
 //        dd($order);
         $tracker_start = $this->getStartTracker($order);
+
+        $tracker_start_old = $tracker_start->status;
         $start = $request->start;
+
         $tracker_start->driver_id = $start['driver_id'] ?? null;
         if (!is_null($start['start_time']) && !is_null($start['start_time_stop'])) {
             $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
@@ -50,14 +53,10 @@ class TrackersRepository
 
         if (isset($start['status_arrival']) || isset($start['arrived_time'])) {
             $tracker_start->end_time = $tracker_start->end_time ?? now();
-//            $tracker_start->alert = $tracker_start->end_time > $tracker_start->start_time ? 'bad' : $tracker_start->end_time > $tracker_start->start_time ? 'ok': 'bad';
             $tracker_start->alert = ($tracker_start->start_time < $tracker_start->end_time && $tracker_start->end_time < $tracker_start->start_time_stop)? 'ok':'bad';
-
-
             $tracker_start->status = 'Arrived';
-//            dd($tracker_start->status);
+//            dd($start);
         }
-//        dd($start['status_arrival']);
         if (!empty($start['signed'])) {
             $tracker_start->signed = $start['signed'];
             if ($many == false) {
@@ -66,13 +65,10 @@ class TrackersRepository
             } else {
                 $order->status_id = 3;
             }
-
-            if (isset($start['status_arrival']) || (isset($start['arrived_time']) && $order->notifications === 'on')) {
-               if (!empty($order->email)){
-                foreach (explode(',',$order->email) as $mail) {
-                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
-                }
-               }
+            if ((isset($start['status_arrival']) || isset($start['arrived_time'])) && $order->notifications === 'on' && $tracker_start_old === 'Awaiting arrival' && !empty($order->email)) {
+             foreach (explode(',',$order->email) as $mail) {
+                 Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_start));
+             }
             }
         }
         $order->update();
