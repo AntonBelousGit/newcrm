@@ -86,6 +86,7 @@ class TrackersRepository
     {
         $tracker_end = $this->getEndTracker($order);
         $end = $request->end;
+        $tracker_end_old = $tracker_end->status;
         $tracker_end->signed = '';
 //        $tracker_end->driver_id = $end['driver_id'] ?? null;
         if (!is_null($end['start_time'])) {
@@ -106,11 +107,9 @@ class TrackersRepository
             $order->status_id = 6;
             $order->delivery_time = now()->format('Y-m-d');
             $order->update();
-            if (isset($end['status_arrival']) || (isset($end['arrived_time']) && $order->notifications == 'on')) {
-                if (!empty($order->email)) {
-                    foreach (explode(',', $order->email) as $mail) {
-                        Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
-                    }
+            if ((isset($end['status_arrival']) || isset($end['arrived_time'])) && $order->notifications === 'on' && $tracker_end_old === 'Awaiting arrival' && !empty($order->email)) {
+                foreach (explode(',', $order->email) as $mail) {
+                    Mail::to($mail)->send(new ReceiveNotifications($order, $request, $tracker_end));
                 }
             }
         }
