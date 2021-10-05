@@ -41,6 +41,7 @@
                     <th>#</th>
                     <th>Created at</th>
                     <th>Period</th>
+                    <th>Status</th>
                     <th>Mission</th>
                 </tr>
                 </thead>
@@ -51,31 +52,13 @@
                         <td>{{$report->id}}</td>
                         <td>{{$report->created_at->format('d.m.Y H:s:i')}}</td>
                         <td>({{$report->start->format('d.m.Y')}} - {{$report->end->format('d.m.Y')}})</td>
-
-{{--                        <td><a href="./storage/framework/laravel-excel/{{$report->file_name}}" download>Скачать файл</a></td>--}}
+                        <td>{{ $report->status == '6' ? 'Delivered': 'Invoiced' }}</td>
                         <td><a href="{!! route('admin.download', $report->id) !!}">Download</a></td>
-
-{{--                        <td class="text-center">--}}
-{{--                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.users.show', $user->id)}}" title="Show">--}}
-{{--                                <i class="las la-eye"></i>--}}
-{{--                            </a>--}}
-{{--                            @canany(['SuperUser','Manager','Security Officer'], Auth::user())--}}
-{{--                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.users.edit', $user->id)}}" title="Edit">--}}
-{{--                                    <i class="las la-edit"></i>--}}
-{{--                                </a>--}}
-{{--                                <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('admin.users.destroy', $user->id)}}" title="Delete">--}}
-{{--                                    <i class="las la-trash"></i>--}}
-{{--                                </a>--}}
-{{--                            @endcanany--}}
-{{--                        </td>--}}
                     </tr>
 
                 @endforeach
                 </tbody>
             </table>
-            <div class="aiz-pagination">
-                {{--            {{ $users->links() }}--}}
-            </div>
         </div>
     </div>
 
