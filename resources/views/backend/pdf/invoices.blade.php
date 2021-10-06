@@ -186,7 +186,7 @@
             <td>
                 <div class="content_td">
                     <div>
-                        <p>Adress</p>
+                        <p>Address</p>
                         <span>{{$tracker_start->address}}</span>
                     </div>
                 </div>
@@ -194,7 +194,7 @@
             <td>
                 <div class="content_td">
                     <div>
-                        <p>Adress</p>
+                        <p>Address</p>
                         <span>{{$tracker_end->address}}</span>
                     </div>
                 </div>
@@ -380,7 +380,7 @@
         <tr>
             <td colspan="1">
                 <div class="content_td">
-                    <span>{{$invoices->shipper}}</span>
+                    <span>Print name of shipper or shipper's agent:</span>
                 </div>
             </td>
             <td colspan="1">
@@ -395,7 +395,7 @@
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    Time:
+                    DATE:
                 </div>
             </td>
         </tr>
@@ -408,12 +408,12 @@
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    DATE
+                    Time:
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                   <span>{{$invoices->consignee}}</span>
+                   Signature of consignee or consignee's agent:
                 </div>
             </td>
             <td colspan="1">
