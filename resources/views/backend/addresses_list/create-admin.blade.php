@@ -23,8 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label>User:</label>
-                        <select class="form-control "  name="user_id">
-                            <option></option>
+                        <select class="form-control "  name="user_id[]" multiple>
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach

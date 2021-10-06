@@ -86,16 +86,21 @@ class AddressesListController extends Controller
     {
         if (Gate::check('Administration')) {
 
+
             $validated_data = $this->validate($request, [
                 'address' => 'required|string|unique:addresses_lists',
-                'user_id' => 'integer',
+                'user_id' => 'array',
             ],
                 ['unique' => 'The address has already exists.']);
 
-            $address = new AddressesList;
-            $address->fill($validated_data);
-            $address->user_id = $request->user_id ?? Auth::id();
-            $address->save();
+            foreach ($validated_data['user_id'] as $item)
+            {
+                $address = new AddressesList;
+                $address->address = $validated_data['address'];
+                $address->user_id = $item ?? Auth::id();
+                $address->save();
+            }
+
 
             return redirect()->route('admin.addresses-list.index');
         }
