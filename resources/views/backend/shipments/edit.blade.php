@@ -1018,9 +1018,9 @@
 
                 <div class="form-group ">
                     <div class="">
-                        <div>
+                        <div class="form-group">
                             <input type="submit" name="submitted"
-                                   class="btn btn-sm font-weight-bolder btn-light-primary" value="Save and return">
+                                   class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
                         </div>
                         <div>
                             <input type="submit" name="submitted"

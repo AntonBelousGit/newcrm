@@ -378,7 +378,7 @@ class OrderController extends Controller
                 $tracker_end->update();
             }
 
-            if ($request->submitted === "Save and return") {
+            if ($request->submitted === "Save") {
                 return redirect()->back();
             }
 
