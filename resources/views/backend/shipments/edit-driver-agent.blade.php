@@ -33,25 +33,6 @@
 @endsection
 @section('sub_title') Create New Shipment @endsection
 @section('content')
-    @php
-        /*   $auth_user = Auth::user();
-           $user_type = Auth::user()->user_type;
-           $staff_permission = json_decode(Auth::user()->staff->role->permissions ?? "[]");
-           $countries = \App\Country::where('covered',1)->get();
-           $packages = \App\Package::all();
-           $deliveryTimes = \App\DeliveryTime::all();
-           $is_def_mile_or_fees = \App\ShipmentSetting::getVal('is_def_mile_or_fees');
-           // is_def_mile_or_fees if result 1 for mile if result 2 for fees
-           dd($is_def_mile_or_fees);
-           if(!$is_def_mile_or_fees){
-               $is_def_mile_or_fees = 0;
-           }
-           $checked_google_map = \App\BusinessSetting::where('type', 'google_map')->first();
-           if($user_type == 'customer')
-           {
-               $user_client = Auth::user()->userClient->client_id;
-           } */
-    @endphp
     <style>
         label {
             font-weight: bold !important;
@@ -362,7 +343,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Arrived Time:</label>
-                                    <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $end_time }}"/>
+                                    <input  placeholder="Start time" type="datetime-local" name="start[arrived_time]"  class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-3" id="actual_time_start">
@@ -407,6 +388,7 @@
                                                          $start_time = str_replace(' ','T', $tracker->start_time);
                                                     }
                                                     $end_time=is_null($tracker->end_time)?'':str_replace(' ','T', $tracker->end_time);
+                                                    $left_the_point=is_null($tracker->left_the_point)?'':str_replace(' ','T', $tracker->left_the_point);
                                                 @endphp
                                                 <label>Estimated time:</label>
                                                 <input  placeholder="Start time" type="datetime-local" disabled class="form-control clear-value-data" value="{{ $start_time }}" required/>
@@ -415,7 +397,14 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label>Arrived Time:</label>
-                                                <input  placeholder="Start time" type="datetime-local" disabled class="form-control clear-value-data" value="{{$end_time}}" />
+                                                <input  placeholder="Start time" type="datetime-local" name="arrived_time"  class="form-control clear-value-data" value="{{$end_time}}" />
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3 col-md-4">
+                                                <label>Left Time:</label>
+                                                <input placeholder="Left Time" type="datetime-local" name="left_time"
+                                                       autocomplete="off"
+                                                       class="form-control clear-value-data" value="{{$left_the_point}}"/>
                                                 <div class="mb-2 d-md-none"></div>
                                             </div>
                                             <div class="col-md-1">
@@ -458,7 +447,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Arrived Time:</label>
-                                    <input  placeholder="Start time" type="datetime-local" disabled class="form-control" value="{{ $end_time }}"/>
+                                    <input  placeholder="Start time" type="datetime-local" name="end[arrived_time]" class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-3 tracker_append" id="actual-time-end-signed">

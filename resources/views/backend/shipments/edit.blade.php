@@ -779,7 +779,7 @@
                                         </div>
                                         <div class="col-md-3 col-md-4">
                                             <label>Left Time:</label>
-                                            <input placeholder="Left Time" type="datetime-local" disabled
+                                            <input placeholder="Left Time" type="datetime-local" name="left_time"
                                                    autocomplete="off"
                                                    class="form-control clear-value-data" value="{{$left_the_point}}"/>
                                             <div class="mb-2 d-md-none"></div>
@@ -868,7 +868,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Left Time:</label>
-                                        <input placeholder="Left Time" type="datetime-local" disabled autocomplete="off"
+                                        <input placeholder="Left Time" type="datetime-local" name="left_time" autocomplete="off"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
