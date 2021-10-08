@@ -40,7 +40,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::post('/search', [AddressesListController::class, 'search'])->name('search');
         Route::get('/addresses-list/import', [AddressesListController::class, 'viewImport'])->name('view-import');
         Route::post('/addresses-list/import', [AddressesListController::class, 'import'])->name('import-address');
-        Route::get('google-autocomplete', [GoogleController::class, 'index']);
 
         Route::resources([
             'orders' => OrderController::class,
