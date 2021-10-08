@@ -115,7 +115,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" name="address_shipper"
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" name="address_shipper"
                                            autocomplete="off"
                                            required class="form-control" value="{{$tracker_start->address}}"/>
                                 </div>
@@ -136,7 +136,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" name="shipper_postcode"
+                                    <input type="text" placeholder="Post code" id="postal_code" name="shipper_postcode"
                                            autocomplete="off"
                                            class="form-control" required value="{{$tracker_start->post_code}}"/>
                                 </div>
@@ -145,7 +145,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" disabled
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" disabled
                                            autocomplete="off"
                                            class="form-control" value="{{$tracker_start->address}}"/>
                                 </div>
@@ -165,7 +165,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" class="form-control" disabled
+                                    <input type="text" placeholder="Post code" id="postal_code" class="form-control" disabled
                                            autocomplete="off"
                                            value="{{$tracker_start->post_code}}"/>
                                 </div>
@@ -216,7 +216,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" name="address_consignee"
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2" name="address_consignee"
                                            autocomplete="off"
                                            required class="form-control" value="{{$tracker_end->address}}"/>
                                 </div>
@@ -237,7 +237,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" name="consignee_postcode"
+                                    <input type="text" placeholder="Post code" id="postal_code2" name="consignee_postcode"
                                            autocomplete="off"
                                            class="form-control" required value="{{$tracker_end->post_code}}"/>
                                 </div>
@@ -246,7 +246,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" class="form-control"
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2" class="form-control"
                                            autocomplete="off"
                                            disabled value="{{$tracker_end->address}}"/>
                                 </div>
@@ -266,7 +266,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" class="form-control" disabled
+                                    <input type="text" placeholder="Post code" class="form-control" id="postal_code2" disabled
                                            autocomplete="off"
                                            value="{{$tracker_end->post_code}}"/>
                                 </div>
@@ -975,7 +975,7 @@
                         </div>
 
                     </div>
-                    @if($orders->status_id == 6)
+                    @if($orders->status_id == 6 || $orders->status_id == 7 || $orders->status_id == 9)
                         <br>
                         <div class="">
                             <div class="col-md-12">
@@ -1548,180 +1548,48 @@
                 maxboostedstep: 10000000,
                 initval: 1,
             });
-            {{--FormValidation.formValidation(--}}
-            {{--    document.getElementById('kt_form_1'), {--}}
-            {{--        fields: {--}}
-            {{--            "Shipment[type]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[shipping_date]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[branch_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[client_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    callback: {--}}
-            {{--                        message: '{{ ("This is required!")}}',--}}
-            {{--                        callback: function(input) {--}}
-            {{--                            // Get the selected options--}}
-            {{--                            if ((input.value !== "")) {--}}
-            {{--                                $('.client-select').removeClass('has-errors');--}}
-            {{--                            } else {--}}
-            {{--                                $('.client-select').addClass('has-errors');--}}
-            {{--                            }--}}
-            {{--                            return (input.value !== "");--}}
-            {{--                        }--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[client_address]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[client_phone]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[payment_type]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[payment_method_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[tax]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[insurance]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[shipping_cost]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[delivery_time]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[delivery_time]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[total_weight]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[from_country_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[to_country_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[reciver_name]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[reciver_phone]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Shipment[reciver_address]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            },--}}
-            {{--            "Package[0][package_id]": {--}}
-            {{--                validators: {--}}
-            {{--                    notEmpty: {--}}
-            {{--                        message: '{{ ("This is required!")}}'--}}
-            {{--                    }--}}
-            {{--                }--}}
-            {{--            }--}}
-            {{--        },--}}
-            {{--        plugins: {--}}
-            {{--            autoFocus: new FormValidation.plugins.AutoFocus(),--}}
-            {{--            trigger: new FormValidation.plugins.Trigger(),--}}
-            {{--            // Bootstrap Framework Integration--}}
-            {{--            bootstrap: new FormValidation.plugins.Bootstrap(),--}}
-            {{--            // Validate fields when clicking the Submit button--}}
-            {{--            submitButton: new FormValidation.plugins.SubmitButton(),--}}
-            {{--            // Submit the form when all fields are valid--}}
-            {{--            defaultSubmit: new FormValidation.plugins.DefaultSubmit(),--}}
-            {{--            icon: new FormValidation.plugins.Icon({--}}
-            {{--                valid: '',--}}
-            {{--                invalid: 'fa fa-times',--}}
-            {{--                validating: 'fa fa-refresh',--}}
-            {{--            }),--}}
-            {{--        }--}}
-            {{--    }--}}
-            {{--);--}}
 
             $('.clear-value-datatime').click(function () {
                 $('.zakupak').last().find('.col-md-3').find('.clear-value-data').removeAttr('value');
             });
         });
+    </script>
+
+    <script type="text/javascript"
+            src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places" ></script>
+    <script>
+        var geocoder;
+
+        function initialize() {
+            autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: [ 'address' ] });
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var place = autocomplete.getPlace();
+                for (var i = 0; i < place.address_components.length; i++) {
+                    for (var j = 0; j < place.address_components[i].types.length; j++) {
+                        if (place.address_components[i].types[j] == "postal_code") {
+                            console.log(place.address_components[i].long_name);
+                            document.getElementById('postal_code').value = place.address_components[i].long_name;
+
+                        }
+                    }
+                }
+            })
+
+            autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), { types: [ 'address' ] });
+            google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+                var place2 = autocomplete2.getPlace();
+                for (var i = 0; i < place2.address_components.length; i++) {
+                    for (var j = 0; j < place2.address_components[i].types.length; j++) {
+                        if (place2.address_components[i].types[j] == "postal_code") {
+                            console.log(place2.address_components[i].long_name);
+                            document.getElementById('postal_code2').value = place2.address_components[i].long_name;
+
+                        }
+                    }
+                }
+            });
+        }
+        google.maps.event.addDomListener(window, "load", initialize);
+
     </script>
 @endsection

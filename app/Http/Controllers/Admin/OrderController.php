@@ -43,7 +43,6 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent', 'Driver', 'Client'], Auth::user())) {
             $orders = $this->orderService->getAll();
 
-//            dd($orders);
             $title = 'All Shipments';
             return view('backend.shipments.index', compact('orders', 'title'));
         }
@@ -139,7 +138,6 @@ class OrderController extends Controller
 
     public function store_returned_order(Request $request)
     {
-//        dd($request);
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
             $order = $this->orderService->saveReturnedOrder($request, $request->parent_id, true);
@@ -227,8 +225,6 @@ class OrderController extends Controller
                     ->where('subject_id', $id);
             })->orderBy('created_at', 'DESC')->get();
 
-//            dd(json_decode($huyny[0]->properties));
-
         return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end','logs'));
     }
 
@@ -244,8 +240,6 @@ class OrderController extends Controller
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
             $user = User::all();
 
-//            dd($orders);
-
             $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '1')->get();
             $trackers_count = count($trackers);
@@ -258,8 +252,6 @@ class OrderController extends Controller
             $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
 
             $lupa[] = $tracker_end->cargolocation->toArray();
-
-//            dd($lupa);
 
             $status = ProductStatus::all();
             $payers = Payer::all();
@@ -287,7 +279,6 @@ class OrderController extends Controller
 
             if (isset($request->Package)) {
                 foreach ($request->Package as $option_key) {
-//                    dd($request->Package);
                     if ($option_key['id']) {
                         $cargo = Cargo::findOrFail($option_key['id']);
                         $cargo->type = $option_key['type'];
@@ -321,9 +312,6 @@ class OrderController extends Controller
                 }
             }
 
-
-//            dd(isset($request->time));
-
             if (!isset($request->time)) {
 
                 $this->trakerService->updateStartTracker($order, $request, false);
@@ -338,7 +326,6 @@ class OrderController extends Controller
                     if (!isset($option_key['id'])) {
                         $this->trakerService->createTransitionalTracker($order, $option_key, false);
                     } else if (isset($option_key['id'])) {
-//                        dd($option_key['id']);
 
                         $this->trakerService->updateTransitionalTracker($order, $option_key, false);
                     }
@@ -348,7 +335,6 @@ class OrderController extends Controller
                 $this->trakerService->updateStartTracker($order, $request, true);
 
                 foreach ($request->time as $option_key) {
-//                    dd(count($request->time));
                     if (!isset($option_key['id'])) {
                         $this->trakerService->createTransitionalTracker($order, $option_key, true);
                     } else if (isset($option_key['id'])) {
@@ -480,7 +466,6 @@ class OrderController extends Controller
 
         $order = Order::find($id);
         if (Gate::any(['manage-agent', 'manage-driver'], $order)) {
-//                dd($request);
 
             if (!isset($request->time)) {
 
@@ -511,7 +496,6 @@ class OrderController extends Controller
             return redirect()->back();
 
         }
-//        dd($tracker_start);
         return abort(403);
     }
 

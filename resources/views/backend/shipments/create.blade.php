@@ -100,8 +100,8 @@
                         <div class="col-md-6">
                             <div class="form-group supper-input">
                                 <label class="red-star">{{ ('Shipper Address')}}:</label>
-                                <input type="text" placeholder="City, street" name="address_shipper" autocomplete="off"
-                                       class="form-control search" onkeyup="Search(this)" required value="{{old('address_shipper')}}"/>
+                                <input type="text" placeholder="City, street" id="autocomplete" name="address_shipper" autocomplete="off"
+                                       class="form-control search" required value="{{old('address_shipper')}}"/>
                                 <div class="hint_search">
                                 </div>
                                 @can('Client',Auth::user())
@@ -126,7 +126,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Post code:</label>
-                                <input type="text" placeholder="Post code" name="shipper_postcode" class="form-control" autocomplete="off"
+                                <input type="text" placeholder="Post code" name="shipper_postcode" id="postal_code" class="form-control" autocomplete="off"
                                        required value="{{old('shipper_postcode')}}"/>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                             <div class="form-group supper-input">
                                 <label class="red-star">{{ ('Consignee Address')}}:</label>
                                 <input type="text" placeholder="City, street" name="address_consignee" autocomplete="off"
-                                       class="form-control search" onkeyup="Search(this)" required value="{{old('address_consignee')}}"/>
+                                       class="form-control search" id="autocomplete2" required value="{{old('address_consignee')}}"/>
                                 <div class="hint_search">
                                 </div>
                                 @can('Client',Auth::user())
@@ -194,7 +194,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Post code:</label>
-                                <input type="text" placeholder="Post code" name="consignee_postcode" autocomplete="off"
+                                <input type="text" placeholder="Post code" id="postal_code2" name="consignee_postcode" autocomplete="off"
                                        class="form-control" required value="{{old('shipper')}}"/>
                             </div>
                         </div>
@@ -1010,5 +1010,42 @@
                 initval: 1,
             });
         });
+    </script>
+    <script type="text/javascript"
+            src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places" ></script>
+    <script>
+        var geocoder;
+
+        function initialize() {
+            autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: [ 'address' ] });
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var place = autocomplete.getPlace();
+                for (var i = 0; i < place.address_components.length; i++) {
+                    for (var j = 0; j < place.address_components[i].types.length; j++) {
+                        if (place.address_components[i].types[j] == "postal_code") {
+                            console.log(place.address_components[i].long_name);
+                            document.getElementById('postal_code').value = place.address_components[i].long_name;
+
+                        }
+                    }
+                }
+            })
+
+            autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), { types: [ 'address' ] });
+            google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+                var place2 = autocomplete2.getPlace();
+                for (var i = 0; i < place2.address_components.length; i++) {
+                    for (var j = 0; j < place2.address_components[i].types.length; j++) {
+                        if (place2.address_components[i].types[j] == "postal_code") {
+                            console.log(place2.address_components[i].long_name);
+                            document.getElementById('postal_code2').value = place2.address_components[i].long_name;
+
+                        }
+                    }
+                }
+            });
+        }
+        google.maps.event.addDomListener(window, "load", initialize);
+
     </script>
 @endsection

@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'google_api' =>env('GOOGLE_MAP_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -133,6 +135,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
 
     'providers' => [
 

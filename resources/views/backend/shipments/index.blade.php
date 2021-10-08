@@ -125,8 +125,8 @@
                                            echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
                                         }
                                         elseif ($shipment->status_id == 4){
-                                           echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
-                                        }
+                                            $location_name=!is_null($shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first())?$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name:$shipment->tracker->where('position','2')->where('status','Awaiting arrival')->first()->cargolocation->name;
+                                            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'. $location_name .'</th>';                                        }
                                         else
                                         {
                                            echo '<th>'.$shipment->status->name.'</th>';
@@ -216,7 +216,8 @@
                                            echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
                                         }
                                         elseif ($shipment->status_id == 4){
-                                           echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
+                                            $location_name=!is_null($shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first())?$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name:$shipment->tracker->where('position','2')->where('status','Awaiting arrival')->first()->cargolocation->name;
+                                            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'. $location_name .'</th>';
                                         }
                                         else
                                         {
@@ -259,7 +260,7 @@
                                     <th>{{$shipment->id}}</th>
                                     <th>
                                         <div class="text_table">
-                                        {{$shipment->company_shipper}}
+                                            {{$shipment->company_shipper}}
                                             <div class="display_none_text">
                                                 {{$shipment->shipper}}<br>
                                                 {{$shipment->phone_shipper}}<br>
@@ -310,7 +311,8 @@
                                            echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
                                         }
                                         elseif ($shipment->status_id == 4){
-                                           echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
+                                            $location_name=!is_null($shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first())?$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name:$shipment->tracker->where('position','2')->where('status','Awaiting arrival')->first()->cargolocation->name;
+                                            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'. $location_name .'</th>';
                                         }
                                         else
                                         {
@@ -397,7 +399,8 @@
                                        echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
                                     }
                                     elseif ($shipment->status_id == 4){
-                                       echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'.$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name.'</th>';
+                                        $location_name=!is_null($shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first())?$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name:$shipment->tracker->where('position','2')->where('status','Awaiting arrival')->first()->cargolocation->name;
+                                        echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'. $location_name .'</th>';
                                     }
                                     else
                                     {
