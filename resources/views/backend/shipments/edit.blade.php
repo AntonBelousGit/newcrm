@@ -681,11 +681,13 @@
 
                             <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>
-                                <input placeholder="Start time" type="datetime-local" name="start[start_time]"
+                                <input placeholder="Start time FROM" type="datetime-local" name="start[start_time]"
                                        autocomplete="off"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
-                                <input type="hidden" name="start[start_time_stop]" value="{{$start_time_stop}}">
+                                <input placeholder="TO" type="datetime-local" name="start[start_time_stop]"
+                                       autocomplete="off"
+                                       class="form-control" value="{{$start_time_stop}}"/>
                             </div>
                             <div class="col-md-3 col-md-4" id="actual_time">
                                 <label>Arrived Time:</label>
@@ -939,11 +941,14 @@
                             @endphp
                             <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>
-                                <input placeholder="Start time" type="datetime-local" name="end[start_time]"
+                                <input placeholder="Start time FROM" type="datetime-local" name="end[start_time]"
                                        autocomplete="off"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
-                                <input type="hidden" name="end[start_time_stop]" value="{{$start_time_stop}}">
+                                <input placeholder="TO" type="datetime-local" name="end[start_time_stop]"
+                                       autocomplete="off"
+                                       class="form-control" value="{{ $start_time_stop }}"/>
+
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
