@@ -34,4 +34,7 @@ class OrderService
     public function createCargo($request,$order){
         return $this->orderRepository->createCargo($request,$order);
     }
+    public function dublicate($order){
+        return $this->orderRepository->dublicate($order);
+    }
 }

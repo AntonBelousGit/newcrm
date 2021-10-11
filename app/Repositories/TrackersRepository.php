@@ -18,6 +18,11 @@ class TrackersRepository
         $this->tracker = $tracker;
     }
 
+    public function getTrackers($order)
+    {
+        return Tracker::where('order_id',$order->id)->where('position','!=','1')->get();
+    }
+
     public function getTrackerById($id)
     {
         return Tracker::findOrFail($id);
@@ -271,6 +276,25 @@ class TrackersRepository
             $order->update();
         }
         $tracker->update();
+    }
+
+    public function dublicate($new_order,$order)
+    {
+        $trackers = $this->getTrackers($order);
+
+        foreach ($trackers as $tracker)
+        {
+            $new_tracker = $tracker->replicate();
+            $new_tracker->start_time_stop = null;
+            $new_tracker->end_time = null;
+            $new_tracker->end_time_stop = null;
+            $new_tracker->left_the_point = null;
+            $new_tracker->tracker_id = null;
+            $new_tracker->status = 'Awaiting arrival';
+            $new_tracker->alert = 'ok';
+            $new_tracker->order_id = $new_order->id;
+            $new_tracker->save();
+        }
     }
 
 }

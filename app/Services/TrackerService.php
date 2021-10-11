@@ -43,14 +43,13 @@ class TrackerService
 
     public function updateTransitionalTracker($order, $option_key, $many)
     {
-        $this->trackerRepository->updateTransitionalTracker($order, $option_key,$many);
+        $this->trackerRepository->updateTransitionalTracker($order, $option_key, $many);
     }
 
     public function createTransitionalTracker($order, $option_key, $many)
     {
-        $this->trackerRepository->createTransitionalTracker($order, $option_key,$many);
+        $this->trackerRepository->createTransitionalTracker($order, $option_key, $many);
     }
-
 
 
     public function updateDriverStartTracker($order, $request, $many)
@@ -62,8 +61,14 @@ class TrackerService
     {
         $this->trackerRepository->updateDriverEndTracker($order, $request);
     }
+
     public function updateDriverTransitionalTracker($order, $option_key, $many)
     {
-        $this->trackerRepository->updateDriverTransitionalTracker($order, $option_key,$many);
+        $this->trackerRepository->updateDriverTransitionalTracker($order, $option_key, $many);
+    }
+
+    public function dublicate($new_order, $order)
+    {
+        $this->trackerRepository->dublicate($new_order, $order);
     }
 }

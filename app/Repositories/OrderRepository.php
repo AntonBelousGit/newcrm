@@ -192,14 +192,12 @@ class OrderRepository
         return $order;
     }
 
-    public
-    function findById($id)
+    public function findById($id)
     {
         return Order::with('cargo')->findOrFail($id);
     }
 
-    public
-    function createCargo($request, $order)
+    public function createCargo($request, $order)
     {
         foreach ($request->Package as $item) {
 
@@ -222,4 +220,15 @@ class OrderRepository
         return true;
     }
 
+    public function dublicate($order)
+    {
+        $new_order = $order->replicate();
+        $new_order->created_at = now();
+        $new_order->invoice_number = null;
+        $new_order->status_id = 1;
+        $new_order->save();
+        $new_order->invoice_number = $new_order->id;
+        $new_order->update();
+        return $new_order;
+    }
 }

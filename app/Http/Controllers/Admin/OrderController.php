@@ -11,6 +11,7 @@ use App\Models\ProductStatus;
 use App\Models\SubProductStatus;
 use App\Models\Tracker;
 use App\Models\User;
+use App\Services\PackageServices;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\OrderService;
@@ -19,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use JetBrains\PhpStorm\NoReturn;
 use Spatie\Activitylog\Models\Activity;
 
 class OrderController extends Controller
@@ -26,11 +28,13 @@ class OrderController extends Controller
 
     protected $orderService;
     protected $trakerService;
+    protected $packageServices;
 
-    public function __construct(OrderService $orderService, TrackerService $trackerService)
+    public function __construct(OrderService $orderService, TrackerService $trackerService, PackageServices $packageServices)
     {
         $this->orderService = $orderService;
         $this->trakerService = $trackerService;
+        $this->packageServices = $packageServices;
     }
 
     /**
@@ -217,7 +221,7 @@ class OrderController extends Controller
     {
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
-        $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver','payer')->findOrFail($id);
+        $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver', 'payer')->findOrFail($id);
 
         $logs = Activity::with('user')->where('order_id', $id)
             ->orWhere(function ($query) use ($id) {
@@ -225,7 +229,7 @@ class OrderController extends Controller
                     ->where('subject_id', $id);
             })->orderBy('created_at', 'DESC')->get();
 
-        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end','logs'));
+        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end', 'logs'));
     }
 
     /**
@@ -272,7 +276,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-;
+        ;
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
             $order = $this->orderService->findAndUpdate($request, $id);
@@ -498,6 +502,18 @@ class OrderController extends Controller
         }
         return abort(403);
     }
+
+    public function duplicate(int $id)
+    {
+        $order = Order::where('id', $id)->first();
+        if (Gate::any(['Administration', 'manage-user-order'], $order)) {
+            $new_order = $this->orderService->dublicate($order);
+            $this->packageServices->dublicate($new_order,$order);
+            $this->trakerService->dublicate($new_order,$order);
+        }
+        return redirect()->route('admin.orders.index');
+    }
+
 
     /**
      * Remove the specified resource from storage.

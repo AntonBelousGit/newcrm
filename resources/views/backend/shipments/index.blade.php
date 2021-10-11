@@ -413,6 +413,10 @@
                                        href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                         <i class="las la-eye"></i>
                                     </a>
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                       href="{{route('admin.orders.duplicate', $shipment->id)}}" title="Duplicate">
+                                        <i class="far fa-copy"></i>
+                                    </a>
                                     @canany(['SuperUser','Manager','OPS'], Auth::user())
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                            href="{{route('admin.orders.edit', $shipment->id)}}" title="{{  ('Edit') }}">
