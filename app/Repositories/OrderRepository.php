@@ -150,7 +150,7 @@ class OrderRepository
     {
         $order = $this->findById($id);
 //        dd($order);
-        if ($order->status_id < 3 && $request->status_id < 3) {
+        if (!in_array($order->status_id, [6, 7, 9, 10]) && !in_array($request->status_id, [6, 7, 9, 10])) {
             $order->shipper = $request->shipper;
             $order->phone_shipper = $request->phone_shipper;
             $order->company_shipper = $request->company_shipper;
@@ -171,16 +171,16 @@ class OrderRepository
 //        $order->delivery_time = $request->delivery_time;
             $order->delivery_comment = $request->delivery_comment;
             $order->payer_id = $request->payer_id;
-            if ($order->status_id < 2 && $request->status_id < 3) {
-                $order->my_sensor = $request->my_sensor ?? 'off';
-                $order->my_container = $request->my_container ?? 'off';
-                $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
-                $order->container = $request->container ?? 'off';
-                $order->notifications = $request->notifications ?? 'off';
-                $order->email = $request->email ?? '';
-                $order->status_id = $request->status_id;
+//            if ($order->status_id < 2 && $request->status_id < 3) {
+            $order->my_sensor = $request->my_sensor ?? 'off';
+            $order->my_container = $request->my_container ?? 'off';
+            $order->sensor_for_rent = $request->sensor_for_rent ?? 'off';
+            $order->container = $request->container ?? 'off';
+            $order->notifications = $request->notifications ?? 'off';
+            $order->email = $request->email ?? '';
+            $order->status_id = $request->status_id;
 
-            }
+//            }
 
             $order->agent_id = $request->agent_id ?? null;
             if (!is_null($request->substatus_id)) {

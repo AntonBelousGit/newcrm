@@ -276,7 +276,6 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        ;
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
             $order = $this->orderService->findAndUpdate($request, $id);
