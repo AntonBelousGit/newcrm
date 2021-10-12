@@ -95,7 +95,7 @@
 
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper`s company name')}}:</label>
-                                <input type="text" @if($orders->status_id > 1) readonly
+                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) readonly
                                        @endif placeholder="{{ ('Shipper company name')}}" name="company_shipper"
                                        autocomplete="off"
                                        required class="form-control" value="{{$orders->company_shipper}}"/>
@@ -105,13 +105,13 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Phone')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Phone')}}" autocomplete="off"
-                                       @if($orders->status_id > 1) readonly @endif  name="phone_shipper" required
+                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  name="phone_shipper" required
                                        class="form-control" value="{{$orders->phone_shipper}}"/>
 
                             </div>
                         </div>
 
-                        @if($orders->status_id == 1)
+                        @if(!in_array($orders->status_id,[6,7,9,10]))
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
@@ -124,7 +124,7 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" autocomplete="off"
-                                            @if($orders->status_id > 1) readonly @endif  id="shipper_address"
+                                            id="shipper_address"
                                             name="shipper_address_id" required>
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}"
@@ -175,7 +175,7 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" autocomplete="off"
-                                       @if($orders->status_id > 1) readonly @endif   required
+                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif   required
                                        class="form-control" value="{{$orders->shipper}}"/>
                                 <input type="hidden" id="order" value="{{$orders->id}}">
                             </div>
@@ -183,7 +183,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Site Number :</label>
-                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_shipper"
+                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  name="site_shipper"
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->site_shipper}}"/>
 
@@ -196,7 +196,7 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee`s company name')}}:</label>
                                 <input type="text" placeholder="{{ ('Company Consignee')}}"
-                                       @if($orders->status_id > 1) readonly @endif name="company_consignee"
+                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif name="company_consignee"
                                        autocomplete="off"
                                        required class="form-control" value="{{ $orders->company_consignee }}"/>
                             </div>
@@ -205,14 +205,13 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Phone')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Phone')}}" required
-                                       @if($orders->status_id > 1) readonly @endif
+                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif
                                        name="phone_consignee" class="form-control" autocomplete="off"
                                        value="{{$orders->phone_consignee}}"/>
 
                             </div>
                         </div>
-
-                        @if($orders->status_id == 1)
+                        @if(!in_array($orders->status_id,[6,7,9,10]))
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
@@ -225,7 +224,7 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" autocomplete="off"
-                                            @if($orders->status_id > 1) readonly @endif  id="consignee_address"
+                                            id="consignee_address"
                                             name="consignee_address_id" required>
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}"
@@ -276,7 +275,7 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Name')}}"
-                                       @if($orders->status_id > 1) readonly @endif  required name="consignee"
+                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  required name="consignee"
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->consignee}}"/>
                             </div>
@@ -284,7 +283,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Site Number :</label>
-                                <input type="text" @if($orders->status_id > 1) readonly @endif  name="site_consignee"
+                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  name="site_consignee"
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->site_consignee}}"/>
 
@@ -293,7 +292,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Shipment description')}}:</label>
-                                <textarea class="form-control" @if($orders->status_id > 1) readonly @endif
+                                <textarea class="form-control" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif
                                 name="shipment_description"
                                           autocomplete="off">{{ $orders->shipment_description }}</textarea>
                             </div>
@@ -301,61 +300,10 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Pick-up Instruction</label>
-                                <textarea class="form-control" @if($orders->status_id > 1) readonly
+                                <textarea class="form-control" @if(in_array($orders->status_id,[6,7,9,10])) readonly
                                           @endif  name="comment" autocomplete="off">{{ $orders->comment }}</textarea>
                             </div>
                         </div>
-                        {{--                        <div class="col-md-6">--}}
-                        {{--                            <div class="form-group fv-plugins-icon-container">--}}
-                        {{--                                <label>Shipping Date:</label>--}}
-                        {{--                                <div class="input-group date">--}}
-                        {{--                                    <input type="text" placeholder="Sending Date" value="{{ $orders->sending_time }}" name="sending_time" autocomplete="off" class="form-control" id="kt_datepicker_3">--}}
-                        {{--                                    <div class="input-group-append">--}}
-                        {{--                                            <span class="input-group-text">--}}
-                        {{--                                                <i class="la la-calendar"></i>--}}
-                        {{--                                            </span>--}}
-                        {{--                                    </div>--}}
-                        {{--                                </div><i data-field="sending_time" class="fv-plugins-icon"></i>--}}
-                        {{--                                <div class="fv-plugins-message-container"></div></div>--}}
-                        {{--                        </div>--}}
-                        {{--                        <div class="col-md-6">--}}
-                        {{--                            <div class="form-group fv-plugins-icon-container">--}}
-                        {{--                                <label>Delivery Date:</label>--}}
-                        {{--                                <div class="input-group date">--}}
-                        {{--                                    <input type="text" placeholder="Delivery Date" value="{{ $orders->delivery_time }}" name="delivery_time" autocomplete="off" class="form-control" id="kt_datepicker_4">--}}
-                        {{--                                    <div class="input-group-append">--}}
-                        {{--                                            <span class="input-group-text">--}}
-                        {{--                                                <i class="la la-calendar"></i>--}}
-                        {{--                                            </span>--}}
-                        {{--                                    </div>--}}
-                        {{--                                </div><i data-field="delivery_time" class="fv-plugins-icon"></i>--}}
-                        {{--                                <div class="fv-plugins-message-container"></div></div>--}}
-                        {{--                        </div>--}}
-                        {{--                        @php--}}
-                        {{--                            if (isset($orders->sending_time))--}}
-                        {{--                            {--}}
-                        {{--                                 $orders_start_time = str_replace(' ','T', $orders->sending_time);--}}
-                        {{--                            }--}}
-                        {{--                            $orders_end_time=is_null($orders->delivery_time)?'':str_replace(' ','T', $orders->delivery_time);--}}
-                        {{--                        @endphp--}}
-                        {{--                        <div class="col-md-6">--}}
-                        {{--                            <div class="form-group fv-plugins-icon-container">--}}
-                        {{--                                <label class="red-star">Shipping Date:</label>--}}
-                        {{--                                <div class="input-group date">--}}
-                        {{--                                    <input  placeholder="Start time" type="datetime-local" name="sending_time" required class="form-control" value="{{$orders_start_time}}"/>--}}
-                        {{--                                </div><i data-field="sending_time" class="fv-plugins-icon"></i>--}}
-
-                        {{--                                <div class="fv-plugins-message-container"></div></div>--}}
-                        {{--                        </div>--}}
-                        {{--                        <div class="col-md-6">--}}
-                        {{--                            <div class="form-group fv-plugins-icon-container">--}}
-                        {{--                                <label class="red-star">Delivery Date:</label>--}}
-                        {{--                                <div class="input-group date">--}}
-                        {{--                                    <input  placeholder="Start time" type="datetime-local" name="delivery_time" required class="form-control" value="{{$orders_end_time}}"/>--}}
-                        {{--                                </div><i data-field="delivery_time" class="fv-plugins-icon"></i>--}}
-
-                        {{--                                <div class="fv-plugins-message-container"></div></div>--}}
-                        {{--                        </div>--}}
                     </div>
                     <hr>
                 </div>
@@ -372,9 +320,9 @@
                                             <label class="red-star">{{ ('Type')}}:</label>
                                             <input type="text" placeholder="{{ ('type')}}" class="form-control" required
                                                    autocomplete="off"
-                                                   name="type" @if($orders->status_id > 1) disabled
+                                                   name="type" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif  value="{{$item['type']}}">
-                                            <input type="hidden" name="id" @if($orders->status_id > 1) disabled
+                                            <input type="hidden" name="id" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif value="{{$item['id']}}">
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -383,7 +331,7 @@
                                             <input
                                                 {{--                                                class="kt_touchspin_weight"--}}
                                                 placeholder="Actual weight" type="number"
-                                                required @if($orders->status_id > 1) disabled @endif  min="1"
+                                                required @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif  min="1"
                                                 step="0.1"
                                                 name="actual_weight" class="form-control" autocomplete="off"
                                                 value="{{$item['actual_weight']}}"/>
@@ -392,14 +340,14 @@
                                         <div class="col-md-3">
                                             <label class="red-star">{{ ('Quantity')}}:</label>
                                             <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required
-                                                   type="number" @if($orders->status_id > 1) disabled @endif  min="1"
+                                                   type="number" @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif  min="1"
                                                    name="quantity" class="form-control" autocomplete="off"
                                                    value="{{$item['quantity']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number box:</label>
-                                            <input type="text" @if($orders->status_id > 1) disabled
+                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif  placeholder="Serial number" name="serial_number"
                                                    autocomplete="off"
                                                    class="form-control " value="{{$item['serial_number']}}"/>
@@ -407,7 +355,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number sensor:</label>
-                                            <input type="text" @if($orders->status_id > 1) disabled
+                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif  placeholder="Serial number sensor" autocomplete="off"
                                                    name="serial_number_sensor" class="form-control  "
                                                    value="{{$item['serial_number_sensor']}}"/>
@@ -415,14 +363,14 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>UN number:</label>
-                                            <input type="text" @if($orders->status_id > 1) disabled
+                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif  placeholder="UN number" name="un_number" autocomplete="off"
                                                    class="form-control  " value="{{$item['un_number']}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="red-star">Temperature conditions:</label>
-                                            <input type="text" @if($orders->status_id > 1) disabled
+                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif  placeholder="Temperature conditions"
                                                    name="temperature_conditions" required class="form-control  "
                                                    autocomplete="off"
@@ -431,7 +379,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Volume weight:</label>
-                                            <input type="text" @if($orders->status_id > 1) disabled
+                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif  placeholder="Volume weight" name="volume_weight"
                                                    autocomplete="off"
                                                    disabled class="form-control  " value="{{$item['volume_weight']}}"/>
@@ -442,7 +390,7 @@
                                                 :</label>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if($orders->status_id > 1) disabled
+                                            <input class="dimensions_r" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Length')}}"
@@ -450,7 +398,7 @@
                                                    value="{{$item['сargo_dimensions_length']}}"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if($orders->status_id > 1) disabled
+                                            <input class="dimensions_r" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Width')}}"
@@ -458,7 +406,7 @@
                                                    value="{{$item['сargo_dimensions_width']}}"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if($orders->status_id > 1) disabled
+                                            <input class="dimensions_r" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control " placeholder="{{ ('Height')}}"
@@ -495,7 +443,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox7" autocomplete="off"
                                        name="my_container"
-                                       @if($orders->status_id > 1) disabled @endif
+                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif
                                        @if($orders->my_container == 'on') checked @endif
                                 >
                                 <label class="form-check-label" for="inlineCheckbox7">My container</label>
@@ -503,7 +451,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="my_sensor"
                                        autocomplete="off"
-                                       @if($orders->status_id > 1) disabled @endif
+                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif
                                        @if($orders->my_sensor == 'on') checked @endif
                                 >
                                 <label class="form-check-label" for="inlineCheckbox6">My sensor</label>
@@ -511,14 +459,14 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" autocomplete="off"
                                        name="sensor_for_rent"
-                                       @if($orders->status_id > 1) disabled @endif
+                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif
                                        @if($orders->sensor_for_rent == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox1">Sensor for rent</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="container"
                                        autocomplete="off"
-                                       @if($orders->status_id > 1) disabled
+                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                        @endif      @if($orders->container == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox2">Container for rent</label>
                             </div>
@@ -532,7 +480,7 @@
                             {{--                            </div>--}}
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox5" autocomplete="off"
-                                       name="notifications" @if($orders->status_id > 1) disabled
+                                       name="notifications" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                        @endif   @if($orders->notifications == 'on') checked @endif>
                                 <label class="form-check-label" for="inlineCheckbox5">Receive notifications</label>
                             </div>
@@ -551,7 +499,7 @@
                                 <label>Delivery Instruction</label>
                                 <textarea class="form-control"
                                           name="delivery_comment"
-                                          @if($orders->status_id > 1) readonly @endif >{{$orders->delivery_comment}}</textarea>
+                                          @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >{{$orders->delivery_comment}}</textarea>
                             </div>
                         </div>
                         <hr>
@@ -559,7 +507,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Shipping Payer:</label>
-                                    <select name="payer_id" @if($orders->status_id > 1) readonly autocomplete="off"
+                                    <select name="payer_id" @if(in_array($orders->status_id,[6,7,9,10])) readonly autocomplete="off"
                                             @endif  class="form-control ">
 
                                         @if ( Auth::user()->roles->first()->id == 8)
@@ -583,7 +531,7 @@
                                 <label>Status</label>
                                 @if($orders->status_id < 2)
                                     <select id="select1" name="status_id" class="form-control " autocomplete="off"
-                                            @if($orders->status_id > 1) readonly @endif >
+                                            @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                         @foreach($status as $item)
                                             @if($item->id > 2)
                                                 @break
@@ -604,7 +552,7 @@
                         <div class="col-md-6" data-select2-id="66">
                             <label>Agent:</label>
                             <select id="change-country-to" name="agent_id" class="form-control " autocomplete="off"
-                                    @if($orders->status_id > 1) readonly @endif >
+                                    @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                 <option value=""></option>
                                 @foreach($user as $item)
                                     @if($item->roles->first()->name == 'Agent')
@@ -658,7 +606,7 @@
                             <div class="col-md-3">
                                 <label>Driver:</label>
                                 <select name="start[driver_id]" class="form-control " autocomplete="off"
-                                        @if($orders->status_id > 1) readonly @endif >
+                                        @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
                                     @foreach($user as $item)
                                         @if($item->roles->first()->name == 'Driver')
@@ -844,7 +792,7 @@
                                     <div class="col-md-3">
                                         <label>Driver:</label>
                                         <select name="driver_id" class="form-control "
-                                                @if($orders->status_id > 1) readonly @endif >
+                                                @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                             <option value=""></option>
                                             @foreach($user as $item)
                                                 @if($item->roles->first()->name == 'Driver')
@@ -920,7 +868,7 @@
                             {{--                            <div class="col-md-3">--}}
                             {{--                                <label>Driver:</label>--}}
                             {{--                                <select name="end[driver_id]" class="form-control "--}}
-                            {{--                                        @if($orders->status_id > 1) readonly @endif >--}}
+                            {{--                                        @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >--}}
                             {{--                                    <option value=""></option>--}}
                             {{--                                    @foreach($user as $item)--}}
                             {{--                                        @if($item->roles->first()->name == 'Driver')--}}
