@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AddressesList;
 use App\Models\Cargo;
 use App\Models\CargoLocation;
 use App\Models\Order;
@@ -63,8 +64,9 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $user = User::all();
             $payers = Payer::all();
+            $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
             $cargo_location = CargoLocation::all();
-            return view('backend.shipments.create', compact('user', 'cargo_location', 'payers'));
+            return view('backend.shipments.create', compact('user', 'cargo_location', 'payers', 'addresses'));
         }
         return abort(403);
     }
@@ -73,7 +75,7 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -261,8 +263,9 @@ class OrderController extends Controller
             $payers = Payer::all();
             $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
+            $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
 
-            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers'));
+            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers','addresses'));
         }
         return abort(403);
     }
@@ -321,7 +324,6 @@ class OrderController extends Controller
                 $this->trakerService->updateEndTracker($order, $request);
 
             } elseif (count($request->time) == 1) {
-
 
                 $this->trakerService->updateStartTracker($order, $request, true);
                 foreach ($request->time as $option_key) {
@@ -507,8 +509,8 @@ class OrderController extends Controller
         $order = Order::where('id', $id)->first();
         if (Gate::any(['Administration', 'manage-user-order'], $order)) {
             $new_order = $this->orderService->dublicate($order);
-            $this->packageServices->dublicate($new_order,$order);
-            $this->trakerService->dublicate($new_order,$order);
+            $this->packageServices->dublicate($new_order, $order);
+            $this->trakerService->dublicate($new_order, $order);
         }
         return redirect()->route('admin.orders.index');
     }

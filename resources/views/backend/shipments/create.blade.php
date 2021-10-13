@@ -77,36 +77,92 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12">
-
                     <hr>
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Shipper’s company name</label>
-                                <input type="text" placeholder="Shipper’s company name" name="company_shipper" autocomplete="off"
+                                <input type="text" placeholder="Shipper’s company name" name="company_shipper"
+                                       autocomplete="off"
                                        class="form-control" required value="{{old('company_shipper')}}"/>
-
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper" autocomplete="off"
+                                <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper"
+                                       autocomplete="off"
                                        class="form-control" required value="{{old('phone_shipper')}}"/>
+                            </div>
+                        </div>
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <table id="table_id">
+                                            <thead>
+                                            <tr>
+                                                <th>Shipper Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($addresses as $address)
+                                                    <tr>
+                                                        <td class="item-table">{{$address->address}}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <table id="table_id2">
+                                            <thead>
+                                            <tr>
+                                                <th>Consignee Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($addresses as $address)
+                                                <tr>
+                                                    <td class="item-table2">{{$address->address}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group supper-input">
                                 <label class="red-star">{{ ('Shipper Address')}}:</label>
-                                <input type="text" placeholder="City, street" id="autocomplete" name="address_shipper" autocomplete="off"
-                                       class="form-control search" required value="{{old('address_shipper')}}"/>
+                                <div class="marker">
+                                    <input type="text" placeholder="City, street" id="autocomplete"
+                                           name="address_shipper" autocomplete="off"
+                                           class="form-control search" required value="{{old('address_shipper')}}"/>
+                                    <button type="button" class='btn-marker' data-toggle="modal"
+                                            data-target=".bd-example-modal-lg">
+										   <span class="btn-marker-text">
+											   Address
+										   </span>
+                                        <i class="fas fa-map-marked-alt"></i>
+                                    </button>
+                                </div>
                                 <div class="hint_search">
                                 </div>
                                 @can('Client',Auth::user())
-
-                                    <input type="checkbox" id="address_shipper_checkbox" name="address_shipper_checkbox"/>
+                                    <input type="checkbox" id="address_shipper_checkbox"
+                                           name="address_shipper_checkbox"/>
                                     <label for="address_shipper_checkbox"> - add address to addresses list</label>
                                 @endcan
                             </div>
@@ -126,7 +182,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Post code:</label>
-                                <input type="text" placeholder="Post code" name="shipper_postcode" id="postal_code" class="form-control" autocomplete="off"
+                                <input type="text" placeholder="Post code" name="shipper_postcode" id="postal_code"
+                                       class="form-control" autocomplete="off"
                                        required value="{{old('shipper_postcode')}}"/>
                             </div>
                         </div>
@@ -152,7 +209,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Consignee’s company name</label>
-                                <input type="text" placeholder="Consignee’s company name" name="company_consignee" autocomplete="off"
+                                <input type="text" placeholder="Consignee’s company name" name="company_consignee"
+                                       autocomplete="off"
                                        class="form-control" required value="{{old('company_consignee')}}"/>
 
                             </div>
@@ -160,7 +218,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Phone')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee" autocomplete="off"
+                                <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee"
+                                       autocomplete="off"
                                        class="form-control" required value="{{old('phone_consignee')}}"/>
 
                             </div>
@@ -169,13 +228,25 @@
                         <div class="col-md-6">
                             <div class="form-group supper-input">
                                 <label class="red-star">{{ ('Consignee Address')}}:</label>
-                                <input type="text" placeholder="City, street" name="address_consignee" autocomplete="off"
-                                       class="form-control search" id="autocomplete2" required value="{{old('address_consignee')}}"/>
+                                <div class="marker">
+                                    <input type="text" placeholder="City, street" name="address_consignee"
+                                           autocomplete="off"
+                                           class="form-control search" id="autocomplete2" required
+                                           value="{{old('address_consignee')}}"/>
+                                    <button type="button" class='btn-marker' data-toggle="modal"
+                                            data-target=".bd-example-modal-lg2">
+										   <span class="btn-marker-text">
+											   Address
+										   </span>
+                                        <i class="fas fa-map-marked-alt"></i>
+                                    </button>
+                                </div>
                                 <div class="hint_search">
                                 </div>
                                 @can('Client',Auth::user())
 
-                                    <input type="checkbox" id="address_consignee_checkbox" name="address_consignee_checkbox"/>
+                                    <input type="checkbox" id="address_consignee_checkbox"
+                                           name="address_consignee_checkbox"/>
                                     <label for="address_consignee_checkbox"> - add address to addresses list</label>
                                 @endcan
                             </div>
@@ -194,14 +265,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Post code:</label>
-                                <input type="text" placeholder="Post code" id="postal_code2" name="consignee_postcode" autocomplete="off"
+                                <input type="text" placeholder="Post code" id="postal_code2" name="consignee_postcode"
+                                       autocomplete="off"
                                        class="form-control" required value="{{old('shipper')}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
-                                <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee" autocomplete="off"
+                                <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee"
+                                       autocomplete="off"
                                        class="form-control" required value="{{old('consignee')}}"/>
 
                             </div>
@@ -232,14 +305,16 @@
                                 <label class="red-star">Shipping Date:</label>
                                 <div><span>From</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="sending_time" autocomplete="off"
+                                    <input placeholder="Start time" type="datetime-local" name="sending_time"
+                                           autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="sending_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>
                                 <div><span>To</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="sending_time_stop" autocomplete="off"
+                                    <input placeholder="Start time" type="datetime-local" name="sending_time_stop"
+                                           autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="sending_time" class="fv-plugins-icon"></i>
@@ -252,14 +327,16 @@
                                 <label class="red-star">Delivery Date:</label>
                                 <div><span>From</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="delivery_time" autocomplete="off"
+                                    <input placeholder="Start time" type="datetime-local" name="delivery_time"
+                                           autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="delivery_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>
                                 <div><span>To</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="delivery_time_stop" autocomplete="off"
+                                    <input placeholder="Start time" type="datetime-local" name="delivery_time_stop"
+                                           autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="delivery_time" class="fv-plugins-icon"></i>
@@ -283,20 +360,23 @@
 
                                     <div class="col-md-3">
                                         <label class="red-star">{{ ('Type')}}:</label>
-                                        <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type" autocomplete="off"
+                                        <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type"
+                                               autocomplete="off"
                                                required>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="red-star">Actual weight (kg):</label>
-                                        <input placeholder="Actual weight" type="number" min="1" step="0.1" autocomplete="off"
+                                        <input placeholder="Actual weight" type="number" min="1" step="0.1"
+                                               autocomplete="off"
                                                name="actual_weight" class="form-control" value="1" required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <label class="red-star">{{ ('Quantity')}}:</label>
-                                        <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number" autocomplete="off"
+                                        <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number"
+                                               autocomplete="off"
                                                min="1 " name="quantity" class="form-control" value="1" required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
@@ -305,7 +385,8 @@
 
                                         <label>Serial number box:</label>
 
-                                        <input type="text" placeholder="Serial number" name="serial_number" autocomplete="off"
+                                        <input type="text" placeholder="Serial number" name="serial_number"
+                                               autocomplete="off"
                                                class="form-control " value=""/>
                                         <div class="mb-2 d-md-none"></div>
 
@@ -333,7 +414,8 @@
                                         <label class="red-star">Temperature conditions:</label>
 
                                         <input type="text" placeholder="Temperature conditions" required
-                                               name="temperature_conditions" autocomplete="off" class="form-control  " value="1"/>
+                                               name="temperature_conditions" autocomplete="off" class="form-control  "
+                                               value="1"/>
                                         <div class="mb-2 d-md-none"></div>
 
                                     </div>
@@ -413,7 +495,8 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox4"
                                        name="return_container">
-                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping container</label>
+                                <label class="form-check-label" for="inlineCheckbox4">Returning a shipping
+                                    container</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox5"
@@ -423,7 +506,8 @@
                             <div class="form-check">
                                 <label for="inlineCheckbox11"></label><input class="form-check-input"
                                                                              placeholder="myemail@mail.com,myemail2@mail.com"
-                                                                             style="width: 350px;" type="text" autocomplete="off"
+                                                                             style="width: 350px;" type="text"
+                                                                             autocomplete="off"
                                                                              id="inlineCheckbox11" name="email"
                                                                              value="{{old('email')}}">
                             </div>
@@ -511,10 +595,10 @@
 @endsection
 
 @section('script')
-    <script src="{{ static_asset('assets/dashboard/js/geocomplete/jquery.geocomplete.js') }}"></script>
-    {{--<script src="//maps.googleapis.com/maps/api/js?libraries=places&key={{$checked_google_map->key}}"></script>--}}
+
+
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
 
             $(document).mouseup(function (e) {
                 if (!$('.supper-input').is(e.target) // если клик был не по нашему блоку
@@ -526,11 +610,11 @@
         });
 
         let count = 0;
-        function Search(elem)
-        {
+
+        function Search(elem) {
 
             count = $(elem).val().length;
-            if(count >= 2) {
+            if (count >= 2) {
                 $(elem).siblings('.hint_search').slideDown(300);
 
                 $search = $(elem).val();
@@ -538,7 +622,7 @@
                     type: 'POST',
                     url: '{{route('admin.search')}}',
                     data: {'search': $search},
-                    success: function(data){
+                    success: function (data) {
                         $(elem).siblings('.hint_search').text('').append($(data));
                     }
 
@@ -601,17 +685,17 @@
                 $("input[data-client=lng]").val(latLng.lng());
             });
         });
-        $('document').ready(function(){
+        $('document').ready(function () {
 
-            if($('#inlineCheckbox5').is(':checked')){
+            if ($('#inlineCheckbox5').is(':checked')) {
                 $('#inlineCheckbox11').show(100);
-            }else{
+            } else {
                 $('#inlineCheckbox11').hide(100);
             }
 
-            $('#inlineCheckbox5').on('click', function(){
+            $('#inlineCheckbox5').on('click', function () {
                 $('p.aletr-email').remove();
-                if ($(this).is(':checked')){
+                if ($(this).is(':checked')) {
                     $('#inlineCheckbox11').show(100);
                 } else {
                     $('#inlineCheckbox11').hide(100);
@@ -619,7 +703,7 @@
 
                 var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,7}$/i;
 
-                $('#inlineCheckbox11').blur(function(){
+                $('#inlineCheckbox11').blur(function () {
                     $('p.aletr-email').remove();
 
                     var mail = $('#inlineCheckbox11').val();
@@ -630,11 +714,11 @@
                     console.log(mailArray);
                     console.log(testSeparator);
 
-                    if(mailPattern === false && testSeparator === -1){
+                    if (mailPattern === false && testSeparator === -1) {
                         $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
-                    }else{
-                        $(mailArray).each(function(index,item){
-                            if(pattern.test(item.trim()) === false){
+                    } else {
+                        $(mailArray).each(function (index, item) {
+                            if (pattern.test(item.trim()) === false) {
                                 console.log(pattern.test(item[index].trim()));
                                 $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
                             }
@@ -646,6 +730,7 @@
             });
 
         });
+
         // Get Addressess After Select Client
         function selectIsTriggered() {
             getAdressess(document.getElementById("client-id").value);
@@ -1012,13 +1097,13 @@
         });
     </script>
     <script type="text/javascript"
-            src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places" ></script>
+            src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places"></script>
     <script>
         var geocoder;
 
         function initialize() {
-            autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: [ 'address' ] });
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {types: ['address']});
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
                 for (var i = 0; i < place.address_components.length; i++) {
                     for (var j = 0; j < place.address_components[i].types.length; j++) {
@@ -1031,8 +1116,8 @@
                 }
             })
 
-            autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), { types: [ 'address' ] });
-            google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+            autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), {types: ['address']});
+            google.maps.event.addListener(autocomplete2, 'place_changed', function () {
                 var place2 = autocomplete2.getPlace();
                 for (var i = 0; i < place2.address_components.length; i++) {
                     for (var j = 0; j < place2.address_components[i].types.length; j++) {
@@ -1045,7 +1130,36 @@
                 }
             });
         }
+
         google.maps.event.addDomListener(window, "load", initialize);
 
+    </script>
+    <script>
+        $('#table_id').DataTable({
+            "ordering": false,
+        });
+        $('#table_id2').DataTable({
+            "ordering": false,
+        });
+    </script>
+    <script>
+        let item = document.querySelectorAll('.item-table');
+        for (let i = 0; i < item.length; i++) {
+            $(item[i]).click(function () {
+                let text = $(this).text();
+                $('#autocomplete').val(text);
+                $('.modal').modal('hide');
+            });
+        }
+    </script>
+    <script>
+        let item2 = document.querySelectorAll('.item-table2');
+        for (let i = 0; i < item2.length; i++) {
+            $(item2[i]).click(function () {
+                let text = $(this).text();
+                $('#autocomplete2').val(text);
+                $('.modal').modal('hide');
+            });
+        }
     </script>
 @endsection

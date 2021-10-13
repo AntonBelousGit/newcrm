@@ -101,6 +101,52 @@
                                        required class="form-control" value="{{$orders->company_shipper}}"/>
                             </div>
                         </div>
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <table id="table_id">
+                                            <thead>
+                                            <tr>
+                                                <th>Shipper Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($addresses as $address)
+                                                <tr>
+                                                    <td class="item-table">{{$address->address}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <table id="table_id2">
+                                            <thead>
+                                            <tr>
+                                                <th>Consignee Address</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($addresses as $address)
+                                                <tr>
+                                                    <td class="item-table2">{{$address->address}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Phone')}}:</label>
@@ -115,9 +161,17 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" name="address_shipper"
-                                           autocomplete="off"
-                                           required class="form-control" value="{{$tracker_start->address}}"/>
+                                    <div class="marker">
+                                        <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" name="address_shipper"
+                                               autocomplete="off"
+                                               required class="form-control" value="{{$tracker_start->address}}"/>
+                                        <button type="button" class='btn-marker' data-toggle="modal" data-target=".bd-example-modal-lg">
+										<span class="btn-marker-text">
+											Address
+										</span>
+                                            <i class="fas fa-map-marked-alt"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -215,9 +269,17 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2" name="address_consignee"
-                                           autocomplete="off"
-                                           required class="form-control" value="{{$tracker_end->address}}"/>
+                                    <div class="marker">
+                                        <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2" name="address_consignee"
+                                               autocomplete="off"
+                                               required class="form-control" value="{{$tracker_end->address}}"/>
+                                        <button type="button" class='btn-marker' data-toggle="modal" data-target=".bd-example-modal-lg2">
+										<span class="btn-marker-text">
+											Address
+										</span>
+                                            <i class="fas fa-map-marked-alt"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -988,8 +1050,6 @@
     </form>
 @endsection
 @section('script')
-    <script src="{{ static_asset('assets/dashboard/js/geocomplete/jquery.geocomplete.js') }}"></script>
-    {{--<script src="//maps.googleapis.com/maps/api/js?libraries=places&key={{$checked_google_map->key}}"></script>--}}
     <script type="text/javascript">
         // Map Address For Receiver
         $('.address-receiver').each(function () {
@@ -1544,5 +1604,33 @@
         }
         google.maps.event.addDomListener(window, "load", initialize);
 
+    </script>
+    <script>
+        $('#table_id').DataTable({
+            "ordering": false,
+        });
+        $('#table_id2').DataTable({
+            "ordering": false,
+        });
+    </script>
+    <script>
+        let item = document.querySelectorAll('.item-table');
+        for (let i = 0; i < item.length; i++) {
+            $(item[i]).click(function () {
+                let text = $(this).text();
+                $('#autocomplete').val(text);
+                $('.modal').modal('hide');
+            });
+        }
+    </script>
+    <script>
+        let item2 = document.querySelectorAll('.item-table2');
+        for (let i = 0; i < item2.length; i++) {
+            $(item2[i]).click(function () {
+                let text = $(this).text();
+                $('#autocomplete2').val(text);
+                $('.modal').modal('hide');
+            });
+        }
     </script>
 @endsection

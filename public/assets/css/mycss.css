@@ -73,7 +73,7 @@ input[type="checkbox"]~.custom_check i {
 }
 
 .table_custom thead th .wrap_custom_check:before {
-    content:"";
+    content: "";
     display: block;
     width: 100%;
     height: 1px;
@@ -122,8 +122,8 @@ input[type="checkbox"]~.custom_check i {
 .fa-exclamation-triangle {
     color: red;
 }
-#step2 select{
-    display:none;
+#step2 select {
+    display: none;
 }
 .red-star {
     position: relative;
@@ -137,13 +137,13 @@ input[type="checkbox"]~.custom_check i {
     display: block;
     color: red;
 }
-.text_table{
+.text_table {
     position: relative;
 }
-.text_table:hover .display_none_text{
+.text_table:hover .display_none_text {
     display: block;
 }
-.display_none_text{
+.display_none_text {
     display: none;
     position: absolute;
     padding: 15px 15px 15px 15px;
@@ -164,27 +164,111 @@ input[type="checkbox"]~.custom_check i {
     background: #fff;
     border-radius: 4px;
     padding: 10px 15px;
-    border: 1px solid #E4E6EF;
+    border: 1px solid #e4e6ef;
     overflow: auto;
     z-index: 10;
-
 }
-.hint_search ul li:hover{
-    color:#ff7324;
+.hint_search ul li:hover {
+    color: #ff7324;
 }
-.hint_search ul li{
+.hint_search ul li {
     list-style: none;
     display: block;
     cursor: pointer;
 }
-.hint_search ul{
+.hint_search ul {
     margin: 0;
     padding: 0;
 }
-.supper-input{
+.supper-input {
     position: relative;
-
 }
-.alert.alert-danger{
+.alert.alert-danger {
     margin-top: 5px;
+}
+/* ну и дермище в верху */
+.marker {
+    position: relative;
+}
+.btn-marker {
+    display: flex;
+    align-items: center;
+    border: none;
+    /*background-color: transparent;*/
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 11.5px);
+    overflow: hidden;
+    background-color: white;
+    padding: 0px;
+}
+.btn-marker-text {
+    transform: translateX(250px);
+    width: max-content;
+    display: block;
+    padding: 0px 15px;
+    transition: all 0.2s linear;
+}
+#autocomplete,
+#autocomplete2 {
+    padding-right: 140px;
+}
+
+.btn-marker:hover .btn-marker-text {
+    transform: translateX(0px);
+}
+.fa-map-marked-alt {
+    position: relative;
+    z-index: 10;
+    padding-left: 5px;
+    background-color: white;
+}
+.btn-marker i::before {
+    font-size: 16px;
+    transition: all 0.2s linear;
+}
+.btn-marker:hover i::before {
+    color: red;
+}
+.inp-btn {
+    position: relative;
+    width: 40%;
+}
+.inp-btn .btn-marker {
+    width: 20px;
+    height: 20px;
+    top: calc(50% - 10px);
+}
+.dataTables_length {
+    display: none;
+}
+.dataTables_wrapper .dataTables_filter label {
+    color: white;
+}
+.dataTables_wrapper .dataTables_filter label input {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.3rem + 2px);
+    padding: 0.65rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3f4254;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid #e4e6ef;
+    border-radius: 0.42rem;
+    box-shadow: none;
+    transition: all 0.15s ease-in-out;
+}
+.dataTables_wrapper .dataTables_filter label input:focus {
+    color: #3f4254;
+    background-color: #ffffff;
+    border-color: #69b3ff;
+    outline: 0;
+}
+button.btn-marker:hover {
+    background-color: white;
 }
