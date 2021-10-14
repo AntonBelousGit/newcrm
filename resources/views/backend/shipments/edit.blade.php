@@ -630,23 +630,63 @@
                         @php
                             if (isset($tracker_start->start_time))
                             {
-                                 $start_time = date('d.m.Y, H:i',strtotime($tracker_start->start_time));
-                                 $start_time_stop = date('H:i',strtotime($tracker_start->start_time_stop));
+                                $start_time = str_replace(' ','T', $tracker_start->start_time);
+                                $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);
                             }
-                        @endphp
-                        <br>
-                        <p>Estimated Shipping Time: {{$start_time}} - {{$start_time_stop}}</p>
-                        @php
                             if (isset($tracker_end->start_time))
                             {
-                                 $start_time = date('d.m.Y, H:i',strtotime($tracker_end->start_time));
-                                 $start_time_stop = date('H:i',strtotime($tracker_end->start_time_stop));
+                                $end_time = str_replace(' ','T', $tracker_end->start_time);
+                                $end_time_stop = str_replace(' ','T', $tracker_end->start_time_stop);
                             }
                         @endphp
-                        <p>Estimated Delivery Time: {{$start_time}} - {{$start_time_stop}}</p>
                     </div>
                     <hr>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group fv-plugins-icon-container">
+                        <label class="red-star">Shipping Date:</label>
+                        <div><span>From</span></div>
+                        <div class="input-group date">
+                            <input placeholder="Start time" type="datetime-local" name="start[start_time]"
+                                   autocomplete="off"
+                                   class="form-control" value="{{$start_time}}"/>
+                        </div>
+                        <i data-field="sending_time" class="fv-plugins-icon"></i>
+                        <div class="fv-plugins-message-container"></div>
+                        <div><span>To</span></div>
+                        <div class="input-group date">
+                            <input placeholder="Start time" type="datetime-local" name="start[start_time_stop]"
+                                   autocomplete="off"
+                                   class="form-control" value="{{$start_time_stop}}"/>
+                        </div>
+                        <i data-field="sending_time" class="fv-plugins-icon"></i>
+                        <div class="fv-plugins-message-container"></div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group fv-plugins-icon-container">
+                        <label class="red-star">Delivery Date:</label>
+                        <div><span>From</span></div>
+                        <div class="input-group date">
+                            <input placeholder="Start time" type="datetime-local" name="end[start_time]"
+                                   autocomplete="off"
+                                   class="form-control" value="{{$end_time}}"/>
+                        </div>
+                        <i data-field="delivery_time" class="fv-plugins-icon"></i>
+                        <div class="fv-plugins-message-container"></div>
+                        <div><span>To</span></div>
+                        <div class="input-group date">
+                            <input placeholder="Start time" type="datetime-local" name="end[start_time_stop]"
+                                   autocomplete="off"
+                                   class="form-control" value="{{$end_time_stop}}"/>
+                        </div>
+                        <i data-field="delivery_time" class="fv-plugins-icon"></i>
+                        <div class="fv-plugins-message-container"></div>
+                    </div>
+                </div>
+
+
                 <div id="kt_repeater_12">
                     <div class="" id="">
                         <h2 class="text-left">Tracker Info:</h2>
@@ -679,25 +719,22 @@
                                     @endforeach
                                 </select>
                             </div>
-                            @php
-                                if (isset($tracker_start->start_time))
-                                {
-                                     $start_time = str_replace(' ','T', $tracker_start->start_time);
-                                     $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);
-                                }
-                                $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
-                                $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);
-                            @endphp
+{{--                            @php--}}
+{{--                                if (isset($tracker_start->start_time))--}}
+{{--                                {--}}
+{{--                                     $start_time = str_replace(' ','T', $tracker_start->start_time);--}}
+{{--                                     $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);--}}
+{{--                                }--}}
+{{--                                $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);--}}
+{{--                                $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);--}}
+{{--                            @endphp--}}
 
                             <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>
-                                <input placeholder="Start time FROM" type="datetime-local" name="start[start_time]"
+                                <input placeholder="Start time FROM" type="datetime-local" disabled
                                        autocomplete="off"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
-                                <input placeholder="TO" type="datetime-local" name="start[start_time_stop]"
-                                       autocomplete="off"
-                                       class="form-control" value="{{$start_time_stop}}"/>
                             </div>
                             <div class="col-md-3 col-md-4" id="actual_time">
                                 <label>Arrived Time:</label>
@@ -951,14 +988,10 @@
                             @endphp
                             <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>
-                                <input placeholder="Start time FROM" type="datetime-local" name="end[start_time]"
+                                <input placeholder="Start time FROM" type="datetime-local" disabled
                                        autocomplete="off"
                                        class="form-control" value="{{ $start_time }}"/>
                                 <div class="mb-2 d-md-none"></div>
-                                <input placeholder="TO" type="datetime-local" name="end[start_time_stop]"
-                                       autocomplete="off"
-                                       class="form-control" value="{{ $start_time_stop }}"/>
-
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
