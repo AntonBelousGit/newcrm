@@ -272,7 +272,8 @@ class TrackersRepository
             $count = Tracker::where('order_id', $order->id)->where('position', '1')->where('status', 'Awaiting arrival')->count();
             $tracker->left_the_point = $tracker->left_the_point ?? now();
 
-            $order->status_id = $count != 0 ? 4 : 5;
+//            $order->status_id = $count != 0 ? 8 : 5;
+            $order->status_id = 4;
             $order->update();
         }
         $tracker->update();

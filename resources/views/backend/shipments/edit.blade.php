@@ -671,7 +671,7 @@
                         <div class="input-group date">
                             <input placeholder="Start time" type="datetime-local" name="end[start_time]"
                                    autocomplete="off"
-                                   class="form-control" value="{{$end_time}}"/>
+                                   class="form-control" value="{{$end_time ?? ''}}"/>
                         </div>
                         <i data-field="delivery_time" class="fv-plugins-icon"></i>
                         <div class="fv-plugins-message-container"></div>
@@ -679,7 +679,7 @@
                         <div class="input-group date">
                             <input placeholder="Start time" type="datetime-local" name="end[start_time_stop]"
                                    autocomplete="off"
-                                   class="form-control" value="{{$end_time_stop}}"/>
+                                   class="form-control" value="{{$end_time_stop ?? ''}}"/>
                         </div>
                         <i data-field="delivery_time" class="fv-plugins-icon"></i>
                         <div class="fv-plugins-message-container"></div>
@@ -740,7 +740,7 @@
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[arrived_time]"
                                        autocomplete="off"
-                                       class="form-control" value="{{ $end_time }}"/>
+                                       class="form-control" value="{{ $end_time ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time_start">

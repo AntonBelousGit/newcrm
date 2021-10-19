@@ -47,9 +47,9 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent', 'Driver', 'Client'], Auth::user())) {
             $orders = $this->orderService->getAll();
-
+            $statuses = ProductStatus::all();
             $title = 'All Shipments';
-            return view('backend.shipments.index', compact('orders', 'title'));
+            return view('backend.shipments.index', compact('orders','title','statuses'));
         }
         return abort(403);
     }
@@ -317,7 +317,7 @@ class OrderController extends Controller
                     }
                 }
             }
-
+//            dd(count($request->time));
             if (!isset($request->time)) {
 
                 $this->trakerService->updateStartTracker($order, $request, false);
@@ -435,7 +435,7 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 9)->get();
             $title = 'Archives';
-            return view('backend.shipments.index', compact('orders', 'title'));
+            return view('backend.shipments.index-one-status', compact('orders', 'title'));
         }
         return abort(403);
     }
@@ -445,7 +445,7 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('returned', 1)->get();
             $title = 'Return Job';
-            return view('backend.shipments.index', compact('orders', 'title'));
+            return view('backend.shipments.index-one-status', compact('orders', 'title'));
         }
         return abort(403);
     }

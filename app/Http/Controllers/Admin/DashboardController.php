@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductStatus;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,10 @@ class DashboardController extends Controller
        if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent', 'Driver', 'Client'], Auth::user())) {
            $orders = $this->orderService->getAll();
            $title = 'All Shipments';
+           $statuses = ProductStatus::all();
+
            $dashboard = true;
-           return view('backend.shipments.index', compact('orders', 'title','dashboard'));
+           return view('backend.shipments.index', compact('orders', 'title','dashboard','statuses'));
        }
        return abort(403);
    }
