@@ -16,6 +16,9 @@
                     <select name="status" id="status" class="form-control">
                         <option value="6">Delivered</option>
                         <option value="9">Invoiced</option>
+                        @can('Client')
+                        <option value="0">All shipments</option>
+                        @endcan
                     </select>
                     <button type="submit" class="btn btn-circle btn-info">
                         <span>New Reports</span>
@@ -50,9 +53,9 @@
 
                     <tr>
                         <td>{{$report->id}}</td>
-                        <td>{{$report->created_at->format('d.m.Y H:s:i')}}</td>
-                        <td>({{$report->start->format('d.m.Y')}} - {{$report->end->format('d.m.Y')}})</td>
-                        <td>{{ $report->status == '6' ? 'Delivered': 'Invoiced' }}</td>
+                        <td>{{$report->created_at->format('d.m.Y H:i:s')}}</td>
+                        <td>({{$report->start->format('d.m.Y') ?? ''}} - {{$report->end->format('d.m.Y') ?? ''}})</td>
+                        <td>{{ $report->status_name }}</td>
                         <td><a href="{!! route('admin.download', $report->id) !!}">Download</a></td>
                     </tr>
 

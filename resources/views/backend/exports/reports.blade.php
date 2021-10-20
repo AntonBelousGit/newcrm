@@ -62,7 +62,8 @@
     @endforeach
 @elsecanany('Client')
     @foreach($orders as $order)
-        @can('manage-client-exel',$order)
+{{--        @dd($orders)--}}
+{{--        @can('manage-client-exel',$order)--}}
             @foreach($order->cargo as $item)
                 <tr>
                     <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
@@ -85,7 +86,7 @@
                     <td>...$</td>
                 </tr>
             @endforeach
-        @endcan
+{{--        @endcan--}}
     @endforeach
 @endcanany
     </tbody>

@@ -24,12 +24,10 @@ class ReportController extends Controller
 
             $reports = Report::all();
             $title = 'All Shipments';
-            return view('backend.reports.index',compact('reports'));
-        }
-        elseif (Gate::any(['Client'],Auth::user()))
-        {
-            $reports = Report::where('user_id',Auth::id())->get();
-            return view('backend.reports.index',compact('reports'));
+            return view('backend.reports.index', compact('reports'));
+        } elseif (Gate::any(['Client'], Auth::user())) {
+            $reports = Report::where('user_id', Auth::id())->get();
+            return view('backend.reports.index', compact('reports'));
         }
 
         return abort(403);
@@ -38,17 +36,24 @@ class ReportController extends Controller
     public function export(Request $request)
     {
         $file = Excel::download(new OrderExport($request), 'reports.xlsx');
-        if (isset($file)){
-           $reports = new Report;
-           $reports->start = $request->start;
-           $reports->end = $request->end;
-           $reports->user_id = Auth::id();
-           $reports->status = $request->status;
-           $reports->save();
+        if (isset($file)) {
+            $arr = [
+                0 => 'All shipments',
+                6 => 'Delivered',
+                9 => 'Invoiced',
+            ];
+            $reports = new Report;
+            $reports->start = $request->start;
+            $reports->end = $request->end;
+            $reports->user_id = Auth::id();
+            $reports->status = $request->status;
+            $reports->status_name =$arr[$request->status];
+            $reports->save();
         }
 
         return $file;
     }
+
     public function exportExist($id)
     {
         $request = Report::find($id);
@@ -70,7 +75,7 @@ class ReportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -81,7 +86,7 @@ class ReportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -92,7 +97,7 @@ class ReportController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -103,8 +108,8 @@ class ReportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -113,12 +118,10 @@ class ReportController extends Controller
     }
 
 
-
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -18,6 +18,7 @@ class CreateReportsTable extends Migration
             $table->date('start')->nullable();
             $table->date('end')->nullable();
             $table->integer('status')->nullable();
+            $table->string('status_name')->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });
