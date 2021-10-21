@@ -194,7 +194,7 @@ input[type="checkbox"]~.custom_check i {
     display: flex;
     align-items: center;
     border: none;
-    /*background-color: transparent;*/
+    background-color: transparent;
     outline: none;
     cursor: pointer;
     position: absolute;
@@ -211,11 +211,6 @@ input[type="checkbox"]~.custom_check i {
     padding: 0px 15px;
     transition: all 0.2s linear;
 }
-#autocomplete,
-#autocomplete2 {
-    padding-right: 140px;
-}
-
 .btn-marker:hover .btn-marker-text {
     transform: translateX(0px);
 }
@@ -240,9 +235,6 @@ input[type="checkbox"]~.custom_check i {
     width: 20px;
     height: 20px;
     top: calc(50% - 10px);
-}
-.dataTables_length {
-    display: none;
 }
 .dataTables_wrapper .dataTables_filter label {
     color: white;
@@ -269,6 +261,13 @@ input[type="checkbox"]~.custom_check i {
     border-color: #69b3ff;
     outline: 0;
 }
-button.btn-marker:hover {
-    background-color: white;
+.js-example-basic-multiple {
+    width: 300px;
+}
+.card-body .filters th:nth-child(1),
+.card-body .filters th:nth-child(2),
+.card-body .filters th:nth-child(3),
+.card-body .filters th:nth-child(6) {
+    color: transparent;
+    font-size: 0;
 }

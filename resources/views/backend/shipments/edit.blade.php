@@ -649,13 +649,13 @@
                         <div class="input-group date">
                             <input placeholder="Start time" type="datetime-local" name="start[start_time]"
                                    autocomplete="off"
-                                   class="form-control" value="{{$start_time}}"/>
+                                   class="form-control" required value="{{$start_time}}"/>
                         </div>
                         <i data-field="sending_time" class="fv-plugins-icon"></i>
                         <div class="fv-plugins-message-container"></div>
                         <div><span>To</span></div>
                         <div class="input-group date">
-                            <input placeholder="Start time" type="datetime-local" name="start[start_time_stop]"
+                            <input placeholder="Start time" type="datetime-local" required name="start[start_time_stop]"
                                    autocomplete="off"
                                    class="form-control" value="{{$start_time_stop}}"/>
                         </div>
@@ -671,7 +671,7 @@
                         <div class="input-group date">
                             <input placeholder="Start time" type="datetime-local" name="end[start_time]"
                                    autocomplete="off"
-                                   class="form-control" value="{{$end_time ?? ''}}"/>
+                                   class="form-control" required  value="{{$end_time ?? ''}}"/>
                         </div>
                         <i data-field="delivery_time" class="fv-plugins-icon"></i>
                         <div class="fv-plugins-message-container"></div>
@@ -679,7 +679,7 @@
                         <div class="input-group date">
                             <input placeholder="Start time" type="datetime-local" name="end[start_time_stop]"
                                    autocomplete="off"
-                                   class="form-control" value="{{$end_time_stop ?? ''}}"/>
+                                   class="form-control" required value="{{$end_time_stop ?? ''}}"/>
                         </div>
                         <i data-field="delivery_time" class="fv-plugins-icon"></i>
                         <div class="fv-plugins-message-container"></div>
@@ -719,15 +719,15 @@
                                     @endforeach
                                 </select>
                             </div>
-{{--                            @php--}}
-{{--                                if (isset($tracker_start->start_time))--}}
-{{--                                {--}}
-{{--                                     $start_time = str_replace(' ','T', $tracker_start->start_time);--}}
-{{--                                     $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);--}}
-{{--                                }--}}
-{{--                                $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);--}}
-{{--                                $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);--}}
-{{--                            @endphp--}}
+                            @php
+                                if (isset($tracker_start->start_time))
+                                {
+                                     $start_time = str_replace(' ','T', $tracker_start->start_time);
+                                     $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);
+                                }
+                                $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
+                                $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);
+                            @endphp
 
                             <div class="col-md-3 col-md-4">
                                 <label>Estimated time:</label>

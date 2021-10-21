@@ -305,7 +305,7 @@
                                 <label class="red-star">Shipping Date:</label>
                                 <div><span>From</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="sending_time"
+                                    <input placeholder="Start time" required type="datetime-local" name="sending_time"
                                            autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
@@ -313,7 +313,7 @@
                                 <div class="fv-plugins-message-container"></div>
                                 <div><span>To</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" type="datetime-local" name="sending_time_stop"
+                                    <input placeholder="Start time" required type="datetime-local" name="sending_time_stop"
                                            autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
@@ -329,7 +329,7 @@
                                 <div class="input-group date">
                                     <input placeholder="Start time" type="datetime-local" name="delivery_time"
                                            autocomplete="off"
-                                           class="form-control" value=""/>
+                                           class="form-control" required value=""/>
                                 </div>
                                 <i data-field="delivery_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>
@@ -337,7 +337,7 @@
                                 <div class="input-group date">
                                     <input placeholder="Start time" type="datetime-local" name="delivery_time_stop"
                                            autocomplete="off"
-                                           class="form-control" value=""/>
+                                           class="form-control" required value=""/>
                                 </div>
                                 <i data-field="delivery_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>

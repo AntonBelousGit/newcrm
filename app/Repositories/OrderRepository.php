@@ -49,8 +49,8 @@ class OrderRepository
         if (!is_null($request->sending_time)) {
             $order->sending_time = str_replace('T', ' ', $request->sending_time);
         }
-        if (!is_null($request->delivery_time)) {
-            $order->delivery_time = str_replace('T', ' ', $request->delivery_time);
+        if (!is_null($request->delivery_time_stop)) {
+            $order->delivery_time = str_replace('T', ' ', $request->delivery_time_stop);
         }
         $order->delivery_comment = $request->delivery_comment;
         $order->payer_id = $request->payer_id;
@@ -149,7 +149,7 @@ class OrderRepository
     public function findAndUpdate($request, $id)
     {
         $order = $this->findById($id);
-//        dd($order);
+//        dd($request);
         if (!in_array($order->status_id, [6, 7, 9, 10]) && !in_array($request->status_id, [6, 7, 9, 10])) {
             $order->shipper = $request->shipper;
             $order->phone_shipper = $request->phone_shipper;
@@ -164,11 +164,14 @@ class OrderRepository
             $order->locations = $request->locations;
             $order->locations_id = $request->city_id;
 
-            if (!is_null($request->sending_time)) {
-                $order->sending_time = str_replace('T', ' ', $request->sending_time);
+            if (!is_null($request->start['start_time'])) {
+                $order->sending_time = str_replace('T', ' ', $request->start['start_time']);
+            }
+            if (!is_null($request->end['start_time_stop'])) {
+                $order->delivery_time = str_replace('T', ' ', $request->end['start_time_stop']);
             }
 
-//        $order->delivery_time = $request->delivery_time;
+//            $order->delivery_time = $request->delivery_time;
             $order->delivery_comment = $request->delivery_comment;
             $order->payer_id = $request->payer_id;
 //            if ($order->status_id < 2 && $request->status_id < 3) {
@@ -187,6 +190,8 @@ class OrderRepository
                 $order->substatus_id = $request->substatus_id;
             }
             $order->cargo_location_id = $request->cargo_location_id ?? 1;
+
+//            dd($order);
             $order->update();
         }
         return $order;

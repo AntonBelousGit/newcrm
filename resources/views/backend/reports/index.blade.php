@@ -14,6 +14,8 @@
                     <input type="date" id="start" name="start" value="2021-01-01" class="form-control">
                     <input type="date" id="end" name="end" value="{{now()->format('Y-m-d')}}" class="form-control">
                     <select name="status" id="status" class="form-control">
+                        <option value="1">New Order</option>
+                        <option value="2">Accepted in work</option>
                         <option value="6">Delivered</option>
                         <option value="9">Invoiced</option>
                         @can('Client')

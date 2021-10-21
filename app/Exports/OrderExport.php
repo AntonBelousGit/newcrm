@@ -31,6 +31,11 @@ class OrderExport implements FromView
                 'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation','tracker.user', 'order','payer')->whereIn('payer_id', $payer_user->pluck('payer_id'))->get()
             ]);
         }
+        if ($this->request->status == 2) {
+            return view('backend.exports.reports', [
+                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation','tracker.user', 'order','payer')->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time',[$start,$end])->get()
+            ]);
+        }
         return view('backend.exports.reports', [
             'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation','tracker.user', 'order','payer')->where('status_id', $this->request->status)->whereBetween('delivery_time',[$start,$end])->get()
         ]);
