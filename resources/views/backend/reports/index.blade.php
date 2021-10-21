@@ -59,7 +59,7 @@
                         <td>{{$report->created_at->format('d.m.Y H:i:s')}}</td>
                         <td>({{$report->start->format('d.m.Y') ?? ''}} - {{$report->end->format('d.m.Y') ?? ''}})</td>
                         <td>{{ $report->status_name }}</td>
-                        <td>пидоргде компы ? сука мышка лагает</td>
+                        <td></td>
                         <td><a href="{!! route('admin.download', $report->id) !!}">Download</a></td>
                     </tr>
 
