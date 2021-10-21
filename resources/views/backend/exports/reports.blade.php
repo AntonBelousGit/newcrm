@@ -39,8 +39,8 @@
                 <td>@php echo str_pad($order->invoice_number, 6, "0", STR_PAD_LEFT);  @endphp</td>
                 <td>{{$order->id}}</td>
                 <td></td>
-                <td>{{$order->payer->customer_name}}</td>
-                <td>{{$order->payer->customer_account_number}}</td>
+                <td>{{$order->payer->customer_name ?? ''}}</td>
+                <td>{{$order->payer->customer_account_number ?? ''}}</td>
                 <td>{{$order->shipper}}</td>
                 <td>{{$order->tracker->where('position',0)->first()->cargolocation->city}}</td>
                 <td>UKR</td>

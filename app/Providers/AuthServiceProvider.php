@@ -74,7 +74,6 @@ class AuthServiceProvider extends ServiceProvider
             return (int)$user->id === (int)$report->user_id;
         });
         Gate::define('manage-driver', function (User $user, Order $order) {
-//            dd($order);
             foreach ($order->tracker as $item)
             {
                 if ($user->id == $item->driver_id){
