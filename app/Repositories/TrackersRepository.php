@@ -46,6 +46,7 @@ class TrackersRepository
         $start = $request->start;
 
         $tracker_start->driver_id = $start['driver_id'] ?? null;
+        $tracker_start->agent_id = $start['agent_id'] ?? null;
 
         if (!is_null($start['start_time']) && !is_null($start['start_time_stop'])) {
             $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
@@ -107,11 +108,7 @@ class TrackersRepository
     {
         $tracker = $this->getTrackerById($option_key['id']);
 
-        $tracker->order_id = $order->id;
-        $tracker->driver_id = $option_key['driver_id'] ?? null;
-        $tracker->location_id = $option_key['cargo_location'];
-        $tracker->address = $option_key['address'];
-        $tracker->signed = $option_key['signed'] ?? null;
+        $this->trackerParameters($order, $tracker, $option_key);
 
         $this->updateTransitionalTrackerStatus($option_key, $tracker, $order, $many);
 
@@ -123,11 +120,7 @@ class TrackersRepository
     public function createTransitionalTracker($order, $option_key, $many)
     {
         $tracker = new Tracker();
-        $tracker->order_id = $order->id;
-        $tracker->driver_id = $option_key['driver_id'] ?? null;
-        $tracker->location_id = $option_key['cargo_location'];
-        $tracker->address = $option_key['address'];
-        $tracker->signed = $option_key['signed'] ?? null;
+        $this->trackerParameters($order, $tracker, $option_key);
         if (!is_null($option_key['start_time'])) {
             $tracker->start_time = str_replace('T', ' ', $option_key['start_time']);
         }
@@ -296,6 +289,23 @@ class TrackersRepository
             $new_tracker->order_id = $new_order->id;
             $new_tracker->save();
         }
+    }
+
+    /**
+     * @param $order
+     * @param Tracker $tracker
+     * @param $option_key
+     */
+    public function trackerParameters($order, Tracker $tracker, $option_key): Tracker
+    {
+        $tracker->order_id = $order->id;
+        $tracker->driver_id = $option_key['driver_id'] ?? null;
+        $tracker->agent_id = $option_key['agent_id'] ?? null;
+        $tracker->location_id = $option_key['cargo_location'];
+        $tracker->address = $option_key['address'];
+        $tracker->signed = $option_key['signed'] ?? null;
+
+        return $tracker;
     }
 
 }

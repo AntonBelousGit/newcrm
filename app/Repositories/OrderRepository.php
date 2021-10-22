@@ -183,9 +183,6 @@ class OrderRepository
             $order->email = $request->email ?? '';
             $order->status_id = $request->status_id;
 
-//            }
-
-            $order->agent_id = $request->agent_id ?? null;
             if (!is_null($request->substatus_id)) {
                 $order->substatus_id = $request->substatus_id;
             }

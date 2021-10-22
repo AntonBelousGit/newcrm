@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\OrderExport;
+use App\Exports\OrderFindExport;
 use App\Http\Controllers\Controller;
 use App\Models\Report;
 use App\Models\User;
@@ -52,13 +53,26 @@ class ReportController extends Controller
                 2 => 'Accepted in work',
                 6 => 'Delivered',
                 9 => 'Invoiced',
+                11 => 'Driver',
+                12 => 'Agent',
             ];
+
             $reports = new Report;
             $reports->start = $request->start;
             $reports->end = $request->end;
             $reports->user_id = Auth::id();
-            $reports->status = ($request->status == 'null')? null : $request->status;
-            $reports->status_name = $arr[$request->status] ?? "Driver or Agent";
+            $reports->status = ($request->status == 'null') ? null : $request->status;
+            $reports->driver_id = ($request->driver != 'null') ? $request->driver : null;
+            $reports->agent_id = ($request->agent != 'null') ? $request->agent : null;
+
+            if ($reports->agent_id != null) {
+                $request->status = 12;
+            }
+            if ($reports->driver_id != null) {
+                $request->status = 11;
+            }
+            $reports->status_name = $arr[$request->status] ?? "ANY";
+
             $reports->save();
         }
 
@@ -68,7 +82,7 @@ class ReportController extends Controller
     public function exportExist($id)
     {
         $request = Report::find($id);
-        return Excel::download(new OrderExport($request), 'reports.xlsx');
+        return Excel::download(new OrderFindExport($request), 'reports.xlsx');
     }
 
 }

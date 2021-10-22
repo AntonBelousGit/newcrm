@@ -24,6 +24,7 @@ class CreateTrackersTable extends Migration
             $table->timestamp('end_time')->nullable();
             $table->timestamp('end_time_stop')->nullable();
             $table->timestamp('left_the_point')->nullable();
+            $table->bigInteger('agent_id')->unsigned()->nullable();
             $table->bigInteger('driver_id')->unsigned()->nullable();
             $table->bigInteger('tracker_id')->unsigned()->nullable();
             $table->string('signed')->nullable();
@@ -34,6 +35,7 @@ class CreateTrackersTable extends Migration
             $table->foreign('tracker_id')->references('id')->on('trackers');
             $table->foreign('location_id')->references('id')->on('cargo_locations');
             $table->foreign('driver_id')->references('id')->on('users');
+            $table->foreign('agent_id')->references('id')->on('users');
 
             $table->timestamps();
 

@@ -31,6 +31,7 @@ class Tracker extends Model
         'end_time_stop',
         'left_the_point',
         'driver_id',
+        'agent_id',
         'tracker_id',
         'signed',
         'status',
@@ -72,6 +73,11 @@ class Tracker extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'driver_id');
+
+    }
+    public function agent()
+    {
+        return $this->belongsTo('App\Models\User', 'agent_id');
 
     }
     public function tapActivity(Activity $activity, string $eventName)

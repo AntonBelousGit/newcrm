@@ -610,22 +610,22 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="">
-                        <div class="col-md-6" data-select2-id="66">
-                            <label>Agent:</label>
-                            <select id="change-country-to" name="agent_id" class="form-control " autocomplete="off"
-                                    @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
-                                <option value=""></option>
-                                @foreach($user as $item)
-                                    @if($item->roles->first()->name == 'Agent')
-                                        <option value="{{$item->id}}"
-                                                @if($item->id == $orders->agent_id) selected @endif >{{$item->nickname}}
-                                            - {{$item->roles->first()->name}} </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+{{--                    <div class="">--}}
+{{--                        <div class="col-md-6" data-select2-id="66">--}}
+{{--                            <label>Agent:</label>--}}
+{{--                            <select id="change-country-to" name="agent_id" class="form-control " autocomplete="off"--}}
+{{--                                    @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >--}}
+{{--                                <option value=""></option>--}}
+{{--                                @foreach($user as $item)--}}
+{{--                                    @if($item->roles->first()->name == 'Agent')--}}
+{{--                                        <option value="{{$item->id}}"--}}
+{{--                                                @if($item->id == $orders->agent_id) selected @endif >{{$item->nickname}}--}}
+{{--                                            - {{$item->roles->first()->name}} </option>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div>
                         @php
                             if (isset($tracker_start->start_time))
@@ -719,6 +719,20 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-md-3">
+                                <label>Agent:</label>
+                                <select id="change-country-to" name="start[agent_id]" class="form-control " autocomplete="off"
+                                        @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
+                                    <option value=""></option>
+                                    @foreach($user as $item)
+                                        @if($item->roles->first()->name == 'Agent')
+                                            <option value="{{$item->id}}"
+                                                    @if($item->id == $tracker_start->agent_id) selected @endif >{{$item->nickname}}
+                                                - {{$item->roles->first()->name}} </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                             @php
                                 if (isset($tracker_start->start_time))
                                 {
@@ -798,6 +812,20 @@
                                                     @if($item->roles->first()->name == 'Driver')
                                                         <option value="{{$item->id}}"
                                                                 @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
+                                                            - {{$item->roles->first()->name}}  </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Agent:</label>
+                                            <select name="agent_id" class="form-control "
+                                                    @if($orders->status_id > 2) readonly @endif >
+                                                <option value=""></option>
+                                                @foreach($user as $item)
+                                                    @if($item->roles->first()->name == 'Agent')
+                                                        <option value="{{$item->id}}"
+                                                                @if($item->id == $tracker->agent_id) selected @endif >{{$item->nickname}}
                                                             - {{$item->roles->first()->name}}  </option>
                                                     @endif
                                                 @endforeach
@@ -895,6 +923,19 @@
                                             <option value=""></option>
                                             @foreach($user as $item)
                                                 @if($item->roles->first()->name == 'Driver')
+                                                    <option value="{{$item->id}}">{{$item->nickname}}
+                                                        - {{$item->roles->first()->name}}  </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Agent:</label>
+                                        <select name="agent_id" class="form-control "
+                                                @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
+                                            <option value=""></option>
+                                            @foreach($user as $item)
+                                                @if($item->roles->first()->name == 'Agent')
                                                     <option value="{{$item->id}}">{{$item->nickname}}
                                                         - {{$item->roles->first()->name}}  </option>
                                                 @endif

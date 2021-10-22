@@ -54,7 +54,7 @@
                 <td>{{$item->temperature_conditions}}</td>
                 <td>{{$order->tracker->first()->user->fullname ?? ''}}</td>
                 <td></td>
-                <td>{{$order->agent->fullname ?? ''}}</td>
+                <td>{{$order->tracker->first()->agent->fullname ?? ''}}</td>
                 <td></td>
                 <td>...$</td>
             </tr>

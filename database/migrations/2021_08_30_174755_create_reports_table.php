@@ -19,8 +19,14 @@ class CreateReportsTable extends Migration
             $table->date('end')->nullable();
             $table->integer('status')->nullable();
             $table->string('status_name')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('driver_id')->unsigned()->nullable();
+            $table->bigInteger('agent_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('driver_id')->references('id')->on('users');
+            $table->foreign('agent_id')->references('id')->on('users');
         });
     }
 

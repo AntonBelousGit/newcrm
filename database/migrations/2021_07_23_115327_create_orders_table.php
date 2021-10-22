@@ -19,12 +19,10 @@ class CreateOrdersTable extends Migration
             $table->string('checkout_number')->nullable();
             $table->string('phone_shipper');
             $table->string('site_shipper')->nullable();
-//            $table->string('address_shipper');
             $table->string('company_shipper');
             $table->string('consignee');
             $table->string('phone_consignee');
             $table->string('site_consignee')->nullable();
-//            $table->string('address_consignee');
             $table->string('company_consignee');
             $table->string('shipment_description')->nullable();
             $table->string('comment')->nullable();
@@ -43,13 +41,11 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_comment')->nullable();
             $table->enum('notifications',['on','off']);
             $table->integer('payer_id');
-
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->bigInteger('client_id')->unsigned()->nullable();
             $table->bigInteger('cargo_location_id')->unsigned()->nullable();
             $table->bigInteger('status_id')->unsigned()->nullable();
             $table->bigInteger('substatus_id')->unsigned()->nullable();
-            $table->bigInteger('agent_id')->unsigned()->nullable();
             $table->bigInteger('shipper_address_id')->unsigned()->nullable();
             $table->bigInteger('consignee_address_id')->unsigned()->nullable();
 
@@ -57,13 +53,11 @@ class CreateOrdersTable extends Migration
             $table->foreign('status_id')->references('id')->on('product_statuses');
             $table->foreign('substatus_id')->references('id')->on('sub_product_statuses');
             $table->foreign('client_id')->references('id')->on('users');
-            $table->foreign('agent_id')->references('id')->on('users');
             $table->foreign('cargo_location_id')->references('id')->on('cargo_locations');
             $table->foreign('shipper_address_id')->references('id')->on('cargo_locations');
             $table->foreign('consignee_address_id')->references('id')->on('cargo_locations');
 
             $table->timestamps();
-
         });
     }
     /**
