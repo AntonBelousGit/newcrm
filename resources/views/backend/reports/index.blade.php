@@ -13,19 +13,24 @@
                     <div class="input-group date">
                         <input type="date" id="start" name="start" value="2021-01-01" class="form-control">
                         <input type="date" id="end" name="end" value="{{now()->format('Y-m-d')}}" class="form-control">
-                        <select name="driver" id="driver" class="form-control">
-                            <option value="null">Driver</option>
-                            @foreach ($drivers as $item)
-                                <option value="{{$item->id}}">{{$item->fullname}}</option>
-                            @endforeach
-                        </select>
-                        <select name="agent" id="agent" class="form-control">
-                            <option value="null">Agent</option>
-                            @foreach ($agents as $item)
-                                <option value="{{$item->id}}">{{$item->fullname}}</option>
-                            @endforeach
-                        </select>
-
+                        @cannot('Client')
+                            <select name="driver" id="driver" class="form-control">
+                                <option value="null">Driver</option>
+                                @foreach ($drivers as $item)
+                                    <option value="{{$item->id}}">{{$item->fullname}}</option>
+                                @endforeach
+                            </select>
+                            <select name="agent" id="agent" class="form-control">
+                                <option value="null">Agent</option>
+                                @foreach ($agents as $item)
+                                    <option value="{{$item->id}}">{{$item->fullname}}</option>
+                                @endforeach
+                            </select>
+                        @endcannot
+                        @can('Client')
+                            <input type="hidden" name="driver" value="null">
+                            <input type="hidden" name="agent" value="null">
+                        @endcan
                         <select name="status" id="status" class="form-control">
                             <option value="null">Status</option>
                             <option value="1">New Order</option>
