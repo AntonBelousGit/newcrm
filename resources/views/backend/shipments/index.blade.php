@@ -50,7 +50,7 @@
         </div>
         <form id="tableForm">
             @csrf()
-            <div class="wrap_table">
+            <div class="wrap_table dnon-h2">
                 <table id="table_id" class="">
                     <thead>
                     <tr>
@@ -426,7 +426,7 @@
                                        echo '<th>'.$statuses[$shipment->status_id]->name.'</th>';
                                     }
                                 @endphp
-{{--                                <th>{{$statuses[$shipment->status_id]->name}}</th>--}}
+                                {{--                                <th>{{$statuses[$shipment->status_id]->name}}</th>--}}
                                 <th>{{$shipment->created_at}}</th>
                                 <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -470,6 +470,116 @@
     {{--@include('modals.delete_modal')--}}
 @endsection
 @section('script')
+    <script>
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#table_id thead tr')
+                .clone(true)
+                .addClass('filters')
+                .appendTo('#table_id thead');
+
+            var table = $('#table_id').DataTable({
+                stateSave: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();
+
+                    // For each column
+                    api
+                        .columns([5, 6])
+                        .eq(0)
+                        .each(function (colIdx) {
+                            // Set the header cell to contain the input element
+                            var cell = $('.filters th').eq(
+                                $(api.column(colIdx).header()).index()
+                            );
+                            var title = $(cell).text();
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                            // On every keypress in this input
+                            $('input', $('.filters th').eq($(api.column(colIdx).header()).index()))
+                                .off('keyup change')
+                                .on('keyup change', function (e) {
+                                    e.stopPropagation();
+
+                                    // Get the search value
+
+                                    $(this).attr('title', $(this).val());
+                                    console.log($(this).val());
+
+                                    var regexr =
+                                        '({search})'; //$(this).parents('th').find('select').val();
+
+                                    var cursorPosition = this.selectionStart;
+                                    // Search the column for that value
+                                    api
+                                        .column(colIdx)
+                                        .search(
+                                            this.value != '' ? regexr.replace('{search}',
+                                                '(((' + this.value + ')))') : '',
+                                            this.value != '',
+                                            this.value == ''
+                                        )
+                                        .draw();
+
+                                    // ��� �� ����� ����� ������ ','
+                                    if (this.value.indexOf(',')>=0) {
+                                        var ex = this.value.split(',');
+
+                                        var vals = '';
+
+                                        for(zz=0;zz<ex.length;zz++) {
+                                            if (vals != '') {vals += '|';}
+                                            vals += ex[zz];
+                                        }
+
+                                        if(vals!='') {
+                                            api.column(colIdx).search(
+                                                this.value != ''? regexr.replace('{search}', '((('+vals+')))'): '',
+                                                this.value != '',
+                                                this.value == ''
+                                            ).draw();
+
+                                        }
+                                    }
+                                    // ����� ���� �� ����� ����� ������ ','
+
+                                    $(this)
+                                        .focus()[0]
+                                        .setSelectionRange(cursorPosition, cursorPosition);
+                                });
+                        });
+                },
+            });
+            $('#table_id tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var id = $(this).find('input[type="hidden"]').val();
+                var row = table.row(tr);
+
+
+                $.post('{{route('admin.orders.children')}}', {data: id})
+                    .done(function (response) {
+                        // var result = JSON.parse(response);
+
+                        if (row.child.isShown()) {
+                            // This row is already open - close it
+                            row.child.hide();
+                            tr.removeClass('shown');
+                        } else {
+                            // Open this row
+                            row.child(format(response)).show();
+                            tr.addClass('shown');
+                        }
+                    })
+                    .fail(function (error) {
+                        alert(error.responseJSON.message);
+                    })
+
+
+            });
+        });
+    </script>
     <script type="text/javascript">
 
         @can('Client')
@@ -560,9 +670,9 @@
 
         @endcan
         $(document).ready(function () {
-            var table = $('#table_id').DataTable({
-                stateSave: true
-            });
+            // var table = $('#table_id').DataTable({
+            //     stateSave: true
+            // });
             $('#table_id tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var id = $(this).find('input[type="hidden"]').val();

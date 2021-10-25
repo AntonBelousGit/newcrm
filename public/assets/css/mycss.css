@@ -264,10 +264,14 @@ input[type="checkbox"]~.custom_check i {
 .js-example-basic-multiple {
     width: 300px;
 }
-.card-body .filters th:nth-child(1),
-.card-body .filters th:nth-child(2),
-.card-body .filters th:nth-child(3),
-.card-body .filters th:nth-child(6) {
+.dnon-h2 .filters th:nth-child(1),
+.dnon-h2 .filters th:nth-child(2),
+.dnon-h2 .filters th:nth-child(3),
+.dnon-h2 .filters th:nth-child(4),
+.dnon-h2 .filters th:nth-child(5),
+.dnon-h2 .filters th:nth-child(8),
+.dnon-h2 .filters th:nth-child(9),
+.dnon-h2 .filters th:nth-child(10) {
     color: transparent;
     font-size: 0;
 }
