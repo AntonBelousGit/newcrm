@@ -72,8 +72,8 @@
                         @foreach($orders as $key=>$shipment)
                             @can('manage-agent',$shipment)
                                 <tr>
-                                    <th>{{$shipment->id}}</th>
-                                    <th>
+                                    <td>{{$shipment->id}}</td>
+                                    <td>
                                         <div class="text_table">
                                             {{$shipment->company_shipper}}
                                             <div class="display_none_text">
@@ -82,8 +82,8 @@
                                                 {{$shipment->tracker->where('position','0')->first()->address}}
                                             </div>
                                         </div>
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         <div class="text_table">
                                             {{$shipment->company_consignee}}
                                             <div class="display_none_text">
@@ -92,8 +92,8 @@
                                                 {{$shipment->tracker->where('position','2')->first()->address}}
                                             </div>
                                         </div>
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         @if($shipment->returned == 0)
                                             Job
                                         @else
@@ -104,12 +104,12 @@
                                                 </div>
                                             </div>
                                         @endif
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         @php
                                             echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                         @endphp
-                                    </th>
+                                    </td>
 
 
                                     @php
@@ -133,8 +133,8 @@
                                            echo '<th>'.$shipment->status->name.'</th>';
                                         }
                                     @endphp
-                                    <th></th>
-                                    <th>{{$shipment->created_at}}</th>
+                                    <td></td>
+                                    <td>{{$shipment->created_at}}</td>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                            href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
@@ -165,8 +165,8 @@
                         @foreach($orders as $key=>$shipment)
                             @can('manage-driver',$shipment)
                                 <tr>
-                                    <th>{{$shipment->id}}</th>
-                                    <th>
+                                    <td>{{$shipment->id}}</td>
+                                    <td>
                                         <div class="text_table">
                                             {{$shipment->company_shipper}}
                                             <div class="display_none_text">
@@ -175,8 +175,8 @@
                                                 {{$shipment->tracker->where('position','0')->first()->address}}
                                             </div>
                                         </div>
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         <div class="text_table">
                                             {{$shipment->company_consignee}}
                                             <div class="display_none_text">
@@ -185,13 +185,13 @@
                                                 {{$shipment->tracker->where('position','2')->first()->address}}
                                             </div>
                                         </div>
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         @php
                                             echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                         @endphp
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         @if($shipment->returned == 0)
                                             Job
                                         @else
@@ -202,7 +202,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                    </th>
+                                    </td>
 
                                     @php
                                         if ($shipment->status_id == 8)
@@ -226,8 +226,8 @@
                                            echo '<th>'.$shipment->status->name.'</th>';
                                         }
                                     @endphp
-                                    <th></th>
-                                    <th>{{$shipment->created_at}}</th>
+                                    <td></td>
+                                    <td>{{$shipment->created_at}}</td>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                            href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
@@ -260,8 +260,8 @@
                             @can('manage-client',$shipment)
 
                                 <tr>
-                                    <th>{{$shipment->id}}</th>
-                                    <th>
+                                    <td>{{$shipment->id}}</td>
+                                    <td>
                                         <div class="text_table">
                                             {{$shipment->company_shipper}}
                                             <div class="display_none_text">
@@ -270,8 +270,8 @@
                                                 {{$shipment->tracker->where('position','0')->first()->address}}
                                             </div>
                                         </div>
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         <div class="text_table">
                                             {{$shipment->company_consignee}}
                                             <div class="display_none_text">
@@ -280,8 +280,8 @@
                                                 {{$shipment->tracker->where('position','2')->first()->address}}
                                             </div>
                                         </div>
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         @if($shipment->returned == 0)
                                             Job
                                         @else
@@ -292,12 +292,12 @@
                                                 </div>
                                             </div>
                                         @endif
-                                    </th>
-                                    <th>
+                                    </td>
+                                    <td>
                                         @php
                                             echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                         @endphp
-                                    </th>
+                                    </td>
 
 
                                     @php
@@ -322,8 +322,8 @@
                                            echo '<th>'.$shipment->status->name.'</th>';
                                         }
                                     @endphp
-                                    <th></th>
-                                    <th>{{$shipment->created_at}}</th>
+                                    <td></td>
+                                    <td>{{$shipment->created_at}}</td>
                                     <td class="text-center">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                            href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
@@ -349,8 +349,8 @@
                     @else
                         @foreach($orders as $key=>$shipment)
                             <tr>
-                                <th>{{$shipment->id}}</th>
-                                <th>
+                                <td>{{$shipment->id}}</td>
+                                <td>
                                     <div class="text_table">
                                         {{$shipment->company_shipper}}
                                         <div class="display_none_text">
@@ -359,8 +359,8 @@
                                             {{$shipment->tracker->where('position','0')->first()->address}}
                                         </div>
                                     </div>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <div class="text_table">
                                         {{$shipment->company_consignee}}
                                         <div class="display_none_text">
@@ -369,8 +369,8 @@
                                             {{$shipment->tracker->where('position','2')->first()->address}}
                                         </div>
                                     </div>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     @if($shipment->returned == 0)
                                         Job
                                     @else
@@ -381,12 +381,12 @@
                                             </div>
                                         </div>
                                     @endif
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     @php
                                         echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                     @endphp
-                                </th>
+                                </td>
 
 
                                 @php
@@ -427,7 +427,7 @@
                                     }
                                 @endphp
                                 {{--                                <th>{{$statuses[$shipment->status_id]->name}}</th>--}}
-                                <th>{{$shipment->created_at}}</th>
+                                <td>{{$shipment->created_at}}</td>
                                 <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                        href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
@@ -472,7 +472,7 @@
 @section('script')
     <script>
         $(document).ready(function () {
-            // Setup - add a text input to each footer cell
+            //Setup - add a text input to each footer cell
             $('#table_id thead tr')
                 .clone(true)
                 .addClass('filters')
@@ -480,6 +480,12 @@
 
             var table = $('#table_id').DataTable({
                 stateSave: true,
+                stateSaveCallback: function(settings,data) {
+                    localStorage.setItem( 'DataTables_' + settings.sInstance, JSON.stringify(data) )
+                },
+                stateLoadCallback: function(settings) {
+                    return JSON.parse( localStorage.getItem( 'DataTables_' + settings.sInstance ) )
+                },
                 orderCellsTop: true,
                 fixedHeader: true,
                 initComplete: function () {
@@ -551,7 +557,8 @@
                                 });
                         });
                 },
-            });
+
+            }).reload(null, false);;
             $('#table_id tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var id = $(this).find('input[type="hidden"]').val();
@@ -669,37 +676,37 @@
         }
 
         @endcan
-        $(document).ready(function () {
-            // var table = $('#table_id').DataTable({
-            //     stateSave: true
-            // });
-            $('#table_id tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
-                var id = $(this).find('input[type="hidden"]').val();
-                var row = table.row(tr);
+        {{--$(document).ready(function () {--}}
+        {{--    var table = $('#table_id').DataTable({--}}
+        {{--        // stateSave: true--}}
+        {{--    });--}}
+        {{--    --}}{{--$('#table_id tbody').on('click', 'td.details-control', function () {--}}
+        {{--    --}}{{--    var tr = $(this).closest('tr');--}}
+        {{--    --}}{{--    var id = $(this).find('input[type="hidden"]').val();--}}
+        {{--    --}}{{--    var row = table.row(tr);--}}
 
 
-                $.post('{{route('admin.orders.children')}}', {data: id})
-                    .done(function (response) {
-                        // var result = JSON.parse(response);
+        {{--    --}}{{--    $.post('{{route('admin.orders.children')}}', {data: id})--}}
+        {{--    --}}{{--        .done(function (response) {--}}
+        {{--    --}}{{--            // var result = JSON.parse(response);--}}
 
-                        if (row.child.isShown()) {
-                            // This row is already open - close it
-                            row.child.hide();
-                            tr.removeClass('shown');
-                        } else {
-                            // Open this row
-                            row.child(format(response)).show();
-                            tr.addClass('shown');
-                        }
-                    })
-                    .fail(function (error) {
-                        alert(error.responseJSON.message);
-                    })
+        {{--    --}}{{--            if (row.child.isShown()) {--}}
+        {{--    --}}{{--                // This row is already open - close it--}}
+        {{--    --}}{{--                row.child.hide();--}}
+        {{--    --}}{{--                tr.removeClass('shown');--}}
+        {{--    --}}{{--            } else {--}}
+        {{--    --}}{{--                // Open this row--}}
+        {{--    --}}{{--                row.child(format(response)).show();--}}
+        {{--    --}}{{--                tr.addClass('shown');--}}
+        {{--    --}}{{--            }--}}
+        {{--    --}}{{--        })--}}
+        {{--    --}}{{--        .fail(function (error) {--}}
+        {{--    --}}{{--            alert(error.responseJSON.message);--}}
+        {{--    --}}{{--        })--}}
 
 
-            });
-        });
+        {{--    --}}{{--});--}}
+        {{--});--}}
     </script>
     <script type="text/javascript">
         $(document).on('click', '#submit_transfer', function () {
