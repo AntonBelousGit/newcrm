@@ -15,15 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-//    return view('welcome');
     return redirect()->route('login');
 });
+Route::get('/register', function () {
+    return redirect('/login');
+});
 
-//Route::get('/admin', function () {
-//    return view('dashboard');
-//})->middleware(['auth'])->name('dashboard');
-
-Route::get('/clear', function() {
+Route::get('/clear', function () {
 
     Artisan::call('view:clear');
     Artisan::call('cache:clear');
@@ -32,10 +30,10 @@ Route::get('/clear', function() {
     Artisan::call('route:clear');
     return "Cache Clear All";
 });
-Route::get('/reset', function(){
+Route::get('/reset', function () {
     Artisan::call('migrate:fresh', ['--seed' => true]);
     return "migrate success";
 
 });
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
