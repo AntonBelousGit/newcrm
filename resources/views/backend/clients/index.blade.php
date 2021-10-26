@@ -108,7 +108,7 @@
                                 @for($i = 0,$iMax = count($new); $i < $iMax; $i++)
 
                                     <p>{{$log->updated_at->format('d.m.Y - H:i:s') }} -
-                                        User {{$log->user->name}} {{$log->description}}
+                                        User {{$log->user->name ?? ''}} {{$log->description}}
                                         User {{$log->client->name}} {{__('activitylog.'.key($new))}}
                                         @if(isset($old))
                                             @php $shift_old = array_shift($old); @endphp
@@ -129,7 +129,7 @@
                             @endif
                             @if($log->description !== "updated" )
                                 <p>{{$log->updated_at->format('d.m.Y - H:i:s') }} -
-                                    User {{$log->user->name}} {{$log->description}}
+                                    User {{$log->user->name ?? ''}} {{$log->description}}
                                     user {{ $status['name'] ?? $old['name'] ?? $log->client->name ?? '' }} -
                                     role {{$rol[0] ?? $old['roles'][0]->name ?? ''}} </p>
                             @endif
