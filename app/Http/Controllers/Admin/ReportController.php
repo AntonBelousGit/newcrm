@@ -31,7 +31,6 @@ class ReportController extends Controller
             $agents = User::whereHas('roles', function ($q) {
                 $q->where('name', 'Agent');
             })->get();
-            $title = 'All Shipments';
             return view('backend.reports.index', compact('reports', 'agents', 'drivers'));
         }
 
