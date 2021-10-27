@@ -61,12 +61,13 @@
                             @endif
                         @else
                             @php
-                                $drivers = array_unique($order->tracker->pluck('user')->pluck('fullname')->toArray());
+                                $drivers = array_unique(array_filter($order->tracker->pluck('user')->pluck('fullname')->toArray()));
                                 if(count($drivers) > 1){
+                                    //var_dump($order->tracker->pluck('user')->pluck('fullname')->toArray());
                                     echo implode(", ", $drivers);
                                 }
                                 elseif(count($drivers) == 1){
-                                    echo $drivers[0];
+                                    echo array_values($drivers)[0];
                                 }
                                 else{
                                     echo 'Empty';
@@ -85,10 +86,12 @@
                             @php
                                 $agents = array_unique(array_filter($order->tracker->pluck('agent')->pluck('fullname')->toArray()));
                                 if(count($agents) > 1){
+                                    //var_dump(array_values($order->tracker->pluck('agent')->pluck('fullname')->toArray()));
                                     echo implode(", ", $agents);
                                 }
                                 elseif(count($agents) == 1){
-                                    echo $agents[0];
+
+                                    echo array_values($agents)[0];
                                 }
                                 else{
                                     echo 'Empty';

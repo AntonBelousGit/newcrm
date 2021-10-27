@@ -54,6 +54,7 @@ class ReportController extends Controller
                 9 => 'Invoiced',
                 11 => 'Driver',
                 12 => 'Agent',
+                13 => 'Driver && Agent'
             ];
 
             $reports = new Report;
@@ -64,12 +65,16 @@ class ReportController extends Controller
             $reports->driver_id = ($request->driver != 'null') ? $request->driver : null;
             $reports->agent_id = ($request->agent != 'null') ? $request->agent : null;
 
-            if ($reports->agent_id != null) {
+            if ($reports->agent_id != null && $reports->driver_id != null) {
+                $request->status = 13;
+            }
+            elseif ($reports->agent_id != null) {
                 $request->status = 12;
             }
-            if ($reports->driver_id != null) {
+            elseif($reports->driver_id != null) {
                 $request->status = 11;
             }
+
             $reports->status_name = $arr[$request->status] ?? "ANY";
 
             $reports->save();
