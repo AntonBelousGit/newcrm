@@ -237,6 +237,7 @@ input[type="checkbox"]~.custom_check i {
     top: calc(50% - 10px);
 }
 .dataTables_wrapper .dataTables_filter label {
+    display:flex;
     color: white;
 }
 .dataTables_wrapper .dataTables_filter label input {
@@ -274,4 +275,31 @@ input[type="checkbox"]~.custom_check i {
 .dnon-h2 .filters th:nth-child(10) {
     color: transparent;
     font-size: 0;
+}
+#fixAdaptiv .dataTables_wrapper {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    min-width: 1800px;
+    padding-bottom:15px;
+
+}
+#fixAdaptiv .dataTables_wrapper::-webkit-scrollbar {
+    width: 24px; /* ширина для вертикального скролла */
+    height: 4px; /* высота для горизонтального скролла */
+    background-color: #fff;
+}
+#fixAdaptiv .dataTables_wrapper::-webkit-scrollbar-thumb {
+    background-color: #0b2339;
+    border-radius: 2px;
+}
+#fixAdaptiv .dataTables_wrapper table.dataTable thead tr:first-child th {
+    border-bottom: none;
+}
+#fixAdaptiv .dataTables_wrapper table.dataTable thead tr th input{
+    border: 1px solid #0b2339;
+    outline: none;
+}
+#fixAdaptiv .dataTables_wrapper table.dataTable thead tr th input:focus{
+    outline: none;
 }

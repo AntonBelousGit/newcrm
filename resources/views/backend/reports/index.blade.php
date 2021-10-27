@@ -13,7 +13,7 @@
                     <div class="input-group date">
                         <input type="date" id="start" name="start" value="2021-01-01" class="form-control">
                         <input type="date" id="end" name="end" value="{{now()->format('Y-m-d')}}" class="form-control">
-                        @cannot('Client')
+                        @cannot(['Client'],Auth::id())
                             <select name="driver" id="driver" class="form-control">
                                 <option value="null">Driver</option>
                                 @foreach ($drivers as $item)
@@ -27,7 +27,7 @@
                                 @endforeach
                             </select>
                         @endcannot
-                        @can('Client')
+                        @can(['Client'],Auth::id())
                             <input type="hidden" name="driver" value="null">
                             <input type="hidden" name="agent" value="null">
                         @endcan
@@ -37,7 +37,7 @@
                             <option value="2">Accepted in work</option>
                             <option value="6">Delivered</option>
                             <option value="9">Invoiced</option>
-                            @can('Client')
+                            @can(['Client'],Auth::id())
                                 <option value="0">All shipments</option>
                             @endcan
                         </select>

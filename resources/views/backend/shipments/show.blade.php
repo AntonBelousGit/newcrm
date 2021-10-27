@@ -247,7 +247,18 @@
                             @endif
                         @endcan
 
-
+                        @php
+                            if (isset($tracker_start->start_time))
+                            {
+                                $start_time = str_replace(' ','T', $tracker_start->start_time);
+                                $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);
+                            }
+                            if (isset($tracker_end->start_time))
+                            {
+                                $end_time = str_replace(' ','T', $tracker_end->start_time);
+                                $end_time_stop = str_replace(' ','T', $tracker_end->start_time_stop);
+                            }
+                        @endphp
                         <div class="col-md-6">
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Shipping Date:</label>
@@ -268,7 +279,7 @@
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Delivery Date:</label>
                                 <div class="input-group date">
-                                    <input type="text" placeholder="Delivery Date" value="{{ $orders->delivery_time }}"
+                                    <input type="text" placeholder="Delivery Date" value="{{ $tracker_end->start_time }}"
                                            disabled autocomplete="off" class="form-control" id="kt_datepicker_4">
                                     <div class="input-group-append">
                                             <span class="input-group-text">

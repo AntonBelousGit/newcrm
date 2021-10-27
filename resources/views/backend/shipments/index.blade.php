@@ -50,7 +50,7 @@
         </div>
         <form id="tableForm">
             @csrf()
-            <div class="wrap_table dnon-h2">
+            <div class="wrap_table dnon-h2" id="fixAdaptiv">
                 <table id="table_id" class="">
                     <thead>
                     <tr>
@@ -558,7 +558,7 @@
                         });
                 },
 
-            }).reload(null, false);;
+            });
             $('#table_id tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var id = $(this).find('input[type="hidden"]').val();

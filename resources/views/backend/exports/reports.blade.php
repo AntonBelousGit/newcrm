@@ -18,7 +18,7 @@
         <th>Volume Weight, kg</th>
         <th>Dimensions, cm</th>
         <th>Temperature conditions, C</th>
-        @can('SuperUser','OPS','Manager','Agent')
+        @can(['SuperUser','OPS','Manager','Agent'],Auth::id())
             <th>Driver 1</th>
             <th>Driver 2</th>
             <th>Agent 1</th>
@@ -30,9 +30,11 @@
     {{--    @dd($orders)--}}
     {{--    @dd($orders->first()->tracker->where('position',2)->first())--}}
     <tbody>
-    {{--    @dd($orders);--}}
-    @canany('SuperUser','OPS','Manager','Agent')
+{{--        @dd($orders)--}}
+
+    @canany(['SuperUser','OPS','Manager','Agent'],Auth::id())
         @foreach($orders as $order)
+{{--            @dd($orders)--}}
             @foreach($order->cargo as $item)
                 <tr>
                     <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
@@ -105,7 +107,7 @@
                 </tr>
             @endforeach
         @endforeach
-    @elsecanany('Client')
+    @elsecanany(['Client'],Auth::id())
         @foreach($orders as $order)
             {{--        @dd($orders)--}}
             {{--        @can('manage-client-exel',$order)--}}
