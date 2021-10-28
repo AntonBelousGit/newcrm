@@ -96,8 +96,8 @@ class TrackerController extends Controller
     public function edit($id)
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+            $id = (int)$id;
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->get();
-            $id = intval($id);
             $cargo_location = CargoLocation::all();
             $orders = Order::all();
             return view('backend.tracker.edit', compact('trackers', 'id', 'orders', 'cargo_location'));
@@ -170,7 +170,7 @@ class TrackerController extends Controller
      */
     public function show_child_row(Request $request)
     {
-        $id = intval($request->data);
+        $id = (int)$request->data;
         $start_point = Tracker::where('order_id', $id)->where('position', '0')->with('cargolocation')->first();
         $tracker[] = $this->time_tracker($start_point);
 

@@ -35,5 +35,6 @@ Route::get('/reset', function () {
     return "migrate success";
 
 });
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
