@@ -21,7 +21,7 @@ class OrderRepository
 
     public function getAll()
     {
-        return $this->order->with('cargo', 'user', 'tracker.cargolocation', 'order')->where('status_id', '!=', 9)->get();
+        return $this->order->with('cargo', 'user', 'tracker.cargolocation', 'order')->whereNotIn('status_id', [9,10])->get();
     }
 
     public function getAllParentOrder()

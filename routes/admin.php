@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::get('/orders/in-work', [OrderController::class, 'in_work'])->name('orders.in_work');
         Route::get('/orders/delivered', [OrderController::class, 'delivered'])->name('orders.delivered');
         Route::get('/orders/return-job', [OrderController::class, 'return_job'])->name('orders.return_job');
+        Route::get('/orders/canceled', [OrderController::class, 'canceled'])->name('orders.canceled');
         Route::get('/orders/create-return-job', [OrderController::class, 'create_returned_order'])->name('orders.create-return-job');
         Route::post('/orders/create-return-job', [OrderController::class, 'store_returned_order'])->name('orders.store-return-job');
         Route::get('/orders/agent/{order}', [OrderController::class, 'edit_agent_driver'])->name('orders.edit-agent');

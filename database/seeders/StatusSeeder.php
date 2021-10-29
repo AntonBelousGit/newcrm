@@ -23,5 +23,6 @@ class StatusSeeder extends Seeder
         ProductStatus::create(['name'=>'Invoiced']);
         ProductStatus::create(['name'=>'Point']);
         ProductStatus::create(['name'=>'Archives']);
+        ProductStatus::create(['name'=>'Canceled']);
     }
 }

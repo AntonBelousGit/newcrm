@@ -449,6 +449,15 @@ class OrderController extends Controller
         }
         return abort(403);
     }
+    public function canceled()
+    {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
+            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 10)->get();
+            $title = 'Canceled';
+            return view('backend.shipments.index-one-status', compact('orders', 'title'));
+        }
+        return abort(403);
+    }
 
     public function edit_agent_driver($id)
     {
@@ -524,6 +533,18 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-//
+        if(Gate::check('Administration',Auth::id())){
+            $order = Order::find($id);
+            if ($order) {
+                $order->status_id = 10 ;
+                $status = $order->update();
+                if ($status) {
+                    return redirect()->route('admin.orders.index')->with('success', 'Successfully canceled order');
+                }
+                return back()->with('error', 'Something went wrong!');
+            }
+            return back()->with('error', 'Data not found');
+        }
+        abort(403);
     }
 }
