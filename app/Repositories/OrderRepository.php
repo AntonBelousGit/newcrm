@@ -161,6 +161,7 @@ class OrderRepository
             $order->site_consignee = $request->site_consignee;
             $order->shipment_description = $request->shipment_description ?? null;
             $order->comment = $request->comment ?? null;
+            $order->client_hwb = $request->client_hwb ?? null;
             $order->locations = $request->locations;
             $order->locations_id = $request->city_id;
 

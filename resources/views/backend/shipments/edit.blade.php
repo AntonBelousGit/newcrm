@@ -60,19 +60,20 @@
             display: block !important;
         }
     </style>
-    <form class="form-horizontal" action="{{route('admin.orders.update',$orders->id)}}" autocomplete="off" id="kt_form_1" method="POST"
+    <form class="form-horizontal" action="{{route('admin.orders.update',$orders->id)}}" autocomplete="off"
+          id="kt_form_1" method="POST"
           enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p>
                         <b>Number Order:</b>
                         {{$orders->id}}
                     </p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p>
                         <b>HWB Number:</b>
                         @php
@@ -80,7 +81,14 @@
                         @endphp
                     </p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <p>
+                        <label>Client HWB:</label>
+                        <input type="text" name="client_hwb" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                               @endif value="{{$orders->client_hwb}}">
+                    </p>
+                </div>
+                <div class="col-md-3">
                     <p>
                         <b>Created ad:</b>
                         {{$orders->created_at->format('d-m-Y H:s:i')}}
@@ -101,7 +109,8 @@
                                        required class="form-control" value="{{$orders->company_shipper}}"/>
                             </div>
                         </div>
-                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -124,7 +133,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -151,7 +161,8 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Phone')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Phone')}}" autocomplete="off"
-                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  name="phone_shipper" required
+                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                                       @endif  name="phone_shipper" required
                                        class="form-control" value="{{$orders->phone_shipper}}"/>
 
                             </div>
@@ -162,10 +173,12 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <div class="marker">
-                                        <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" name="address_shipper"
+                                        <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete"
+                                               name="address_shipper"
                                                autocomplete="off"
                                                required class="form-control" value="{{$tracker_start->address}}"/>
-                                        <button type="button" class='btn-marker' data-toggle="modal" data-target=".bd-example-modal-lg">
+                                        <button type="button" class='btn-marker' data-toggle="modal"
+                                                data-target=".bd-example-modal-lg">
 										<span class="btn-marker-text">
 											Address
 										</span>
@@ -219,7 +232,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" id="postal_code" class="form-control" disabled
+                                    <input type="text" placeholder="Post code" id="postal_code" class="form-control"
+                                           disabled
                                            autocomplete="off"
                                            value="{{$tracker_start->post_code}}"/>
                                 </div>
@@ -237,7 +251,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Site Number :</label>
-                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  name="site_shipper"
+                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                                       @endif  name="site_shipper"
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->site_shipper}}"/>
 
@@ -250,7 +265,8 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee`s company name')}}:</label>
                                 <input type="text" placeholder="{{ ('Company Consignee')}}"
-                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif name="company_consignee"
+                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                                       @endif name="company_consignee"
                                        autocomplete="off"
                                        required class="form-control" value="{{ $orders->company_consignee }}"/>
                             </div>
@@ -270,10 +286,12 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
                                     <div class="marker">
-                                        <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2" name="address_consignee"
+                                        <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2"
+                                               name="address_consignee"
                                                autocomplete="off"
                                                required class="form-control" value="{{$tracker_end->address}}"/>
-                                        <button type="button" class='btn-marker' data-toggle="modal" data-target=".bd-example-modal-lg2">
+                                        <button type="button" class='btn-marker' data-toggle="modal"
+                                                data-target=".bd-example-modal-lg2">
 										<span class="btn-marker-text">
 											Address
 										</span>
@@ -298,7 +316,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" id="postal_code2" name="consignee_postcode"
+                                    <input type="text" placeholder="Post code" id="postal_code2"
+                                           name="consignee_postcode"
                                            autocomplete="off"
                                            class="form-control" required value="{{$tracker_end->post_code}}"/>
                                 </div>
@@ -307,7 +326,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>{{ ('Consignee Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2" class="form-control"
+                                    <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2"
+                                           class="form-control"
                                            autocomplete="off"
                                            disabled value="{{$tracker_end->address}}"/>
                                 </div>
@@ -327,7 +347,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
-                                    <input type="text" placeholder="Post code" class="form-control" id="postal_code2" disabled
+                                    <input type="text" placeholder="Post code" class="form-control" id="postal_code2"
+                                           disabled
                                            autocomplete="off"
                                            value="{{$tracker_end->post_code}}"/>
                                 </div>
@@ -337,7 +358,8 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Name')}}"
-                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  required name="consignee"
+                                       @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  required
+                                       name="consignee"
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->consignee}}"/>
                             </div>
@@ -345,7 +367,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Site Number :</label>
-                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif  name="site_consignee"
+                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                                       @endif  name="site_consignee"
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->site_consignee}}"/>
 
@@ -354,8 +377,9 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>{{ ('Shipment description')}}:</label>
-                                <textarea class="form-control" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif
-                                name="shipment_description"
+                                <textarea class="form-control" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                                          @endif
+                                          name="shipment_description"
                                           autocomplete="off">{{ $orders->shipment_description }}</textarea>
                             </div>
                         </div>
@@ -384,7 +408,8 @@
                                                    autocomplete="off"
                                                    name="type" @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif  value="{{$item['type']}}">
-                                            <input type="hidden" name="id" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                            <input type="hidden" name="id"
+                                                   @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    @endif value="{{$item['id']}}">
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -393,7 +418,8 @@
                                             <input
                                                 {{--                                                class="kt_touchspin_weight"--}}
                                                 placeholder="Actual weight" type="number"
-                                                required @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif  min="1"
+                                                required @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                @endif  min="1"
                                                 step="0.1"
                                                 name="actual_weight" class="form-control" autocomplete="off"
                                                 value="{{$item['actual_weight']}}"/>
@@ -402,7 +428,8 @@
                                         <div class="col-md-3">
                                             <label class="red-star">{{ ('Quantity')}}:</label>
                                             <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required
-                                                   type="number" @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif  min="1"
+                                                   type="number" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                   @endif  min="1"
                                                    name="quantity" class="form-control" autocomplete="off"
                                                    value="{{$item['quantity']}}"/>
                                             <div class="mb-2 d-md-none"></div>
@@ -452,7 +479,8 @@
                                                 :</label>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                            <input class="dimensions_r"
+                                                   @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Length')}}"
@@ -460,7 +488,8 @@
                                                    value="{{$item['сargo_dimensions_length']}}"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                            <input class="dimensions_r"
+                                                   @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Width')}}"
@@ -468,7 +497,8 @@
                                                    value="{{$item['сargo_dimensions_width']}}"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="dimensions_r" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                            <input class="dimensions_r"
+                                                   @if(in_array($orders->status_id,[6,7,9,10])) disabled
                                                    autocomplete="off"
                                                    @endif  type="number" min="1" required
                                                    class="form-control " placeholder="{{ ('Height')}}"
@@ -569,7 +599,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">Shipping Payer:</label>
-                                    <select name="payer_id" @if(in_array($orders->status_id,[6,7,9,10])) readonly autocomplete="off"
+                                    <select name="payer_id" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                                            autocomplete="off"
                                             @endif  class="form-control ">
 
                                         @if ( Auth::user()->roles->first()->id == 8)
@@ -610,22 +641,22 @@
                         </div>
                     </div>
                     <hr>
-{{--                    <div class="">--}}
-{{--                        <div class="col-md-6" data-select2-id="66">--}}
-{{--                            <label>Agent:</label>--}}
-{{--                            <select id="change-country-to" name="agent_id" class="form-control " autocomplete="off"--}}
-{{--                                    @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >--}}
-{{--                                <option value=""></option>--}}
-{{--                                @foreach($user as $item)--}}
-{{--                                    @if($item->roles->first()->name == 'Agent')--}}
-{{--                                        <option value="{{$item->id}}"--}}
-{{--                                                @if($item->id == $orders->agent_id) selected @endif >{{$item->nickname}}--}}
-{{--                                            - {{$item->roles->first()->name}} </option>--}}
-{{--                                    @endif--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="">--}}
+                    {{--                        <div class="col-md-6" data-select2-id="66">--}}
+                    {{--                            <label>Agent:</label>--}}
+                    {{--                            <select id="change-country-to" name="agent_id" class="form-control " autocomplete="off"--}}
+                    {{--                                    @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >--}}
+                    {{--                                <option value=""></option>--}}
+                    {{--                                @foreach($user as $item)--}}
+                    {{--                                    @if($item->roles->first()->name == 'Agent')--}}
+                    {{--                                        <option value="{{$item->id}}"--}}
+                    {{--                                                @if($item->id == $orders->agent_id) selected @endif >{{$item->nickname}}--}}
+                    {{--                                            - {{$item->roles->first()->name}} </option>--}}
+                    {{--                                    @endif--}}
+                    {{--                                @endforeach--}}
+                    {{--                            </select>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                     <div>
                         @php
                             if (isset($tracker_start->start_time))
@@ -671,7 +702,7 @@
                         <div class="input-group date">
                             <input placeholder="Start time" type="datetime-local" name="end[start_time]"
                                    autocomplete="off"
-                                   class="form-control" required  value="{{$end_time ?? ''}}"/>
+                                   class="form-control" required value="{{$end_time ?? ''}}"/>
                         </div>
                         <i data-field="delivery_time" class="fv-plugins-icon"></i>
                         <div class="fv-plugins-message-container"></div>
@@ -721,7 +752,8 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Agent:</label>
-                                <select id="change-country-to" name="start[agent_id]" class="form-control " autocomplete="off"
+                                <select id="change-country-to" name="start[agent_id]" class="form-control "
+                                        autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
                                     @foreach($user as $item)
@@ -800,7 +832,7 @@
                                             <label>Signed:</label>
                                             <input placeholder="Signed" type="text" name="signed"
                                                    autocomplete="off"
-                                                   class="form-control" value="{{$tracker->signed}}" />
+                                                   class="form-control" value="{{$tracker->signed}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -958,7 +990,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Left Time:</label>
-                                        <input placeholder="Left Time" type="datetime-local" name="left_time" autocomplete="off"
+                                        <input placeholder="Left Time" type="datetime-local" name="left_time"
+                                               autocomplete="off"
                                                class="form-control clear-value-data"/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
@@ -1643,13 +1676,13 @@
     </script>
 
     <script type="text/javascript"
-            src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places" ></script>
+            src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places"></script>
     <script>
         var geocoder;
 
         function initialize() {
-            autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), { types: [ 'address' ] });
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {types: ['address']});
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
                 for (var i = 0; i < place.address_components.length; i++) {
                     for (var j = 0; j < place.address_components[i].types.length; j++) {
@@ -1662,8 +1695,8 @@
                 }
             })
 
-            autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), { types: [ 'address' ] });
-            google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+            autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), {types: ['address']});
+            google.maps.event.addListener(autocomplete2, 'place_changed', function () {
                 var place2 = autocomplete2.getPlace();
                 for (var i = 0; i < place2.address_components.length; i++) {
                     for (var j = 0; j < place2.address_components[i].types.length; j++) {
@@ -1676,6 +1709,7 @@
                 }
             });
         }
+
         google.maps.event.addDomListener(window, "load", initialize);
 
     </script>
