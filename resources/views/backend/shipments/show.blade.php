@@ -116,11 +116,16 @@
                             @endif
                         @endcan
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ ('Shipper Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Name')}}" disabled class="form-control"
                                        value="{{$orders->shipper}}"/>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       disabled @if($addInfo->direct_to_person_shipper === 'on') checked @endif>
+                                <label>Direct to person:</label>
                             </div>
                         </div>
 
@@ -132,7 +137,13 @@
 
                             </div>
                         </div>
-
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Additional shipper contact:</label>
+                                <textarea type="text"  class="form-control"
+                                          autocomplete="off" disabled >{{$addInfo->additional_shipper_contact}}</textarea>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>HWB number:</label>
@@ -204,14 +215,25 @@
                                 </div>
                             @endif
                         @endcan
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ ('Consignee Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Name')}}" disabled class="form-control"
                                        value="{{$orders->consignee}}"/>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       @if($addInfo->direct_to_person_consignee === 'on') checked @endif   disabled >
+                                <label>Direct to person:</label>
+                            </div>
                         </div>
-
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Additional consignee contact:</label>
+                                <textarea type="text"  class="form-control"
+                                          autocomplete="off" disabled>{{$addInfo->additional_consignee_contact}}</textarea>
+                            </div>
+                        </div>
 
                         @cannot('Client')
                             <div class="col-md-12">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdditionOrderInfo;
 use App\Models\AddressesList;
 use App\Models\Cargo;
 use App\Models\CargoLocation;
@@ -224,14 +225,14 @@ class OrderController extends Controller
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
         $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver', 'payer')->findOrFail($id);
-
+        $addInfo = AdditionOrderInfo::where('order_id',$id)->first();
         $logs = Activity::with('user')->where('order_id', $id)
             ->orWhere(function ($query) use ($id) {
                 $query->where('log_name', 'Order')
                     ->where('subject_id', $id);
             })->orderBy('created_at', 'DESC')->get();
 
-        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end', 'logs'));
+        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end', 'logs','addInfo'));
     }
 
     /**
@@ -263,9 +264,10 @@ class OrderController extends Controller
             $payers = Payer::all();
             $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
+            $addInfo = AdditionOrderInfo::where('order_id',$id)->first();
             $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
 
-            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers','addresses'));
+            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers','addresses','addInfo'));
         }
         return abort(403);
     }

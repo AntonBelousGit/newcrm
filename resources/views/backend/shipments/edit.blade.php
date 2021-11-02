@@ -32,25 +32,6 @@
     <!--end::Subheader-->
 @endsection
 @section('content')
-    @php
-        /*   $auth_user = Auth::user();
-           $user_type = Auth::user()->user_type;
-           $staff_permission = json_decode(Auth::user()->staff->role->permissions ?? "[]");
-           $countries = \App\Country::where('covered',1)->get();
-           $packages = \App\Package::all();
-           $deliveryTimes = \App\DeliveryTime::all();
-           $is_def_mile_or_fees = \App\ShipmentSetting::getVal('is_def_mile_or_fees');
-           // is_def_mile_or_fees if result 1 for mile if result 2 for fees
-           dd($is_def_mile_or_fees);
-           if(!$is_def_mile_or_fees){
-               $is_def_mile_or_fees = 0;
-           }
-           $checked_google_map = \App\BusinessSetting::where('type', 'google_map')->first();
-           if($user_type == 'customer')
-           {
-               $user_client = Auth::user()->userClient->client_id;
-           } */
-    @endphp
     <style>
         label {
             font-weight: bold !important;
@@ -233,6 +214,11 @@
                                        class="form-control" value="{{$orders->shipper}}"/>
                                 <input type="hidden" id="order" value="{{$orders->id}}">
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       name="direct_to_person_shipper" @if($addInfo->direct_to_person_shipper === 'on') checked @endif  @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif>
+                                <label>Direct to person:</label>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -241,6 +227,13 @@
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->site_shipper}}"/>
 
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Additional shipper contact:</label>
+                                <textarea type="text" name="additional_shipper_contact" class="form-control"
+                                          autocomplete="off" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif>{{$addInfo->additional_shipper_contact}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -341,6 +334,11 @@
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->consignee}}"/>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       name="direct_to_person_consignee" @if($addInfo->direct_to_person_consignee === 'on') checked @endif  @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif>
+                                <label>Direct to person:</label>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -349,6 +347,13 @@
                                        autocomplete="off"
                                        class="form-control" value="{{$orders->site_consignee}}"/>
 
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Additional consignee contact:</label>
+                                <textarea type="text" name="additional_consignee_contact" class="form-control"
+                                          autocomplete="off" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif>{{$addInfo->additional_consignee_contact}}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12">

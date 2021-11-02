@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\AdditionOrderInfo;
 use App\Models\AddressesList;
 use App\Models\Cargo;
 use App\Models\Order;
@@ -69,6 +70,8 @@ class OrderRepository
 
         $order->save();
         $order->invoice_number = $order->id;
+        $this->AddOrderInfo($request, $order->id);
+
         $order->update();
 
         if (isset($request->address_shipper_checkbox)) {
@@ -81,6 +84,33 @@ class OrderRepository
         return $order;
     }
 
+    public function AddOrderInfo($request, $id)
+    {
+        $addInfo = new AdditionOrderInfo;
+        $addInfo->order_id = $id;
+        $addInfo->direct_to_person_shipper = $request->direct_to_person_shipper ?? 'off';
+        $addInfo->direct_to_person_consignee = $request->direct_to_person_consignee ?? 'off';
+        $addInfo->additional_shipper_contact = $request->additional_shipper_contact;
+        $addInfo->additional_consignee_contact = $request->additional_consignee_contact;
+        $addInfo->save();
+    }
+
+    public function findAddOrderInfo($order_id)
+    {
+        return AdditionOrderInfo::where('order_id',$order_id)->first();
+    }
+
+
+    public function updateAddOrderInfo($request, $id)
+    {
+        $addInfo = $this->findAddOrderInfo($id);
+
+        $addInfo->direct_to_person_shipper = $request->direct_to_person_shipper ?? 'off';
+        $addInfo->direct_to_person_consignee = $request->direct_to_person_consignee ?? 'off';
+        $addInfo->additional_shipper_contact = $request->additional_shipper_contact;
+        $addInfo->additional_consignee_contact = $request->additional_consignee_contact;
+        $addInfo->update();
+    }
     public function saveReturnedOrder($request, $id, $email)
     {
 //        dd($request);
@@ -132,6 +162,7 @@ class OrderRepository
         }
         $order->save();
         $order->invoice_number = $order->id;
+        $this->AddOrderInfo($request, $order->id);
         $order->update();
 
         return $order;
@@ -188,7 +219,8 @@ class OrderRepository
             }
             $order->cargo_location_id = $request->cargo_location_id ?? 1;
 
-//            dd($order);
+            $this->updateAddOrderInfo($request,$order->id);
+
             $order->update();
         }
         return $order;

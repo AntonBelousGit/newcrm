@@ -107,11 +107,11 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($addresses as $address)
-                                                    <tr>
-                                                        <td class="item-table">{{$address->address}}</td>
-                                                    </tr>
-                                                @endforeach
+                                            @foreach($addresses as $address)
+                                                <tr>
+                                                    <td class="item-table">{{$address->address}}</td>
+                                                </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -188,10 +188,15 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <label class="red-star">{{ ('Shipper Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Name')}}" name="shipper" autocomplete="off"
                                        class="form-control" required value="{{old('shipper')}}"/>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       name="direct_to_person_shipper">
+                                <label>Direct to person:</label>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -200,6 +205,13 @@
                                 <input type="text" name="site_shipper" class="form-control" autocomplete="off"
                                        value="{{old('site_shipper')}}"/>
 
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Additional shipper contact:</label>
+                                <textarea type="text" name="additional_shipper_contact" class="form-control"
+                                          autocomplete="off">{{old('additional_shipper_contact')}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -271,12 +283,17 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee"
                                        autocomplete="off"
                                        class="form-control" required value="{{old('consignee')}}"/>
 
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       name="direct_to_person_consignee">
+                                <label>Direct to person:</label>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -285,6 +302,13 @@
                                 <input type="text" name="site_consignee" class="form-control" autocomplete="off"
                                        value="{{old('site_consignee')}}"/>
 
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Additional consignee contact:</label>
+                                <textarea type="text" name="additional_consignee_contact" class="form-control"
+                                          autocomplete="off">{{old('additional_consignee_contact')}}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -313,7 +337,8 @@
                                 <div class="fv-plugins-message-container"></div>
                                 <div><span>To</span></div>
                                 <div class="input-group date">
-                                    <input placeholder="Start time" required type="datetime-local" name="sending_time_stop"
+                                    <input placeholder="Start time" required type="datetime-local"
+                                           name="sending_time_stop"
                                            autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
