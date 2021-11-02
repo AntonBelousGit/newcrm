@@ -32,7 +32,7 @@
     <tbody>
 {{--        @dd($orders)--}}
 
-    @canany(['SuperUser','OPS','Manager','Agent'],Auth::id())
+    @canany(['Administration','Agent'],Auth::id())
         @foreach($orders as $order)
 {{--            @dd($orders)--}}
             @foreach($order->cargo as $item)

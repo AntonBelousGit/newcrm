@@ -22,7 +22,7 @@ class OrderRepository
 
     public function getAll()
     {
-        return $this->order->with('cargo', 'user', 'tracker.cargolocation', 'order')->where('status_id', '!=', 9)->get();
+        return $this->order->with('cargo', 'user', 'tracker.cargolocation', 'order')->whereNotIn('status_id', [9,10])->get();
     }
 
     public function getAllParentOrder()
@@ -192,6 +192,7 @@ class OrderRepository
             $order->site_consignee = $request->site_consignee;
             $order->shipment_description = $request->shipment_description ?? null;
             $order->comment = $request->comment ?? null;
+            $order->client_hwb = $request->client_hwb ?? null;
             $order->locations = $request->locations;
             $order->locations_id = $request->city_id;
 

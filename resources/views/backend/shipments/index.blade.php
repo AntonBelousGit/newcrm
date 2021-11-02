@@ -1,9 +1,7 @@
 @extends('backend.layouts.app')
-@php
-    $user_type = Auth::user()->user_type;
-    $staff_permission = json_decode(Auth::user()->staff->role->permissions ?? "[]");
-    $auth_user = Auth::user();
-@endphp
+@section('style')
+    <link rel="stylesheet" href="{{asset('assets/sweetalert/sweetalert.css')}}">
+@endsection
 @if(!isset($dashboard))
 @section('subheader')
     <!--begin::Subheader-->
@@ -447,6 +445,14 @@
                                            title="Print">
                                             <i class="las la-print"></i>
                                         </a>
+                                        <form action="{{route('admin.orders.destroy',$shipment->id)}}" class="d-inline-block" method="post">
+                                            @csrf
+                                            @method("DELETE")
+                                            <a data-toggle="tooltip" title="delete" data-id="{{$shipment->id}}"
+                                               class="dltBtn btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                               data-placement="bottom" data-original-title="canceled">
+                                                <i class="far fa-trash-alt"></i> </a>
+                                        </form>
                                     @endcanany
                                 </td>
                                 <td class="details-control">
@@ -470,6 +476,7 @@
     {{--@include('modals.delete_modal')--}}
 @endsection
 @section('script')
+    <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
     <script>
         $(document).ready(function () {
             //Setup - add a text input to each footer cell
@@ -480,11 +487,11 @@
 
             var table = $('#table_id').DataTable({
                 stateSave: true,
-                stateSaveCallback: function(settings,data) {
-                    localStorage.setItem( 'DataTables_' + settings.sInstance, JSON.stringify(data) )
+                stateSaveCallback: function (settings, data) {
+                    localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))
                 },
-                stateLoadCallback: function(settings) {
-                    return JSON.parse( localStorage.getItem( 'DataTables_' + settings.sInstance ) )
+                stateLoadCallback: function (settings) {
+                    return JSON.parse(localStorage.getItem('DataTables_' + settings.sInstance))
                 },
                 orderCellsTop: true,
                 fixedHeader: true,
@@ -530,19 +537,21 @@
                                         .draw();
 
                                     // ��� �� ����� ����� ������ ','
-                                    if (this.value.indexOf(',')>=0) {
+                                    if (this.value.indexOf(',') >= 0) {
                                         var ex = this.value.split(',');
 
                                         var vals = '';
 
-                                        for(zz=0;zz<ex.length;zz++) {
-                                            if (vals != '') {vals += '|';}
+                                        for (zz = 0; zz < ex.length; zz++) {
+                                            if (vals != '') {
+                                                vals += '|';
+                                            }
                                             vals += ex[zz];
                                         }
 
-                                        if(vals!='') {
+                                        if (vals != '') {
                                             api.column(colIdx).search(
-                                                this.value != ''? regexr.replace('{search}', '((('+vals+')))'): '',
+                                                this.value != '' ? regexr.replace('{search}', '(((' + vals + ')))') : '',
                                                 this.value != '',
                                                 this.value == ''
                                             ).draw();
@@ -676,37 +685,6 @@
         }
 
         @endcan
-        {{--$(document).ready(function () {--}}
-        {{--    var table = $('#table_id').DataTable({--}}
-        {{--        // stateSave: true--}}
-        {{--    });--}}
-        {{--    --}}{{--$('#table_id tbody').on('click', 'td.details-control', function () {--}}
-        {{--    --}}{{--    var tr = $(this).closest('tr');--}}
-        {{--    --}}{{--    var id = $(this).find('input[type="hidden"]').val();--}}
-        {{--    --}}{{--    var row = table.row(tr);--}}
-
-
-        {{--    --}}{{--    $.post('{{route('admin.orders.children')}}', {data: id})--}}
-        {{--    --}}{{--        .done(function (response) {--}}
-        {{--    --}}{{--            // var result = JSON.parse(response);--}}
-
-        {{--    --}}{{--            if (row.child.isShown()) {--}}
-        {{--    --}}{{--                // This row is already open - close it--}}
-        {{--    --}}{{--                row.child.hide();--}}
-        {{--    --}}{{--                tr.removeClass('shown');--}}
-        {{--    --}}{{--            } else {--}}
-        {{--    --}}{{--                // Open this row--}}
-        {{--    --}}{{--                row.child(format(response)).show();--}}
-        {{--    --}}{{--                tr.addClass('shown');--}}
-        {{--    --}}{{--            }--}}
-        {{--    --}}{{--        })--}}
-        {{--    --}}{{--        .fail(function (error) {--}}
-        {{--    --}}{{--            alert(error.responseJSON.message);--}}
-        {{--    --}}{{--        })--}}
-
-
-        {{--    --}}{{--});--}}
-        {{--});--}}
     </script>
     <script type="text/javascript">
         $(document).on('click', '#submit_transfer', function () {
@@ -913,48 +891,38 @@
                     Swal.fire("{{ ('Please Select Shipments')}}", "", "error");
                 }
             });
-            // FormValidation.formValidation(
-            //     document.getElementById('tableForm'), {
-            //         fields: {
-            //             "Mission[address]": {
-            //                 validators: {
-            //                     notEmpty: {
-            //                         message: '{{ ("This is required!")}}'
-            //                     }
-            //                 }
-            //             },
-            //             "Mission[client_id]": {
-            //                 validators: {
-            //                     notEmpty: {
-            //                         message: '{{ ("This is required!")}}'
-            //                     }
-            //                 }
-            //             },
-            //             "Mission[to_branch_id]": {
-            //                 validators: {
-            //                     notEmpty: {
-            //                         message: '{{ ("This is required!")}}'
-            //                     }
-            //                 }
-            //             }
-            //         },
-            //         plugins: {
-            //             autoFocus: new FormValidation.plugins.AutoFocus(),
-            //             trigger: new FormValidation.plugins.Trigger(),
-            //             // Bootstrap Framework Integration
-            //             bootstrap: new FormValidation.plugins.Bootstrap(),
-            //             // Validate fields when clicking the Submit button
-            //             submitButton: new FormValidation.plugins.SubmitButton(),
-            //             // Submit the form when all fields are valid
-            //             defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-            //             icon: new FormValidation.plugins.Icon({
-            //                 valid: 'fa fa-check',
-            //                 invalid: 'fa fa-times',
-            //                 validating: 'fa fa-refresh',
-            //             }),
-            //         }
-            //     }
-            // );
+        });
+    </script>
+
+    <script>
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('.dltBtn').click(function (e) {
+            var form = $(this).closest('form');
+            var dataID = $(this).data('id');
+            e.preventDefault();
+            swal({
+                title: "Are you sure?",
+                text: "Once canceled, you will not be able to recover this Order",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                        swal("Poof! Your Order has been canceled!", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Your Order is safe!");
+                    }
+                });
+
         });
     </script>
 @endsection
