@@ -12,9 +12,9 @@ class PackageServices
         $this->packageRepositories = $packageRepositories;
     }
 
-    public function dublicate($new_order,$order)
+    public function duplicate($new_order,$order)
     {
-        $this->packageRepositories->dublicate( $new_order,$order);
+        $this->packageRepositories->duplicate( $new_order,$order);
     }
 
 }

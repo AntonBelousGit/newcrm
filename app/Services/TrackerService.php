@@ -67,8 +67,8 @@ class TrackerService
         $this->trackerRepository->updateDriverTransitionalTracker($order, $option_key, $many);
     }
 
-    public function dublicate($new_order, $order)
+    public function duplicate($new_order, $order)
     {
-        $this->trackerRepository->dublicate($new_order, $order);
+        $this->trackerRepository->duplicate($new_order, $order);
     }
 }

@@ -272,7 +272,7 @@ class TrackersRepository
         $tracker->update();
     }
 
-    public function dublicate($new_order,$order)
+    public function duplicate($new_order,$order)
     {
         $trackers = $this->getTrackers($order);
 

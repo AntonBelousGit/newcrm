@@ -14,7 +14,7 @@ class PackageRepositories
         $this->package = $package;
     }
 
-    public function dublicate($new_order,$order)
+    public function duplicate($new_order,$order)
     {
        $cargos = $this->findCargo($order->id);
 

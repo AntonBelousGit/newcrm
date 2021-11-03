@@ -518,10 +518,11 @@ class OrderController extends Controller
     public function duplicate(int $id)
     {
         $order = Order::where('id', $id)->first();
+        $addInfo = AdditionOrderInfo::where('order_id',$id)->first();
         if (Gate::any(['Administration', 'manage-user-order'], $order)) {
-            $new_order = $this->orderService->dublicate($order);
-            $this->packageServices->dublicate($new_order, $order);
-            $this->trakerService->dublicate($new_order, $order);
+            $new_order = $this->orderService->duplicate($order,$addInfo);
+            $this->packageServices->duplicate($new_order, $order);
+            $this->trakerService->duplicate($new_order, $order);
         }
         return redirect()->route('admin.orders.index');
     }

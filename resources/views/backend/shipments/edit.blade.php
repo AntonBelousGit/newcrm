@@ -584,7 +584,6 @@
                             <div class="form-check">
                                 <label for="inlineCheckbox11"></label><input class="form-check-input"
                                                                              style="width: 350px;" autocomplete="off"
-                                                                             autocomplete="off"
                                                                              placeholder="myemail@mail.com,myemail2@mail.com"
                                                                              type="text" id="inlineCheckbox11"
                                                                              name="email" value="{{$orders->email}}">
@@ -1115,7 +1114,7 @@
                             </div>
                         </div>
                     @endif
-                    @if($orders->status_id < 2)
+{{--                    @if($orders->status_id < 2)--}}
                         <div class="form-group ">
                             <div class="">
                                 <label class="text-right col-form-label">{{ ('Add')}}</label>
@@ -1127,7 +1126,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+{{--                    @endif--}}
                     @canany(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())
                         <div class="form-group ">
                             <div class="">

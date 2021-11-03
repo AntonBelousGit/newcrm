@@ -255,7 +255,7 @@ class OrderRepository
         return true;
     }
 
-    public function dublicate($order)
+    public function duplicate($order,$addInfo)
     {
         $new_order = $order->replicate();
         $new_order->created_at = now();
@@ -263,6 +263,9 @@ class OrderRepository
         $new_order->status_id = 1;
         $new_order->save();
         $new_order->invoice_number = $new_order->id;
+        $new_info = $addInfo->replicate();
+        $new_info->order_id = $new_order->id;
+        $new_info->save();
         $new_order->update();
         return $new_order;
     }
