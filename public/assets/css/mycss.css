@@ -303,3 +303,10 @@ input[type="checkbox"]~.custom_check i {
 #fixAdaptiv .dataTables_wrapper table.dataTable thead tr th input:focus{
     outline: none;
 }
+#qwert {
+    position: sticky;
+    top: 65px;
+    background: white;
+    padding: 10px 0px;
+    z-index: 10000;
+}

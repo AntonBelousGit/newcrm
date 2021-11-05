@@ -44,6 +44,35 @@
     <form class="form-horizontal" action="{{route('admin.orders.agent-driver-tracker',$orders->id)}}" id="kt_form_1" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
+            <div class="row" id="qwert">
+                <div class="col-md-3">
+                    <p>
+                        <b>Number Order:</b>
+                        {{$orders->id}}
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p>
+                        <b>HWB Number:</b>
+                        @php
+                            echo str_pad($orders->invoice_number, 6, "0", STR_PAD_LEFT);
+                        @endphp
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p>
+                        <label>Client HWB:</label>
+                        <input type="text" name="client_hwb" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                               @endif value="{{$orders->client_hwb}}">
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p>
+                        <b>Created ad:</b>
+                        {{$orders->created_at->format('d-m-Y H:s:i')}}
+                    </p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <hr>
