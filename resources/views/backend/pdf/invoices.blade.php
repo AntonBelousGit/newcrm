@@ -124,8 +124,11 @@
     <div class="number">
         <span>
             @php
-                echo str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
+                $hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
+                echo $hwb;
             @endphp
+
+            {!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
         </span>
     </div>
 </div>
