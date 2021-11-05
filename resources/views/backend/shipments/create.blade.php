@@ -603,7 +603,7 @@
                         <div class="form-group ">
                             <div class="">
                                 <div>
-                                    <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary"
+                                    <input type="submit" id="lh" class="btn btn-sm font-weight-bolder btn-light-primary"
                                            value="Save">
                                 </div>
                             </div>
@@ -735,20 +735,25 @@
                     var mailPattern = pattern.test(mail);
                     var testSeparator = mail.indexOf(',');
                     var mailArray = mail.split(',');
-
-                    console.log(mailArray);
-                    console.log(testSeparator);
-
+                     console.log(mailPattern);
+                     console.log(mailArray);
                     if (mailPattern === false && testSeparator === -1) {
+                        $('#lh').attr('disabled', true);
                         $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
-                    } else {
+                    } else  {
                         $(mailArray).each(function (index, item) {
                             if (pattern.test(item.trim()) === false) {
                                 console.log(pattern.test(item[index].trim()));
                                 $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не правильно ввели Email или не поставили запятую между Email</p>');
+                                $('#lh').attr('disabled', true);
+
+                            } else {
+                                $('#lh').attr('disabled',false);
                             }
+
                         });
                     }
+
 
                 });
 

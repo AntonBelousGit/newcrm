@@ -29,10 +29,17 @@
         .select2-container {
             display: block !important;
         }
+        #qwert {
+            position: sticky;
+            top: 65px;
+            background: white;
+            padding: 10px 0px;
+            z-index: 10000;
+        }
     </style>
     <form class="form-horizontal" action="" id="kt_form_1" enctype="multipart/form-data">
         <div class="card-body">
-            <div class="row">
+            <div class="row" id="qwert">
                 <div class="col-md-4">
                     <p>
                         <b>Number Order:</b>
