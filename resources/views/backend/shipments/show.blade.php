@@ -33,13 +33,13 @@
     <form class="form-horizontal" action="" id="kt_form_1" enctype="multipart/form-data">
         <div class="card-body">
             <div class="row" id="qwert">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p>
                         <b>Number Order:</b>
                         {{$orders->id}}
                     </p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p>
                         <b>HWB Number:</b>
                         @php
@@ -47,7 +47,13 @@
                         @endphp
                     </p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <p>
+                        <b>Client HWB:</b>
+                        {{$orders->client_hwb}}
+                    </p>
+                </div>
+                <div class="col-md-3">
                     <p>
                         <b>Created ad:</b>
                         {{$orders->created_at->format('d-m-Y H:s:i')}}
@@ -140,8 +146,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Additional shipper contact:</label>
-                                <textarea type="text"  class="form-control"
-                                          autocomplete="off" disabled >{{$addInfo->additional_shipper_contact}}</textarea>
+                                <textarea type="text" class="form-control"
+                                          autocomplete="off"
+                                          disabled>{{$addInfo->additional_shipper_contact}}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -223,15 +230,16 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
-                                       @if($addInfo->direct_to_person_consignee === 'on') checked @endif   disabled >
+                                       @if($addInfo->direct_to_person_consignee === 'on') checked @endif   disabled>
                                 <label>Direct to person:</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Additional consignee contact:</label>
-                                <textarea type="text"  class="form-control"
-                                          autocomplete="off" disabled>{{$addInfo->additional_consignee_contact}}</textarea>
+                                <textarea type="text" class="form-control"
+                                          autocomplete="off"
+                                          disabled>{{$addInfo->additional_consignee_contact}}</textarea>
                             </div>
                         </div>
 
@@ -301,7 +309,8 @@
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Delivery Date:</label>
                                 <div class="input-group date">
-                                    <input type="text" placeholder="Delivery Date" value="{{ $tracker_end->start_time }}"
+                                    <input type="text" placeholder="Delivery Date"
+                                           value="{{ $tracker_end->start_time }}"
                                            disabled autocomplete="off" class="form-control" id="kt_datepicker_4">
                                     <div class="input-group-append">
                                             <span class="input-group-text">
@@ -671,7 +680,7 @@
         <div class="">
             <div id="hider" class="col-md-12" data-select2-id="66" hidden>
                 <label>Logging:</label>
-                 @foreach($logs as $log)
+                @foreach($logs as $log)
                     @php
                         $change_fields = (array)$change_fields = json_decode($log->properties);
                         if(isset($change_fields['old'])){
@@ -690,15 +699,15 @@
                                 User {{$log->user->name}} {{$log->description}} {{__('activitylog.'.key($new))}} -
                                 @if(isset($old))
                                     @php
-                                     $shift_old = array_shift($old);
+                                        $shift_old = array_shift($old);
                                     @endphp
                                     @if ($shift_old == null)
                                         Null
                                     @else
                                         {{$shift_old}}
                                     @endif
-                                     -
-                                @endif  new {{array_shift($new) ?? 'null'}}  </p>
+                                    -
+                                @endif new {{array_shift($new) ?? 'null'}}  </p>
                         @endfor
                     @endif
                     @if($log->description === "deleted" )
@@ -718,12 +727,10 @@
     <script src="{{ static_asset('assets/dashboard/js/geocomplete/jquery.geocomplete.js') }}"></script>
     {{--<script src="//maps.googleapis.com/maps/api/js?libraries=places&key={{$checked_google_map->key}}"></script>--}}
     <script type="text/javascript">
-        document.getElementById('logging').onclick = function() {
-            if(document.getElementById('hider').hidden == true){
+        document.getElementById('logging').onclick = function () {
+            if (document.getElementById('hider').hidden == true) {
                 document.getElementById('hider').hidden = false;
-            }
-            else
-            {
+            } else {
                 document.getElementById('hider').hidden = true;
             }
         }

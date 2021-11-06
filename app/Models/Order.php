@@ -52,6 +52,7 @@ class Order extends Model
         'user_id',
         'number_order',
         'invoice_number',
+        'client_hwb',
     ];
 
 //    public function cargo()
