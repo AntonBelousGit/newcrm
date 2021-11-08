@@ -295,7 +295,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="red-star">{{ ('Shipper City')}}:</label>
+                                    <label class="red-star">Consignee City:</label>
                                     <select class="form-control kt-select2 delivery-time" autocomplete="off"
                                             id="consignee_address"
                                             name="consignee_address_id" required>
