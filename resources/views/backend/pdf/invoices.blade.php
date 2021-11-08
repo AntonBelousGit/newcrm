@@ -383,7 +383,7 @@
         <tr>
             <td colspan="1">
                 <div class="content_td">
-                    <span>Print name of shipper or shipper's agent:</span>
+                    <span>PRINT NAME OF SHIPPER OR SHIPPER'S AGENT:</span>
                 </div>
             </td>
             <td colspan="1">
@@ -411,17 +411,17 @@
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    Time:
+                    TIME:
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                   Signature of consignee or consignee's agent:
+                    SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    Time:
+                    TIME:
                 </div>
             </td>
         </tr>
