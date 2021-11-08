@@ -46,6 +46,7 @@
         /* display: flex;
         justify-content: space-between; */
         min-height: 48px;
+        text-transform: uppercase;
     }
 
     .content_td div {
@@ -114,6 +115,18 @@
         font-size: 20px;
         font-weight: bold;
     }
+    .barcode {
+        position:relative;
+        display:block;
+        height:200px;
+    }
+    .barcode-top {
+        display:block;
+    }
+    .barcode-bot {
+        display:block;
+        margin:0px auto;
+    }
 </style>
 
 <body>
@@ -121,13 +134,14 @@
     <div class="logo">
         <span>Air</span>express
     </div>
-    <div class="number">
-        <span>
+    <div class="number barcode">
+        <span class="barcode-top">
             @php
                 $hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
                 echo $hwb;
             @endphp
-
+        </span>
+        <span class="barcode-bot">
             {!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
         </span>
     </div>
@@ -406,7 +420,6 @@
             <td colspan="1">
                 <div class="content_td">
                     SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
-
                 </div>
             </td>
             <td colspan="1">

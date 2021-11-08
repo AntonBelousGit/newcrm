@@ -305,8 +305,11 @@ input[type="checkbox"]~.custom_check i {
 }
 #qwert {
     position: sticky;
-    top: 65px;
+    top: 64px;
     background: white;
-    padding: 10px 0px;
-    z-index: 10000;
+    padding: 10px 0;
+    z-index: 10;
+}
+.dropdown-menu.p-0.m-0.dropdown-menu-right.dropdown-menu-anim-up.dropdown-menu-lg.p-0 {
+    z-index: 1000000;
 }
