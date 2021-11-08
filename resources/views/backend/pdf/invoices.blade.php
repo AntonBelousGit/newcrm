@@ -116,16 +116,14 @@
         font-weight: bold;
     }
     .barcode {
-        position:relative;
-        display:block;
-        height:200px;
+        margin:0 80px 0 0;
     }
     .barcode-top {
-        display:block;
+        color: black;
+        font-size: 30px;
+        font-weight: 700;
     }
     .barcode-bot {
-        display:block;
-        margin:0px auto;
     }
 </style>
 
@@ -134,16 +132,19 @@
     <div class="logo">
         <span>Air</span>express
     </div>
-    <div class="number barcode">
-        <span class="barcode-top">
-            @php
-                $hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
-                echo $hwb;
-            @endphp
-        </span>
-        <span class="barcode-bot">
-            {!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
-        </span>
+    <div class="number ">
+        <div class="barcode">
+            <div class="barcode-top">
+                @php
+                    $hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
+                    echo $hwb;
+                @endphp
+            </div>
+            <div class="barcode-bot">
+                {!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
+            </div>
+        </div>
+
     </div>
 </div>
 <div class="wrap-table">
