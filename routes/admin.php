@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::post('/orders/agent/{order}', [OrderController::class, 'update_agent_driver_tracker'])->name('orders.agent-driver-tracker');
         Route::post('/orders/driver/{order}', [OrderController::class, 'update_agent_driver_tracker'])->name('orders.agent-driver-tracker');
         Route::get('/users/client-payer', [PayerController::class, 'showClient'])->name('show-client');
+        Route::get('/user/edit', [UserController::class, 'editClient'])->name('user.edit-client');
+        Route::post('/user/edit/{id}', [UserController::class, 'updateClient'])->name('user.update-client');
         Route::get('/users/client-payer/{user}', [PayerController::class, 'clientPayerEdit'])->name('client-payer-edit');
         Route::post('/users/client-payer/{user}', [PayerController::class, 'clientPayerUpdate'])->name('client-payer-update');
         Route::post('/reports', [ReportController::class, 'export'])->name('reports');
