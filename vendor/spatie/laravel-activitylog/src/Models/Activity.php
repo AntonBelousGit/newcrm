@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Spatie\Activitylog\Contracts\Activity as ActivityContract;
-use Spatie\Activitylog\LogOptions;
 
 class Activity extends Model implements ActivityContract
 {
@@ -29,16 +28,6 @@ class Activity extends Model implements ActivityContract
         }
 
         parent::__construct($attributes);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User', 'causer_id');
-    }
-
-    public function client()
-    {
-        return $this->belongsTo('App\Models\User', 'subject_id');
     }
 
     public function subject(): MorphTo

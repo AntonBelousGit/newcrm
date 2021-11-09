@@ -46,6 +46,7 @@
         /* display: flex;
         justify-content: space-between; */
         min-height: 48px;
+        text-transform: uppercase;
     }
 
     .content_td div {
@@ -114,6 +115,16 @@
         font-size: 20px;
         font-weight: bold;
     }
+    .barcode {
+        margin:0 80px 0 0;
+    }
+    .barcode-top {
+        color: black;
+        font-size: 30px;
+        font-weight: 700;
+    }
+    .barcode-bot {
+    }
 </style>
 
 <body>
@@ -121,15 +132,19 @@
     <div class="logo">
         <span>Air</span>express
     </div>
-    <div class="number">
-        <span>
-            @php
-                $hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
-                echo $hwb;
-            @endphp
+    <div class="number ">
+        <div class="barcode">
+            <div class="barcode-top">
+                @php
+                    $hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
+                    echo $hwb;
+                @endphp
+            </div>
+            <div class="barcode-bot">
+                {!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
+            </div>
+        </div>
 
-            {!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
-        </span>
     </div>
 </div>
 <div class="wrap-table">
@@ -383,7 +398,7 @@
         <tr>
             <td colspan="1">
                 <div class="content_td">
-                    <span>Print name of shipper or shipper's agent:</span>
+                    <span>PRINT NAME OF SHIPPER OR SHIPPER'S AGENT:</span>
                 </div>
             </td>
             <td colspan="1">
@@ -406,22 +421,21 @@
             <td colspan="1">
                 <div class="content_td">
                     SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
-
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    Time:
+                    TIME:
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                   Signature of consignee or consignee's agent:
+                    SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:
                 </div>
             </td>
             <td colspan="1">
                 <div class="content_td">
-                    Time:
+                    TIME:
                 </div>
             </td>
         </tr>
