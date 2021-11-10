@@ -400,24 +400,25 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'agent', 'driver')->where('status_id', 1)->get();
             $title = 'New order';
-            return view('backend.shipments.index', compact('orders', 'title'));
+            $statuses = ProductStatus::all();
+
+            return view('backend.shipments.index', compact('orders', 'title','statuses'));
         }
         return abort(403);
     }
 
     public function in_work()
     {
+        $statuses = ProductStatus::all();
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
-
+            $orders = Order::with('cargo', 'user', 'agent', 'driver','tracker.cargolocation')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
             $title = 'Accepted in work';
-            return view('backend.shipments.index-in-work', compact('orders', 'title'));
+            return view('backend.shipments.index-in-work', compact('orders', 'title','statuses'));
         }
         if (Gate::any(['Agent', 'Driver'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver','tracker.cargolocation')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
             $title = 'Accepted in work';
-            return view('backend.shipments.index-in-work', compact('orders', 'title'));
-
+            return view('backend.shipments.index-in-work', compact('orders', 'title','statuses'));
         }
         return abort(403);
     }
@@ -425,9 +426,10 @@ class OrderController extends Controller
     public function delivered()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 6)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'status','tracker.cargolocation')->where('status_id', 6)->get();
+            $statuses = ProductStatus::all();
             $title = 'Delivered';
-            return view('backend.shipments.index-delivered', compact('orders', 'title'));
+            return view('backend.shipments.index-delivered', compact('orders', 'title','statuses'));
         }
         return abort(403);
     }
@@ -435,7 +437,7 @@ class OrderController extends Controller
     public function archives()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 9)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'status')->where('status_id', 9)->get();
             $title = 'Archives';
             return view('backend.shipments.index-one-status', compact('orders', 'title'));
         }
@@ -445,16 +447,17 @@ class OrderController extends Controller
     public function return_job()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('returned', 1)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'status','tracker.cargolocation')->where('returned', 1)->get();
             $title = 'Return Job';
-            return view('backend.shipments.index-one-status', compact('orders', 'title'));
+            $statuses = ProductStatus::all();
+            return view('backend.shipments.index-one-status', compact('orders', 'title','statuses'));
         }
         return abort(403);
     }
     public function canceled()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'substatus')->where('status_id', 10)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'status')->where('status_id', 10)->get();
             $title = 'Canceled';
             return view('backend.shipments.index-one-status', compact('orders', 'title'));
         }

@@ -57,7 +57,7 @@ class TrackersRepository
         }
         if (isset($start['status_arrival']) || isset($start['arrived_time'])) {
             $tracker_start->end_time = $tracker_start->end_time ?? now();
-            $tracker_start->alert = ($tracker_start->start_time < $tracker_start->end_time && $tracker_start->end_time < $tracker_start->start_time_stop) ? 'ok' : 'bad';
+            $tracker_start->alert = ($tracker_start->end_time < $tracker_start->start_time_stop) ? 'ok' : 'bad';
             $tracker_start->status = 'Arrived';
 //            dd($start);
         }
@@ -156,7 +156,7 @@ class TrackersRepository
         }
         if (isset($start['status_arrival']) || isset($start['arrived_time'])) {
             $tracker_start->end_time = $tracker_start->end_time ?? now();
-            $tracker_start->alert = ($tracker_start->start_time < $tracker_start->end_time && $tracker_start->end_time < $tracker_start->start_time_stop) ? 'ok' : 'bad';
+            $tracker_start->alert = ($tracker_start->end_time < $tracker_start->start_time_stop) ? 'ok' : 'bad';
         }
         if ((isset($start['status_arrival']) || isset($start['arrived_time'])) && !empty($start['signed'])) {
             $tracker_start->signed = $start['signed'];
@@ -219,7 +219,7 @@ class TrackersRepository
     public function updateEndTrackerStatus($tracker_end, $signed, $order): void
     {
         $tracker_end->end_time = $tracker_end->end_time ?? now();
-        $tracker_end->alert = ($tracker_end->start_time < $tracker_end->end_time && $tracker_end->end_time < $tracker_end->start_time_stop) ? 'ok' : 'bad';
+        $tracker_end->alert = ($tracker_end->end_time < $tracker_end->start_time_stop) ? 'ok' : 'bad';
 
         $tracker_end->signed = $signed;
         $tracker_end->status = 'Arrived';

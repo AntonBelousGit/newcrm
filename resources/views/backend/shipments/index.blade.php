@@ -55,7 +55,7 @@
                         <th>№</th>
                         <th>Shipper's company name</th>
                         <th>Consignee's company name</th>
-                        <th>Delivery type</th>
+                        <th>Client HWB</th>
                         <th>HWB number</th>
                         <th>Status</th>
                         <th>Next Routing Point</th>
@@ -92,16 +92,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </td>
                                     <td>
                                         @php
@@ -190,16 +181,7 @@
                                         @endphp
                                     </td>
                                     <td>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </td>
 
                                     @php
@@ -280,16 +262,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </td>
                                     <td>
                                         @php
@@ -369,16 +342,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    @if($shipment->returned == 0)
-                                        Job
-                                    @else
-                                        <div class="text_table">
-                                            Return Job
-                                            <div class="display_none_text">
-                                                Order №: {{ $shipment->order->id}}
-                                            </div>
-                                        </div>
-                                    @endif
+                                    {{$shipment->client_hwb}}
                                 </td>
                                 <td>
                                     @php

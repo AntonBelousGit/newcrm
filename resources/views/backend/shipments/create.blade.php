@@ -735,12 +735,12 @@
                     var mailPattern = pattern.test(mail);
                     var testSeparator = mail.indexOf(',');
                     var mailArray = mail.split(',');
-                     console.log(mailPattern);
-                     console.log(mailArray);
+                    console.log(mailPattern);
+                    console.log(mailArray);
                     if (mailPattern === false && testSeparator === -1) {
                         $('#lh').attr('disabled', true);
                         $('#inlineCheckbox11').after('<p class="alert alert-danger aletr-email">Вы не поставили запятую между Email</p>');
-                    } else  {
+                    } else {
                         $(mailArray).each(function (index, item) {
                             if (pattern.test(item.trim()) === false) {
                                 console.log(pattern.test(item[index].trim()));
@@ -748,7 +748,7 @@
                                 $('#lh').attr('disabled', true);
 
                             } else {
-                                $('#lh').attr('disabled',false);
+                                $('#lh').attr('disabled', false);
                             }
 
                         });
@@ -1126,8 +1126,7 @@
             });
         });
     </script>
-    <script type="text/javascript"
-            src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places"></script>
     <script>
         var geocoder;
 
@@ -1163,6 +1162,25 @@
 
         google.maps.event.addDomListener(window, "load", initialize);
 
+    </script>
+
+    <script>
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $( "#autocomplete" ).keyup(function() {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: 'https://api.visicom.ua/data-api/5.0/uk/geocode.json?text=м. Київ, вул. Хрещатик, 26&key=c703b0f96cb9bd605ba41cb9fdf44e10',
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
     </script>
     <script>
         $('#table_id').DataTable({

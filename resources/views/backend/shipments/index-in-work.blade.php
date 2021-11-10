@@ -55,7 +55,7 @@
                         <th>№</th>
                         <th>Shipper's company name</th>
                         <th>Consignee's company name</th>
-                        <th>Delivery type</th>
+                        <th>Client HWB</th>
                         <th>HWB number</th>
                         <th>Status</th>
                         <th>Created at</th>
@@ -81,16 +81,7 @@
                                         </div>
                                     </th>
                                     <th>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </th>
                                     <th>
                                         @php
@@ -158,16 +149,7 @@
                                         </div>
                                     </th>
                                     <th>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </th>
                                     <th>
                                         @php
@@ -235,16 +217,7 @@
                                         </div>
                                     </th>
                                     <th>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </th>
                                     <th>
                                         @php
@@ -305,16 +278,7 @@
                                     </div>
                                 </th>
                                 <th>
-                                    @if($shipment->returned == 0)
-                                        Job
-                                    @else
-                                        <div class="text_table">
-                                            Return Job
-                                            <div class="display_none_text">
-                                                Order №: {{ $shipment->order->id}}
-                                            </div>
-                                        </div>
-                                    @endif
+                                    {{$shipment->client_hwb}}
                                 </th>
                                 <th>
                                     @php

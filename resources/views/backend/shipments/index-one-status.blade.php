@@ -57,7 +57,7 @@
                         <th>№</th>
                         <th>Shipper's company name</th>
                         <th>Consignee's company name</th>
-                        <th>Delivery type</th>
+                        <th>Client HWB</th>
                         <th>HWB number</th>
                         <th>Status</th>
                         <th>Created at</th>
@@ -93,16 +93,7 @@
                                         </div>
                                     </th>
                                     <th>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </th>
                                     <th>
                                         @php
@@ -190,16 +181,7 @@
                                         @endphp
                                     </th>
                                     <th>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </th>
 
                                     @php
@@ -279,16 +261,7 @@
                                         </div>
                                     </th>
                                     <th>
-                                        @if($shipment->returned == 0)
-                                            Job
-                                        @else
-                                            <div class="text_table">
-                                                Return Job
-                                                <div class="display_none_text">
-                                                    Order №: {{ $shipment->order->id}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                        {{$shipment->client_hwb}}
                                     </th>
                                     <th>
                                         @php
@@ -367,44 +340,33 @@
                                     </div>
                                 </th>
                                 <th>
-                                    @if($shipment->returned == 0)
-                                        Job
-                                    @else
-                                        <div class="text_table">
-                                            Return Job
-                                            <div class="display_none_text">
-                                                Order №: {{ $shipment->order->id}}
-                                            </div>
-                                        </div>
-                                    @endif
+                                    {{$shipment->client_hwb}}
                                 </th>
                                 <th>
                                     @php
                                         echo str_pad($shipment->invoice_number, 6, "0", STR_PAD_LEFT);
                                     @endphp
                                 </th>
-
-
                                 @php
                                     if ($shipment->status_id == 8)
                                     {
                                         if ($shipment->tracker->where('position','1')->count() == 1){
-                                            echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                            echo '<th>'.$shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name ?? '' .'</th>';
                                         }
                                         else{
-                                            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.'</th>';
+                                            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name ?? '' .'</th>';
                                         }
                                     }
                                     elseif ($shipment->status_id == 3){
-                                       echo '<th>'.$shipment->status->name.' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name.'</th>';
+                                       echo '<th>'.$shipment->status->name ?? '' .' ->'. $shipment->tracker->where('position','1')->pluck('cargolocation',)->first()->name ?? '' .'</th>';
                                     }
                                     elseif ($shipment->status_id == 4){
                                         $location_name=!is_null($shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first())?$shipment->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name:$shipment->tracker->where('position','2')->where('status','Awaiting arrival')->first()->cargolocation->name;
-                                        echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'. $location_name .'</th>';
+                                        echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name ?? ''.' ->'. $location_name .'</th>';
                                     }
                                     else
                                     {
-                                       echo '<th>'.$shipment->status->name.'</th>';
+                                       echo '<th>'.$shipment->status->name ?? '' .'</th>';
                                     }
                                 @endphp
                                 <th>{{$shipment->created_at}}</th>
