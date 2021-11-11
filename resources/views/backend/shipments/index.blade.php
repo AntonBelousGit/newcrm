@@ -55,7 +55,7 @@
                         Print List of Jobs
                     </option>
                 </select>
-                <button type="button" onclick="formes()">Submit<button>
+                <button type="button" onclick="formes()">Submit</button>
                 <div id="outputField"></div>
         </div>
         <form id="tableForm">
