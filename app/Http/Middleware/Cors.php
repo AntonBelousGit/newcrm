@@ -18,9 +18,9 @@ class Cors
     {
         $response = $next($request);
 
-        $response->header('Access-Control-Allow-Origin', '*');
-        $response->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, DELETE','PATCH','OPTIONS');
-        $response->header('Access-Control-Allow-Headers', "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, X-CSRF-TOKEN ,Access-Control-Request-Method, Access-Control-Request-Headers,X-Auth-Token, Authorization,");
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, DELETE','PATCH','OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, X-CSRF-TOKEN ,Access-Control-Request-Method, Access-Control-Request-Headers,X-Auth-Token, Authorization,");
 
         return $response;
     }

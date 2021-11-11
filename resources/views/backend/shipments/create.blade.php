@@ -1172,15 +1172,17 @@
             }
         });
         $( "#autocomplete" ).keyup(function() {
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: 'https://api.visicom.ua/data-api/5.0/uk/geocode.json?text=м. Київ, вул. Хрещатик, 26&key=c703b0f96cb9bd605ba41cb9fdf44e10',
-                success: function (data) {
-                    console.log(data);
-                }
-            });
+            getData(this.value);
         });
+        $( "#autocomplete2" ).keyup(function() {
+            getData(this.value);
+        });
+        async function getData(value) {
+            const response = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text=' + value +'&key=c703b0f96cb9bd605ba41cb9fdf44e10')
+            const data = await response.json()
+            console.log(data)
+        }
+
     </script>
     <script>
         $('#table_id').DataTable({
