@@ -45,6 +45,7 @@ table.dataTable .table_custom thead th {
     position: relative;
     z-index: 2;
 }
+
 /*
 input[type="checkbox"]~.custom_check i {
 	display: none;
@@ -122,12 +123,15 @@ input[type="checkbox"]~.custom_check i {
 .fa-exclamation-triangle {
     color: red;
 }
+
 #step2 select {
     display: none;
 }
+
 .red-star {
     position: relative;
 }
+
 .red-star::after {
     content: "*";
     top: -6px;
@@ -137,12 +141,15 @@ input[type="checkbox"]~.custom_check i {
     display: block;
     color: red;
 }
+
 .text_table {
     position: relative;
 }
+
 .text_table:hover .display_none_text {
     display: block;
 }
+
 .display_none_text {
     display: none;
     position: absolute;
@@ -154,6 +161,7 @@ input[type="checkbox"]~.custom_check i {
     left: 0px;
     z-index: 1;
 }
+
 .hint_search {
     position: absolute;
     display: none;
@@ -168,28 +176,35 @@ input[type="checkbox"]~.custom_check i {
     overflow: auto;
     z-index: 10;
 }
+
 .hint_search ul li:hover {
     color: #ff7324;
 }
+
 .hint_search ul li {
     list-style: none;
     display: block;
     cursor: pointer;
 }
+
 .hint_search ul {
     margin: 0;
     padding: 0;
 }
+
 .supper-input {
     position: relative;
 }
+
 .alert.alert-danger {
     margin-top: 5px;
 }
+
 /* ну и дермище в верху */
 .marker {
     position: relative;
 }
+
 .btn-marker {
     display: flex;
     align-items: center;
@@ -204,6 +219,7 @@ input[type="checkbox"]~.custom_check i {
     background-color: white;
     padding: 0px;
 }
+
 .btn-marker-text {
     transform: translateX(250px);
     width: max-content;
@@ -211,35 +227,43 @@ input[type="checkbox"]~.custom_check i {
     padding: 0px 15px;
     transition: all 0.2s linear;
 }
+
 .btn-marker:hover .btn-marker-text {
     transform: translateX(0px);
 }
+
 .fa-map-marked-alt {
     position: relative;
     z-index: 10;
     padding-left: 5px;
     background-color: white;
 }
+
 .btn-marker i::before {
     font-size: 16px;
     transition: all 0.2s linear;
 }
+
 .btn-marker:hover i::before {
     color: red;
 }
+
 .inp-btn {
     position: relative;
     width: 40%;
 }
+
 .inp-btn .btn-marker {
     width: 20px;
     height: 20px;
     top: calc(50% - 10px);
 }
+
 .dataTables_wrapper .dataTables_filter label {
-    display:flex;
+    display: flex;
     color: white;
 }
+
 .dataTables_wrapper .dataTables_filter label input {
     display: block;
     width: 100%;
@@ -256,15 +280,18 @@ input[type="checkbox"]~.custom_check i {
     box-shadow: none;
     transition: all 0.15s ease-in-out;
 }
+
 .dataTables_wrapper .dataTables_filter label input:focus {
     color: #3f4254;
     background-color: #ffffff;
     border-color: #69b3ff;
     outline: 0;
 }
+
 .js-example-basic-multiple {
     width: 300px;
 }
+
 .dnon-h2 .filters th:nth-child(1),
 .dnon-h2 .filters th:nth-child(2),
 .dnon-h2 .filters th:nth-child(3),
@@ -276,33 +303,40 @@ input[type="checkbox"]~.custom_check i {
     color: transparent;
     font-size: 0;
 }
+
 #fixAdaptiv .dataTables_wrapper {
     overflow-y: hidden;
     overflow-x: scroll;
     width: 100%;
     min-width: 1800px;
-    padding-bottom:15px;
+    padding-bottom: 15px;
 
 }
+
 #fixAdaptiv .dataTables_wrapper::-webkit-scrollbar {
     width: 24px; /* ширина для вертикального скролла */
     height: 4px; /* высота для горизонтального скролла */
     background-color: #fff;
 }
+
 #fixAdaptiv .dataTables_wrapper::-webkit-scrollbar-thumb {
     background-color: #0b2339;
     border-radius: 2px;
 }
+
 #fixAdaptiv .dataTables_wrapper table.dataTable thead tr:first-child th {
     border-bottom: none;
 }
-#fixAdaptiv .dataTables_wrapper table.dataTable thead tr th input{
+
+#fixAdaptiv .dataTables_wrapper table.dataTable thead tr th input {
     border: 1px solid #0b2339;
     outline: none;
 }
-#fixAdaptiv .dataTables_wrapper table.dataTable thead tr th input:focus{
+
+#fixAdaptiv .dataTables_wrapper table.dataTable thead tr th input:focus {
     outline: none;
 }
+
 #qwert {
     position: sticky;
     top: 64px;
@@ -310,6 +344,28 @@ input[type="checkbox"]~.custom_check i {
     padding: 10px 0;
     z-index: 10;
 }
+
 .dropdown-menu.p-0.m-0.dropdown-menu-right.dropdown-menu-anim-up.dropdown-menu-lg.p-0 {
     z-index: 1000000;
+}
+
+.card.card-custom {
+    position: relative;
+}
+
+.abs {
+    position: absolute;
+    display: flex;
+    grid-gap:10px;
+    top: 181px;
+    left: 20px;
+    z-index: 10000000;
+}
+
+.abs select {
+    border: 1px solid #0b2339;
+    outline: none;
+    padding: 0 5px;
+    width:150px;
+    height:25px;
 }
