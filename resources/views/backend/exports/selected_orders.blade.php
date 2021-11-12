@@ -22,7 +22,7 @@
         @foreach($orders as $order)
             {{--            @dd($orders)--}}
             <tr>
-                <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
+                <td>{{$loop->iteration}}</td>
                 <td>@php echo str_pad($order->invoice_number, 6, "0", STR_PAD_LEFT);  @endphp</td>
                 <td>{{$order->id}}</td>
                 <td></td>
