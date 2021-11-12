@@ -46,22 +46,21 @@
                 </h3>
             </div>
         </div>
-
+        <div class="abs">
+                <select id="multiViber" name="loh" >
+                    <option value="0">
+                        Choose action
+                    </option>
+                     <option value="1">
+                        Print List of Jobs
+                    </option>
+                </select>
+                <button type="button" onclick="formes()">Submit</button>
+                <div id="outputField"></div>
+        </div>
         <form id="tableForm">
             @csrf()
             <div class="wrap_table dnon-h2" id="fixAdaptiv">
-             <div class="abs">
-                            <select id="multiViber" name="loh" >
-                                <option value="0">
-                                    Choose action
-                                </option>
-                                 <option value="1">
-                                    Print List of Jobs
-                                </option>
-                            </select>
-                            <button id="appForm" type="button">Submit</button>
-                            <div id="outputField"></div>
-                    </div>
                 <table id="table_id" class="">
                     <thead>
                     <tr>
@@ -465,14 +464,10 @@
     <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
 
     <script>
-
-//         let option = document.getElementById('multiViber').addEventListener('change', function() {
-//             return this.value;
-//         });
-        $('#multiViber').on('change', function() {
-           option = this.value ;
+    function formes() {
+        let option = document.getElementById('multiViber').addEventListener('change', function() {
+            return this.value;
         });
-
 
         let arrayId = [];
         function removeVal(arr, val)
@@ -495,17 +490,8 @@
                 }
         };
         myCount();
+        $('.checkbox').on('click', myCount);
 
-        $(function() {
-         $('.checkbox').on('click', myCount);
-                 $('#appForm').click(function() {
-                 formes();
-                 });
-        })
-
-
-
-function formes() {
     $.ajax({
             url:"",
             data: {
@@ -518,7 +504,6 @@ function formes() {
             }
         });
     }
-
     </script>
     <script>
         $(document).ready(function () {
@@ -529,10 +514,6 @@ function formes() {
                 .appendTo('#table_id thead');
 
             var table = $('#table_id').DataTable({
-                "aoColumnDefs" : [ {
-                            'bSortable' : false,
-                            'aTargets' : [ 0 ]
-                        } ],
                 stateSave: true,
                 stateSaveCallback: function (settings, data) {
                     localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))

@@ -89,4 +89,8 @@ class ReportController extends Controller
         return Excel::download(new OrderFindExport($request), 'reports.xlsx');
     }
 
+    public function exportSelected(Request $request)
+    {
+        dd($request);
+    }
 }
