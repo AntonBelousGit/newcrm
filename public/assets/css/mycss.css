@@ -356,7 +356,7 @@ input[type="checkbox"]~.custom_check i {
 .abs {
     position: absolute;
     display: flex;
-    grid-gap:10px;
+    grid-gap: 10px;
     top: 181px;
     left: 20px;
     z-index: 10000000;
@@ -366,6 +366,11 @@ input[type="checkbox"]~.custom_check i {
     border: 1px solid #0b2339;
     outline: none;
     padding: 0 5px;
-    width:150px;
-    height:25px;
+    width: 150px;
+    height: 25px;
+}
+
+.abs button {
+    border: 1px solid #0b2339;
+    background: white;
 }
