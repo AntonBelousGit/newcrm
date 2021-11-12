@@ -47,16 +47,16 @@
             </div>
         </div>
         <div class="abs">
-                <select id="multiViber" name="loh" >
-                    <option value="0">
-                        Choose action
-                    </option>
-                     <option value="1">
-                        Print List of Jobs
-                    </option>
-                </select>
-                <button type="button" onclick="formes()">Submit</button>
-                <div id="outputField"></div>
+            <select id="multiViber" name="loh">
+                <option value="0">
+                    Choose action
+                </option>
+                <option value="1">
+                    Print List of Jobs
+                </option>
+            </select>
+            <button type="button" onclick="formes()">Submit</button>
+            <div id="outputField"></div>
         </div>
         <form id="tableForm">
             @csrf()
@@ -83,7 +83,7 @@
                         @foreach($orders as $key=>$shipment)
                             @can('manage-agent',$shipment)
                                 <tr>
-                                    <td> <input class="checkbox" type="checkbox"/> </td>
+                                    <td><input class="checkbox" type="checkbox"/></td>
                                     <td class='idTable'>{{$shipment->id}}</td>
                                     <td>
                                         <div class="text_table">
@@ -168,7 +168,7 @@
                         @foreach($orders as $key=>$shipment)
                             @can('manage-driver',$shipment)
                                 <tr>
-                                <td> <input class="checkbox" type="checkbox"/> </td>
+                                    <td><input class="checkbox" type="checkbox"/></td>
                                     <td class='idTable'>{{$shipment->id}}</td>
                                     <td>
                                         <div class="text_table">
@@ -255,7 +255,7 @@
                             @can('manage-client',$shipment)
 
                                 <tr>
-                                <td> <input class="checkbox" type="checkbox"/> </td>
+                                    <td><input class="checkbox" type="checkbox"/></td>
                                     <td class='idTable'>{{$shipment->id}}</td>
                                     <td>
                                         <div class="text_table">
@@ -336,7 +336,7 @@
                     @else
                         @foreach($orders as $key=>$shipment)
                             <tr>
-                            <td> <input class="checkbox" type="checkbox"/> </td>
+                                <td><input class="checkbox" type="checkbox"/></td>
                                 <td class='idTable'>{{$shipment->id}}</td>
                                 <td>
                                     <div class="text_table">
@@ -464,46 +464,46 @@
     <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
 
     <script>
-    function formes() {
-        let option = document.getElementById('multiViber').addEventListener('change', function() {
-            return this.value;
-        });
+        function formes() {
+            let option = document.getElementById('multiViber').addEventListener('change', function () {
+                return this.value;
+            });
 
-        let arrayId = [];
-        function removeVal(arr, val)
-        {
-            for(var i = 0; i < arr.length; i++)
-            {
-                if (arr[i] == val)
-                    arr.splice(i, 1);
-            }
-        };
-        const myCount = function() {
-            $('#outputField').html( $('.checkbox:checked').length + ' чекбоксов выбрано вами.' );
-            let boxes = $('.checkbox:checked');
-            let boxLang = $('.checkbox:checked').length;
-            idItem = $(this).parent().siblings('.idTable').text();
-                if ( $(this).prop('checked')) {
+            let arrayId = [];
+
+            function removeVal(arr, val) {
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i] == val)
+                        arr.splice(i, 1);
+                }
+            };
+            const myCount = function () {
+                $('#outputField').html($('.checkbox:checked').length + ' чекбоксов выбрано вами.');
+                let boxes = $('.checkbox:checked');
+                let boxLang = $('.checkbox:checked').length;
+                idItem = $(this).parent().siblings('.idTable').text();
+                if ($(this).prop('checked')) {
                     arrayId.push(idItem);
                 } else {
                     removeVal(arrayId, idItem);
                 }
-        };
-        myCount();
-        $('.checkbox').on('click', myCount);
+            };
+            myCount();
+            $('.checkbox').on('click', myCount);
 
-    $.ajax({
-            url:"",
-            data: {
-               order_id: arrayId,
-               option: option,
-            },
-            success: function(res) {
-            },
-            error: function(res) {
-            }
-        });
-    }
+            $.ajax({
+                url: "{{route('admin.selected_orders')}}",
+                method: "POST",
+                data: {
+                    order_id: arrayId,
+                    option: option,
+                },
+                success: function (res) {
+                },
+                error: function (res) {
+                }
+            });
+        }
     </script>
     <script>
         $(document).ready(function () {
