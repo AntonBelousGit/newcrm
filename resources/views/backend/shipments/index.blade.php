@@ -59,7 +59,7 @@
                                     Print List of Jobs
                                 </option>
                             </select>
-                            <button type="button" onclick="formes()">Submit</button>
+                            <button id="appForm" type="button">Submit</button>
                             <div id="outputField"></div>
                     </div>
                 <table id="table_id" class="">
@@ -465,10 +465,14 @@
     <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
 
     <script>
-    function formes() {
-        let option = document.getElementById('multiViber').addEventListener('change', function() {
-            return this.value;
+
+//         let option = document.getElementById('multiViber').addEventListener('change', function() {
+//             return this.value;
+//         });
+        $('#multiViber').on('change', function() {
+           option = this.value ;
         });
+
 
         let arrayId = [];
         function removeVal(arr, val)
@@ -491,8 +495,17 @@
                 }
         };
         myCount();
-        $('.checkbox').on('click', myCount);
 
+        $(function() {
+         $('.checkbox').on('click', myCount);
+                 $('#appForm').click(function() {
+                 formes();
+                 });
+        })
+
+
+
+function formes() {
     $.ajax({
             url:"",
             data: {
@@ -505,6 +518,7 @@
             }
         });
     }
+
     </script>
     <script>
         $(document).ready(function () {
