@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::get('/reports', [ReportController::class, 'export'])->name('reports');
         Route::get('/reports/{report}', [ReportController::class, 'exportExist'])->name('download');
         Route::get('/print/{id}', [InvoiceController::class, 'downloadPDF'])->name('download_pdf');
-        Route::post('/reports/selected-orders', [ReportController::class, 'exportSelected'])->name('selected_orders');
+
 
 //Addresses list
         Route::post('/search', [AddressesListController::class, 'search'])->name('search');
@@ -63,5 +63,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
             'report' => ReportController::class,
             'addresses-list' => AddressesListController::class,
         ]);
-
+        Route::post('/selected-orders', [ReportController::class, 'exportSelected'])->name('selected_orders');
     });

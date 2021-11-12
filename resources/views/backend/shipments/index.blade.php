@@ -504,15 +504,36 @@
 
             function formes() {
                 $.ajax({
+                    xhrFields: {
+                        responseType: 'blob',
+                    },
                     url: "{{route('admin.selected_orders')}}",
-                    method: "POST",
+                    type: "POST",
                     data: {
                         order_id: arrayId,
                         option: option,
                     },
-                    success: function (res) {
+                    success: function (result, status, xhr) {
+
+                        var disposition = xhr.getResponseHeader('content-disposition');
+                        var matches = /"([^"]*)"/.exec(disposition);
+                        var filename = (matches != null && matches[1] ? matches[1] : 'salary.xlsx');
+
+                        // The actual download
+                        var blob = new Blob([result], {
+                            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        });
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = filename;
+
+                        document.body.appendChild(link);
+
+                        link.click();
+                        document.body.removeChild(link);
                     },
                     error: function (res) {
+                        alert('Nothing found');
                     }
                 });
             }

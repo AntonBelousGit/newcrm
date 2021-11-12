@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\OrderExport;
 use App\Exports\OrderFindExport;
+use App\Exports\SelectedOrderExport;
 use App\Http\Controllers\Controller;
 use App\Models\Report;
 use App\Models\User;
@@ -67,11 +68,9 @@ class ReportController extends Controller
 
             if ($reports->agent_id != null && $reports->driver_id != null) {
                 $request->status = 13;
-            }
-            elseif ($reports->agent_id != null) {
+            } elseif ($reports->agent_id != null) {
                 $request->status = 12;
-            }
-            elseif($reports->driver_id != null) {
+            } elseif ($reports->driver_id != null) {
                 $request->status = 11;
             }
 
@@ -91,6 +90,10 @@ class ReportController extends Controller
 
     public function exportSelected(Request $request)
     {
-        dd($request);
+        if ($request['option'] == 1 ) {
+            $request = $request['order_id'];
+            return Excel::download(new SelectedOrderExport($request), 'orders.xlsx');
+        }
+        return response()->json(['msg'=>'Fail'],404);
     }
 }

@@ -161,7 +161,6 @@
                                <div class="dropDown">
                                     <ul class="dropDown-list">
                                         <li class="dropDown-list-item">
-                                            text
                                         </li>
                                     </ul>
                                 </div>
@@ -1185,7 +1184,7 @@
             getData(this.value);
         });
         async function getData(value) {
-            const response = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text=' + value +'&key=c703b0f96cb9bd605ba41cb9fdf44e10')
+            const response = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text='+value+'&key=c703b0f96cb9bd605ba41cb9fdf44e10')
             const data = await response.json()
             console.log(data)
         }
