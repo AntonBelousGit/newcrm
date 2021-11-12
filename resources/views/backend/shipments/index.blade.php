@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="abs">
-                <select id="multiViber" name="loh" >
+                <select id="multiViber" name="selected_option" >
                     <option value="0">
                         Choose action
                     </option>
@@ -492,8 +492,12 @@
         myCount();
         $('.checkbox').on('click', myCount);
 
-    $.ajax({
-            url:"",
+        console.log(option);
+        console.log(arrayId);
+
+        $.ajax({
+            url:"{{route('admin.selected_orders')}}",
+            method:"POST",
             data: {
                order_id: arrayId,
                option: option,
