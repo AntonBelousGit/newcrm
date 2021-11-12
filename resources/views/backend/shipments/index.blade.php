@@ -46,21 +46,22 @@
                 </h3>
             </div>
         </div>
-        <div class="abs">
-                <select id="multiViber" name="loh" >
-                    <option value="0">
-                        Choose action
-                    </option>
-                     <option value="1">
-                        Print List of Jobs
-                    </option>
-                </select>
-                <button type="button" onclick="formes()">Submit</button>
-                <div id="outputField"></div>
-        </div>
+
         <form id="tableForm">
             @csrf()
             <div class="wrap_table dnon-h2" id="fixAdaptiv">
+             <div class="abs">
+                            <select id="multiViber" name="loh" >
+                                <option value="0">
+                                    Choose action
+                                </option>
+                                 <option value="1">
+                                    Print List of Jobs
+                                </option>
+                            </select>
+                            <button type="button" onclick="formes()">Submit</button>
+                            <div id="outputField"></div>
+                    </div>
                 <table id="table_id" class="">
                     <thead>
                     <tr>
@@ -514,6 +515,10 @@
                 .appendTo('#table_id thead');
 
             var table = $('#table_id').DataTable({
+                "aoColumnDefs" : [ {
+                            'bSortable' : false,
+                            'aTargets' : [ 0 ]
+                        } ],
                 stateSave: true,
                 stateSaveCallback: function (settings, data) {
                     localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))

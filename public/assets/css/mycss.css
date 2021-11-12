@@ -354,12 +354,13 @@ input[type="checkbox"]~.custom_check i {
 }
 
 .abs {
-    position: absolute;
+    /*position: absolute;*/
     display: flex;
     grid-gap: 10px;
-    top: 181px;
-    left: 20px;
-    z-index: 10000000;
+    margin: 10px 0;
+    /*top: 74px;*/
+    /*left: 160px;*/
+    /*z-index: 10000000;*/
 }
 
 .abs select {
