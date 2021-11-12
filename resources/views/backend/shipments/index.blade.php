@@ -464,14 +464,14 @@
     <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
 
     <script>
-        function formes() {
+
 
 //         let option = document.getElementById('multiViber').addEventListener('change', function() {
 //             return this.value;
 //         });
-        $('#multiViber').on('change', function() {
-           option = this.value ;
-        });
+            $('#multiViber').on('change', function () {
+                option = this.value;
+            });
 
 
             let arrayId = [];
@@ -495,30 +495,28 @@
             };
             myCount();
 
-        $(function() {
-         $('.checkbox').on('click', myCount);
-                 $('#appForm').click(function() {
-                 formes();
-                 });
-        })
+            $(function () {
+                $('.checkbox').on('click', myCount);
+                $('#appForm').click(function () {
+                    formes();
+                });
+            })
 
+            function formes() {
+                $.ajax({
+                    url: "{{route('admin.selected_orders')}}",
+                    method: "POST",
+                    data: {
+                        order_id: arrayId,
+                        option: option,
+                    },
+                    success: function (res) {
+                    },
+                    error: function (res) {
+                    }
+                });
+            }
 
-
-function formes() {
-            $.ajax({
-                url: "{{route('admin.selected_orders')}}",
-                method: "POST",
-                data: {
-                    order_id: arrayId,
-                    option: option,
-                },
-                success: function (res) {
-                },
-                error: function (res) {
-                }
-            });
-        }
-        }
     </script>
     <script>
         $(document).ready(function () {
