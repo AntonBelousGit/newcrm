@@ -158,6 +158,13 @@
                                         <i class="fas fa-map-marked-alt"></i>
                                     </button>
                                 </div>
+                               <div class="dropDown">
+                                    <ul class="dropDown-list">
+                                        <li class="dropDown-list-item">
+                                            text
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div class="hint_search">
                                 </div>
                                 @can('Client',Auth::user())
