@@ -20,4 +20,12 @@ class InvoiceController extends Controller
         $pdf->setPaper('A4', 'landscape');
         return $pdf->download('HWB.pdf');
     }
+
+    public function testPDF()
+    {
+        $invoices = Order::find(1);
+        $tracker_start = Tracker::with('cargolocation')->where('order_id', 1)->where('position', '0')->first();
+        $tracker_end = Tracker::with('cargolocation')->where('order_id', 1)->where('position', '2')->first();
+        return view('backend.pdf.invoices',compact('invoices','tracker_start','tracker_end'));
+    }
 }

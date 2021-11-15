@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::get('/reports', [ReportController::class, 'export'])->name('reports');
         Route::get('/reports/{report}', [ReportController::class, 'exportExist'])->name('download');
         Route::get('/print/{id}', [InvoiceController::class, 'downloadPDF'])->name('download_pdf');
+        Route::get('/test', [InvoiceController::class, 'testPDF'])->name('test_pdf');
 
 
 //Addresses list
