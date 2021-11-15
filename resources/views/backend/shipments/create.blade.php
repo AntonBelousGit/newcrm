@@ -1,5 +1,7 @@
 @extends('backend.layouts.app')
-
+@section('style')
+<link rel="stylesheet" href="https://api.visicom.ua/apps/visicom-autocomplete.min.css">
+@endsection
 
 @section('subheader')
     <!--begin::Subheader-->
@@ -145,6 +147,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group supper-input">
+                            <div id="visicom-autocomplete">
+                                <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
+                            </div>
                                 <label class="red-star">{{ ('Shipper Address')}}:</label>
                                 <div class="marker">
                                     <input type="text" placeholder="City, street" id="autocomplete"
@@ -626,8 +631,15 @@
 @endsection
 
 @section('script')
+    <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
+    <script type="text/javascript">
+    let ac = new visicomAutoComplete({
+        apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+        placeholder: 'City, street',
+        minCahrs: 6,
+    });
 
-
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -1170,26 +1182,37 @@
 
     </script>
 
-    <script>
-
+   <script>
+        function searchPostal(data) {
+        //let postalCode = data.features[0].properties.postal_code;
+        let postalCode2 = data;
+            if(postalCode2.features.isArray()) {
+                postalCode2 = data.features[0].properties.postal_code;
+            } else {
+                postalCode2 = data.properties.postal_code;
+            }
+            console.log(data);
+            console.log(postalCode2);
+        }
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $( "#autocomplete" ).keyup(function() {
+        $( "#visicom-autocomplete ul li" ).click(function() {
             getData(this.value);
         });
-        $( "#autocomplete2" ).keyup(function() {
+        $( "#visicom-autocomplete ul li" ).click(function() {
             getData(this.value);
         });
         async function getData(value) {
             const response = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text='+value+'&key=c703b0f96cb9bd605ba41cb9fdf44e10')
-            const data = await response.json()
-            console.log(data)
+            const data = await response.json();
+            searchPostal(data);
         }
 
     </script>
+
     <script>
         $('#table_id').DataTable({
             "ordering": false,

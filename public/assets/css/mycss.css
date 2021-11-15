@@ -383,8 +383,9 @@ input[type="checkbox"]~.custom_check i {
     border-top: none;
     list-style-type: none;
     border-radius: 0 0 0.42rem 0.42rem;
+    padding: 0.65rem 1rem;
 }
 
 .dropDown-list-item {
-
+    margin: 5px 0;
 }
