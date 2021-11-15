@@ -18,7 +18,7 @@
         <th>Volume Weight, kg</th>
         <th>Dimensions, cm</th>
         <th>Temperature conditions, C</th>
-        @can(['SuperUser','OPS','Manager','Agent'],Auth::id())
+        @canany(['Administration','Agent'],Auth::id())
             <th>Driver 1</th>
             <th>Driver 2</th>
             <th>Agent 1</th>
