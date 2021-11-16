@@ -147,11 +147,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group supper-input">
-                            <div id="visicom-autocomplete">
-                                <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
-                            </div>
+
                                 <label class="red-star">{{ ('Shipper Address')}}:</label>
                                 <div class="marker">
+                                    <div class="visicom-autocomplete" id="visicom-autocomplete">
+                                        <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
+                                    </div>
                                     <input type="text" placeholder="City, street" id="autocomplete"
                                            name="address_shipper" autocomplete="off"
                                            class="form-control search" required value="{{old('address_shipper')}}"/>
@@ -163,12 +164,6 @@
                                         <i class="fas fa-map-marked-alt"></i>
                                     </button>
                                 </div>
-                               <div class="dropDown">
-                                    <ul class="dropDown-list">
-                                        <li class="dropDown-list-item">
-                                        </li>
-                                    </ul>
-                                </div>
                                 <div class="hint_search">
                                 </div>
                                 @can('Client',Auth::user())
@@ -178,7 +173,6 @@
                                 @endcan
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper City')}}:</label>
@@ -233,8 +227,7 @@
                             <div class="form-group">
                                 <label class="red-star">Consignee’s company name</label>
                                 <input type="text" placeholder="Consignee’s company name" name="company_consignee"
-                                       autocomplete="off"
-                                       class="form-control" required value="{{old('company_consignee')}}"/>
+                                       autocomplete="off" class="form-control" required value="{{old('company_consignee')}}"/>
 
                             </div>
                         </div>
@@ -242,8 +235,7 @@
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Phone')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Phone')}}" name="phone_consignee"
-                                       autocomplete="off"
-                                       class="form-control" required value="{{old('phone_consignee')}}"/>
+                                       autocomplete="off" class="form-control" required value="{{old('phone_consignee')}}"/>
 
                             </div>
                         </div>
@@ -252,8 +244,11 @@
                             <div class="form-group supper-input">
                                 <label class="red-star">{{ ('Consignee Address')}}:</label>
                                 <div class="marker">
+                                    <div class="visicom-autocomplete2" id="visicom-autocomplete2">
+                                        <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
+                                    </div>
                                     <input type="text" placeholder="City, street" name="address_consignee"
-                                           autocomplete="off"
+                                           autocomplete="off" id="autocomplete_consignee"
                                            class="form-control search" id="autocomplete2" required
                                            value="{{old('address_consignee')}}"/>
                                     <button type="button" class='btn-marker' data-toggle="modal"
@@ -289,17 +284,14 @@
                             <div class="form-group">
                                 <label class="red-star">Post code:</label>
                                 <input type="text" placeholder="Post code" id="postal_code2" name="consignee_postcode"
-                                       autocomplete="off"
-                                       class="form-control" required value="{{old('shipper')}}"/>
+                                       autocomplete="off" class="form-control" required value="{{old('shipper')}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-2">
                                 <label class="red-star">{{ ('Consignee Name')}}:</label>
                                 <input type="text" placeholder="{{ ('Consignee Name')}}" name="consignee"
-                                       autocomplete="off"
-                                       class="form-control" required value="{{old('consignee')}}"/>
-
+                                       autocomplete="off" class="form-control" required value="{{old('consignee')}}"/>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
@@ -341,16 +333,14 @@
                                 <div><span>From</span></div>
                                 <div class="input-group date">
                                     <input placeholder="Start time" required type="datetime-local" name="sending_time"
-                                           autocomplete="off"
-                                           class="form-control" value=""/>
+                                           autocomplete="off"  class="form-control" value=""/>
                                 </div>
                                 <i data-field="sending_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>
                                 <div><span>To</span></div>
                                 <div class="input-group date">
                                     <input placeholder="Start time" required type="datetime-local"
-                                           name="sending_time_stop"
-                                           autocomplete="off"
+                                           name="sending_time_stop" autocomplete="off"
                                            class="form-control" value=""/>
                                 </div>
                                 <i data-field="sending_time" class="fv-plugins-icon"></i>
@@ -364,16 +354,14 @@
                                 <div><span>From</span></div>
                                 <div class="input-group date">
                                     <input placeholder="Start time" type="datetime-local" name="delivery_time"
-                                           autocomplete="off"
-                                           class="form-control" required value=""/>
+                                           autocomplete="off" class="form-control" required value=""/>
                                 </div>
                                 <i data-field="delivery_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>
                                 <div><span>To</span></div>
                                 <div class="input-group date">
                                     <input placeholder="Start time" type="datetime-local" name="delivery_time_stop"
-                                           autocomplete="off"
-                                           class="form-control" required value=""/>
+                                           autocomplete="off" class="form-control" required value=""/>
                                 </div>
                                 <i data-field="delivery_time" class="fv-plugins-icon"></i>
                                 <div class="fv-plugins-message-container"></div>
@@ -397,23 +385,20 @@
                                     <div class="col-md-3">
                                         <label class="red-star">{{ ('Type')}}:</label>
                                         <input type="text" placeholder="{{ ('type')}}" class="form-control" name="type"
-                                               autocomplete="off"
-                                               required>
+                                               autocomplete="off" required>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="red-star">Actual weight (kg):</label>
                                         <input placeholder="Actual weight" type="number" min="1" step="0.1"
-                                               autocomplete="off"
-                                               name="actual_weight" class="form-control" value="1" required/>
+                                               autocomplete="off" name="actual_weight" class="form-control" value="1" required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <label class="red-star">{{ ('Quantity')}}:</label>
                                         <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" type="number"
-                                               autocomplete="off"
-                                               min="1 " name="quantity" class="form-control" value="1" required/>
+                                               autocomplete="off" min="1 " name="quantity" class="form-control" value="1" required/>
                                         <div class="mb-2 d-md-none"></div>
                                     </div>
 
@@ -422,8 +407,7 @@
                                         <label>Serial number box:</label>
 
                                         <input type="text" placeholder="Serial number" name="serial_number"
-                                               autocomplete="off"
-                                               class="form-control " value=""/>
+                                               autocomplete="off" class="form-control " value=""/>
                                         <div class="mb-2 d-md-none"></div>
 
                                     </div>
@@ -541,10 +525,8 @@
                             </div>
                             <div class="form-check">
                                 <label for="inlineCheckbox11"></label><input class="form-check-input"
-                                                                             placeholder="myemail@mail.com,myemail2@mail.com"
-                                                                             style="width: 350px;" type="text"
-                                                                             autocomplete="off"
-                                                                             id="inlineCheckbox11" name="email"
+                                                                             placeholder="myemail@mail.com,myemail2@mail.com"style="width: 350px;" type="text"
+                                                                             autocomplete="off" id="inlineCheckbox11" name="email"
                                                                              value="{{old('email')}}">
                             </div>
                             <div class="form-check"></div>
@@ -610,7 +592,6 @@
                         {{--                                </div>--}}
                         {{--                            </div>--}}
                         {{--                        </div>--}}
-
                         <div class="form-group ">
                             <div class="">
                                 <div>
@@ -624,42 +605,42 @@
                 </div>
             </div>
         </div>
-
     </form>
-
 
 @endsection
 
 @section('script')
     <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
     <script type="text/javascript">
-    let ac = new visicomAutoComplete({
-        apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
-        placeholder: 'City, street',
-        minCahrs: 6,
-    });
-
+        let ac = new visicomAutoComplete({
+            selector: '.visicom-autocomplete2',
+            apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+            placeholder: 'City, street',
+            minCahrs: 6,
+        });
+        let ab = new visicomAutoComplete({
+            selector: '.visicom-autocomplete',
+            apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+            placeholder: 'City, street',
+            minCahrs: 6,
+        });
+    </script>
+    <script src="">
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-
             $(document).mouseup(function (e) {
                 if (!$('.supper-input').is(e.target) // если клик был не по нашему блоку
                     && $('.supper-input').has(e.target).length === 0) { // и не по его дочерним элементам
                     $('.hint_search').slideUp(500);
                 }
             });
-
         });
-
         let count = 0;
-
         function Search(elem) {
-
             count = $(elem).val().length;
             if (count >= 2) {
                 $(elem).siblings('.hint_search').slideDown(300);
-
                 $search = $(elem).val();
                 $.ajax({
                     type: 'POST',
@@ -668,21 +649,17 @@
                     success: function (data) {
                         $(elem).siblings('.hint_search').text('').append($(data));
                     }
-
                 });
-
             } else {
                 $(elem).siblings('.hint_search').slideUp(300);
             }
         }
-
         function clickItem(elem) {
             $(elem).parent('ul').parent('.hint_search').parent('.supper-input').find('.search').val($(elem).html());
             $('.hint_search').slideUp(500);
         }
     </script>
     <script type="text/javascript">
-
         // Map Address For Receiver
         $('.address-receiver').each(function () {
             var address = $(this);
@@ -1147,7 +1124,6 @@
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places"></script>
     <script>
         var geocoder;
-
         function initialize() {
             autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {types: ['address']});
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -1157,12 +1133,10 @@
                         if (place.address_components[i].types[j] == "postal_code") {
                             console.log(place.address_components[i].long_name);
                             document.getElementById('postal_code').value = place.address_components[i].long_name;
-
                         }
                     }
                 }
             })
-
             autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), {types: ['address']});
             google.maps.event.addListener(autocomplete2, 'place_changed', function () {
                 var place2 = autocomplete2.getPlace();
@@ -1171,38 +1145,33 @@
                         if (place2.address_components[i].types[j] == "postal_code") {
                             console.log(place2.address_components[i].long_name);
                             document.getElementById('postal_code2').value = place2.address_components[i].long_name;
-
                         }
                     }
                 }
             });
         }
-
         google.maps.event.addDomListener(window, "load", initialize);
-
     </script>
-
-   <script>
+    <script>
         function searchPostal(data) {
-        //let postalCode = data.features[0].properties.postal_code;
         let postalCode2 = data;
-            if(postalCode2.features.isArray()) {
+        let postalArray = data.features;
+            if(Array.isArray(postalArray)) {
                 postalCode2 = data.features[0].properties.postal_code;
             } else {
                 postalCode2 = data.properties.postal_code;
             }
-            console.log(data);
-            console.log(postalCode2);
+            document.getElementById('postal_code').value = postalCode2;
         }
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $( "#visicom-autocomplete ul li" ).click(function() {
+        $( "#visicom-autocomplete input" ).change(function() {
             getData(this.value);
         });
-        $( "#visicom-autocomplete ul li" ).click(function() {
+        $( "#visicom-autocomplete input" ).change(function() {
             getData(this.value);
         });
         async function getData(value) {
@@ -1210,9 +1179,35 @@
             const data = await response.json();
             searchPostal(data);
         }
-
     </script>
-
+    <script>
+            function searchPostal2(data) {
+            let postalCode2 = data;
+            let postalArray = data.features;
+                if(Array.isArray(postalArray)) {
+                    postalCode2 = data.features[0].properties.postal_code;
+                } else {
+                    postalCode2 = data.properties.postal_code;
+                }
+                document.getElementById('postal_code2').value = postalCode2;
+            }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $( "#visicom-autocomplete2 input" ).change(function() {
+                getData2(this.value);
+            });
+            $( "#visicom-autocomplete2 input" ).change(function() {
+                getData2(this.value);
+            });
+            async function getData2(value) {
+                const response2 = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text='+value+'&key=c703b0f96cb9bd605ba41cb9fdf44e10')
+                const data2 = await response2.json();
+                searchPostal2(data2);
+            }
+        </script>
     <script>
         $('#table_id').DataTable({
             "ordering": false,
