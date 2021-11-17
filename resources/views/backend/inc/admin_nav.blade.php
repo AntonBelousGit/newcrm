@@ -99,18 +99,18 @@
                     <div class="navi navi-spacer-x-0 pt-5">
 
                         <!--begin::Item-->
-                        <a href=""
-                           class="navi-item px-8">
-                            <div class="navi-link">
-                                <div class="navi-icon mr-2">
-                                    <i class="flaticon2-calendar-3 text-success"></i>
-                                </div>
-                                <div class="navi-text">
-                                    <div class="font-weight-bold">Profile</div>
-                                    <div class="text-muted">Account settings and more</div>
-                                </div>
-                            </div>
-                        </a>
+{{--                        <a href=""--}}
+{{--                           class="navi-item px-8">--}}
+{{--                            <div class="navi-link">--}}
+{{--                                <div class="navi-icon mr-2">--}}
+{{--                                    <i class="flaticon2-calendar-3 text-success"></i>--}}
+{{--                                </div>--}}
+{{--                                <div class="navi-text">--}}
+{{--                                    <div class="font-weight-bold">Profile</div>--}}
+{{--                                    <div class="text-muted">Account settings and more</div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </a>--}}
 
                         <!--end::Item-->
 

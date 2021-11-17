@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => 'AirExpress CRM',
 
     'google_api' =>env('GOOGLE_MAP_KEY'),
 

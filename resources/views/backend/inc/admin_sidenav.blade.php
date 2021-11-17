@@ -58,7 +58,13 @@
                     <li class="menu-item menu-item-submenu  " aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <i class="menu-icon flaticon-users"></i>
-                            <span class="menu-text">Users</span>
+                            <span class="menu-text">
+                                @can('SuperUser',Auth::user())
+                                    Users
+                                @elsecan
+                                    Settings
+                                @endcan
+                            </span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu">
@@ -107,12 +113,10 @@
                         <h4 class="menu-text">Administration</h4>
                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                     </li>
-
-
                     <li class="menu-item menu-item-submenu  " aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <i class="menu-icon flaticon-users"></i>
-                            <span class="menu-text">Users</span>
+                            <span class="menu-text">Settings</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu">
@@ -123,7 +127,7 @@
                                         <i class="menu-bullet menu-bullet-dot">
                                             <span></span>
                                         </i>
-                                        <span class="menu-text">Edit</span>
+                                        <span class="menu-text">Edit Profile</span>
                                     </a>
                                 </li>
                             </ul>
