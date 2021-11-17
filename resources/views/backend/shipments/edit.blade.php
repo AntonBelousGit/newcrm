@@ -1160,22 +1160,28 @@
 @endsection
 @section('script')
     <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
-        <script type="text/javascript">
-            let ac = new visicomAutoComplete({
-                selector: '.visicom-autocomplete2',
-                apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
-                placeholder: 'City, street',
-                minCahrs: 6,
-            });
-            let ab = new visicomAutoComplete({
-                selector: '.visicom-autocomplete',
-                apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
-                placeholder: 'City, street',
-                minCahrs: 6,
-            });
-
-
-        </script>
+    <script type="text/javascript">
+        let ac = new visicomAutoComplete({
+            selector: '.visicom-autocomplete2',
+            apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+            placeholder: 'City, street',
+            minCahrs: 6,
+        });
+        let ab = new visicomAutoComplete({
+            selector: '.visicom-autocomplete',
+            apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+            placeholder: 'City, street',
+            minCahrs: 6,
+        });
+    </script>
+    <script>
+    let valueAddress2 = '{{$tracker_end->address}}';
+    console.log(valueAddress2,'kj[]')
+    $("#visicom-autocomplete2 input").val(valueAddress2);
+    let valueAddress = '{{$tracker_start->address}}';
+    console.log(valueAddress,'kj[]')
+    $("#visicom-autocomplete input").val(valueAddress);
+    </script>
     <script type="text/javascript">
         // Map Address For Receiver
         $('.address-receiver').each(function () {
@@ -1696,8 +1702,7 @@
 
 
     <script>
-    let valueAddres = {{$tracker_start->address}};
-    $("#visicom-autocomplete input").val(valueAddres);
+    $("#visicom-autocomplete input").attr('name','address_shipper');
             function searchPostal(data) {
             let postalCode2 = data;
             let postalArray = data.features;
@@ -1714,7 +1719,6 @@
                 }
             });
             $( "#visicom-autocomplete input" ).change(function() {
-                $("#visicom-autocomplete input").attr('name','address_shipper');
                 getData(this.value);
             });
             async function getData(value) {
@@ -1724,8 +1728,7 @@
             }
         </script>
         <script>
-        let valueAddres2 = {{$tracker_end->address}};
-        $("#visicom-autocomplete2 input").val(valueAddres);
+        $("#visicom-autocomplete2 input").attr('name','address_consignee');
                 function searchPostal2(data) {
                 let postalCode2 = data;
                 let postalArray = data.features;
@@ -1742,7 +1745,6 @@
                     }
                 });
                 $( "#visicom-autocomplete2 input" ).change(function() {
-                    $("#visicom-autocomplete2 input").attr('name','address_consignee');
                     getData2(this.value);
                 });
                 async function getData2(value) {
