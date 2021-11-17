@@ -562,7 +562,7 @@
 
                     // For each column
                     api
-                        .columns([5, 6])
+                        .columns([6, 7])
                         .eq(0)
                         .each(function (colIdx) {
                             // Set the header cell to contain the input element
