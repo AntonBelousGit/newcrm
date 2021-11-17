@@ -1173,6 +1173,8 @@
                 placeholder: 'City, street',
                 minCahrs: 6,
             });
+
+
         </script>
     <script type="text/javascript">
         // Map Address For Receiver
@@ -1694,6 +1696,8 @@
 
 
     <script>
+    let valueAddres = {{$tracker_start->address}};
+    $("#visicom-autocomplete input").val(valueAddres);
             function searchPostal(data) {
             let postalCode2 = data;
             let postalArray = data.features;
@@ -1720,6 +1724,8 @@
             }
         </script>
         <script>
+        let valueAddres2 = {{$tracker_end->address}};
+        $("#visicom-autocomplete2 input").val(valueAddres);
                 function searchPostal2(data) {
                 let postalCode2 = data;
                 let postalArray = data.features;
@@ -1736,7 +1742,7 @@
                     }
                 });
                 $( "#visicom-autocomplete2 input" ).change(function() {
-                    $("#visicom-autocomplete input").attr('name','address_consignee');
+                    $("#visicom-autocomplete2 input").attr('name','address_consignee');
                     getData2(this.value);
                 });
                 async function getData2(value) {
