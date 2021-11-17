@@ -548,6 +548,10 @@
                 .appendTo('#table_id thead');
 
             var table = $('#table_id').DataTable({
+                aoColumnDefs: [
+                    { "bSearchable": false, "aTargets": [ 0 ,1  ] }
+                ]
+                ],
                 stateSave: true,
                 stateSaveCallback: function (settings, data) {
                     localStorage.setItem('DataTables_' + settings.sInstance, JSON.stringify(data))

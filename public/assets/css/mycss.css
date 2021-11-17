@@ -201,7 +201,7 @@ input[type="checkbox"]~.custom_check i {
 .display_none_text {
     display: none;
     position: absolute;
-    padding: 15px 15px 15px 15px;
+    padding: 5px 5px 5px 5px;
     border-radius: 5px;
     border: 1px solid #f2f2f2;
     background: #f2f2f2;
@@ -352,14 +352,7 @@ input[type="checkbox"]~.custom_check i {
     font-size: 0;
 }
 
-#fixAdaptiv .dataTables_wrapper {
-    /*overflow-y: hidden;*/
-    /*overflow-x: scroll;*/
-    /*width: 100%;*/
-    /*min-width: 1800px;*/
-    padding-bottom: 15px;
 
-}
 .dataTables_wrapper .dataTables_filter {
     margin-right: 50px;
 }
@@ -485,4 +478,14 @@ tr.shown .details-control .btn_arr i {
 .text_table {
     width: 180px;
 }
-
+.dataTables_wrapper {
+    padding: 40px 0 !important;
+}
+@media screen and (max-width: 1500px) {
+    #fixAdaptiv .dataTables_wrapper {
+        overflow-y: hidden;
+        overflow-x: scroll;
+        width: 100%;
+        min-width: 1300px;
+    }
+}

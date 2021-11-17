@@ -68,7 +68,7 @@
                 <div class="col-md-3">
                     <p>
                         <label>Client HWB:</label>
-                        <input type="text" name="client_hwb" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                        <input class="form-control" type="text" name="client_hwb" @if(in_array($orders->status_id,[6,7,9,10])) readonly
                                @endif value="{{$orders->client_hwb}}">
                     </p>
                 </div>
