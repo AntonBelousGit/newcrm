@@ -1,23 +1,28 @@
 #visicom-autocomplete2 * {
     box-sizing: border-box;
 }
+
 #visicom-autocomplete2 :focus {
     outline: none;
 }
+
 #visicom-autocomplete2 ul, #visicom-autocomplete2 li.powered-by {
     margin: 0;
     padding: 0;
 }
+
 #visicom-autocomplete2 button {
     border: none;
     margin: 0;
     outline: none;
 }
+
 #visicom-autocomplete2 {
     background: #ffffff;
     box-sizing: border-box;
     position: relative;
 }
+
 #visicom-autocomplete2 a {
     border: 1px solid #a3a3a3;
     box-shadow: inset 0 1px 3px -1px #a3a3a3;
@@ -25,6 +30,7 @@
     font-size: 14px;
     padding: 11px;
 }
+
 #visicom-autocomplete2 input {
     border: 1px solid #a3a3a3;
     font-size: 14px;
@@ -35,6 +41,7 @@
     white-space: nowrap;
     width: 100%;
 }
+
 @media (min-width: 992px) {
     .aside-fixed .wrapper {
         padding-right: 0px;
@@ -334,7 +341,7 @@ input[type="checkbox"]~.custom_check i {
 .dnon-h2 .filters th:nth-child(3),
 .dnon-h2 .filters th:nth-child(4),
 .dnon-h2 .filters th:nth-child(5),
-.dnon-h2 .filters th:nth-child(8),
+.dnon-h2 .filters th:nth-child(6),
 .dnon-h2 .filters th:nth-child(9),
 .dnon-h2 .filters th:nth-child(10) {
     color: transparent;
@@ -342,14 +349,23 @@ input[type="checkbox"]~.custom_check i {
 }
 
 #fixAdaptiv .dataTables_wrapper {
-    overflow-y: hidden;
-    overflow-x: scroll;
-    width: 100%;
-    min-width: 1800px;
+    /*overflow-y: hidden;*/
+    /*overflow-x: scroll;*/
+    /*width: 100%;*/
+    /*min-width: 1800px;*/
     padding-bottom: 15px;
 
 }
-
+.dataTables_wrapper .dataTables_filter {
+    margin-right: 50px;
+}
+thead tr th,
+tbody tr td {
+    padding: 5px !important;
+}
+div.container-fluid {
+    padding: 0 5px;
+}
 #fixAdaptiv .dataTables_wrapper::-webkit-scrollbar {
     width: 24px; /* ширина для вертикального скролла */
     height: 4px; /* высота для горизонтального скролла */
@@ -397,7 +413,7 @@ input[type="checkbox"]~.custom_check i {
 }
 
 .abs select {
-    border: 1px solid #0b2339;
+    border: 1px solid #aaa;
     outline: none;
     padding: 0 5px;
     width: 150px;
@@ -405,41 +421,61 @@ input[type="checkbox"]~.custom_check i {
 }
 
 .abs button {
-    border: 1px solid #0b2339;
+    border: 1px solid #aaa;
     background: white;
 }
 
 #autocomplete,
-#autocomplete_consignee{
+#autocomplete_consignee {
     display: none;
 }
-
+th input {
+    border: 1px solid #aaa !important;
+}
 .marker #visicom-autocomplete input {
     border: 1px solid #E4E6EF;
     background-color: #ffffff;
     border-radius: 0.42rem;
 }
+
 .marker #visicom-autocomplete input::placeholder {
     color: #a5a5a5;
 }
+
 .marker #visicom-autocomplete input:focus {
     color: #3F4254;
     border-color: #69b3ff;
     outline: 0;
 }
+
 .marker #visicom-autocomplete2 input {
     border: 1px solid #E4E6EF;
     background-color: #ffffff;
     border-radius: 0.42rem;
 }
+
 .marker #visicom-autocomplete2 input::placeholder {
     color: #a5a5a5;
 }
+
 .marker #visicom-autocomplete2 input:focus {
     color: #3F4254;
     border-color: #69b3ff;
     outline: 0;
 }
+
 .visicom-autocomplete .close {
     right: 100px !important;
 }
+
+.btn_arr {
+    border: none;
+    background-color: transparent;
+}
+tr.shown .details-control .btn_arr i {
+    transform: rotate(-270deg);
+}
+.text_table {
+    width: 180px;
+}
+

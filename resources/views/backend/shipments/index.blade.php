@@ -66,8 +66,8 @@
                     <tr>
                         <th></th>
                         <th>№</th>
-                        <th>Shipper's company name</th>
-                        <th>Consignee's company name</th>
+                        <th>Shipper's <br> company name</th>
+                        <th>Consignee's <br> company name</th>
                         <th>Client HWB</th>
                         <th>HWB number</th>
                         <th>Status</th>
@@ -157,9 +157,9 @@
                                     </td>
                                     <td class="details-control">
                                         <input type="hidden" value="{{$shipment->id}}">
-                                        <div class="btn_arr">
+                                        <button class="btn_arr" type="button"  oncilck="rotate(this);">
                                             <i class="fas fa-chevron-left"></i>
-                                        </div>
+                                        </button>
                                     </td>
                                 </tr>
                             @endcan
@@ -242,9 +242,9 @@
                                     </td>
                                     <td class="details-control">
                                         <input type="hidden" value="{{$shipment->id}}">
-                                        <div class="btn_arr">
+                                        <button class="btn_arr" type="button" oncilck="rotate(this);">
                                             <i class="fas fa-chevron-left"></i>
-                                        </div>
+                                        </button>
                                     </td>
                                 </tr>
 
@@ -325,9 +325,9 @@
 
                                     <td class="details-control">
                                         <input type="hidden" value="{{$shipment->id}}">
-                                        <div class="btn_arr">
+                                        <button class="btn_arr" type="button"  oncilck="rotate(this);">
                                             <i class="fas fa-chevron-left"></i>
-                                        </div>
+                                        </button>
                                     </td>
 
                                 </tr>
@@ -442,9 +442,9 @@
                                 </td>
                                 <td class="details-control">
                                     <input type="hidden" value="{{$shipment->id}}">
-                                    <div class="btn_arr">
+                                    <button class="btn_arr"  type="button" oncilck="rotate(this);">
                                         <i class="fas fa-chevron-left"></i>
-                                    </div>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -462,13 +462,13 @@
 @endsection
 @section('script')
     <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
-
-    <script>
-
-
-//         let option = document.getElementById('multiViber').addEventListener('change', function() {
-//             return this.value;
-//         });
+    <script type="text/javascript">
+        function rotate(e) {
+        console.log('huilo')
+            $('.btn_arr').toggleClass('active');
+        }
+    </script>
+    <script type="text/javascript">
             $('#multiViber').on('change', function () {
                 option = this.value;
             });
@@ -483,7 +483,7 @@
                 }
             };
             const myCount = function () {
-                $('#outputField').html($('.checkbox:checked').length + ' чекбоксов выбрано вами.');
+                $('#outputField').html($('.checkbox:checked').length + ' checkboxes selected by you.');
                 let boxes = $('.checkbox:checked');
                 let boxLang = $('.checkbox:checked').length;
                 idItem = $(this).parent().siblings('.idTable').text();
@@ -562,7 +562,7 @@
 
                     // For each column
                     api
-                        .columns([5, 6])
+                        .columns([6, 7])
                         .eq(0)
                         .each(function (colIdx) {
                             // Set the header cell to contain the input element
@@ -599,8 +599,8 @@
                                         .draw();
 
                                     // ��� �� ����� ����� ������ ','
-                                    if (this.value.indexOf(',') >= 0) {
-                                        var ex = this.value.split(',');
+                                    if (this.value.indexOf(', ') >= 0) {
+                                        var ex = this.value.split(', ');
 
                                         var vals = '';
 
