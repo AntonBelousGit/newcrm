@@ -1111,6 +1111,7 @@
         });
     </script>
     <script>
+    $("#visicom-autocomplete input").attr('name','address_shipper');
         function searchPostal(data) {
         let postalCode2 = data;
         let postalArray = data.features;
@@ -1127,7 +1128,6 @@
             }
         });
         $( "#visicom-autocomplete input" ).change(function() {
-            $("#visicom-autocomplete input").attr('name','address_shipper');
             getData(this.value);
         });
         async function getData(value) {
@@ -1137,6 +1137,7 @@
         }
     </script>
     <script>
+    $("#visicom-autocomplete2 input").attr('name','address_consignee');
             function searchPostal2(data) {
             let postalCode2 = data;
             let postalArray = data.features;
@@ -1153,7 +1154,6 @@
                 }
             });
             $( "#visicom-autocomplete2 input" ).change(function() {
-                $("#visicom-autocomplete input").attr('name','address_consignee');
                 getData2(this.value);
             });
             async function getData2(value) {
