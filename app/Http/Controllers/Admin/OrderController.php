@@ -203,8 +203,8 @@ class OrderController extends Controller
             $start_tracker->location_id = $request->consignee_address_id;
             $start_tracker->address = $request->address_consignee;
             $start_tracker->post_code = $request->consignee_postcode;
-            $start_tracker->start_time = $request->delivery_time;
-            $start_tracker->start_time_stop = $request->delivery_time_stop;
+            $start_tracker->start_time = null;
+            $start_tracker->start_time_stop = null;
             $start_tracker->position = '0';
             $start_tracker->save();
         }
