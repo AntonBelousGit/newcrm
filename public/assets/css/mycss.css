@@ -481,11 +481,19 @@ tr.shown .details-control .btn_arr i {
 .dataTables_wrapper {
     padding: 40px 0 !important;
 }
+.img-logo-mob {
+    max-width: 200px;
+}
 @media screen and (max-width: 1500px) {
     #fixAdaptiv .dataTables_wrapper {
         overflow-y: hidden;
         overflow-x: scroll;
         width: 100%;
         min-width: 1300px;
+    }
+}
+@media screen and (max-width: 992px) {
+    #qwert {
+        top:54px;
     }
 }
