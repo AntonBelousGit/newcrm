@@ -1127,6 +1127,7 @@
             }
         });
         $( "#visicom-autocomplete input" ).change(function() {
+            $("#visicom-autocomplete input").attr('name','address_shipper');
             getData(this.value);
         });
         $( "#visicom-autocomplete input" ).change(function() {
@@ -1155,6 +1156,7 @@
                 }
             });
             $( "#visicom-autocomplete2 input" ).change(function() {
+                $("#visicom-autocomplete input").attr('name','address_consignee');
                 getData2(this.value);
             });
             $( "#visicom-autocomplete2 input" ).change(function() {
