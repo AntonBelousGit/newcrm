@@ -1057,7 +1057,7 @@
                             @php
                                 if (isset($tracker_end->start_time))
                                 {
-                                     $start_time = str_replace(' ','T', $tracker_end->start_time);
+                                     $start_time_end = str_replace(' ','T', $tracker_end->start_time);
                                      $start_time_stop = str_replace(' ','T', $tracker_end->start_time_stop);
                                 }
                                 $end_time=is_null($tracker_end->end_time)?'':str_replace(' ','T', $tracker_end->end_time);
@@ -1066,7 +1066,7 @@
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time FROM" type="datetime-local" disabled
                                        autocomplete="off"
-                                       class="form-control" value="{{ $start_time ?? ''}}"/>
+                                       class="form-control" value="{{ $start_time_end ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
