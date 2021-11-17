@@ -1130,9 +1130,6 @@
             $("#visicom-autocomplete input").attr('name','address_shipper');
             getData(this.value);
         });
-        $( "#visicom-autocomplete input" ).change(function() {
-            getData(this.value);
-        });
         async function getData(value) {
             const response = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text='+value+'&key=c703b0f96cb9bd605ba41cb9fdf44e10');
             const data = await response.json();
@@ -1157,9 +1154,6 @@
             });
             $( "#visicom-autocomplete2 input" ).change(function() {
                 $("#visicom-autocomplete input").attr('name','address_consignee');
-                getData2(this.value);
-            });
-            $( "#visicom-autocomplete2 input" ).change(function() {
                 getData2(this.value);
             });
             async function getData2(value) {
