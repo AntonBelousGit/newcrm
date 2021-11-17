@@ -1176,10 +1176,8 @@
     </script>
     <script>
     let valueAddress2 = '{{$tracker_end->address}}';
-    console.log(valueAddress2,'kj[]')
     $("#visicom-autocomplete2 input").val(valueAddress2);
     let valueAddress = '{{$tracker_start->address}}';
-    console.log(valueAddress,'kj[]')
     $("#visicom-autocomplete input").val(valueAddress);
     </script>
     <script type="text/javascript">
