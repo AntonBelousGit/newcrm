@@ -376,7 +376,9 @@ div.container-fluid {
     height: 4px; /* высота для горизонтального скролла */
     background-color: #fff;
 }
-
+table#table_id tbody tr td .table_custom thead tr th {
+    padding: 0 !important;
+}
 #fixAdaptiv .dataTables_wrapper::-webkit-scrollbar-thumb {
     background-color: #0b2339;
     border-radius: 2px;

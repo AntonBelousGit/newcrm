@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+@section('style')
+<link rel="stylesheet" href="https://api.visicom.ua/apps/visicom-autocomplete.min.css">
+@endsection
 @section('subheader')
     <!--begin::Subheader-->
     <div class="py-2 subheader py-lg-6 subheader-solid" id="kt_subheader">
@@ -154,10 +157,9 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <div class="marker">
-                                        <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete"
-                                               name="address_shipper"
-                                               autocomplete="off"
-                                               required class="form-control" value="{{$tracker_start->address}}"/>
+                                         <div class="visicom-autocomplete" id="visicom-autocomplete">
+                                            <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
+                                        </div>
                                         <button type="button" class='btn-marker' data-toggle="modal"
                                                 data-target=".bd-example-modal-lg">
 										<span class="btn-marker-text">
@@ -172,8 +174,7 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper City')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" autocomplete="off"
-                                            id="shipper_address"
-                                            name="shipper_address_id" required>
+                                            id="shipper_address" name="shipper_address_id" required>
                                         @foreach($cargo_location as $location)
                                             <option value="{{$location->id}}"
                                                     @if($tracker_start->location_id == $location->id) selected @endif>{{ $location->name}}</option>
@@ -185,8 +186,7 @@
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
                                     <input type="text" placeholder="Post code" id="postal_code" name="shipper_postcode"
-                                           autocomplete="off"
-                                           class="form-control" required value="{{$tracker_start->post_code}}"/>
+                                           autocomplete="off" class="form-control" required value="{{$tracker_start->post_code}}"/>
                                 </div>
                             </div>
                         @else
@@ -194,8 +194,7 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" disabled
-                                           autocomplete="off"
-                                           class="form-control" value="{{$tracker_start->address}}"/>
+                                           autocomplete="off" class="form-control" value="{{$tracker_start->address}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -279,10 +278,9 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
                                     <div class="marker">
-                                        <input type="text" placeholder="{{ ('Consignee Address')}}" id="autocomplete2"
-                                               name="address_consignee"
-                                               autocomplete="off"
-                                               required class="form-control" value="{{$tracker_end->address}}"/>
+                                         <div class="visicom-autocomplete2" id="visicom-autocomplete2">
+                                            <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
+                                        </div>
                                         <button type="button" class='btn-marker' data-toggle="modal"
                                                 data-target=".bd-example-modal-lg2">
 										<span class="btn-marker-text">
@@ -1161,6 +1159,21 @@
     </form>
 @endsection
 @section('script')
+    <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
+        <script type="text/javascript">
+            let ac = new visicomAutoComplete({
+                selector: '.visicom-autocomplete2',
+                apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+                placeholder: 'City, street',
+                minCahrs: 6,
+            });
+            let ab = new visicomAutoComplete({
+                selector: '.visicom-autocomplete',
+                apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+                placeholder: 'City, street',
+                minCahrs: 6,
+            });
+        </script>
     <script type="text/javascript">
         // Map Address For Receiver
         $('.address-receiver').each(function () {
@@ -1679,44 +1692,59 @@
         });
     </script>
 
-    <script type="text/javascript"
-            src="https://maps.google.com/maps/api/js?key={{config('app.google_api')}}&libraries=places"></script>
+
     <script>
-        var geocoder;
-
-        function initialize() {
-            autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {types: ['address']});
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                for (var i = 0; i < place.address_components.length; i++) {
-                    for (var j = 0; j < place.address_components[i].types.length; j++) {
-                        if (place.address_components[i].types[j] == "postal_code") {
-                            console.log(place.address_components[i].long_name);
-                            document.getElementById('postal_code').value = place.address_components[i].long_name;
-
-                        }
-                    }
+            function searchPostal(data) {
+            let postalCode2 = data;
+            let postalArray = data.features;
+                if(Array.isArray(postalArray)) {
+                    postalCode2 = data.features[0].properties.postal_code;
+                } else {
+                    postalCode2 = data.properties.postal_code;
                 }
-            })
-
-            autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), {types: ['address']});
-            google.maps.event.addListener(autocomplete2, 'place_changed', function () {
-                var place2 = autocomplete2.getPlace();
-                for (var i = 0; i < place2.address_components.length; i++) {
-                    for (var j = 0; j < place2.address_components[i].types.length; j++) {
-                        if (place2.address_components[i].types[j] == "postal_code") {
-                            console.log(place2.address_components[i].long_name);
-                            document.getElementById('postal_code2').value = place2.address_components[i].long_name;
-
-                        }
-                    }
+                document.getElementById('postal_code').value = postalCode2;
+            }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-        }
-
-        google.maps.event.addDomListener(window, "load", initialize);
-
-    </script>
+            $( "#visicom-autocomplete input" ).change(function() {
+                $("#visicom-autocomplete input").attr('name','address_shipper');
+                getData(this.value);
+            });
+            async function getData(value) {
+                const response = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text='+value+'&key=c703b0f96cb9bd605ba41cb9fdf44e10');
+                const data = await response.json();
+                searchPostal(data);
+            }
+        </script>
+        <script>
+                function searchPostal2(data) {
+                let postalCode2 = data;
+                let postalArray = data.features;
+                    if(Array.isArray(postalArray)) {
+                        postalCode2 = data.features[0].properties.postal_code;
+                    } else {
+                        postalCode2 = data.properties.postal_code;
+                    }
+                    document.getElementById('postal_code2').value = postalCode2;
+                }
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $( "#visicom-autocomplete2 input" ).change(function() {
+                    $("#visicom-autocomplete input").attr('name','address_consignee');
+                    getData2(this.value);
+                });
+                async function getData2(value) {
+                    const response2 = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text='+value+'&key=c703b0f96cb9bd605ba41cb9fdf44e10')
+                    const data2 = await response2.json();
+                    searchPostal2(data2);
+                }
+            </script>
     <script>
         $('#table_id').DataTable({
             "ordering": false,
