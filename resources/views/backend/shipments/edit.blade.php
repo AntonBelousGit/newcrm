@@ -682,7 +682,7 @@
                         <div class="input-group date">
                             <input placeholder="Start time" type="datetime-local" name="start[start_time]"
                                    autocomplete="off"
-                                   class="form-control" required value="{{$start_time}}"/>
+                                   class="form-control" required value="{{$start_time ?? ''}}"/>
                         </div>
                         <i data-field="sending_time" class="fv-plugins-icon"></i>
                         <div class="fv-plugins-message-container"></div>
@@ -690,7 +690,7 @@
                         <div class="input-group date">
                             <input placeholder="Start time" type="datetime-local" required name="start[start_time_stop]"
                                    autocomplete="off"
-                                   class="form-control" value="{{$start_time_stop}}"/>
+                                   class="form-control" value="{{$start_time_stop ?? ''}}"/>
                         </div>
                         <i data-field="sending_time" class="fv-plugins-icon"></i>
                         <div class="fv-plugins-message-container"></div>
@@ -781,7 +781,7 @@
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time FROM" type="datetime-local" disabled
                                        autocomplete="off"
-                                       class="form-control" value="{{ $start_time }}"/>
+                                       class="form-control" value="{{ $start_time ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3 col-md-4" id="actual_time">
@@ -1066,14 +1066,14 @@
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time FROM" type="datetime-local" disabled
                                        autocomplete="off"
-                                       class="form-control" value="{{ $start_time }}"/>
+                                       class="form-control" value="{{ $start_time ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="end[arrived_time]"
                                        autocomplete="off"
-                                       class="form-control" value="{{ $end_time }}"/>
+                                       class="form-control" value="{{ $end_time ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             {{--                                <div class="col-md-3">--}}
