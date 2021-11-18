@@ -84,8 +84,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'airexpress@g-star.network'),
-        'name' => env('MAIL_FROM_NAME', 'AirExpress'),
+        'address' => 'airexpress@g-star.network',
+        'name' => 'AirExpress',
     ],
 
     /*
