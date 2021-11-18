@@ -15,6 +15,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->string('comment')->nullable();
             $table->date('start')->nullable();
             $table->date('end')->nullable();
             $table->integer('status')->nullable();
