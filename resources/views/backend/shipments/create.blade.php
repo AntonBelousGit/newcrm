@@ -608,12 +608,14 @@
             apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
             placeholder: 'City, street',
             minCahrs: 6,
+            lang: 'en',
         });
         let ab = new visicomAutoComplete({
             selector: '.visicom-autocomplete',
             apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
             placeholder: 'City, street',
             minCahrs: 6,
+            lang: 'en',
         });
     </script>
     <script type="text/javascript">
