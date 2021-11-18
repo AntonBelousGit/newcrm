@@ -17,7 +17,8 @@ class InvoiceController extends Controller
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
         $pdf = PDF::loadView('backend.pdf.invoices',compact('invoices','tracker_start','tracker_end'));
-        $pdf->setPaper('A4', 'landscape');
+//        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->download('HWB.pdf');
     }
 
