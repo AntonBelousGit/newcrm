@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
-    .wrap-table {
+    /*.wrap-table {
         width: 1000px;
-    }
+    }*/
 
     .table_first {
         width: 100%;
@@ -85,8 +85,8 @@
     .header {
         /* display: flex;
         justify-content: space-between;
-        align-items: baseline; */
-        width: 1000px;
+        align-items: baseline;
+        width: 1000px;*/
         height: 100px;
 
     }
@@ -124,6 +124,29 @@
         font-weight: 700;
     }
     .barcode-bot {
+    }
+    .table_first tbody tr td:nth-child(odd) {
+    width:50%;
+    }
+    .subtable tbody tr td:nth-child(odd) {
+        width: auto;
+    }
+    .subtable tbody tr th,
+    .subtable tbody tr td {
+         border: 1px solid #12469a;
+    }
+    .subtable tbody tr th,
+    .subtable tbody tr td {
+        text-align:center;font-weight:400;
+    }
+    body{
+        padding:0 5px;
+        margin:0 auto;
+    }
+    html, body{
+        height: 297mm;
+        width: 205mm;
+        margin:0px;
     }
 </style>
 

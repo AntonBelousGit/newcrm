@@ -11,9 +11,10 @@
                 <form action="{{route('admin.reports')}}" method="post">
                     @csrf
                     <div class="input-group date">
+                        <input type="text" id="comment" name="comment" placeholder="Comment" class="form-control">
                         <input type="date" id="start" name="start" value="2021-01-01" class="form-control">
                         <input type="date" id="end" name="end" value="{{now()->format('Y-m-d')}}" class="form-control">
-                        @cannot(['Client'],Auth::id())
+                        @cannot('Client',Auth::id())
                             <select name="driver" id="driver" class="form-control">
                                 <option value="null">Driver</option>
                                 @foreach ($drivers as $item)
@@ -27,7 +28,7 @@
                                 @endforeach
                             </select>
                         @endcannot
-                        @can(['Client'],Auth::id())
+                        @can('Client',Auth::id())
                             <input type="hidden" name="driver" value="null">
                             <input type="hidden" name="agent" value="null">
                         @endcan
@@ -37,7 +38,7 @@
                             <option value="2">Accepted in work</option>
                             <option value="6">Delivered</option>
                             <option value="9">Invoiced</option>
-                            @can(['Client'],Auth::id())
+                            @can('Client',Auth::id())
                                 <option value="0">All shipments</option>
                             @endcan
                         </select>
@@ -61,10 +62,10 @@
                 <thead>
                 <tr>
                     <th>#</th>
+                    <th>Comment</th>
                     <th>Created at</th>
                     <th>Period</th>
                     <th>Status</th>
-
                     <th>Mission</th>
                 </tr>
                 </thead>
@@ -73,6 +74,7 @@
 
                     <tr>
                         <td>{{$report->id}}</td>
+                        <td>{{$report->comment}}</td>
                         <td>{{$report->created_at->format('d.m.Y H:i:s')}}</td>
                         <td>({{$report->start->format('d.m.Y') ?? ''}} - {{$report->end->format('d.m.Y') ?? ''}})</td>
                         <td>{{ $report->status_name }}</td>
@@ -173,6 +175,7 @@
         // } );
         function newReports() {
             // e.preventDefault();
+            let comment = $("#comment").val();
             let start = $("#start").val();
             let end = $("#end").val();
             let status = $("#status").val();
@@ -182,6 +185,7 @@
                 url: '{{route('admin.reports')}}',
                 type: "POST",
                 data: {
+                    comment: comment,
                     start: start,
                     end: end,
                     status: status,

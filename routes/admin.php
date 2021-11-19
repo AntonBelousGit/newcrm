@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\AddressesListController;
 use App\Http\Controllers\Admin\AgentUserController;
 use App\Http\Controllers\Admin\DriverUserController;
-use App\Http\Controllers\Admin\GoogleController;
 use App\Http\Controllers\Admin\PayerController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\TrackerController;
@@ -41,12 +40,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::post('/users/client-payer/{user}', [PayerController::class, 'clientPayerUpdate'])->name('client-payer-update');
 //Reports
         Route::post('/reports', [ReportController::class, 'export'])->name('reports');
-        Route::get('/reports', [ReportController::class, 'export'])->name('reports');
+//        Route::get('/reports', [ReportController::class, 'export'])->name('reports');
         Route::get('/reports/{report}', [ReportController::class, 'exportExist'])->name('download');
         Route::get('/print/{id}', [InvoiceController::class, 'downloadPDF'])->name('download_pdf');
         Route::get('/test', [InvoiceController::class, 'testPDF'])->name('test_pdf');
-
-
 //Addresses list
         Route::post('/search', [AddressesListController::class, 'search'])->name('search');
         Route::get('/addresses-list/import', [AddressesListController::class, 'viewImport'])->name('view-import');

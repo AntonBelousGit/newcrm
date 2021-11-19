@@ -59,6 +59,7 @@ class ReportController extends Controller
             ];
 
             $reports = new Report;
+            $reports->comment = $request->comment;
             $reports->start = $request->start;
             $reports->end = $request->end;
             $reports->user_id = Auth::id();

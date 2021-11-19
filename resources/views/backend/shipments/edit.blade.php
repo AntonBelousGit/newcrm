@@ -51,13 +51,13 @@
         @method('PUT')
         <div class="card-body">
             <div class="row" id="qwert">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
                         <b>Number Order:</b>
                         {{$orders->id}}
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
                         <b>HWB Number:</b>
                         @php
@@ -65,7 +65,7 @@
                         @endphp
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
                         <label>Client HWB:</label>
                         <input class="form-control" type="text" name="client_hwb"
@@ -73,7 +73,19 @@
                                @endif value="{{$orders->client_hwb}}">
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <p>
+                        <b>Status:</b>
+                        @include('backend.shipments.components.edit.status')
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p>
+                        <b>Next Routing Point:</b>
+                        @include('backend.shipments.components.edit.next_point')
+                    </p>
+                </div>
+                <div class="col-md-2">
                     <p>
                         <b>Created ad:</b>
                         {{$orders->created_at->format('d-m-Y H:s:i')}}
@@ -1195,12 +1207,14 @@
             apiKey: 'c703b0f96cb9bd605ba41cb9fdf44e10',
             placeholder: 'City, street',
             minCahrs: 6,
+            lang: 'en',
         });
         let ab = new visicomAutoComplete({
             selector: '.visicom-autocomplete',
             apiKey: 'c703b0f96cb9bd605ba41cb9fdf44e10',
             placeholder: 'City, street',
             minCahrs: 6,
+            lang: 'en',
         });
     </script>
     <script>
