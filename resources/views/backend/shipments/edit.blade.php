@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 @section('style')
-<link rel="stylesheet" href="https://api.visicom.ua/apps/visicom-autocomplete.min.css">
+    <link rel="stylesheet" href="https://api.visicom.ua/apps/visicom-autocomplete.min.css">
 @endsection
 @section('subheader')
     <!--begin::Subheader-->
@@ -68,7 +68,8 @@
                 <div class="col-md-3">
                     <p>
                         <label>Client HWB:</label>
-                        <input class="form-control" type="text" name="client_hwb" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                        <input class="form-control" type="text" name="client_hwb"
+                               @if(in_array($orders->status_id,[6,7,9,10])) readonly
                                @endif value="{{$orders->client_hwb}}">
                     </p>
                 </div>
@@ -157,7 +158,7 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <div class="marker">
-                                         <div class="visicom-autocomplete" id="visicom-autocomplete">
+                                        <div class="visicom-autocomplete" id="visicom-autocomplete">
                                             <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
                                         </div>
                                         <button type="button" class='btn-marker' data-toggle="modal"
@@ -186,7 +187,8 @@
                                 <div class="form-group">
                                     <label class="red-star">Post code:</label>
                                     <input type="text" placeholder="Post code" id="postal_code" name="shipper_postcode"
-                                           autocomplete="off" class="form-control" required value="{{$tracker_start->post_code}}"/>
+                                           autocomplete="off" class="form-control" required
+                                           value="{{$tracker_start->post_code}}"/>
                                 </div>
                             </div>
                         @else
@@ -229,7 +231,9 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
-                                       name="direct_to_person_shipper" @if($addInfo->direct_to_person_shipper === 'on') checked @endif  @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif>
+                                       name="direct_to_person_shipper"
+                                       @if($addInfo->direct_to_person_shipper === 'on') checked
+                                       @endif  @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif>
                                 <label>Direct to person:</label>
                             </div>
                         </div>
@@ -247,7 +251,8 @@
                             <div class="form-group">
                                 <label>Additional shipper contact:</label>
                                 <textarea type="text" name="additional_shipper_contact" class="form-control"
-                                          autocomplete="off" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif>{{$addInfo->additional_shipper_contact}}</textarea>
+                                          autocomplete="off"
+                                          @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif>{{$addInfo->additional_shipper_contact}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -278,7 +283,7 @@
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee Address')}}:</label>
                                     <div class="marker">
-                                         <div class="visicom-autocomplete2" id="visicom-autocomplete2">
+                                        <div class="visicom-autocomplete2" id="visicom-autocomplete2">
                                             <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
                                         </div>
                                         <button type="button" class='btn-marker' data-toggle="modal"
@@ -356,7 +361,9 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
-                                       name="direct_to_person_consignee" @if($addInfo->direct_to_person_consignee === 'on') checked @endif  @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif>
+                                       name="direct_to_person_consignee"
+                                       @if($addInfo->direct_to_person_consignee === 'on') checked
+                                       @endif  @if(in_array($orders->status_id,[6,7,9,10])) disabled @endif>
                                 <label>Direct to person:</label>
                             </div>
                         </div>
@@ -374,7 +381,8 @@
                             <div class="form-group">
                                 <label>Additional consignee contact:</label>
                                 <textarea type="text" name="additional_consignee_contact" class="form-control"
-                                          autocomplete="off" @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif>{{$addInfo->additional_consignee_contact}}</textarea>
+                                          autocomplete="off"
+                                          @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif>{{$addInfo->additional_consignee_contact}}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -719,7 +727,9 @@
                     </div>
                 </div>
 
-
+                @php
+                    $alert_marker = 1;
+                @endphp
                 <div id="kt_repeater_12">
                     <div class="" id="">
                         <h2 class="text-left">Tracker Info:</h2>
@@ -740,7 +750,9 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Driver:</label>
-                                <select name="start[driver_id]" class="form-control " autocomplete="off"
+                                <select name="start[driver_id]"
+                                        class="form-control @if (!isset($tracker_start->driver_id)) border-danger @php $alert_marker = 0; @endphp @endif"
+                                        autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
                                     @foreach($user as $item)
@@ -754,7 +766,8 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Agent:</label>
-                                <select id="change-country-to" name="start[agent_id]" class="form-control "
+                                <select id="change-country-to" name="start[agent_id]"
+                                        class="form-control @if (!isset($tracker_start->agent_id) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
@@ -788,13 +801,15 @@
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[arrived_time]"
                                        autocomplete="off"
-                                       class="form-control" value="{{ $end_time ?? ''}}"/>
+                                       class="form-control @if (empty($end_time) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                       value="{{ $end_time ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3" id="actual_time_start">
                                 <label>Signed:</label><input placeholder="Signed" type="text" name="start[signed]"
                                                              autocomplete="off"
-                                                             class="form-control" value="{{$tracker_start->signed}}"/>
+                                                             class="form-control @if (!isset($tracker_start->signed) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                             value="{{$tracker_start->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-1">
@@ -815,7 +830,8 @@
                                          style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
                                         <div class="col-md-3">
                                             <label>Location:</label>
-                                            <select name="cargo_location" class="form-control ">
+                                            <select name="cargo_location"
+                                                    class="form-control @if (!isset($tracker->cargolocation->id) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif">
                                                 @foreach($cargo_location as $item)
                                                     <option value="{{$item->id}}"
                                                             @if($item->id == $tracker->cargolocation->id) selected @endif>{{$item->name}}</option>
@@ -827,19 +843,22 @@
                                             <label>Address:</label>
                                             <input placeholder="City, street" type="text" name="address"
                                                    autocomplete="off"
-                                                   class="form-control" value="{{$tracker->address}}" required/>
+                                                   class="form-control @if (!isset($tracker->address) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                   value="{{$tracker->address}}" required/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Signed:</label>
                                             <input placeholder="Signed" type="text" name="signed"
                                                    autocomplete="off"
-                                                   class="form-control" value="{{$tracker->signed}}"/>
+                                                   class="form-control @if (!isset($tracker->signed) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                   value="{{$tracker->signed}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Driver:</label>
-                                            <select name="driver_id" class="form-control "
+                                            <select name="driver_id"
+                                                    class="form-control @if (!isset($tracker->driver_id) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
                                                 @foreach($user as $item)
@@ -853,7 +872,8 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Agent:</label>
-                                            <select name="agent_id" class="form-control "
+                                            <select name="agent_id"
+                                                    class="form-control @if (!isset($tracker->agent_id) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
                                                 @foreach($user as $item)
@@ -877,7 +897,8 @@
                                             <label>Estimated time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="start_time"
                                                    autocomplete="off"
-                                                   class="form-control clear-value-data" value="{{ $start_time }}"
+                                                   class="form-control clear-value-data @if (!isset($start_time) && $alert_marker === 1) border-danger zalupec @php $alert_marker = 0; @endphp @endif"
+                                                   value="{{ $start_time }}"
                                                    required/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -885,20 +906,23 @@
                                             <label>Arrived Time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="arrived_time"
                                                    autocomplete="off"
-                                                   class="form-control clear-value-data" value="{{$end_time}}"/>
+                                                   class="form-control clear-value-data @if (empty($end_time) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                   value="{{$end_time}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3 col-md-4">
                                             <label>Left Time:</label>
                                             <input placeholder="Left Time" type="datetime-local" name="left_time"
                                                    autocomplete="off"
-                                                   class="form-control clear-value-data" value="{{$left_the_point}}"/>
+                                                   class="form-control clear-value-data @if (empty($left_the_point) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                   value="{{$left_the_point}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-1">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="status_arrival"
-
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="status_arrival"
                                                        @if( $tracker->status == 'Arrived') disabled checked @endif>
                                                 <label class="form-check-label">Arrived</label>
                                             </div>
@@ -1029,13 +1053,15 @@
                              style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
                             <div class="col-md-3">
                                 <label>Location:</label>
-                                <input placeholder="Start time" type="text" disabled class="form-control"
+                                <input placeholder="Start time" type="text" disabled
+                                       class="form-control @if (!isset($tracker_end->cargolocation->name) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
                                        autocomplete="off"
                                        value="{{$tracker_end->cargolocation->name}}"/>
                             </div>
                             <div class="col-md-3">
                                 <label>Address:</label>
-                                <input placeholder="Start time" type="text" disabled class="form-control"
+                                <input placeholder="Start time" type="text" disabled
+                                       class="form-control @if (!isset($tracker_end->address) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
                                        autocomplete="off"
                                        value="{{$tracker_end->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
@@ -1066,14 +1092,16 @@
                                 <label>Estimated time:</label>
                                 <input placeholder="Start time FROM" type="datetime-local" disabled
                                        autocomplete="off"
-                                       class="form-control" value="{{ $start_time_end ?? ''}}"/>
+                                       class="form-control @if (!isset($start_time_end) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                       value="{{ $start_time_end ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="end[arrived_time]"
                                        autocomplete="off"
-                                       class="form-control" value="{{ $end_time ?? ''}}"/>
+                                       class="form-control @if (empty($end_time) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                       value="{{ $end_time ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             {{--                                <div class="col-md-3">--}}
@@ -1083,7 +1111,8 @@
                             <div class="col-md-3 tracker_append" id="actual-time-end-signed">
                                 <label>Signed:</label><input placeholder="Signed" type="text" name="end[signed]"
                                                              autocomplete="off"
-                                                             class="form-control " value="{{$tracker_end->signed}}"/>
+                                                             class="form-control @if (!isset($tracker_end->signed) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                             value="{{$tracker_end->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
 
@@ -1112,19 +1141,19 @@
                             </div>
                         </div>
                     @endif
-{{--                    @if($orders->status_id < 2)--}}
-                        <div class="form-group ">
-                            <div class="">
-                                <label class="text-right col-form-label">{{ ('Add')}}</label>
-                                <div>
-                                    <a href="javascript:;" data-repeater-create-time=""
-                                       class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
-                                        <i class="la la-plus"></i>{{ ('Add')}}
-                                    </a>
-                                </div>
+                    {{--                    @if($orders->status_id < 2)--}}
+                    <div class="form-group ">
+                        <div class="">
+                            <label class="text-right col-form-label">{{ ('Add')}}</label>
+                            <div>
+                                <a href="javascript:;" data-repeater-create-time=""
+                                   class="btn btn-sm font-weight-bolder btn-light-primary clear-value-datatime">
+                                    <i class="la la-plus"></i>{{ ('Add')}}
+                                </a>
                             </div>
                         </div>
-{{--                    @endif--}}
+                    </div>
+                    {{--                    @endif--}}
                     @canany(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())
                         <div class="form-group ">
                             <div class="">
@@ -1163,22 +1192,22 @@
     <script type="text/javascript">
         let ac = new visicomAutoComplete({
             selector: '.visicom-autocomplete2',
-            apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+            apiKey: 'c703b0f96cb9bd605ba41cb9fdf44e10',
             placeholder: 'City, street',
             minCahrs: 6,
         });
         let ab = new visicomAutoComplete({
             selector: '.visicom-autocomplete',
-            apiKey : 'c703b0f96cb9bd605ba41cb9fdf44e10',
+            apiKey: 'c703b0f96cb9bd605ba41cb9fdf44e10',
             placeholder: 'City, street',
             minCahrs: 6,
         });
     </script>
     <script>
-    let valueAddress2 = '{{$tracker_end->address}}';
-    $("#visicom-autocomplete2 input").val(valueAddress2);
-    let valueAddress = '{{$tracker_start->address}}';
-    $("#visicom-autocomplete input").val(valueAddress);
+        let valueAddress2 = '{{$tracker_end->address}}';
+        $("#visicom-autocomplete2 input").val(valueAddress2);
+        let valueAddress = '{{$tracker_start->address}}';
+        $("#visicom-autocomplete input").val(valueAddress);
     </script>
     <script type="text/javascript">
         // Map Address For Receiver
@@ -1700,57 +1729,63 @@
 
 
     <script>
-    $("#visicom-autocomplete input").attr('name','address_shipper');
-            function searchPostal(data) {
+        $("#visicom-autocomplete input").attr('name', 'address_shipper');
+
+        function searchPostal(data) {
             let postalCode2 = data;
             let postalArray = data.features;
-                if(Array.isArray(postalArray)) {
-                    postalCode2 = data.features[0].properties.postal_code;
-                } else {
-                    postalCode2 = data.properties.postal_code;
-                }
-                document.getElementById('postal_code').value = postalCode2;
+            if (Array.isArray(postalArray)) {
+                postalCode2 = data.features[0].properties.postal_code;
+            } else {
+                postalCode2 = data.properties.postal_code;
             }
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $( "#visicom-autocomplete input" ).change(function() {
-                getData(this.value);
-            });
-            async function getData(value) {
-                const response = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text='+value+'&key=c703b0f96cb9bd605ba41cb9fdf44e10');
-                const data = await response.json();
-                searchPostal(data);
+            document.getElementById('postal_code').value = postalCode2;
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        </script>
-        <script>
-        $("#visicom-autocomplete2 input").attr('name','address_consignee');
-                function searchPostal2(data) {
-                let postalCode2 = data;
-                let postalArray = data.features;
-                    if(Array.isArray(postalArray)) {
-                        postalCode2 = data.features[0].properties.postal_code;
-                    } else {
-                        postalCode2 = data.properties.postal_code;
-                    }
-                    document.getElementById('postal_code2').value = postalCode2;
-                }
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $( "#visicom-autocomplete2 input" ).change(function() {
-                    getData2(this.value);
-                });
-                async function getData2(value) {
-                    const response2 = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text='+value+'&key=c703b0f96cb9bd605ba41cb9fdf44e10')
-                    const data2 = await response2.json();
-                    searchPostal2(data2);
-                }
-            </script>
+        });
+        $("#visicom-autocomplete input").change(function () {
+            getData(this.value);
+        });
+
+        async function getData(value) {
+            const response = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text=' + value + '&key=c703b0f96cb9bd605ba41cb9fdf44e10');
+            const data = await response.json();
+            searchPostal(data);
+        }
+    </script>
+    <script>
+        $("#visicom-autocomplete2 input").attr('name', 'address_consignee');
+
+        function searchPostal2(data) {
+            let postalCode2 = data;
+            let postalArray = data.features;
+            if (Array.isArray(postalArray)) {
+                postalCode2 = data.features[0].properties.postal_code;
+            } else {
+                postalCode2 = data.properties.postal_code;
+            }
+            document.getElementById('postal_code2').value = postalCode2;
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $("#visicom-autocomplete2 input").change(function () {
+            getData2(this.value);
+        });
+
+        async function getData2(value) {
+            const response2 = await fetch('https://api.visicom.ua/data-api/5.0/en/geocode.json?text=' + value + '&key=c703b0f96cb9bd605ba41cb9fdf44e10')
+            const data2 = await response2.json();
+            searchPostal2(data2);
+        }
+    </script>
     <script>
         $('#table_id').DataTable({
             "ordering": false,
