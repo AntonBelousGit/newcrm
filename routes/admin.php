@@ -48,6 +48,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::post('/search', [AddressesListController::class, 'search'])->name('search');
         Route::get('/addresses-list/import', [AddressesListController::class, 'viewImport'])->name('view-import');
         Route::post('/addresses-list/import', [AddressesListController::class, 'import'])->name('import-address');
+        Route::get('/addresses-list/download-template', [AddressesListController::class, 'downloadTemplate'])->name('download-template');
+
+
 //Tracker
         Route::post('/tracker/child-row', [TrackerController::class, 'show_child_row'])->name('orders.children');
         Route::post('/tracker/remove-tracker', [TrackerController::class, 'remove_tracker']);

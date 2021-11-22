@@ -234,4 +234,11 @@ class AddressesListController extends Controller
         $address->delete();
         return redirect()->route('admin.addresses-list.index');
     }
+
+
+    public function downloadTemplate()
+    {
+        $file_path = public_path('files/Addresses-Example.xlsx');
+        return response()->download($file_path);
+    }
 }

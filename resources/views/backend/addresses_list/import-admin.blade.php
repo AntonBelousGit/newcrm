@@ -8,11 +8,13 @@
                 <h5 class="mb-0 h6">{{  ('Import Addresses')}}</h5>
             </div>
 
-            <form class="form-horizontal" action="{{ route('admin.import-address') }}" id="kt_form_1" method="POST" autocomplete="off" enctype="multipart/form-data">
+            <form class="form-horizontal" action="{{ route('admin.import-address') }}" id="kt_form_1" method="POST"
+                  autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <p>To import addresses from excel, create an xls file and add a column with the Address column to it. Add addresses one at a time in the cell (line)</p>
+                        <p>To import addresses from excel, create an xls file and add a column with the Address column
+                            to it. Add addresses one at a time in the cell (line)</p>
                     </div>
                     <div class="form-group">
                         <label>Import xls,xlsx:</label>
@@ -26,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <label>User:</label>
-                        <select class="form-control "  name="user_id">
+                        <select class="form-control " name="user_id">
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
@@ -35,7 +37,11 @@
                     <div class="form-group ">
                         <div class="">
                             <div>
-                                <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
+                                <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary"
+                                       value="Save">
+                                <a class="btn btn-sm font-weight-bolder btn-light-primary"
+                                   href="{{route('admin.download-template')}}">Import template
+                                </a>
                             </div>
                         </div>
                     </div>
