@@ -28,6 +28,9 @@
                         <div class="">
                             <div>
                                 <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
+                                <a class="btn btn-sm font-weight-bolder btn-light-primary"
+                                   href="{{route('admin.download-template')}}">Import template
+                                </a>
                             </div>
                         </div>
                     </div>
