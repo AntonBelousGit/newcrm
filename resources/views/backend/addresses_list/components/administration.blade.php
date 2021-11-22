@@ -22,7 +22,7 @@
                    href="{{route('admin.addresses-list.edit', $address->id)}}" title="Edit">
                     <i class="las la-edit"></i>
                 </a>
-                <form action="{{route('admin.agent.destroy', $address->id)}}" class="d-inline"
+                <form action="{{route('admin.addresses-list.destroy', $address->id)}}" class="d-inline"
                       method="POST">
                     @csrf
                     @method('DELETE')
