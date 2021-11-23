@@ -7,9 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
-    /*.wrap-table {
-        width: 1000px;
-    }*/
 
     .table_first {
         width: 100%;
@@ -18,13 +15,12 @@
 
     body {
         font-family: DejaVu Sans, sans-serif;
-        font-size:12px;
+        font-size:10px;
     }
 
     .table_first thead th {
 
         border: 2px solid #12469a;
-        /* Граница вокруг ячеек */
         background: #12469a;
         color: #fff;
         text-transform: uppercase;
@@ -42,15 +38,11 @@
 
     .content_td {
         padding: 5px;
-        /* Поля вокруг содержимого ячеек */
-        /* display: flex;
-        justify-content: space-between; */
         min-height: 48px;
         text-transform: uppercase;
     }
 
     .content_td div {
-        /* width: 33%; */
         display: inline-block;
         margin-right: 10px;
     }
@@ -72,7 +64,6 @@
     .subtable tbody th {
         border-collapse: collapse;
         border: 1px solid #000;
-        /* Граница вокруг ячеек */
     }
 
     .sqr {
@@ -83,11 +74,8 @@
     }
 
     .header {
-        /* display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        width: 1000px;*/
         height: 100px;
+        margin-top: 30px;
 
     }
 
@@ -99,8 +87,8 @@
         color: #c00056;
     }
 
-    .logo span {
-        color: #1286ad;
+    .logo img {
+        width:300px;
     }
 
     .number span {
@@ -112,7 +100,7 @@
         float: right;
         display: inline-block;
         color: #c00056;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
     }
     .barcode {
@@ -120,7 +108,7 @@
     }
     .barcode-top {
         color: black;
-        font-size: 30px;
+        font-size: 28px;
         font-weight: 700;
     }
     .barcode-bot {
@@ -142,18 +130,22 @@
     body{
         padding:0 5px;
         margin:0 auto;
+        font-size: 10px;
     }
     html, body{
         height: 297mm;
-        width: 205mm;
+        width: 207mm;
         margin:0px;
+    }
+    .white td div {
+    color: white;
     }
 </style>
 
 <body>
 <div class="header">
     <div class="logo">
-        <span>Air</span>express
+        <img src="data:image/png;base64,{{ $image }}"/>
     </div>
     <div class="number ">
         <div class="barcode">
@@ -167,7 +159,6 @@
                 {!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
             </div>
         </div>
-
     </div>
 </div>
 <div class="wrap-table">
@@ -244,16 +235,6 @@
         <tr>
             <td>
                 <div class="content_td">
-                </div>
-            </td>
-            <td>
-                <div class="content_td">
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="content_td">
                     <div>
                         <p>City</p>
                         <span>{{$invoices->shipper_city->city}}</span>
@@ -290,12 +271,12 @@
     <table class="table_first">
         <thead>
         <tr>
-            <th colspan="4">Shipment information</th>
+            <th colspan="6">Shipment information</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td colspan="2">
+            <td colspan="3"  >
                 <div class="content_td">
                     <div>
                         <p>full description of contents</p>
@@ -303,7 +284,7 @@
                     </div>
                 </div>
             </td>
-            <td colspan="2">
+            <td colspan="3"  >
                 <table class="subtable">
                     <tr>
                         <th>
@@ -355,7 +336,7 @@
                     </div>
                 </div>
             </td>
-            <td colspan="1">
+            <td colspan="2">
                 <div class="content_td">
                     <div>
                         <p>weight
@@ -392,7 +373,7 @@
                     </div>
                 </div>
             </td>
-            <td colspan="2">
+            <td colspan="3">
                 <div class="content_td">
                     <p>Does this shipment contain dangerous goods?</p><br>
                     <p><span class="sqr"></span> no &nbsp; <span class="sqr"></span> yes </p>
@@ -400,14 +381,14 @@
             </td>
         </tr>
         <tr>
-            <td colspan="4">
+            <td colspan="6">
                 <div class="content_td">
-                    AirExpress liability is limited
+                    Air Express liability is limited
                 </div>
             </td>
         </tr>
         <tr>
-            <td colspan="4">
+            <td colspan="6">
                 <div class="content_td">
                     SHIPPER'S SECURITY ENDORSEMENT: I certify that this cargo does not contain any unanthorized
                     explosilver,
@@ -419,30 +400,30 @@
             </td>
         </tr>
         <tr>
-            <td colspan="1">
+            <td colspan="2" >
                 <div class="content_td">
                     <span>PRINT NAME OF SHIPPER OR SHIPPER'S AGENT:</span>
                 </div>
             </td>
             <td colspan="1">
-                <div class="content_td">
+                <div class="content_td ">
                     DATE:
                 </div>
             </td>
-            <td colspan="1">
+            <td colspan="2" >
                 <div class="content_td">
                     PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT
                 </div>
             </td>
-            <td colspan="1">
-                <div class="content_td">
+            <td  colspan="1">
+                <div class="content_td ">
                     DATE:
                 </div>
             </td>
         </tr>
         <tr>
-            <td colspan="1">
-                <div class="content_td">
+            <td colspan="2">
+                <div class="content_td ">
                     SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
                 </div>
             </td>
@@ -451,7 +432,7 @@
                     TIME:
                 </div>
             </td>
-            <td colspan="1">
+            <td colspan="2">
                 <div class="content_td">
                     SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:
                 </div>
@@ -462,6 +443,7 @@
                 </div>
             </td>
         </tr>
+
         </tbody>
     </table>
 </div>
