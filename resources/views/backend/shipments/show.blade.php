@@ -321,9 +321,16 @@
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Delivery Date:</label>
                                 <div class="input-group date">
-                                    <input type="text" placeholder="Delivery Date"
-                                           value="{{ $tracker_end->start_time }}"
-                                           disabled autocomplete="off" class="form-control" id="kt_datepicker_4">
+                                    @if ($orders->status_id >= 6 && $orders->status_id < 10)
+
+                                        <input type="text" placeholder="Delivery Date"
+                                               value="{{ $tracker_end->end_time }}"
+                                               disabled autocomplete="off" class="form-control" id="kt_datepicker_4">
+                                    @else
+                                        <input type="text" placeholder="Delivery Date"
+                                               value="{{ $tracker_end->start_time }}"
+                                               disabled autocomplete="off" class="form-control" id="kt_datepicker_4">
+                                    @endif
                                     <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="la la-calendar"></i>
