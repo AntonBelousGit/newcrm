@@ -33,13 +33,13 @@
     <form class="form-horizontal" action="" id="kt_form_1" enctype="multipart/form-data">
         <div class="card-body">
             <div class="row" id="qwert">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
                         <b>Number Order:</b>
                         {{$orders->id}}
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
                         <b>HWB Number:</b>
                         @php
@@ -47,13 +47,25 @@
                         @endphp
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
-                        <b>Client HWB:</b>
+                        <label>Client HWB:</label>
                         {{$orders->client_hwb}}
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <p>
+                        <b>Status:</b>
+                        @include('backend.shipments.components.edit.status')
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p>
+                        <b>Next Routing Point:</b>
+                        @include('backend.shipments.components.edit.next_point')
+                    </p>
+                </div>
+                <div class="col-md-2">
                     <p>
                         <b>Created ad:</b>
                         {{$orders->created_at->format('d-m-Y H:s:i')}}

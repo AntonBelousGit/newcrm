@@ -108,7 +108,7 @@
                         </div>
                     </li>
                 @endcanany
-                @can('Client', Auth::user())
+                @canany(['Client','Agent','Driver'], Auth::user())
                     <li class="menu-section">
                         <h4 class="menu-text">Administration</h4>
                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
