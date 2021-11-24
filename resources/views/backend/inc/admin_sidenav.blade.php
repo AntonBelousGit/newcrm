@@ -76,7 +76,16 @@
                                         <span class="menu-text">Add User</span>
                                     </a>
                                 </li>
-
+                                @cannot('SuperUser',Auth::user())
+                                <li class="menu-item " aria-haspopup="true">
+                                    <a href="{{route('admin.user.edit-client')}}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-dot">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Edit Profile</span>
+                                    </a>
+                                </li>
+                                @endcannot
                                 <li class="menu-item " aria-haspopup="true">
                                     <a href="{{route('admin.users.index')}}" class="menu-link">
                                         <i class="menu-bullet menu-bullet-dot">
@@ -108,7 +117,7 @@
                         </div>
                     </li>
                 @endcanany
-                @canany(['Client','Agent','Driver'], Auth::user())
+                @canany(['Client','Agent','Driver','OPS'], Auth::user())
                     <li class="menu-section">
                         <h4 class="menu-text">Administration</h4>
                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>

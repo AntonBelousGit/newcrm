@@ -178,18 +178,13 @@ class UserController extends Controller
 
     public function editClient()
     {
-        if (Gate::check(['Client'], Auth::user())) {
             $user = User::find(Auth::id());
             return view('backend.clients.edit-client', compact('user'));
-        }
-        return abort(403);
     }
 
-    public function updateClient(Request $request, $id)
+    public function updateClient(Request $request)
     {
-        if (Gate::check(['Client'], Auth::user())) {
             $user = User::find(Auth::id());
-
             if (!empty($request->password)) {
                 $user->password = Hash::make($request->password);
             }
@@ -197,10 +192,9 @@ class UserController extends Controller
 
             if ($status) {
                 return back()->with('success', 'Successfully updated');
-            } else {
-                return back()->with('error', 'Something went wrong!');
             }
-        }
-        return abort(403);
+
+        return back()->with('error', 'Something went wrong!');
+
     }
 }
