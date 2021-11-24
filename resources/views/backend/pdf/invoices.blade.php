@@ -140,6 +140,9 @@
     .white td div {
     color: white;
     }
+    .white2 {
+    color:white;
+    }
 </style>
 
 <body>
@@ -307,22 +310,22 @@
                         </th>
                     </tr>
                     @foreach($invoices->cargo as $cargo)
-                        <tr>
-                            <td>
-                                {{$loop->iteration}}
-                            </td>
-                            <td>
-                                {{$cargo->type}}
-                            </td>
-                            <td>
-                                {{$cargo->сargo_dimensions_length}}x{{$cargo->сargo_dimensions_width}}x{{$cargo->сargo_dimensions_height}}
-                            </td>
-                            <td>
-                                {{$cargo->serial_number}}
-                            </td>
-                            <td>{{$cargo->serial_number_sensor}}</td>
-                            <td>{{$cargo->temperature_conditions}}</td>
-                        </tr>
+                    <tr>
+                        <td>
+                            {{$loop->iteration}}
+                        </td>
+                        <td>
+                            {{$cargo->type}}
+                        </td>
+                        <td>
+                            {{$cargo->сargo_dimensions_length}}x{{$cargo->сargo_dimensions_width}}x{{$cargo->сargo_dimensions_height}}
+                        </td>
+                        <td>
+                            {{$cargo->serial_number}}
+                        </td>
+                        <td>{{$cargo->serial_number_sensor}}</td>
+                        <td>{{$cargo->temperature_conditions}}</td>
+                    </tr>
                     @endforeach
                 </table>
             </td>
@@ -425,6 +428,8 @@
             <td colspan="2">
                 <div class="content_td ">
                     SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
+                    <div class="white2">=</div>
+                    <div class="white2">=</div>
                 </div>
             </td>
             <td colspan="1">
@@ -435,6 +440,8 @@
             <td colspan="2">
                 <div class="content_td">
                     SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:
+                    <div class="white2">=</div>
+                    <div class="white2">=</div>
                 </div>
             </td>
             <td colspan="1">
