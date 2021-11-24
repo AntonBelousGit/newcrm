@@ -427,10 +427,10 @@ table#table_id tbody tr td .table_custom thead tr th {
     background: white;
 }
 
-#autocomplete,
-#autocomplete_consignee {
-    display: none;
-}
+/*#autocomplete,*/
+/*#autocomplete_consignee {*/
+/*    display: none;*/
+/*}*/
 th input {
     border: 1px solid #aaa !important;
 }
