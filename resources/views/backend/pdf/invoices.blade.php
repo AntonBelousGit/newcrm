@@ -143,6 +143,9 @@
     .white2 {
     color:white;
     }
+    .drista {
+    text-align:left;
+    }
 </style>
 
 <body>
@@ -313,18 +316,28 @@
                     <tr>
                         <td>
                             {{$loop->iteration}}
+                            <div class="white2"> SHI</div>
                         </td>
                         <td>
                             {{$cargo->type}}
+                            <div class="white2"> SHI</div>
                         </td>
                         <td>
                             {{$cargo->сargo_dimensions_length}}x{{$cargo->сargo_dimensions_width}}x{{$cargo->сargo_dimensions_height}}
+                            <div class="white2"> SHI</div>
                         </td>
                         <td>
                             {{$cargo->serial_number}}
+                            <div class="white2"> SHI</div>
                         </td>
-                        <td>{{$cargo->serial_number_sensor}}</td>
-                        <td>{{$cargo->temperature_conditions}}</td>
+                        <td>
+                            {{$cargo->serial_number_sensor}}
+                            <div class="white2"> SHI</div>
+                        </td>
+                        <td>
+                            {{$cargo->temperature_conditions}}
+                            <div class="white2"> SHI</div>
+                        </td>
                     </tr>
                     @endforeach
                 </table>
@@ -404,48 +417,49 @@
         </tr>
         <tr>
             <td colspan="2" >
-                <div class="content_td">
+                <div class="content_td drista">
                     <span>PRINT NAME OF SHIPPER OR SHIPPER'S AGENT:</span>
+                   <div class="white2">=PRINT NAME OF SHIPPER OR SHIPPER'S NT:</div>
                 </div>
             </td>
             <td colspan="1">
-                <div class="content_td ">
+                <div class="content_td drista">
                     DATE:
                 </div>
             </td>
             <td colspan="2" >
-                <div class="content_td">
-                    PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT
+                <div class="content_td drista">
+                    <span>PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT</span>
+                    <div class="white2">=PRINT NAME OF SHIPPER OR SHIPPER'S NT:</div>
+
                 </div>
             </td>
             <td  colspan="1">
-                <div class="content_td ">
+                <div class="content_td drista">
                     DATE:
                 </div>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <div class="content_td ">
+                <div class="content_td drista">
                     SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
-                    <div class="white2">=</div>
-                    <div class="white2">=</div>
+                    <div class="white2">=PRINT NAME OF SHIPPER OR SHIPPER'S NT:</div>
                 </div>
             </td>
             <td colspan="1">
-                <div class="content_td">
+                <div class="content_td drista">
                     TIME:
                 </div>
             </td>
             <td colspan="2">
-                <div class="content_td">
+                <div class="content_td drista">
                     SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:
-                    <div class="white2">=</div>
-                    <div class="white2">=</div>
+                     <div class="white2">=PRINT NAME OF SHIPPER OR SHIPPER'S NT:</div>
                 </div>
             </td>
             <td colspan="1">
-                <div class="content_td">
+                <div class="content_td drista">
                     TIME:
                 </div>
             </td>
