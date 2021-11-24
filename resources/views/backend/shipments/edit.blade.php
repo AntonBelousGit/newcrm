@@ -422,18 +422,141 @@
                         <div class="" id="">
                             <h2 class="text-left">Package Info:</h2>
                             <div data-repeater-list="Package" class="col-lg-12">
-                                @foreach($orders->cargo as $item)
-                                    <div data-repeater-item class="row align-items-center"
+                                @if (count($orders->cargo)>0)
+                                    @foreach($orders->cargo as $item)
+                                        <div data-repeater-item class="row align-items-center"
+                                             style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                            <div class="col-md-3">
+                                                <label class="red-star">{{ ('Type')}}:</label>
+                                                <input type="text" placeholder="{{ ('type')}}" class="form-control"
+                                                       required
+                                                       autocomplete="off"
+                                                       name="type" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       @endif  value="{{$item['type']}}">
+                                                <input type="hidden" name="id"
+                                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       @endif value="{{$item['id']}}">
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="red-star">Actual weight (kg):</label>
+                                                <input
+                                                    {{--                                                class="kt_touchspin_weight"--}}
+                                                    placeholder="Actual weight" type="number"
+                                                    required @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                    @endif  min="1"
+                                                    step="0.1"
+                                                    name="actual_weight" class="form-control" autocomplete="off"
+                                                    value="{{$item['actual_weight']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="red-star">{{ ('Quantity')}}:</label>
+                                                <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required
+                                                       type="number"
+                                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       @endif  min="1"
+                                                       name="quantity" class="form-control" autocomplete="off"
+                                                       value="{{$item['quantity']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>Serial number box:</label>
+                                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       @endif  placeholder="Serial number" name="serial_number"
+                                                       autocomplete="off"
+                                                       class="form-control " value="{{$item['serial_number']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>Serial number sensor:</label>
+                                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       @endif  placeholder="Serial number sensor" autocomplete="off"
+                                                       name="serial_number_sensor" class="form-control  "
+                                                       value="{{$item['serial_number_sensor']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>UN number:</label>
+                                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       @endif  placeholder="UN number" name="un_number"
+                                                       autocomplete="off"
+                                                       class="form-control  " value="{{$item['un_number']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="red-star">Temperature conditions:</label>
+                                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       @endif  placeholder="Temperature conditions"
+                                                       name="temperature_conditions" required class="form-control  "
+                                                       autocomplete="off"
+                                                       value="{{$item['temperature_conditions']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>Volume weight:</label>
+                                                <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       @endif  placeholder="Volume weight" name="volume_weight"
+                                                       autocomplete="off"
+                                                       disabled class="form-control  "
+                                                       value="{{$item['volume_weight']}}"/>
+                                                <div class="mb-2 d-md-none"></div>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <label
+                                                    class="red-star">{{ ('Dimensions [Length x Width x Height] (cm)')}}
+                                                    :</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="dimensions_r"
+                                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       autocomplete="off"
+                                                       @endif  type="number" min="1" required
+                                                       class="form-control" placeholder="{{ ('Length')}}"
+                                                       name="сargo_dimensions_length"
+                                                       value="{{$item['сargo_dimensions_length']}}"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="dimensions_r"
+                                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       autocomplete="off"
+                                                       @endif  type="number" min="1" required
+                                                       class="form-control" placeholder="{{ ('Width')}}"
+                                                       name="сargo_dimensions_width"
+                                                       value="{{$item['сargo_dimensions_width']}}"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="dimensions_r"
+                                                       @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                       autocomplete="off"
+                                                       @endif  type="number" min="1" required
+                                                       class="form-control " placeholder="{{ ('Height')}}"
+                                                       name="сargo_dimensions_height"
+                                                       value="{{$item['сargo_dimensions_height']}}"/>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <a href="javascript:;" data-repeater-delete=""
+                                                           onclick="//deleteCargo(this)"
+                                                           class="btn btn-sm font-weight-bolder btn-light-danger delete_item">
+                                                            <i class="la la-trash-o"></i>{{ ('Delete')}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div data-repeater-item class="row align-items-center tracker-block-delete"
                                          style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
                                         <div class="col-md-3">
                                             <label class="red-star">{{ ('Type')}}:</label>
-                                            <input type="text" placeholder="{{ ('type')}}" class="form-control" required
+                                            <input type="text" placeholder="{{ ('type')}}" class="form-control"
+                                                   required
                                                    autocomplete="off"
-                                                   name="type" @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   @endif  value="{{$item['type']}}">
-                                            <input type="hidden" name="id"
-                                                   @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   @endif value="{{$item['id']}}">
+                                                   name="type" >
+                                            <input type="hidden" name="id">
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -441,92 +564,83 @@
                                             <input
                                                 {{--                                                class="kt_touchspin_weight"--}}
                                                 placeholder="Actual weight" type="number"
-                                                required @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                @endif  min="1"
+                                                required  min="1"
                                                 step="0.1"
                                                 name="actual_weight" class="form-control" autocomplete="off"
-                                                value="{{$item['actual_weight']}}"/>
+                                            />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="red-star">{{ ('Quantity')}}:</label>
                                             <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required
-                                                   type="number" @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   @endif  min="1"
+                                                   type="number"
+                                                    min="1"
                                                    name="quantity" class="form-control" autocomplete="off"
-                                                   value="{{$item['quantity']}}"/>
+                                                   />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number box:</label>
-                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   @endif  placeholder="Serial number" name="serial_number"
+                                            <input type="text"   placeholder="Serial number" name="serial_number"
                                                    autocomplete="off"
-                                                   class="form-control " value="{{$item['serial_number']}}"/>
+                                                   class="form-control " />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number sensor:</label>
-                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   @endif  placeholder="Serial number sensor" autocomplete="off"
+                                            <input type="text" placeholder="Serial number sensor" autocomplete="off"
                                                    name="serial_number_sensor" class="form-control  "
-                                                   value="{{$item['serial_number_sensor']}}"/>
+                                                   />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>UN number:</label>
-                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   @endif  placeholder="UN number" name="un_number" autocomplete="off"
-                                                   class="form-control  " value="{{$item['un_number']}}"/>
+                                            <input type="text"  placeholder="UN number" name="un_number"
+                                                   autocomplete="off"
+                                                   class="form-control  " value=""/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="red-star">Temperature conditions:</label>
-                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   @endif  placeholder="Temperature conditions"
+                                            <input type="text"  placeholder="Temperature conditions"
                                                    name="temperature_conditions" required class="form-control  "
                                                    autocomplete="off"
-                                                   value="{{$item['temperature_conditions']}}"/>
+                                                   />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Volume weight:</label>
-                                            <input type="text" @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   @endif  placeholder="Volume weight" name="volume_weight"
+                                            <input type="text" placeholder="Volume weight" name="volume_weight"
                                                    autocomplete="off"
-                                                   disabled class="form-control  " value="{{$item['volume_weight']}}"/>
+                                                   disabled class="form-control  "
+                                                   value=""/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-12" style="margin-top: 10px;">
-                                            <label class="red-star">{{ ('Dimensions [Length x Width x Height] (cm)')}}
+                                            <label
+                                                class="red-star">{{ ('Dimensions [Length x Width x Height] (cm)')}}
                                                 :</label>
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r"
-                                                   @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   autocomplete="off"
-                                                   @endif  type="number" min="1" required
+                                                   type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Length')}}"
                                                    name="сargo_dimensions_length"
-                                                   value="{{$item['сargo_dimensions_length']}}"/>
+                                                   />
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r"
-                                                   @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   autocomplete="off"
-                                                   @endif  type="number" min="1" required
+                                                    type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Width')}}"
                                                    name="сargo_dimensions_width"
-                                                   value="{{$item['сargo_dimensions_width']}}"/>
+                                                   />
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r"
-                                                   @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                   autocomplete="off"
-                                                   @endif  type="number" min="1" required
+                                                     type="number" min="1" required
                                                    class="form-control " placeholder="{{ ('Height')}}"
                                                    name="сargo_dimensions_height"
-                                                   value="{{$item['сargo_dimensions_height']}}"/>
+                                                  />
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -540,7 +654,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @endif
+
                             </div>
                         </div>
                         <div class="form-group ">
@@ -663,22 +778,6 @@
                         </div>
                     </div>
                     <hr>
-                    {{--                    <div class="">--}}
-                    {{--                        <div class="col-md-6" data-select2-id="66">--}}
-                    {{--                            <label>Agent:</label>--}}
-                    {{--                            <select id="change-country-to" name="agent_id" class="form-control " autocomplete="off"--}}
-                    {{--                                    @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >--}}
-                    {{--                                <option value=""></option>--}}
-                    {{--                                @foreach($user as $item)--}}
-                    {{--                                    @if($item->roles->first()->name == 'Agent')--}}
-                    {{--                                        <option value="{{$item->id}}"--}}
-                    {{--                                                @if($item->id == $orders->agent_id) selected @endif >{{$item->nickname}}--}}
-                    {{--                                            - {{$item->roles->first()->name}} </option>--}}
-                    {{--                                    @endif--}}
-                    {{--                                @endforeach--}}
-                    {{--                            </select>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
                     <div>
                         @php
                             if (isset($tracker_start->start_time))
