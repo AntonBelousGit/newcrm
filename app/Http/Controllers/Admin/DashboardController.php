@@ -21,7 +21,7 @@ class DashboardController extends Controller
     }
 
     public function index(){
-       if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent', 'Driver', 'Client'], Auth::user())) {
+       if (Gate::any(['SuperUser','Security Officer', 'Manager', 'OPS', 'Agent', 'Driver', 'Client'], Auth::user())) {
            $orders = $this->orderService->getAll();
            $title = 'All Shipments';
            $statuses = ProductStatus::all();
