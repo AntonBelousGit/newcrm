@@ -138,7 +138,7 @@
                                     @endphp
                                     <td></td>
                                     <td>{{$shipment->created_at}}</td>
-                                    <td class="text-center">
+                                    <td class="text-center df">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                            href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                             <i class="las la-eye"></i>
@@ -223,7 +223,7 @@
                                     @endphp
                                     <td></td>
                                     <td>{{$shipment->created_at}}</td>
-                                    <td class="text-center">
+                                    <td class="text-center df">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                            href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                             <i class="las la-eye"></i>
@@ -311,7 +311,7 @@
                                     @endphp
                                     <td></td>
                                     <td>{{$shipment->created_at}}</td>
-                                    <td class="text-center">
+                                    <td class="text-center df">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                            href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                             <i class="las la-eye"></i>
@@ -370,7 +370,7 @@
                                 @include('backend.shipments.components.next_point')
                                 {{--                                <th>{{$statuses[$shipment->status_id]->name}}</th>--}}
                                 <td>{{$shipment->created_at}}</td>
-                                <td class="text-center">
+                                <td class="text-center df">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                        href="{{route('admin.orders.show', $shipment->id)}}" title="Show">
                                         <i class="las la-eye"></i>

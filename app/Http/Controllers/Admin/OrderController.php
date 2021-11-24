@@ -230,8 +230,8 @@ class OrderController extends Controller
                 $query->where('log_name', 'Order')
                     ->where('subject_id', $id);
             })->orderBy('created_at', 'DESC')->get();
-
-        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end', 'logs','addInfo'));
+        $status = ProductStatus::all();
+        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end', 'logs','addInfo','status'));
     }
 
     /**

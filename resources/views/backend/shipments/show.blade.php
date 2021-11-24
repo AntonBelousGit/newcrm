@@ -33,13 +33,13 @@
     <form class="form-horizontal" action="" id="kt_form_1" enctype="multipart/form-data">
         <div class="card-body">
             <div class="row" id="qwert">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
                         <b>Number Order:</b>
                         {{$orders->id}}
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
                         <b>HWB Number:</b>
                         @php
@@ -47,13 +47,25 @@
                         @endphp
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <p>
-                        <b>Client HWB:</b>
+                        <label>Client HWB:</label>
                         {{$orders->client_hwb}}
                     </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <p>
+                        <b>Status:</b>
+                        @include('backend.shipments.components.edit.status')
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p>
+                        <b>Next Routing Point:</b>
+                        @include('backend.shipments.components.edit.next_point')
+                    </p>
+                </div>
+                <div class="col-md-2">
                     <p>
                         <b>Created ad:</b>
                         {{$orders->created_at->format('d-m-Y H:s:i')}}
@@ -309,9 +321,16 @@
                             <div class="form-group fv-plugins-icon-container">
                                 <label>Delivery Date:</label>
                                 <div class="input-group date">
-                                    <input type="text" placeholder="Delivery Date"
-                                           value="{{ $tracker_end->start_time }}"
-                                           disabled autocomplete="off" class="form-control" id="kt_datepicker_4">
+                                    @if ($orders->status_id >= 6 && $orders->status_id < 10)
+
+                                        <input type="text" placeholder="Delivery Date"
+                                               value="{{ $tracker_end->end_time }}"
+                                               disabled autocomplete="off" class="form-control" id="kt_datepicker_4">
+                                    @else
+                                        <input type="text" placeholder="Delivery Date"
+                                               value="{{ $tracker_end->start_time }}"
+                                               disabled autocomplete="off" class="form-control" id="kt_datepicker_4">
+                                    @endif
                                     <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="la la-calendar"></i>
