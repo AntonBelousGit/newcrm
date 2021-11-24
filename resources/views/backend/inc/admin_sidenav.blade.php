@@ -61,7 +61,7 @@
                             <span class="menu-text">
                                 @can('SuperUser',Auth::user())
                                     Users
-                                @elsecan
+                                @else
                                     Settings
                                 @endcan
                             </span>
