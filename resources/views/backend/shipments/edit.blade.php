@@ -914,16 +914,8 @@
                                             <label>Arrived Time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="arrived_time"
                                                    autocomplete="off"
-                                                   class="form-control clear-value-data @if (empty($end_time) && $alert_marker === 1) border-danger @endif"
+                                                   class="form-control clear-value-data @if (empty($end_time) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
                                                    value="{{$end_time}}"/>
-                                            <div class="mb-2 d-md-none"></div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Signed:</label>
-                                            <input placeholder="Signed" type="text" name="signed"
-                                                   autocomplete="off"
-                                                   class="form-control @if (!isset($tracker->signed) && empty($end_time) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
-                                                   value="{{$tracker->signed}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3 col-md-4">
@@ -932,6 +924,14 @@
                                                    autocomplete="off"
                                                    class="form-control clear-value-data @if (!empty($end_time) && empty($left_the_point) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
                                                    value="{{$left_the_point}}"/>
+                                            <div class="mb-2 d-md-none"></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Signed:</label>
+                                            <input placeholder="Signed" type="text" name="signed"
+                                                   autocomplete="off"
+                                                   class="form-control @if ( !empty($end_time) && empty($left_the_point) && !isset($tracker->signed) ) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                   value="{{$tracker->signed}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-1">
