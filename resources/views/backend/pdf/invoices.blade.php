@@ -2,473 +2,425 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
+	body {
+		font-family: DejaVu Sans, sans-serif;
+		font-size: 10px;
+		padding: 0 5px;
+	}
 
-    .table_first {
-        width: 100%;
-        border-collapse: collapse;
-    }
+	p {
+		margin: 2px 0;
+	}
 
-    body {
-        font-family: DejaVu Sans, sans-serif;
-        font-size:10px;
-    }
+	html,
+	body {
+		height: 297mm;
+		width: 207mm;
+		margin: 0px;
+	}
 
-    .table_first thead th {
+	.sqr {
+		display: inline-block;
+		border: 1px solid black;
+		width: 12px;
+		height: 12px;
+		background-color: white;
+		position: relative;
+	}
 
-        border: 2px solid #12469a;
-        background: #12469a;
-        color: #fff;
-        text-transform: uppercase;
-    }
+	table {
+		border-collapse: collapse;
+	}
 
-    .table_first tr {
-    }
+	table thead tr th,
+	table tbody tr th {
+		background: #12469a;
+		color: #fff;
+		text-transform: uppercase;
+		padding: 0;
+		border: 2px solid #12469a;
+		vertical-align: baseline;
+	}
 
-    .table_first tbody td {
-        padding: 0;
-        border-collapse: collapse;
-        border: 2px solid #12469a;
-        /* Граница вокруг ячеек */
-    }
+	table thead tr th div,
+	table tbody tr th div {
+		padding: 5px;
+	}
 
-    .content_td {
-        padding: 5px;
-        min-height: 48px;
-        text-transform: uppercase;
-    }
+	table thead tr td,
+	table tbody tr td {
+		padding: 0;
+		border: 2px solid #12469a;
+		vertical-align: baseline;
+	}
 
-    .content_td div {
-        display: inline-block;
-        margin-right: 10px;
-    }
+	table thead tr td div,
+	table tbody tr td div {
+		padding: 5px;
+	}
 
-    .content_td p {
-        text-transform: uppercase;
-        padding: 0;
-        margin: 0;
-    }
+	.row {
+		padding: 0;
+	}
 
-    .subtable {
-        padding: 0;
-        border-spacing: 0;
-        min-height: 60px;
-        width: 100%;
-    }
+	.row div {
+		padding: 5px;
+		display: inline-block;
+	}
 
-    .subtable tbody td,
-    .subtable tbody th {
-        border-collapse: collapse;
-        border: 1px solid #000;
-    }
+	.white {
+		color: white;
+		border-top: 2px solid transparent;
+	}
 
-    .sqr {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border: 1px solid #000;
-    }
+	.whiteB {
+		border-bottom: 2px solid transparent;
+	}
 
-    .header {
-        height: 100px;
-        margin-top: 30px;
+	img {
+		width: 300px;
+	}
 
-    }
+	.code,
+	.logo {
+		margin: 30px 0;
+	}
 
-    .logo {
-        display: inline-block;
-        float: left;
-        font-size: 60px;
-        font-weight: bold;
-        color: #c00056;
-    }
+	.logo {
+		float: left;
+	}
 
-    .logo img {
-        width:300px;
-    }
+	.code {
+		float: right;
+	}
 
-    .number span {
-        color: #000;
-        font-size: 50px;
-    }
-
-    .number {
-        float: right;
-        display: inline-block;
-        color: #c00056;
-        font-size: 18px;
-        font-weight: bold;
-    }
-    .barcode {
-        margin:0 80px 0 0;
-    }
-    .barcode-top {
-        color: black;
-        font-size: 28px;
-        font-weight: 700;
-    }
-    .barcode-bot {
-    }
-    .table_first tbody tr td:nth-child(odd) {
-    width:50%;
-    }
-    .subtable tbody tr td:nth-child(odd) {
-        width: auto;
-    }
-    .subtable tbody tr th,
-    .subtable tbody tr td {
-         border: 1px solid #12469a;
-    }
-    .subtable tbody tr th,
-    .subtable tbody tr td {
-        text-align:center;font-weight:400;
-    }
-    body{
-        padding:0 5px;
-        margin:0 auto;
-        font-size: 10px;
-    }
-    html, body{
-        height: 297mm;
-        width: 207mm;
-        margin:0px;
-    }
-    .white td div {
-    color: white;
-    }
-    .white2 {
-    color:white;
-    }
-    .drista {
-    text-align:left;
-    }
+	.clearfix {
+		clear: both;
+	}
 </style>
 
 <body>
-<div class="header">
-    <div class="logo">
-        <img src="data:image/png;base64,{{ $image }}"/>
-    </div>
-    <div class="number ">
-        <div class="barcode">
-            <div class="barcode-top">
-                @php
-                    $hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
-                    echo $hwb;
-                @endphp
-            </div>
-            <div class="barcode-bot">
-                {!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
-            </div>
-        </div>
-    </div>
-</div>
-<div class="wrap-table">
-    <table class="table_first">
-        <thead>
-        <tr>
-            <th>From(Shipper)</th>
-            <th>To(consignee)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>
-                <div class="content_td">
-                    <div>
-                        <p>Name</p>
-                        <span>{{$invoices->shipper}}</span>
-                    </div>
-                    <div>
-                        <p>Telephone</p>
-                        <span>{{$invoices->phone_shipper}}</span>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="content_td">
-                    <div>
-                        <p>Name</p>
-                        <span>{{$invoices->consignee}}</span>
-                    </div>
-                    <div>
-                        <p>Telephone</p>
-                        <span>{{$invoices->phone_consignee}}</span>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="content_td">
-                    <div>
-                        <p>Company</p>
-                        <span>{{$invoices->company_shipper}}</span>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="content_td">
-                    <div>
-                        <p>Company</p>
-                        <span>{{$invoices->company_consignee}}</span>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="content_td">
-                    <div>
-                        <p>Address</p>
-                        <span>{{$tracker_start->address}}</span>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="content_td">
-                    <div>
-                        <p>Address</p>
-                        <span>{{$tracker_end->address}}</span>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="content_td">
-                    <div>
-                        <p>City</p>
-                        <span>{{$invoices->shipper_city->city}}</span>
-                    </div>
-                    <div>
-                        <p>State/country</p>
-                        <span>Ukraine</span>
-                    </div>
-                    <div>
-                        <p>postcode</p>
-                        <span>{{$tracker_start->post_code}}</span>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="content_td">
-                    <div>
-                        <p>City</p>
-                        <span>{{$invoices->consignee_city->city}}</span>
-                    </div>
-                    <div>
-                        <p>State/country</p>
-                        <span>Ukraine</span>
-                    </div>
-                    <div>
-                        <p>postcode</p>
-                        <span>{{$tracker_end->post_code}}</span>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table_first">
-        <thead>
-        <tr>
-            <th colspan="6">Shipment information</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td colspan="3"  >
-                <div class="content_td">
-                    <div>
-                        <p>full description of contents</p>
-                        <span>{{$invoices->shipment_description}}</span>
-                    </div>
-                </div>
-            </td>
-            <td colspan="3"  >
-                <table class="subtable">
-                    <tr>
-                        <th>
-                            №
-                        </th>
-                        <th>
-                            Type
-                        </th>
-                        <th>
-                            Dimensions
-                        </th>
-                        <th>
-                            Serial Number Box
-                        </th>
-                        <th>
-                            Serial Number Sensor
-                        </th>
-                        <th>
-                            Temperature(TT)
-                        </th>
-                    </tr>
-                    @foreach($invoices->cargo as $cargo)
-                    <tr>
-                        <td>
-                            {{$loop->iteration}}
-                            <div class="white2"> SHI</div>
-                        </td>
-                        <td>
-                            {{$cargo->type}}
-                            <div class="white2"> SHI</div>
-                        </td>
-                        <td>
-                            {{$cargo->сargo_dimensions_length}}x{{$cargo->сargo_dimensions_width}}x{{$cargo->сargo_dimensions_height}}
-                            <div class="white2"> SHI</div>
-                        </td>
-                        <td>
-                            {{$cargo->serial_number}}
-                            <div class="white2"> SHI</div>
-                        </td>
-                        <td>
-                            {{$cargo->serial_number_sensor}}
-                            <div class="white2"> SHI</div>
-                        </td>
-                        <td>
-                            {{$cargo->temperature_conditions}}
-                            <div class="white2"> SHI</div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="1">
-                <div class="content_td">
-                    <div>
-                        <p>#Of PCS quantity</p>
-                        <p>{{$invoices->cargo->sum('quantity')}}</p>
-                    </div>
-                </div>
-            </td>
-            <td colspan="2">
-                <div class="content_td">
-                    <div>
-                        <p>weight
-                            @php
-                                $actual_weight = 0;
-                            @endphp
-                            @foreach($invoices->cargo as $item)
-                                @for ($i = 0; $i < $item->quantity; $i++)
-                                    @php
-                                        $actual_weight += $item->actual_weight;
-                                    @endphp
-                                @endfor
-                            @endforeach
-                            @php
-                                echo $actual_weight;
-                            @endphp
-                            kgs</p>
-                        <p>Chargeable weight
-                            @php
-                                $weight = 0;
-                            @endphp
-                            @foreach($invoices->cargo as $item)
-                                @for ($i = 0; $i < $item->quantity; $i++)
-                                    @php
-                                        $weight += $item->volume_weight;
-                                    @endphp
-                                @endfor
-                            @endforeach
-                            @php
-                                echo $weight;
-                            @endphp
-                            kgs
-                        </p>
-                    </div>
-                </div>
-            </td>
-            <td colspan="3">
-                <div class="content_td">
-                    <p>Does this shipment contain dangerous goods?</p><br>
-                    <p><span class="sqr"></span> no &nbsp; <span class="sqr"></span> yes </p>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6">
-                <div class="content_td">
-                    Air Express liability is limited
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6">
-                <div class="content_td">
-                    SHIPPER'S SECURITY ENDORSEMENT: I certify that this cargo does not contain any unanthorized
-                    explosilver,
-                    incendiaries, or hazardous matelrials. I consent of this cargo, I am aware that this endorsement and
-                    original signature, along with other shipping documents, will be retained on file for at least
-                    thirty
-                    days.
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" >
-                <div class="content_td drista">
-                    <span>PRINT NAME OF SHIPPER OR SHIPPER'S AGENT:</span>
-                   <div class="white2">=PRINT NAME OF SHIPPER OR SHIPPER'S NT:</div>
-                </div>
-            </td>
-            <td colspan="1">
-                <div class="content_td drista">
-                    DATE:
-                </div>
-            </td>
-            <td colspan="2" >
-                <div class="content_td drista">
-                    <span>PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT</span>
-                    <div class="white2">=PRINT NAME OF SHIPPER OR SHIPPER'S NT:</div>
 
-                </div>
-            </td>
-            <td  colspan="1">
-                <div class="content_td drista">
-                    DATE:
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="content_td drista">
-                    SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:
-                    <div class="white2">=PRINT NAME OF SHIPPER OR SHIPPER'S NT:</div>
-                </div>
-            </td>
-            <td colspan="1">
-                <div class="content_td drista">
-                    TIME:
-                </div>
-            </td>
-            <td colspan="2">
-                <div class="content_td drista">
-                    SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:
-                     <div class="white2">=PRINT NAME OF SHIPPER OR SHIPPER'S NT:</div>
-                </div>
-            </td>
-            <td colspan="1">
-                <div class="content_td drista">
-                    TIME:
-                </div>
-            </td>
-        </tr>
-
-        </tbody>
-    </table>
-</div>
+	<div>
+		<div>
+			<div class='logo'>
+				<img src="./logo2.jpg" alt="">
+			</div>
+			<div class='code'>
+				<div>
+					<div>
+						@php
+						$hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
+						echo $hwb;
+						@endphp
+					</div>
+					<div>
+						{!! DNS1D::getBarcodeHTML( $hwb, 'C128') !!}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='clearfix'>
+			<table>
+				<thead>
+					<tr>
+						<th colspan='6'>
+							<div>FORM(SHIPPER)</div>
+						</th>
+						<th colspan='6'>
+							<div>TO(CONSIGNEE)</div>
+						</th>
+					</tr>
+					<tr>
+						<td colspan='6'>
+							<div class='row'>
+								<div>
+									<p>NAME</p>
+									<p>312</p>
+								</div>
+								<div>
+									<p>TELEPHONE</p>
+									<p>312</p>
+								</div>
+							</div>
+						</td>
+						<td colspan='6'>
+							<div class='row'>
+								<div>
+									<p>NAME</p>
+									<p>123</p>
+								</div>
+								<div>
+									<p>TELEPHONE</p>
+									<p>312</p>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='6'>
+							<div>
+								<p>COMPANY</p>
+								<p>312</p>
+							</div>
+						</td>
+						<td colspan='6'>
+							<div>
+								<p>COMPANY</p>
+								<p>312</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='6'>
+							<div>
+								<p>ADDRESS</p>
+								<p>312</p>
+							</div>
+						</td>
+						<td colspan='6'>
+							<div>
+								<p>ADDRESS</p>
+								<p>312</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='6'>
+							<div class='row'>
+								<div>
+									<p>CITY</p>
+									<p>312312</p>
+								</div>
+								<div>
+									<p>STATE/COUNTRY</p>
+									<p>312</p>
+								</div>
+								<div>
+									<p>POSTCODE</p>
+									<p>312</p>
+								</div>
+							</div>
+						</td>
+						<td colspan='6'>
+							<div class='row'>
+								<div>
+									<p>CITY</p>
+									<p>312312</p>
+								</div>
+								<div>
+									<p>STATE/COUNTRY</p>
+									<p>312312312</p>
+								</div>
+								<div>
+									<p>POSTCODE</p>
+									<p>312312312</p>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th colspan='12'>
+							<div>SHIPMENT INFORMATION</div>
+						</th>
+					</tr>
+					<tr>
+						<td colspan='6' rowspan='2'>
+							<div>
+								<p>FULL DESCRIPTION OF CONTENTS</p>
+								<p>42342</p>
+							</div>
+						</td>
+						<td>
+							<div>№</div>
+						</td>
+						<td>
+							<div>Type</div>
+						</td>
+						<td>
+							<div>Dimensions</div>
+						</td>
+						<td>
+							<div>Serial Number Box</div>
+						</td>
+						<td>
+							<div>Serial Number Sensor</div>
+						</td>
+						<td>
+							<div>Temperature(TT)</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div>1</div>
+						</td>
+						<td>
+							<div>terter</div>
+						</td>
+						<td>
+							<div>1x1x1</div>
+						</td>
+						<td>
+							<div></div>
+						</td>
+						<td>
+							<div></div>
+						</td>
+						<td>
+							<div>1</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2'>
+							<div>
+								<p>#OF PCS QUANTITY</p>
+								<p>1</p>
+							</div>
+						</td>
+						<td colspan='4'>
+							<div>
+								<p>WEIGHT 1 KGS</p>
+								<p>CHARGEABLE WEIGHT 0 KGS</p>
+							</div>
+						</td>
+						<td colspan='6'>
+							<div>
+								<p>DOES THIS SHIPMENT CONTAIN DANGEROUS GOODS?</p>
+								<p>
+									<span class='sqr'></span> NO <span class='sqr'></span> YES
+								</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='12'>
+							<div>
+								AIR EXPRESS LIABILITY IS LIMITED
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='12'>
+							<div>
+								SHIPPER'S SECURITY ENDORSEMENT: I CERTIFY THAT THIS CARGO DOES NOT CONTAIN ANY
+								UNANTHORIZED
+								EXPLOSILVER,
+								INCENDIARIES, OR HAZARDOUS MATELRIALS. I CONSENT OF THIS CARGO, I AM AWARE THAT THIS
+								ENDORSEMENT AND
+								ORIGINAL SIGNATURE, ALONG WITH OTHER SHIPPING DOCUMENTS, WILL BE RETAINED ON FILE FOR AT
+								LEAST
+								THIRTY
+								DAYS.
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class='whiteB' colspan='5'>
+							<div>
+								<P>PRINT NAME OF SHIPPER OR SHIPPER'S AGENT:</P>
+								<P></P>
+							</div>
+						</td>
+						<td class='whiteB'>
+							<div>
+								<p>DATE: <span>21:31:3124</span></p>
+							</div>
+						</td>
+						<td class='whiteB' colspan='5'>
+							<div>
+								<P>PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT:</P>
+								<P></P>
+							</div>
+						</td>
+						<td class='whiteB'>
+							<div>
+								<p>DATE: <span>21:31:3124</span></p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class='white' colspan='5'>
+							<div class='white'>
+								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
+								<p></p>
+							</div>
+						</td>
+						<td class='white'>
+							<div class='white'>
+								<p>TIME: <span></span></p>
+							</div>
+						</td>
+						<td class='white' colspan='5'>
+							<div class='white'>
+								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
+								<p></p>
+							</div>
+						</td>
+						<td class='white'>
+							<div class='white'>
+								<p>TIME: <span>21:31</span></p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class='whiteB' colspan='5'>
+							<div>
+								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
+								<p></p>
+							</div>
+						</td>
+						<td class='whiteB'>
+							<div>
+								<p>TIME: <span></span></p>
+							</div>
+						</td>
+						<td class='whiteB' colspan='5'>
+							<div>
+								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
+								<p></p>
+							</div>
+						</td>
+						<td class='whiteB'>
+							<div>
+								<p>TIME: <span>21:31</span></p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class='white' colspan='5'>
+							<div class='white'>
+								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
+								<p></p>
+							</div>
+						</td>
+						<td class='white'>
+							<div class='white'>
+								<p>TIME: <span></span></p>
+							</div>
+						</td>
+						<td class='white' colspan='5'>
+							<div class='white'>
+								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
+								<p></p>
+							</div>
+						</td>
+						<td class='white'>
+							<div class='white'>
+								<p>TIME: <span></span></p>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </body>
 
 </html>
-
