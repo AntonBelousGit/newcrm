@@ -109,8 +109,8 @@
 	<div>
 		<div>
 			<div class='logo'>
-				<img src="./logo2.jpg" alt="">
-			</div>
+                <img src="data:image/png;base64,{{ $image }}" alt=""/>
+            </div>
 			<div class='code'>
 				<div>
 					<div>
@@ -141,11 +141,11 @@
 							<div class='row'>
 								<div>
 									<p>NAME</p>
-									<p>312</p>
+									<p>{{$invoices->shipper}}</p>
 								</div>
 								<div>
 									<p>TELEPHONE</p>
-									<p>312</p>
+									<p>{{$invoices->phone_shipper}}</p>
 								</div>
 							</div>
 						</td>
@@ -153,11 +153,11 @@
 							<div class='row'>
 								<div>
 									<p>NAME</p>
-									<p>123</p>
+									<p>{{$invoices->consignee}}</p>
 								</div>
 								<div>
 									<p>TELEPHONE</p>
-									<p>312</p>
+									<p>{{$invoices->phone_consignee}}</p>
 								</div>
 							</div>
 						</td>
@@ -166,13 +166,13 @@
 						<td colspan='6'>
 							<div>
 								<p>COMPANY</p>
-								<p>312</p>
+								<p>{{$invoices->company_shipper}}</p>
 							</div>
 						</td>
 						<td colspan='6'>
 							<div>
 								<p>COMPANY</p>
-								<p>312</p>
+								<p>{{$invoices->company_consignee}}</p>
 							</div>
 						</td>
 					</tr>
@@ -180,13 +180,13 @@
 						<td colspan='6'>
 							<div>
 								<p>ADDRESS</p>
-								<p>312</p>
+								<p>{{$tracker_start->address}}</p>
 							</div>
 						</td>
 						<td colspan='6'>
 							<div>
 								<p>ADDRESS</p>
-								<p>312</p>
+								<p>{{$tracker_end->address}}</p>
 							</div>
 						</td>
 					</tr>
@@ -195,15 +195,15 @@
 							<div class='row'>
 								<div>
 									<p>CITY</p>
-									<p>312312</p>
+									<p>{{$invoices->shipper_city->city}}</p>
 								</div>
 								<div>
 									<p>STATE/COUNTRY</p>
-									<p>312</p>
+									<p>Ukraine</p>
 								</div>
 								<div>
 									<p>POSTCODE</p>
-									<p>312</p>
+									<p>{{$tracker_start->post_code}}</p>
 								</div>
 							</div>
 						</td>
@@ -211,15 +211,15 @@
 							<div class='row'>
 								<div>
 									<p>CITY</p>
-									<p>312312</p>
+									<p>{{$invoices->consignee_city->city}}</p>
 								</div>
 								<div>
 									<p>STATE/COUNTRY</p>
-									<p>312312312</p>
+									<p>Ukraine</p>
 								</div>
 								<div>
 									<p>POSTCODE</p>
-									<p>312312312</p>
+									<p>{{$tracker_end->post_code}}</p>
 								</div>
 							</div>
 						</td>
@@ -235,7 +235,7 @@
 						<td colspan='6' rowspan='2'>
 							<div>
 								<p>FULL DESCRIPTION OF CONTENTS</p>
-								<p>42342</p>
+								<p>{{$invoices->shipment_description}}</p>
 							</div>
 						</td>
 						<td>
@@ -257,37 +257,63 @@
 							<div>Temperature(TT)</div>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<div>1</div>
-						</td>
-						<td>
-							<div>terter</div>
-						</td>
-						<td>
-							<div>1x1x1</div>
-						</td>
-						<td>
-							<div></div>
-						</td>
-						<td>
-							<div></div>
-						</td>
-						<td>
-							<div>1</div>
-						</td>
-					</tr>
+                    @foreach($invoices->cargo as $cargo)
+                        <tr>
+                            <td>
+                                <div>{{$loop->iteration}}</div>
+                            </td>
+                            <td>
+                                <div>{{$cargo->type}}</div>
+                            </td>
+                            <td>
+                                <div>{{$cargo->сargo_dimensions_length}}x{{$cargo->сargo_dimensions_width}}x{{$cargo->сargo_dimensions_height}}</div>
+                            </td>
+                            <td>
+                                <div>{{$cargo->serial_number}}</div>
+                            </td>
+                            <td><div>{{$cargo->serial_number_sensor}}</div></td>
+                            <td><div>{{$cargo->temperature_conditions}}</div></td>
+                        </tr>
+                    @endforeach
 					<tr>
 						<td colspan='2'>
 							<div>
 								<p>#OF PCS QUANTITY</p>
-								<p>1</p>
+								<p>{{$invoices->cargo->sum('quantity')}}</p>
 							</div>
 						</td>
 						<td colspan='4'>
 							<div>
-								<p>WEIGHT 1 KGS</p>
-								<p>CHARGEABLE WEIGHT 0 KGS</p>
+								<p>WEIGHT
+                                    @php
+                                        $actual_weight = 0;
+                                    @endphp
+                                    @foreach($invoices->cargo as $item)
+                                        @for ($i = 0; $i < $item->quantity; $i++)
+                                            @php
+                                                $actual_weight += $item->actual_weight;
+                                            @endphp
+                                        @endfor
+                                    @endforeach
+                                    @php
+                                        echo $actual_weight;
+                                    @endphp
+                                    KGS</p>
+								<p>CHARGEABLE WEIGHT
+                                    @php
+                                        $weight = 0;
+                                    @endphp
+                                    @foreach($invoices->cargo as $item)
+                                        @for ($i = 0; $i < $item->quantity; $i++)
+                                            @php
+                                                $weight += $item->volume_weight;
+                                            @endphp
+                                        @endfor
+                                    @endforeach
+                                    @php
+                                        echo $weight;
+                                    @endphp
+                                    KGS</p>
 							</div>
 						</td>
 						<td colspan='6'>
