@@ -245,12 +245,12 @@
 					<tr>
 						<td colspan='12' rowspan='2' class='whiteR'>
 							<div>
-								<p>FULL DESCRIPTION OF CONTENTS</p>
+								<p>FULL DESCRIPTION OF CONTENTS <span class="white">DESCRIPTIONOFCONTENTS</span></p>
 								<p>{{$invoices->shipment_description}}</p>
 							</div>
 						</td>
 						<td class='whiteL whiteB'>
-                            <div class="white">1312131213121312</div>
+                            <div class="white">13121312</div>
                         </td>
                         <td class='whiteL whiteB'>
                             <div class="white">1</div>
@@ -289,7 +289,7 @@
                     @foreach($invoices->cargo as $cargo)
                         <tr>
                             <td class='whiteL'>
-                                <div class="white">1312131312131212</div>
+                                <div class="white">13121312</div>
                             </td>
                              <td class='whiteL '>
                                 <div class="white">1</div>
