@@ -8,6 +8,7 @@
 </head>
 <style>
     table {
+        width:100%;
 		border-collapse: collapse;
 	}
 
@@ -41,7 +42,7 @@
     body {
 		font-family: DejaVu Sans, sans-serif;
 		font-size: 10px;
-		padding: 0 5px;
+		padding: 7mm 14mm 0 7mm;
 	}
 
 	p {
@@ -51,7 +52,7 @@
 	html,
 	body {
 		height: 297mm;
-		width: 207mm;
+		width: 197mm;
 		margin: 0px;
 	}
 
@@ -64,7 +65,7 @@
 		position: relative;
 	}
 	.row {
-		padding: 0;
+		padding: 5px 0 0 0;
 	}
 
 	.row div {
@@ -108,7 +109,19 @@
     .whiteR {
 	    border-right: 2px solid transparent;
 	}
-
+    .whiteT {
+       border-top: none;
+    }
+    .code {
+    }
+    .ebala {
+        padding:0 10px ;
+        margin:0;
+        font-size:6px;
+    }
+    .ebala p {
+     margin:0;
+    }
 </style>
 
 <body>
@@ -140,10 +153,10 @@
 			<table>
 				<thead>
 					<tr>
-						<th colspan='15'>
-							<div>FORM(SHIPPER)</div>
+						<th colspan='18'>
+							<div>FROM(SHIPPER)</div>
 						</th>
-						<th colspan='9'>
+						<th colspan='6'>
 							<div>TO(CONSIGNEE)</div>
 						</th>
 					</tr>
@@ -243,53 +256,53 @@
 						</th>
 					</tr>
 					<tr>
-						<td colspan='12' rowspan='2' class='whiteR'>
+						<td colspan='12' rowspan='2' class='whiteR whiteT'>
 							<div>
 								<p>FULL DESCRIPTION OF CONTENTS <span class="white">DESCRIPTIONOFCONTENTS</span></p>
 								<p>{{$invoices->shipment_description}}</p>
 							</div>
 						</td>
-						<td class='whiteL whiteB'>
-                            <div class="white">13121312</div>
+						<td class='whiteL whiteB whiteT'>
+                            <div class="white">13212</div>
                         </td>
-                        <td class='whiteL whiteB'>
+                        <td class='whiteL whiteB whiteT'>
                             <div class="white">1</div>
                         </td>
-                        <td class='whiteL whiteB '>
+                        <td class='whiteL whiteB whiteT'>
                             <div class="white">1</div>
                         </td>
-                         <td class='whiteL whiteB'>
+                         <td class='whiteL whiteB whiteT'>
                             <div class="white">1</div>
                         </td>
-                        <td class='whiteL whiteB '>
+                        <td class='whiteL whiteB whiteT'>
                             <div class="white">1</div>
                         </td>
-                         <td class='whiteL whiteB whiteRR'>
-                            <div class="white">1</div>
+                         <td class='whiteL whiteB whiteRR whiteT'>
+                            <div class="white">12222</div>
                         </td>
-						 <td>
+						 <td class='whiteT'>
 							<div>№</div>
 						</td>
-						<td>
+						<td class='whiteT'>
 							<div>Type</div>
 						</td>
-						<td>
+						<td class='whiteT'>
 							<div>Dimensions</div>
 						</td>
-						<td>
+						<td class='whiteT'>
 							<div>Serial Number Box</div>
 						</td>
-						<td >
+						<td  class='whiteT'>
 							<div>Serial Number Sensor</div>
 						</td>
-						<td>
-							<div>Temperature(TT)</div>
+						<td class='whiteT'>
+							<div>Tempe- rature    (TT)</div>
 						</td>
 					</tr>
                     @foreach($invoices->cargo as $cargo)
                         <tr>
                             <td class='whiteL'>
-                                <div class="white">13121312</div>
+                                <div class="white">13212</div>
                             </td>
                              <td class='whiteL '>
                                 <div class="white">1</div>
@@ -304,7 +317,7 @@
                                 <div class="white">1</div>
                             </td>
                              <td class='whiteL whiteRR '>
-                                <div class="white">1</div>
+                                <div class="white">1222222</div>
                             </td>
                             <td>
                                 <div>{{$loop->iteration}}</div>
@@ -394,59 +407,62 @@
 							</div>
 						</td>
 					</tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
 					<tr>
-						<td class='whiteB' colspan='17'>
+						<td class='whiteB'>
 							<div>
 								<p>PRINT NAME OF SHIPPER OR SHIPPER'S AGENT:</p>
-								<p></p>
 							</div>
 						</td>
 						<td class='whiteB'>
 							<div>
 								<p>DATE:</p>
+								<p class="white">CONSI</p>
 							</div>
 						</td>
-						<td class='whiteB' colspan='5'>
+						<td class='whiteB'>
 							<div>
 								<p>PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
-								<p></p>
 							</div>
 						</td>
 						<td class='whiteB'>
 							<div>
 								<p>DATE:</p>
+								<p class="white">CONSI</p>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td class='white' colspan='17'>
-							<div class='white'>
-								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
+						<td class='white'>
+							<div class='white ebala'>
+								<p>SIGNATURE OF CONSIGNEE OR CONSIGN</p>
 								<p></p>
 							</div>
 						</td>
 						<td class='white'>
-							<div class='white'>
-								<p>TIME: <span></span></p>
-							</div>
-						</td>
-						<td class='white' colspan='5'>
-							<div class='white'>
-								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
-								<p></p>
+							<div class='white ebala'>
+								<p>CONрSI::::::::</p>
 							</div>
 						</td>
 						<td class='white'>
-							<div class='white'>
-								<p>TIME:</p>
+							<div class='white ebala'>
+								<p>SIGNATURE OF CONSIGNEE OR CONSIGN</p>
+
+							</div>
+						</td>
+						<td class='white'>
+							<div class='white ebala'>
+								<p>CONрSI::::::::</p>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td class='whiteB' colspan='17'>
+						<td class='whiteB'>
 							<div>
 								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
-								<p></p>
 							</div>
 						</td>
 						<td class='whiteB'>
@@ -454,39 +470,38 @@
 								<p>TIME:</p>
 							</div>
 						</td>
-						<td class='whiteB' colspan='5'>
+						<td class='whiteB'>
 							<div>
 								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
-								<p></p>
 							</div>
+
 						</td>
 						<td class='whiteB'>
 							<div>
 								<p>TIME:</p>
+								<p class="white">CONSI</p>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td class='white' colspan='17'>
-							<div class='white'>
-								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
-								<p></p>
+						<td class='white'>
+							<div class='white ebala'>
+								<p>SIGNATURE OF CONSIGNEE OR CONSIGN</p>
 							</div>
 						</td>
 						<td class='white'>
-							<div class='white'>
-								<p>TIME:</p>
-							</div>
-						</td>
-						<td class='white' colspan='5'>
-							<div class='white'>
-								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
-								<p></p>
+							<div class='white ebala'>
+								<p>CONSI::::::::</p>
 							</div>
 						</td>
 						<td class='white'>
-							<div class='white'>
-								<p>TIME:</p>
+							<div class='white ebala'>
+								<p>SIGNATURE OF CONSIGNEE OR CONSIGN</p>
+							</div>
+						</td>
+						<td class='white'>
+							<div class='white ebala'>
+								<p>CONSI::::::::</p>
 							</div>
 						</td>
 					</tr>
