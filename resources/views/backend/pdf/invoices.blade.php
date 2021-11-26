@@ -7,33 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
-	body {
-		font-family: DejaVu Sans, sans-serif;
-		font-size: 10px;
-		padding: 0 5px;
-	}
-
-	p {
-		margin: 2px 0;
-	}
-
-	html,
-	body {
-		height: 297mm;
-		width: 207mm;
-		margin: 0px;
-	}
-
-	.sqr {
-		display: inline-block;
-		border: 1px solid black;
-		width: 12px;
-		height: 12px;
-		background-color: white;
-		position: relative;
-	}
-
-	table {
+    table {
 		border-collapse: collapse;
 	}
 
@@ -64,6 +38,31 @@
 		padding: 5px;
 	}
 
+    body {
+		font-family: DejaVu Sans, sans-serif;
+		font-size: 10px;
+		padding: 0 5px;
+	}
+
+	p {
+		margin: 2px 0;
+	}
+
+	html,
+	body {
+		height: 297mm;
+		width: 207mm;
+		margin: 0px;
+	}
+
+	.sqr {
+		display: inline-block;
+		border: 1px solid black;
+		width: 12px;
+		height: 12px;
+		background-color: white;
+		position: relative;
+	}
 	.row {
 		padding: 0;
 	}
@@ -77,7 +76,10 @@
 		color: white;
 		border-top: 2px solid transparent;
 	}
-
+    .whiteL {
+        border: 2px solid transparent;
+        border-bottom: 2px solid #12469a;
+    }
 	.whiteB {
 		border-bottom: 2px solid transparent;
 	}
@@ -100,6 +102,13 @@
 	.clearfix {
 		clear: both;
 	}
+	.whiteRR {
+	    border-right: 2px solid #12469a;
+	}
+    .whiteR {
+	    border-right: 2px solid transparent;
+	}
+
 </style>
 
 <body>
@@ -131,15 +140,15 @@
 			<table>
 				<thead>
 					<tr>
-						<th colspan='8'>
+						<th colspan='15'>
 							<div>FORM(SHIPPER)</div>
 						</th>
-						<th colspan='4'>
+						<th colspan='9'>
 							<div>TO(CONSIGNEE)</div>
 						</th>
 					</tr>
 					<tr>
-						<td colspan='8'>
+						<td colspan='18'>
 							<div class='row'>
 								<div>
 									<p>NAME</p>
@@ -151,7 +160,7 @@
 								</div>
 							</div>
 						</td>
-						<td colspan='4'>
+						<td colspan='6'>
 							<div class='row'>
 								<div>
 									<p>NAME</p>
@@ -165,13 +174,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan='8'>
+						<td colspan='18'>
 							<div>
 								<p>COMPANY</p>
 								<p>{{$invoices->company_shipper}}</p>
 							</div>
 						</td>
-						<td colspan='4'>
+						<td colspan='6'>
 							<div>
 								<p>COMPANY</p>
 								<p>{{$invoices->company_consignee}}</p>
@@ -179,13 +188,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan='8'>
+						<td colspan='18'>
 							<div>
 								<p>ADDRESS</p>
 								<p>{{$tracker_start->address}}</p>
 							</div>
 						</td>
-						<td colspan='4'>
+						<td colspan='6'>
 							<div>
 								<p>ADDRESS</p>
 								<p>{{$tracker_end->address}}</p>
@@ -193,7 +202,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan='8'>
+						<td colspan='18'>
 							<div class='row'>
 								<div>
 									<p>CITY</p>
@@ -209,7 +218,7 @@
 								</div>
 							</div>
 						</td>
-						<td colspan='4'>
+						<td colspan='6'>
 							<div class='row'>
 								<div>
 									<p>CITY</p>
@@ -229,18 +238,36 @@
 				</thead>
 				<tbody>
 					<tr>
-						<th colspan='12'>
+						<th colspan='24'>
 							<div>SHIPMENT INFORMATION</div>
 						</th>
 					</tr>
 					<tr>
-						<td colspan='6' rowspan='2'>
+						<td colspan='12' rowspan='2' class='whiteR'>
 							<div>
 								<p>FULL DESCRIPTION OF CONTENTS</p>
 								<p>{{$invoices->shipment_description}}</p>
 							</div>
 						</td>
-						<td>
+						<td class='whiteL whiteB'>
+                            <div class="white">1312131213121312</div>
+                        </td>
+                        <td class='whiteL whiteB'>
+                            <div class="white">1</div>
+                        </td>
+                        <td class='whiteL whiteB '>
+                            <div class="white">1</div>
+                        </td>
+                         <td class='whiteL whiteB'>
+                            <div class="white">1</div>
+                        </td>
+                        <td class='whiteL whiteB '>
+                            <div class="white">1</div>
+                        </td>
+                         <td class='whiteL whiteB whiteRR'>
+                            <div class="white">1</div>
+                        </td>
+						 <td>
 							<div>№</div>
 						</td>
 						<td>
@@ -252,7 +279,7 @@
 						<td>
 							<div>Serial Number Box</div>
 						</td>
-						<td>
+						<td >
 							<div>Serial Number Sensor</div>
 						</td>
 						<td>
@@ -261,6 +288,24 @@
 					</tr>
                     @foreach($invoices->cargo as $cargo)
                         <tr>
+                            <td class='whiteL'>
+                                <div class="white">1312131312131212</div>
+                            </td>
+                             <td class='whiteL '>
+                                <div class="white">1</div>
+                            </td>
+                            <td class='whiteL  '>
+                                <div class="white">1</div>
+                            </td>
+                             <td class='whiteL '>
+                                <div class="white">1</div>
+                            </td>
+                            <td class='whiteL  '>
+                                <div class="white">1</div>
+                            </td>
+                             <td class='whiteL whiteRR '>
+                                <div class="white">1</div>
+                            </td>
                             <td>
                                 <div>{{$loop->iteration}}</div>
                             </td>
@@ -278,13 +323,13 @@
                         </tr>
                     @endforeach
 					<tr>
-						<td colspan='4'>
+						<td colspan='12'>
 							<div>
 								<p>#OF PCS QUANTITY</p>
 								<p>{{$invoices->cargo->sum('quantity')}}</p>
 							</div>
 						</td>
-						<td colspan='4'>
+						<td colspan='6'>
 							<div>
 								<p>WEIGHT
                                     @php
@@ -318,7 +363,7 @@
                                     KGS</p>
 							</div>
 						</td>
-						<td colspan='4'>
+						<td colspan='6'>
 							<div>
 								<p>DOES THIS SHIPMENT CONTAIN DANGEROUS GOODS?</p>
 								<p>
@@ -328,14 +373,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan='12'>
+						<td colspan='24'>
 							<div>
 								AIR EXPRESS LIABILITY IS LIMITED
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td colspan='12'>
+						<td colspan='24'>
 							<div>
 								SHIPPER'S SECURITY ENDORSEMENT: I CERTIFY THAT THIS CARGO DOES NOT CONTAIN ANY
 								UNANTHORIZED
@@ -350,7 +395,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class='whiteB' colspan='7'>
+						<td class='whiteB' colspan='17'>
 							<div>
 								<p>PRINT NAME OF SHIPPER OR SHIPPER'S AGENT:</p>
 								<p></p>
@@ -361,7 +406,7 @@
 								<p>DATE:</p>
 							</div>
 						</td>
-						<td class='whiteB' colspan='3'>
+						<td class='whiteB' colspan='5'>
 							<div>
 								<p>PRINT NAME OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
 								<p></p>
@@ -374,7 +419,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class='white' colspan='7'>
+						<td class='white' colspan='17'>
 							<div class='white'>
 								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
 								<p></p>
@@ -385,7 +430,7 @@
 								<p>TIME: <span></span></p>
 							</div>
 						</td>
-						<td class='white' colspan='3'>
+						<td class='white' colspan='5'>
 							<div class='white'>
 								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
 								<p></p>
@@ -398,7 +443,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class='whiteB' colspan='7'>
+						<td class='whiteB' colspan='17'>
 							<div>
 								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
 								<p></p>
@@ -409,7 +454,7 @@
 								<p>TIME:</p>
 							</div>
 						</td>
-						<td class='whiteB' colspan='3'>
+						<td class='whiteB' colspan='5'>
 							<div>
 								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
 								<p></p>
@@ -422,7 +467,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class='white' colspan='7'>
+						<td class='white' colspan='17'>
 							<div class='white'>
 								<p>SIGNATURE OF SHIPPER OR SHIPPER'S AGENT:</p>
 								<p></p>
@@ -433,7 +478,7 @@
 								<p>TIME:</p>
 							</div>
 						</td>
-						<td class='white' colspan='3'>
+						<td class='white' colspan='5'>
 							<div class='white'>
 								<p>SIGNATURE OF CONSIGNEE OR CONSIGNEE'S AGENT:</p>
 								<p></p>
