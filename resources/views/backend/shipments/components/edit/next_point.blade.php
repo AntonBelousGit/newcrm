@@ -22,6 +22,6 @@
     }
     else
     {
-       echo ($orders->status_id !== 10)? $status[$orders->status_id]->name:'';
+       echo ($orders->status_id != 10)? $status[$orders->status_id]->name:'';
     }
 @endphp
