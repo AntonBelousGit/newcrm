@@ -14,8 +14,6 @@ class CargoLocationSeeder extends Seeder
      */
     public function run()
     {
-
-        CargoLocation::create(['name'=>'----','city'=>'----']);
         CargoLocation::create(['name'=>'IEV(KBP)','city'=>'KYIV']);
         CargoLocation::create(['name'=>'CKC','city'=>'CHERKASY']);
         CargoLocation::create(['name'=>'CWC','city'=>'CHERNIVTSI']);

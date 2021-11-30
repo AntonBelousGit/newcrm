@@ -1302,9 +1302,10 @@
         });
     </script>
     <script>
-        let valueAddress2 = '{{$tracker_end->address}}';
+
+        let valueAddress2 = "{!! $tracker_end->address !!}";
         $("#visicom-autocomplete2 input").val(valueAddress2);
-        let valueAddress = '{{$tracker_start->address}}';
+        var valueAddress = "{!! $tracker_start->address !!}";
         $("#visicom-autocomplete input").val(valueAddress);
     </script>
     <script type="text/javascript">
