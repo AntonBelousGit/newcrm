@@ -186,10 +186,12 @@ class OrderRepository
             $order->phone_shipper = $request->phone_shipper;
             $order->company_shipper = $request->company_shipper;
             $order->site_shipper = $request->site_shipper;
+            $order->shipper_address_id = $request->shipper_address_id;
             $order->consignee = $request->consignee;
             $order->phone_consignee = $request->phone_consignee;
             $order->company_consignee = $request->company_consignee;
             $order->site_consignee = $request->site_consignee;
+            $order->consignee_address_id = $request->consignee_address_id;
             $order->shipment_description = $request->shipment_description ?? null;
             $order->comment = $request->comment ?? null;
             $order->client_hwb = $request->client_hwb ?? null;

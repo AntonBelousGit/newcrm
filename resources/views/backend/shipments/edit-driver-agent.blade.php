@@ -319,17 +319,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Status:</label>
-                                <select id="change-country-to" disabled class="form-control ">
-                                    @foreach($status as $item)
-                                        <option value="{{$item->id}}" @if($item->id == $orders->status->id) selected @endif >{{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
+
                         <div class="">
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Agent:</label>

@@ -619,14 +619,6 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="">
-                            <div class="col-md-6" data-select2-id="66">
-                                <label>Status:</label>
-                                <input type="text" placeholder="status" class="form-control" disabled
-                                       value="{{$orders->status->name }}"/>
-                            </div>
-                        </div>
 
                         {{--                        @cannot('Client')--}}
                         {{--                            <hr>--}}
