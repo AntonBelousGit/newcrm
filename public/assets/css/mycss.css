@@ -341,7 +341,10 @@ input[type="checkbox"]~.custom_check i {
 .js-example-basic-multiple {
     width: 300px;
 }
-
+.dnon-h2 .user .filters th:nth-child(8) {
+    color: transparent;
+    font-size: 0;
+}
 .dnon-h2 .filters th:nth-child(1),
 .dnon-h2 .filters th:nth-child(2),
 .dnon-h2 .filters th:nth-child(3),
