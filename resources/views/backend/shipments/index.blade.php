@@ -61,7 +61,7 @@
         <form id="tableForm">
             @csrf()
             <div class="wrap_table dnon-h2" id="fixAdaptiv">
-                <table id="table_id" class="">
+                <table id="table_id" class="@can('Client',Auth::user())  user  @endcan">
                     <thead>
                     <tr>
                         <th></th>
@@ -71,7 +71,9 @@
                         <th>Client HWB</th>
                         <th>HWB number</th>
                         <th>Status</th>
+                        @cannot('Client',Auth::user())
                         <th>Next Routing Point</th>
+                        @endcannot
                         <th>Created at</th>
                         <th>Mission</th>
                         <th></th>
@@ -309,7 +311,6 @@
                                            echo '<th>'.$shipment->status->name.'</th>';
                                         }
                                     @endphp
-                                    <td></td>
                                     <td>{{$shipment->created_at}}</td>
                                     <td class="text-center df">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -527,7 +528,7 @@
 
                     // For each column
                     api
-                        .columns([6, 7])
+                        .columns([6, @cannot('Client',Auth::user())7 @endcannot])
                         .eq(0)
                         .each(function (colIdx) {
                             // Set the header cell to contain the input element
