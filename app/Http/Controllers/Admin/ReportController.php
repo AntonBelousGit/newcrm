@@ -6,6 +6,7 @@ use App\Exports\OrderExport;
 use App\Exports\OrderFindExport;
 use App\Exports\SelectedOrderExport;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Report;
 use App\Models\User;
 use Illuminate\Http\Request;

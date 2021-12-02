@@ -147,7 +147,7 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
-            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id, true);
+            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id, true,true);
 
             if ($request->shipper_address_id) {
                 $start_tracker = new Tracker;
@@ -184,7 +184,7 @@ class OrderController extends Controller
     public function returned_order($request, $id)
     {
 
-        $order = $this->orderService->saveReturnedOrder($request, $id, false);
+        $order = $this->orderService->saveReturnedOrder($request, $id, false,false);
 
         if ($request->shipper_address_id) {
             $start_tracker = new Tracker;

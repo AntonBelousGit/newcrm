@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StatusSeeder::class);
         $this->call(SubProductStatusSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(PayerSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
 //        User::factory(15)->create();

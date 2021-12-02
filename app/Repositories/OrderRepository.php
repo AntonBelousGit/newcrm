@@ -111,7 +111,7 @@ class OrderRepository
         $addInfo->additional_consignee_contact = $request->additional_consignee_contact;
         $addInfo->update();
     }
-    public function saveReturnedOrder($request, $id, $email)
+    public function saveReturnedOrder($request, $id, $email,$status )
     {
 //        dd($request);
         $order = new Order();
@@ -124,8 +124,16 @@ class OrderRepository
         $order->phone_consignee = $request->phone_shipper;
         $order->company_consignee = $request->company_shipper;
         $order->site_consignee = $request->site_shipper;
-        $order->shipper_address_id = $request->shipper_address_id;
-        $order->consignee_address_id = $request->consignee_address_id;
+        if ($status) {
+            $order->shipper_address_id = $request->shipper_address_id;
+            $order->consignee_address_id = $request->consignee_address_id;
+        }
+        else
+        {
+            $order->shipper_address_id = $request->consignee_address_id;
+            $order->consignee_address_id = $request->shipper_address_id;
+        }
+
 
         $order->shipment_description = '';
         $order->comment = '';

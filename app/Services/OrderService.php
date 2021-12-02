@@ -31,9 +31,9 @@ class OrderService
         return $this->orderRepository->saveOrder($request);
     }
 
-    public function saveReturnedOrder($request, $id, $email)
+    public function saveReturnedOrder($request, $id, $email,$status)
     {
-        return $this->orderRepository->saveReturnedOrder($request, $id, $email);
+        return $this->orderRepository->saveReturnedOrder($request, $id, $email,$status);
     }
 
     public function findAndUpdate($request, $id)

@@ -846,6 +846,15 @@
                         <h2 class="text-left">Tracker Info:</h2>
                         <div data-repeater-item class="row align-items-center"
                              style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                            @php
+                                if (isset($tracker_start->start_time))
+                                {
+                                     $start_time = str_replace(' ','T', $tracker_start->start_time);
+                                     $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);
+                                }
+                                $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
+                                $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);
+                            @endphp
                             <div class="col-md-3">
                                 <label>Location:</label>
                                 <input placeholder="Start time" type="text" disabled class="form-control"
@@ -862,7 +871,7 @@
                             <div class="col-md-3">
                                 <label>Driver:</label>
                                 <select name="start[driver_id]"
-                                        class="form-control @if (!isset($tracker_start->driver_id)) border-danger @php $alert_marker = 0; @endphp @endif"
+                                        class="form-control @if (empty($end_time) && !isset($tracker_start->driver_id) && !isset($tracker_start->agent_id)) border-danger  @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
@@ -875,20 +884,12 @@
                                     @endforeach
                                 </select>
                             </div>
-                            @php
-                                if (isset($tracker_start->start_time))
-                                {
-                                     $start_time = str_replace(' ','T', $tracker_start->start_time);
-                                     $start_time_stop = str_replace(' ','T', $tracker_start->start_time_stop);
-                                }
-                                $end_time=is_null($tracker_start->end_time)?'':str_replace(' ','T', $tracker_start->end_time);
-                                $left_the_point=is_null($tracker_start->left_the_point)?'':str_replace(' ','T', $tracker_start->left_the_point);
-                            @endphp
+
 
                             <div class="col-md-3">
                                 <label>Agent:</label>
                                 <select id="change-country-to" name="start[agent_id]"
-                                        class="form-control @if (!isset($tracker_start->agent_id) && empty($end_time) && $alert_marker === 1) border-danger @endif"
+                                        class="form-control @if (empty($end_time) && !isset($tracker_start->agent_id) && !isset($tracker_start->driver_id)) border-danger @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
@@ -914,7 +915,7 @@
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[arrived_time]"
                                        autocomplete="off"
-                                       class="form-control @if (empty($end_time) && $alert_marker === 1) border-danger  @endif"
+                                       class="form-control @if (empty($end_time)) border-danger  @endif"
                                        value="{{ $end_time ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -922,7 +923,7 @@
                                 <label>Signed:</label>
                                 <input placeholder="Signed" type="text" name="start[signed]"
                                        autocomplete="off"
-                                       class="form-control @if (!isset($tracker_start->signed) && empty($end_time) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                       class="form-control @if (empty($end_time) && !isset($tracker_start->signed)) border-danger @php $alert_marker = 0; @endphp @endif"
                                        value="{{$tracker_start->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
