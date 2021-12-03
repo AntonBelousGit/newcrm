@@ -446,7 +446,7 @@ class OrderController extends Controller
     public function return_job()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'status','tracker.cargolocation')->where('returned', 1)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'status','tracker.cargolocation')->where('returned', 1)->where('status_id','!=', 10)->get();
             $title = 'Return Job';
             $statuses = ProductStatus::all();
             return view('backend.shipments.index-one-status', compact('orders', 'title','statuses'));
