@@ -26,7 +26,14 @@
         {
            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'. $location_name .'</th>';
         }
+
+        if ($shipment->tracker->whereIn('position',['0','1'])->where('status','Awaiting arrival')->count() === 0 ){
+          echo '<th>Delivered</th>';
+       }
+       else
+       {
         echo '<th>'.$location_name.'</th>';
+       }
     }
     elseif ($shipment->status_id == 5){
         echo '<th>'. $shipment->tracker->where('position','0')->first()->cargolocation->name .'->'. $shipment->tracker->where('position','2')->first()->cargolocation->name .'+'.$shipment->status->name.'</th>';
