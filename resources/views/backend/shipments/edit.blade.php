@@ -755,8 +755,7 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
+                        <div class="row d-none">
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Status</label>
                                 @if($orders->status_id < 2)
