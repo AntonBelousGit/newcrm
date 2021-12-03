@@ -915,7 +915,7 @@
                                 <label>Arrived Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[arrived_time]"
                                        autocomplete="off"
-                                       class="form-control @if (empty($end_time)) border-danger  @endif"
+                                       class="form-control @if (empty($end_time)) border-danger @php $alert_marker = 0; @endphp @endif"
                                        value="{{ $end_time ?? ''}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -923,7 +923,7 @@
                                 <label>Signed:</label>
                                 <input placeholder="Signed" type="text" name="start[signed]"
                                        autocomplete="off"
-                                       class="form-control @if (empty($end_time) && !isset($tracker_start->signed)) border-danger @php $alert_marker = 0; @endphp @endif"
+                                       class="form-control @if (empty($end_time) && !isset($tracker_start->signed)) border-danger  @endif"
                                        value="{{$tracker_start->signed}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
@@ -943,10 +943,18 @@
                                 @foreach($trackers as $tracker)
                                     <div data-repeater-item class="row align-items-center zakupak"
                                          style="margin-top: 15px;padding-bottom: 15px;padding-top: 15px;border-top:1px solid #ccc;border-bottom:1px solid #ccc;">
+                                        @php
+                                            if (isset($tracker->start_time))
+                                            {
+                                                 $start_time = str_replace(' ','T', $tracker->start_time);
+                                            }
+                                            $end_time=is_null($tracker->end_time)?'':str_replace(' ','T', $tracker->end_time);
+                                            $left_the_point=is_null($tracker->left_the_point)?'':str_replace(' ','T', $tracker->left_the_point);
+                                        @endphp
                                         <div class="col-md-3">
                                             <label>Location:</label>
                                             <select name="cargo_location"
-                                                    class="form-control @if (!isset($tracker->cargolocation->id) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif">
+                                                    class="form-control @if (!isset($tracker->cargolocation->id) && $alert_marker === 1) border-danger @endif">
                                                 @foreach($cargo_location as $item)
                                                     <option value="{{$item->id}}"
                                                             @if($item->id == $tracker->cargolocation->id) selected @endif>{{$item->name}}</option>
@@ -965,7 +973,7 @@
                                         <div class="col-md-3">
                                             <label>Driver:</label>
                                             <select name="driver_id"
-                                                    class="form-control @if (!isset($tracker->driver_id) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                    class="form-control @if (empty($end_time) && !isset($tracker->driver_id) && !isset($tracker->agent_id) && $alert_marker === 1) border-danger  @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
                                                 @foreach($user as $item)
@@ -977,18 +985,11 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        @php
-                                            if (isset($tracker->start_time))
-                                            {
-                                                 $start_time = str_replace(' ','T', $tracker->start_time);
-                                            }
-                                            $end_time=is_null($tracker->end_time)?'':str_replace(' ','T', $tracker->end_time);
-                                            $left_the_point=is_null($tracker->left_the_point)?'':str_replace(' ','T', $tracker->left_the_point);
-                                        @endphp
+
                                         <div class="col-md-3">
                                             <label>Agent:</label>
                                             <select name="agent_id"
-                                                    class="form-control @if (!isset($tracker->agent_id)&& empty($end_time) && $alert_marker === 1) border-danger @endif"
+                                                    class="form-control @if (empty($end_time) && !isset($tracker->agent_id) && !isset($tracker->driver_id)  && $alert_marker === 1) border-danger @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
                                                 @foreach($user as $item)
@@ -1014,7 +1015,7 @@
                                             <label>Arrived Time:</label>
                                             <input placeholder="Start time" type="datetime-local" name="arrived_time"
                                                    autocomplete="off"
-                                                   class="form-control clear-value-data @if (empty($end_time) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                   class="form-control clear-value-data @if (empty($end_time)  && $alert_marker === 1) border-danger  @php $alert_marker = 0; @endphp @endif"
                                                    value="{{$end_time}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -1022,7 +1023,7 @@
                                             <label>Left Time:</label>
                                             <input placeholder="Left Time" type="datetime-local" name="left_time"
                                                    autocomplete="off"
-                                                   class="form-control clear-value-data @if (!empty($end_time) && empty($left_the_point) && $alert_marker === 1) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                   class="form-control clear-value-data @if (!empty($end_time) && empty($left_the_point) ) border-danger @php $alert_marker = 0; @endphp @endif"
                                                    value="{{$left_the_point}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -1030,7 +1031,7 @@
                                             <label>Signed:</label>
                                             <input placeholder="Signed" type="text" name="signed"
                                                    autocomplete="off"
-                                                   class="form-control @if ( !empty($end_time) && empty($left_the_point) && !isset($tracker->signed) ) border-danger @php $alert_marker = 0; @endphp @endif"
+                                                   class="form-control @if ( !empty($end_time) && empty($left_the_point) && !isset($tracker->signed) ) border-danger @endif"
                                                    value="{{$tracker->signed}}"/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>

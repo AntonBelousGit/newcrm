@@ -86,7 +86,7 @@ class AuthServiceProvider extends ServiceProvider
             }
             return false;
         });
-        Gate::define('manage-client', function (User $user, Order $order) {
+        Gate::define(   'manage-client', function (User $user, Order $order) {
             // dd($order);
             // if ($user->id == $order->client_id){
             //	dd($user->payer()->get()->pluck('id')->contains($order->payer_id));

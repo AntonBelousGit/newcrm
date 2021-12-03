@@ -26,7 +26,7 @@
         {
            echo '<th>'.$shipment->tracker->where('position','1')->where('status','Arrived')->last()->cargolocation->name.' ->'. $location_name .'</th>';
         }
-        echo '<th>'.$statuses[$shipment->status_id + 1]->name.'</th>';
+        echo '<th>'.$location_name.'</th>';
     }
     elseif ($shipment->status_id == 5){
         echo '<th>'. $shipment->tracker->where('position','0')->first()->cargolocation->name .'->'. $shipment->tracker->where('position','2')->first()->cargolocation->name .'+'.$shipment->status->name.'</th>';

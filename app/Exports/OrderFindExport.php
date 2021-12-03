@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Concerns\FromView;
 
 class OrderFindExport implements FromView
@@ -24,6 +25,7 @@ class OrderFindExport implements FromView
 
         $start = $this->request->start;
         $end = $this->request->end;
+
 
         if ($this->request->driver_id != null && $this->request->agent_id == null && $this->request->status == null) {
 
@@ -48,9 +50,17 @@ class OrderFindExport implements FromView
                 'agent' => $agent,
             ]);
         }
-        if ($this->request->status != null && $this->request->driver_id == null && $this->request->agent_id == null) {
+        if (!is_null($this->request->status) && $this->request->driver_id == null && $this->request->agent_id == null) {
+
             if ($this->request->status == 0) {
-                $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+
+                if(Gate::check('Administration',Auth::user())){
+                    $user = User::find($this->request->user_id);
+                    $payer_user = DB::table('payer_user')->where('user_id', $user->id)->get(['payer_id']);
+                }
+                else{
+                    $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                }
                 return view('backend.exports.reports', [
                     'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->whereIn('payer_id', $payer_user->pluck('payer_id'))->get()
                 ]);
@@ -79,11 +89,17 @@ class OrderFindExport implements FromView
                 'agent' => $agent,
             ]);
         }
-        if ($this->request->driver_id != null && $this->request->status != null && $this->request->agent_id == null) {
+        if ($this->request->driver_id != null && !is_null($this->request->status) && $this->request->agent_id == null) {
             $driver = User::find($this->request->driver_id);
 
             if ($this->request->status == 0) {
-                $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                if(Gate::check('Administration',Auth::user())){
+                    $user = User::find($this->request->user_id);
+                    $payer_user = DB::table('payer_user')->where('user_id', $user->id)->get(['payer_id']);
+                }
+                else{
+                    $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                }
                 return view('backend.exports.reports', [
                     'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
                         $q->where('driver_id', $this->request->driver_id);
@@ -106,10 +122,16 @@ class OrderFindExport implements FromView
                 'driver' => $driver
             ]);
         }
-        if ($this->request->agent_id != null && $this->request->status != null && $this->request->driver_id == null) {
+        if ($this->request->agent_id != null && !is_null($this->request->status) && $this->request->driver_id == null) {
             $agent = User::find($this->request->agent_id);
             if ($this->request->status == 0) {
-                $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                if(Gate::check('Administration',Auth::user())){
+                    $user = User::find($this->request->user_id);
+                    $payer_user = DB::table('payer_user')->where('user_id', $user->id)->get(['payer_id']);
+                }
+                else{
+                    $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                }
                 return view('backend.exports.reports', [
                     'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
                         $q->where('agent_id', $this->request->agent_id);
@@ -132,12 +154,18 @@ class OrderFindExport implements FromView
                 'agent' => $agent
             ]);
         }
-        if ($this->request->driver_id != null && $this->request->agent_id != null && $this->request->status != null) {
+        if ($this->request->driver_id != null && $this->request->agent_id != null && !is_null($this->request->status)) {
             $driver = User::find($this->request->driver_id);
             $agent = User::find($this->request->agent_id);
 
             if ($this->request->status == 0) {
-                $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                if(Gate::check('Administration',Auth::user())){
+                    $user = User::find($this->request->user_id);
+                    $payer_user = DB::table('payer_user')->where('user_id', $user->id)->get(['payer_id']);
+                }
+                else{
+                    $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                }
                 return view('backend.exports.reports', [
                     'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
                         $q->where('driver_id', $this->request->driver_id);

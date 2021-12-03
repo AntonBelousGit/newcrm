@@ -61,7 +61,7 @@
         <form id="tableForm">
             @csrf()
             <div class="wrap_table dnon-h2" id="fixAdaptiv">
-                <table id="table_id" class="@can('Client',Auth::user())  user  @endcan">
+                <table id="table_id" class="@cannot('Administration',Auth::user())  user  @endcannot">
                     <thead>
                     <tr>
                         <th></th>
@@ -71,9 +71,9 @@
                         <th>Client HWB</th>
                         <th>HWB number</th>
                         <th>Status</th>
-                        @cannot('Client',Auth::user())
+                        @canany(['Administration'],Auth::user())
                         <th>Next Routing Point</th>
-                        @endcannot
+                        @endcanany
                         <th>Created at</th>
                         <th>Mission</th>
                         <th></th>
@@ -138,7 +138,6 @@
                                            echo '<th>'.$shipment->status->name.'</th>';
                                         }
                                     @endphp
-                                    <td></td>
                                     <td>{{$shipment->created_at}}</td>
                                     <td class="text-center df">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -223,7 +222,6 @@
                                            echo '<th>'.$shipment->status->name.'</th>';
                                         }
                                     @endphp
-                                    <td></td>
                                     <td>{{$shipment->created_at}}</td>
                                     <td class="text-center df">
                                         <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
@@ -369,7 +367,7 @@
                                 </td>
 
                                 @include('backend.shipments.components.next_point')
-                                {{--                                <th>{{$statuses[$shipment->status_id]->name}}</th>--}}
+
                                 <td>{{$shipment->created_at}}</td>
                                 <td class="text-center df">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
