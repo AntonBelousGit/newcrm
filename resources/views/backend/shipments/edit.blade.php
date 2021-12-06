@@ -555,7 +555,7 @@
                                             <input type="text" placeholder="{{ ('type')}}" class="form-control"
                                                    required
                                                    autocomplete="off"
-                                                   name="type" >
+                                                   name="type">
                                             <input type="hidden" name="id">
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -564,7 +564,7 @@
                                             <input
                                                 {{--                                                class="kt_touchspin_weight"--}}
                                                 placeholder="Actual weight" type="number"
-                                                required  min="1"
+                                                required min="1"
                                                 step="0.1"
                                                 name="actual_weight" class="form-control" autocomplete="off"
                                             />
@@ -574,38 +574,38 @@
                                             <label class="red-star">{{ ('Quantity')}}:</label>
                                             <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required
                                                    type="number"
-                                                    min="1"
+                                                   min="1"
                                                    name="quantity" class="form-control" autocomplete="off"
-                                                   />
+                                            />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number box:</label>
-                                            <input type="text"   placeholder="Serial number" name="serial_number"
+                                            <input type="text" placeholder="Serial number" name="serial_number"
                                                    autocomplete="off"
-                                                   class="form-control " />
+                                                   class="form-control "/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number sensor:</label>
                                             <input type="text" placeholder="Serial number sensor" autocomplete="off"
                                                    name="serial_number_sensor" class="form-control  "
-                                                   />
+                                            />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>UN number:</label>
-                                            <input type="text"  placeholder="UN number" name="un_number"
+                                            <input type="text" placeholder="UN number" name="un_number"
                                                    autocomplete="off"
                                                    class="form-control  " value=""/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="red-star">Temperature conditions:</label>
-                                            <input type="text"  placeholder="Temperature conditions"
+                                            <input type="text" placeholder="Temperature conditions"
                                                    name="temperature_conditions" required class="form-control  "
                                                    autocomplete="off"
-                                                   />
+                                            />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -626,21 +626,21 @@
                                                    type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Length')}}"
                                                    name="сargo_dimensions_length"
-                                                   />
+                                            />
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r"
-                                                    type="number" min="1" required
+                                                   type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Width')}}"
                                                    name="сargo_dimensions_width"
-                                                   />
+                                            />
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r"
-                                                     type="number" min="1" required
+                                                   type="number" min="1" required
                                                    class="form-control " placeholder="{{ ('Height')}}"
                                                    name="сargo_dimensions_height"
-                                                  />
+                                            />
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -755,7 +755,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row d-none">
+                        <div class="row @if ($orders->status_id > 2) d-none  @endif">
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Status</label>
                                 @if($orders->status_id < 2)
@@ -769,9 +769,6 @@
                                                     @if($item->id == $orders->status_id) selected @endif >{{$item->name}}</option>
                                         @endforeach
                                     </select>
-                                @else
-                                    <input type="text" disabled class="form-control" autocomplete="off"
-                                           value="{{ $orders->status->name }}"/>
                                 @endif
                             </div>
                         </div>
