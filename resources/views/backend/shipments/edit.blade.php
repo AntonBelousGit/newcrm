@@ -1286,6 +1286,11 @@
 @endsection
 @section('script')
     <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
+    <script type='text/javascript'>
+        $(document).ready(function() {
+            $('input').attr('autocomplete','new-password');
+        });
+        </script>
     <script type="text/javascript">
         let ac = new visicomAutoComplete({
             selector: '.visicom-autocomplete2',

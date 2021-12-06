@@ -85,14 +85,14 @@
                             <div class="form-group">
                                 <label class="red-star">Shipper’s company name</label>
                                 <input type="text" placeholder="Shipper’s company name" name="company_shipper"
-                                       autocomplete="off" class="form-control" required value="{{old('company_shipper')}}"/>
+                                       autocomplete="new-password" class="form-control" required value="{{old('company_shipper')}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Phone')}}:</label>
                                 <input type="text" placeholder="{{ ('Shipper Phone')}}" name="phone_shipper"
-                                       autocomplete="off" class="form-control" required value="{{old('phone_shipper')}}"/>
+                                       autocomplete="new-password" class="form-control" required value="{{old('phone_shipper')}}"/>
                             </div>
                         </div>
                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
@@ -601,6 +601,11 @@
 
 @section('script')
     <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
+    <script type='text/javascript'>
+    $(document).ready(function() {
+        $('input').attr('autocomplete','new-password');
+    });
+    </script>
     <script type="text/javascript">
         let ac = new visicomAutoComplete({
             selector: '.visicom-autocomplete2',
