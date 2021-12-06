@@ -1288,7 +1288,7 @@
         $(document).ready(function() {
             $('input').attr('autocomplete','new-password');
         });
-        </script>
+    </script>
     <script type="text/javascript">
         let ac = new visicomAutoComplete({
             selector: '.visicom-autocomplete2',
