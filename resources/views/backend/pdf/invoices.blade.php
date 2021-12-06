@@ -234,7 +234,7 @@
                 <td colspan=''>
                     <div class='row'>
                         <div>
-                            <p>CITY</p>
+                            <p>APC</p>
                             <p>{{$invoices->shipper_city->city}}</p>
                         </div>
                         <div>
@@ -250,7 +250,7 @@
                 <td colspan=''>
                     <div class='row'>
                         <div>
-                            <p>CITY</p>
+                            <p>APC</p>
                             <p>{{$invoices->consignee_city->city}}</p>
                         </div>
                         <div>
@@ -275,29 +275,29 @@
             </tr>
             <tr>
 
-                <td colspan='12' rowspan='{{1+ count($invoices->cargo)}}' class='whiteR whiteT'>
+                <td colspan='12' rowspan='{{1+ count($invoices->cargo)}}' class='whiteR whiteT'  style='border-right:none;'>
                     <div>
                         <p>FULL DESCRIPTION OF CONTENTS </p>
                         <p class="white">DESCRIPTIONOFCONTEDESCRIPTIONSNTS</p>
                         <p>{{$invoices->shipment_description}}</p>
                     </div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">13212</div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">1</div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">1</div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">1</div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">1</div>
                 </td>
-                <td class='whiteL whiteB whiteRR whiteT'>
+                <td class='whiteL whiteB whiteRR whiteT' style='border:none;'>
                     <div class="white">12222</div>
                 </td>
                 <td class='whiteT'>
@@ -321,22 +321,22 @@
             </tr>
             @foreach($invoices->cargo as $cargo)
                 <tr>
-                  <td class='whiteL whiteB whiteT'>
+                  <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">13212</div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">1</div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">1</div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">1</div>
                 </td>
-                <td class='whiteL whiteB whiteT'>
+                <td class='whiteL whiteB whiteT' style='border:none;'>
                     <div class="white">1</div>
                 </td>
-                <td class='whiteL whiteB whiteRR whiteT'>
+                <td class='whiteL whiteB whiteRR whiteT' style='border:none;'>
                     <div class="white">12222</div>
                 </td>
                     <td>
