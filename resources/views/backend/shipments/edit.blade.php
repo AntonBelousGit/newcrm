@@ -185,7 +185,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="red-star">{{ ('Shipper City')}}:</label>
+                                    <label class="red-star">{{ ('Shipper APC')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" autocomplete="off"
                                             id="shipper_address" name="shipper_address_id" required>
                                         @foreach($cargo_location as $location)
@@ -213,7 +213,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="red-star">{{ ('Shipper City')}}:</label>
+                                    <label class="red-star">{{ ('Shipper APC')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled
                                             autocomplete="off">
                                         @foreach($cargo_location as $location)
@@ -310,7 +310,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="red-star">Consignee City:</label>
+                                    <label class="red-star">Consignee APC:</label>
                                     <select class="form-control kt-select2 delivery-time" autocomplete="off"
                                             id="consignee_address"
                                             name="consignee_address_id" required>
@@ -342,7 +342,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ ('Shipper City')}}:</label>
+                                    <label>{{ ('Shipper APC')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled
                                             autocomplete="off">
                                         @foreach($cargo_location as $location)

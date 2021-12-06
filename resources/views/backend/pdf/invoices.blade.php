@@ -234,7 +234,7 @@
                 <td colspan=''>
                     <div class='row'>
                         <div>
-                            <p>CITY</p>
+                            <p>APC</p>
                             <p>{{$invoices->shipper_city->city}}</p>
                         </div>
                         <div>
@@ -250,7 +250,7 @@
                 <td colspan=''>
                     <div class='row'>
                         <div>
-                            <p>CITY</p>
+                            <p>APC</p>
                             <p>{{$invoices->consignee_city->city}}</p>
                         </div>
                         <div>
