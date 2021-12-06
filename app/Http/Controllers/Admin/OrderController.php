@@ -319,10 +319,12 @@ class OrderController extends Controller
                 }
             }
 //            dd(count($request->time));
+
             if (!isset($request->time)) {
 
                 $this->trakerService->updateStartTracker($order, $request, false);
                 $this->trakerService->updateEndTracker($order, $request);
+
 
             } elseif (count($request->time) == 1) {
 

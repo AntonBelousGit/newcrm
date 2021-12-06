@@ -188,7 +188,6 @@ class OrderRepository
     public function findAndUpdate($request, $id)
     {
         $order = $this->findById($id);
-//        dd($request);
         if (!in_array($order->status_id, [6, 7, 9, 10]) && !in_array($request->status_id, [6, 7, 9, 10])) {
             $order->shipper = $request->shipper;
             $order->phone_shipper = $request->phone_shipper;
@@ -231,9 +230,11 @@ class OrderRepository
             $order->cargo_location_id = $request->cargo_location_id ?? 1;
 
             $this->updateAddOrderInfo($request,$order->id);
-
+//            dd($order);
             $order->update();
         }
+//        dd($order);
+
         return $order;
     }
 

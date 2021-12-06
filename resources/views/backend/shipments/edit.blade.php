@@ -755,21 +755,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row @if ($orders->status_id > 2) d-none  @endif">
+                        <div class="row ">
                             <div class="col-md-6" data-select2-id="66">
                                 <label>Status</label>
-                                @if($orders->status_id < 2)
-                                    <select id="select1" name="status_id" class="form-control " autocomplete="off"
-                                            @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
-                                        @foreach($status as $item)
-                                            @if($item->id > 2)
-                                                @break
-                                            @endif
-                                            <option value="{{$item->id}}"
-                                                    @if($item->id == $orders->status_id) selected @endif >{{$item->name}}</option>
-                                        @endforeach
-                                    </select>
+                                {{--                                @if($orders->status_id < 2)--}}
+                                <select id="select1" name="status_id"
+                                        class="form-control @if ($orders->status_id > 1) d-none  @endif "
+                                        autocomplete="off"
+                                        @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
+                                    @foreach($status as $item)
+                                        @if($item->id > 2)
+                                            @break
+                                        @endif
+                                        <option value="{{$item->id}}"
+                                                @if($item->id == $orders->status_id) selected @endif >{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                                {{--                                @else--}}
+                                @if ($orders->status_id > 1)
+                                    <input type="text" disabled class="form-control " autocomplete="off"
+                                           value="{{ ($orders->status_id != 4) ?$orders->status->name:'' }}"/>
                                 @endif
+                                {{--                                @endif--}}
                             </div>
                         </div>
                     </div>
@@ -1285,8 +1292,8 @@
 @section('script')
     <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
     <script type='text/javascript'>
-        $(document).ready(function() {
-            $('input').attr('autocomplete','new-password');
+        $(document).ready(function () {
+            $('input').attr('autocomplete', 'new-password');
         });
     </script>
     <script type="text/javascript">
