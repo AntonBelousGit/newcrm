@@ -67,6 +67,10 @@ table.dataTable .table_custom thead th {
     border-bottom: 0;
     padding: 0;
 }
+.item-table,
+.item-table2 {
+    cursor: pointer;
+}
 * {
     font-family: Poppins, Helvetica, "sans-serif" !important;
 }
