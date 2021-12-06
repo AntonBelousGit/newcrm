@@ -54,7 +54,8 @@
     }
 }
 
-.col-md-3 input {
+.col-md-3 input,
+.col-md-3 select{
     margin-bottom: 10px;
 }
 
@@ -66,7 +67,15 @@ table.dataTable .table_custom thead th {
     border-bottom: 0;
     padding: 0;
 }
-
+* {
+    font-family: Poppins, Helvetica, "sans-serif" !important;
+}
+.fa, .far, .fas {
+    font-family: "Font Awesome 5 Free" !important;
+}
+.la, .las {
+    font-family: 'Line Awesome Free' !important;
+}
 .wrap_custom_check input[type="checkbox"] {
     display: none;
 }

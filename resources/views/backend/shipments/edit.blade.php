@@ -1899,7 +1899,7 @@
         for (let i = 0; i < item.length; i++) {
             $(item[i]).click(function () {
                 let text = $(this).text();
-                $('#autocomplete').val(text);
+                $('#visicom-autocomplete').children('input').val(text);
                 $('.modal').modal('hide');
             });
         }
@@ -1909,7 +1909,7 @@
         for (let i = 0; i < item2.length; i++) {
             $(item2[i]).click(function () {
                 let text = $(this).text();
-                $('#autocomplete2').val(text);
+                $('#visicom-autocomplete2').children('input').val(text);
                 $('.modal').modal('hide');
             });
         }

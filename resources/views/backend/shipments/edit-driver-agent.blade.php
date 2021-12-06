@@ -62,7 +62,7 @@
                 <div class="col-md-3">
                     <p>
                         <label>Client HWB:</label>
-                        <input type="text" name="client_hwb" @if(in_array($orders->status_id,[6,7,9,10])) readonly
+                        <input class='form-control' type="text" name="client_hwb" @if(in_array($orders->status_id,[6,7,9,10])) readonly
                                @endif value="{{$orders->client_hwb}}">
                     </p>
                 </div>
@@ -503,6 +503,10 @@
 @section('script')
     <script src="{{ static_asset('assets/dashboard/js/geocomplete/jquery.geocomplete.js') }}"></script>
     {{--<script src="//maps.googleapis.com/maps/api/js?libraries=places&key={{$checked_google_map->key}}"></script>--}}
+
+    <script type="text/javascript">
+
+    </script>
     <script type="text/javascript">
         // Map Address For Receiver
         $('.address-receiver').each(function(){
@@ -863,7 +867,7 @@
                 $('#actual_time_start input').attr("required", "required");
             })
             $('#actual_time_end').on('change', function () {
-                console.log('Залупа');
+
                 $('#actual-time-end-signed input').attr("required", "required");
             })
 
