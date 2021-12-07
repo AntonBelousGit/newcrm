@@ -29,7 +29,7 @@ class OrderFindExport implements FromView
 
         if ($this->request->driver_id != null && $this->request->agent_id == null && $this->request->status == null) {
 
-            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->whereHas('tracker', function ($q) {
+            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereHas('tracker', function ($q) {
                 $q->where('driver_id', $this->request->driver_id);
             })->get();
             $driver = User::find($this->request->driver_id);
@@ -40,7 +40,7 @@ class OrderFindExport implements FromView
             ]);
         }
         if ($this->request->agent_id != null && $this->request->driver_id == null && $this->request->status == null) {
-            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->whereHas('tracker', function ($q) {
+            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereHas('tracker', function ($q) {
                 $q->where('agent_id', $this->request->agent_id);
             })->get();
             $agent = User::find($this->request->agent_id);
