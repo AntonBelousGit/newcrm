@@ -237,7 +237,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group supper-input">
-                                <label class="red-star">{{ ('Consignee APC')}}:</label>
+                                <label class="red-star">{{ ('Consignee Address')}}:</label>
                                 <div class="marker">
                                     <div class="visicom-autocomplete2" id="visicom-autocomplete2">
                                         <a href="https://api.visicom.ua/" target="_blank">© Visicom</a>
@@ -261,7 +261,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="red-star">{{ ('Consignee City')}}:</label>
+                                <label class="red-star">{{ ('Consignee APC')}}:</label>
                                 <select class="form-control kt-select2 delivery-time" id="consignee_address"
                                         name="consignee_address_id" required>
                                     @foreach($cargo_location as $location)

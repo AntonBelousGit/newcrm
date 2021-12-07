@@ -342,7 +342,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>{{ ('Shipper APC')}}:</label>
+                                    <label>{{ ('Consignee APC')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" id="shipper_address" disabled
                                             autocomplete="off">
                                         @foreach($cargo_location as $location)

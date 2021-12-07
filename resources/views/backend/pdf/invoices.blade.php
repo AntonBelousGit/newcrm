@@ -235,7 +235,7 @@
                     <div class='row'>
                         <div>
                             <p>APC</p>
-                            <p>{{$invoices->shipper_city->city}}</p>
+                            <p>{{$invoices->shipper_city->name}}</p>
                         </div>
                         <div>
                             <p>STATE/COUNTRY</p>
@@ -251,7 +251,7 @@
                     <div class='row'>
                         <div>
                             <p>APC</p>
-                            <p>{{$invoices->consignee_city->city}}</p>
+                            <p>{{$invoices->consignee_city->name}}</p>
                         </div>
                         <div>
                             <p>STATE/COUNTRY</p>
