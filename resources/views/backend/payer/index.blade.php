@@ -19,53 +19,71 @@
         <div class="card-header">
             <h5 class="mb-0 h6">Payer</h5>
         </div>
-        <div class="card-body">
-            <table id="table_id" class="">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Customer name</th>
-                    <th>Email</th>
-                    <th>Customer account number</th>
-
-
-                    <th  width="10%" class="text-center">Options</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($payers as $item)
-
-                    <tr>
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->customer_name}}</td>
-                        <td>{{$item->email}}</td>
-                        <td>{{$item->customer_account_number}}</td>
-
-                        <td class="text-center">
-                            @canany(['SuperUser','Manager','Security Officer'], Auth::user())
-                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('admin.payer.edit', $item->id)}}" title="Edit">
-                                    <i class="las la-edit"></i>
-                                </a>
-                                <a href="{{route('admin.payer.destroy', $item->id)}}" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" title="Delete">
-                                    <i class="las la-trash"></i>
-                                </a>
-                            @endcanany
-                        </td>
-                    </tr>
-
-                @endforeach
-                </tbody>
-            </table>
-            <div class="aiz-pagination">
-                {{--            {{ $users->links() }}--}}
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <h4>{{$errors->first()}}</h4>
             </div>
+        @endif
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible">
+                <h4>{{session('success')}}<h4>
+            </div>
+        @endif
+    </div>
+    <div class="card-body">
+        <table id="table_id" class="">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Customer name</th>
+                <th>Email</th>
+                <th>Customer account number</th>
+
+
+                <th width="10%" class="text-center">Options</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($payers as $item)
+
+                <tr>
+                    <td>{{$item->id}}</td>
+                    <td>{{$item->customer_name}}</td>
+                    <td>{{$item->email}}</td>
+                    <td>{{$item->customer_account_number}}</td>
+
+                    <td class="text-center">
+                        @canany(['SuperUser','Manager','Security Officer'], Auth::user())
+                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                               href="{{route('admin.payer.edit', $item->id)}}" title="Edit">
+                                <i class="las la-edit"></i>
+                            </a>
+                            <form action="{{route('admin.payer.destroy', $item->id)}}" class="d-inline"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-soft-danger btn-icon btn-circle btn-sm"
+                                        data-toggle="tooltip" data-original-title="Remove"><i class="las la-trash"
+                                                                                              aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        @endcanany
+                    </td>
+                </tr>
+
+            @endforeach
+            </tbody>
+        </table>
+        <div class="aiz-pagination">
+            {{--            {{ $users->links() }}--}}
         </div>
+    </div>
     </div>
 
 @endsection
 
 @section('modal')
-{{--    @include('modals.delete_modal')--}}
+    {{--    @include('modals.delete_modal')--}}
 @endsection
 
 @section('script')
@@ -76,12 +94,12 @@
         // $(document).ready( function () {
         //     $('#table_id').DataTable();
         // } );
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('#table_id').DataTable(
                 {
                     stateSave: true
                 }
             );
-        } );
+        });
     </script>
 @endsection

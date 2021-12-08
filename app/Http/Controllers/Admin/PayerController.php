@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Payer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use function Symfony\Component\String\b;
 
 class PayerController extends Controller
 {
@@ -134,9 +137,19 @@ class PayerController extends Controller
     public function destroy($id)
     {
         $payer = Payer::find($id);
-        $payer->delete();
-        return redirect()->route('admin.payer.index');
+        $order_with_payer = Order::where('payer_id', $payer->id)->get('id');
 
+        if (count($order_with_payer) > 0) {
+            $id_order = [];
+            foreach ($order_with_payer as $item) {
+                $id_order[] += $item->id;
+            }
+        } else {
+            DB::table('payer_user')->where('payer_id', $payer->id)->delete();
+            $payer->delete();
+            return back()->with('success', 'Successfully payer deleted!');
+        }
+        return back()->withErrors(['msg' => "Can't be deleted! Used in Shipment #id " . implode(', ', $id_order)]);
     }
 
     public function showClient()
