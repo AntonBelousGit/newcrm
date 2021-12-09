@@ -30,11 +30,12 @@ Route::get('/clear', function () {
     Artisan::call('route:clear');
     return "Cache Clear All";
 });
-Route::get('/reset', function () {
-    Artisan::call('migrate:fresh', ['--seed' => true]);
-    return "migrate success";
 
-});
+//Route::get('/reset', function () {
+//    Artisan::call('migrate:fresh', ['--seed' => true]);
+//    return "migrate success";
+//
+//});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

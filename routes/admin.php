@@ -64,5 +64,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
             'report' => ReportController::class,
             'addresses-list' => AddressesListController::class,
         ]);
+        Route::get('/payer/status/{id}',[PayerController::class,'status'])->name('payer.status');
         Route::post('/selected-orders', [ReportController::class, 'exportSelected'])->name('selected_orders');
     });

@@ -26,7 +26,7 @@
         @endif
         @if(session('success'))
             <div class="alert alert-success alert-dismissible">
-                <h4>{{session('success')}}<h4>
+                <h4>{{session('success')}}</h4>
             </div>
         @endif
     </div>
@@ -38,6 +38,7 @@
                 <th>Customer name</th>
                 <th>Email</th>
                 <th>Customer account number</th>
+                <th>Status</th>
 
 
                 <th width="10%" class="text-center">Options</th>
@@ -51,9 +52,14 @@
                     <td>{{$item->customer_name}}</td>
                     <td>{{$item->email}}</td>
                     <td>{{$item->customer_account_number}}</td>
+                    <td>{{$item->status}}</td>
 
                     <td class="text-center">
                         @canany(['SuperUser','Manager','Security Officer'], Auth::user())
+                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                               href="{{route('admin.payer.status', $item->id)}}" title="Status">
+                                <i class="las la-low-vision"></i>
+                            </a>
                             <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                href="{{route('admin.payer.edit', $item->id)}}" title="Edit">
                                 <i class="las la-edit"></i>

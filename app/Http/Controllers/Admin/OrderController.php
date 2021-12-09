@@ -50,7 +50,7 @@ class OrderController extends Controller
             $orders = $this->orderService->getAll();
             $statuses = ProductStatus::all();
             $title = 'All Shipments';
-            return view('backend.shipments.index', compact('orders','title','statuses'));
+            return view('backend.shipments.index', compact('orders', 'title', 'statuses'));
         }
         return abort(403);
     }
@@ -64,7 +64,7 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $user = User::all();
-            $payers = Payer::all();
+            $payers = Payer::where('status', 'active')->get();
             $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
             $cargo_location = CargoLocation::all();
             return view('backend.shipments.create', compact('user', 'cargo_location', 'payers', 'addresses'));
@@ -147,7 +147,7 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
-            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id, true,true);
+            $order = $this->orderService->saveReturnedOrder($request, $request->parent_id, true, true);
 
             if ($request->shipper_address_id) {
                 $start_tracker = new Tracker;
@@ -184,7 +184,7 @@ class OrderController extends Controller
     public function returned_order($request, $id)
     {
 
-        $order = $this->orderService->saveReturnedOrder($request, $id, false,false);
+        $order = $this->orderService->saveReturnedOrder($request, $id, false, false);
 
         if ($request->shipper_address_id) {
             $start_tracker = new Tracker;
@@ -224,14 +224,14 @@ class OrderController extends Controller
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
         $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'agent', 'driver', 'payer')->findOrFail($id);
-        $addInfo = AdditionOrderInfo::where('order_id',$id)->first();
+        $addInfo = AdditionOrderInfo::where('order_id', $id)->first();
         $logs = Activity::with('user')->where('order_id', $id)
             ->orWhere(function ($query) use ($id) {
                 $query->where('log_name', 'Order')
                     ->where('subject_id', $id);
             })->orderBy('created_at', 'DESC')->get();
         $status = ProductStatus::all();
-        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end', 'logs','addInfo','status'));
+        return view('backend.shipments.show', compact('orders', 'tracker_start', 'tracker_end', 'logs', 'addInfo', 'status'));
     }
 
     /**
@@ -245,28 +245,26 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
             $user = User::all();
-
             $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '1')->get();
             $trackers_count = count($trackers);
-
             $lupa[] = $tracker_start->cargolocation->toArray();
-
             foreach ($trackers as $item) {
                 $lupa[] = $item->cargolocation->toArray();
             }
             $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
-
             $lupa[] = $tracker_end->cargolocation->toArray();
-
             $status = ProductStatus::all();
-            $payers = Payer::all();
+            $payers = Payer::where('status', 'active')->get();
+            if (Payer::where('id', $orders->payer_id)->first()->pluck('status')->first() == 'inactive') {
+                $payers->push(Payer::where('id', $orders->payer_id)->first());
+            }
             $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
-            $addInfo = AdditionOrderInfo::where('order_id',$id)->first();
+            $addInfo = AdditionOrderInfo::where('order_id', $id)->first();
             $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
 
-            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers','addresses','addInfo'));
+            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo'));
         }
         return abort(403);
     }
@@ -403,7 +401,7 @@ class OrderController extends Controller
             $title = 'New order';
             $statuses = ProductStatus::all();
 
-            return view('backend.shipments.index', compact('orders', 'title','statuses'));
+            return view('backend.shipments.index', compact('orders', 'title', 'statuses'));
         }
         return abort(403);
     }
@@ -412,14 +410,14 @@ class OrderController extends Controller
     {
         $statuses = ProductStatus::all();
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver','tracker.cargolocation')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver', 'tracker.cargolocation')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
             $title = 'Accepted in work';
-            return view('backend.shipments.index-in-work', compact('orders', 'title','statuses'));
+            return view('backend.shipments.index-in-work', compact('orders', 'title', 'statuses'));
         }
         if (Gate::any(['Agent', 'Driver'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'driver','tracker.cargolocation')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'driver', 'tracker.cargolocation')->whereIn('status_id', [2, 3, 4, 5, 8])->get();
             $title = 'Accepted in work';
-            return view('backend.shipments.index-in-work', compact('orders', 'title','statuses'));
+            return view('backend.shipments.index-in-work', compact('orders', 'title', 'statuses'));
         }
         return abort(403);
     }
@@ -427,10 +425,10 @@ class OrderController extends Controller
     public function delivered()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Agent'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'status','tracker.cargolocation')->where('status_id', 6)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'status', 'tracker.cargolocation')->where('status_id', 6)->get();
             $statuses = ProductStatus::all();
             $title = 'Delivered';
-            return view('backend.shipments.index-delivered', compact('orders', 'title','statuses'));
+            return view('backend.shipments.index-delivered', compact('orders', 'title', 'statuses'));
         }
         return abort(403);
     }
@@ -448,13 +446,14 @@ class OrderController extends Controller
     public function return_job()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'agent', 'status','tracker.cargolocation')->where('returned', 1)->where('status_id','!=', 10)->get();
+            $orders = Order::with('cargo', 'user', 'agent', 'status', 'tracker.cargolocation')->where('returned', 1)->where('status_id', '!=', 10)->get();
             $title = 'Return Job';
             $statuses = ProductStatus::all();
-            return view('backend.shipments.index-one-status', compact('orders', 'title','statuses'));
+            return view('backend.shipments.index-one-status', compact('orders', 'title', 'statuses'));
         }
         return abort(403);
     }
+
     public function canceled()
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
@@ -522,9 +521,9 @@ class OrderController extends Controller
     public function duplicate(int $id)
     {
         $order = Order::where('id', $id)->first();
-        $addInfo = AdditionOrderInfo::where('order_id',$id)->first();
+        $addInfo = AdditionOrderInfo::where('order_id', $id)->first();
         if (Gate::any(['Administration', 'manage-user-order'], $order)) {
-            $new_order = $this->orderService->duplicate($order,$addInfo);
+            $new_order = $this->orderService->duplicate($order, $addInfo);
             $this->packageServices->duplicate($new_order, $order);
             $this->trakerService->duplicate($new_order, $order);
         }
@@ -540,10 +539,10 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        if(Gate::check('Administration',Auth::id())){
+        if (Gate::check('Administration', Auth::id())) {
             $order = Order::find($id);
             if ($order) {
-                $order->status_id = 10 ;
+                $order->status_id = 10;
                 $status = $order->update();
                 if ($status) {
                     return redirect()->route('admin.orders.index')->with('success', 'Successfully canceled order');

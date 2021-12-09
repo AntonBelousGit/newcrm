@@ -188,4 +188,16 @@ class PayerController extends Controller
         }
         return abort(403);
     }
+
+    public function status($id)
+    {
+        $payer = Payer::find($id);
+        if ($payer->status == 'inactive') {
+            DB::table('payers')->where('id', $id)->update(['status' => 'active']);
+        } else {
+            DB::table('payers')->where('id', $id)->update(['status' => 'inactive']);
+        }
+
+        return back()->with(['msg' => 'Successfully updated status', 200]);
+    }
 }

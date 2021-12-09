@@ -18,6 +18,7 @@ class CreatePayersTable extends Migration
             $table->integer('customer_account_number');
             $table->string('customer_name');
             $table->string('customer_address');
+            $table->enum('status',['active','inactive'])->default('active');
             $table->string('city');
             $table->string('zip_code');
             $table->string('country');
