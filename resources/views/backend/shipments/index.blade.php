@@ -423,7 +423,6 @@
     <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
     <script type="text/javascript">
         function rotate(e) {
-        console.log('huilo')
             $('.btn_arr').toggleClass('active');
         }
     </script>
