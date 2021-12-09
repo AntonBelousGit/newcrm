@@ -68,7 +68,6 @@ return [
     'fullname'=>'Fullname',
     'password'=>'Password',
     'name'=>'Name',
-    'surname'=>'Surname',
     'nickname'=>'Nickname',
 
 ];

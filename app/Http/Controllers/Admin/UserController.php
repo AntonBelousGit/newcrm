@@ -55,7 +55,6 @@ class UserController extends Controller
             $user = new User;
 
             $user->name = $request->name ?? 'User-' . random_int(100000, 99999999);
-            $user->surname = $request->surname;
             $user->nickname = $request->nickname;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
@@ -129,7 +128,6 @@ class UserController extends Controller
             $user = User::find($id);
 
             $user->name = $request->name;
-            $user->surname = $request->surname;
             $user->nickname = $request->nickname;
             $user->email = $request->email;
             $user->fullname = $request->fullname;

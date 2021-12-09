@@ -28,12 +28,6 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Surname:</label>
-                                <input type="text" class="form-control" placeholder="Surname"  disabled value="{{$users->name}}">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
                                 <label>Nickname:</label>
                                 <input type="text" class="form-control" placeholder="Nickname"  disabled value="{{$users->name}}">
                             </div>
