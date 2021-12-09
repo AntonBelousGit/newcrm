@@ -76,10 +76,23 @@
                         <td>{{$report->id}}</td>
                         <td>{{$report->comment}}</td>
                         <td>{{$report->created_at->format('d.m.Y H:i:s')}}</td>
-                        <td>({{($report->start)?$report->start->format('d.m.Y'): ''}} - {{($report->end)?$report->end->format('d.m.Y'): ''}})</td>
+                        <td>({{($report->start)?$report->start->format('d.m.Y'): ''}}
+                            - {{($report->end)?$report->end->format('d.m.Y'): ''}})
+                        </td>
                         <td>{{ $report->status_name }}</td>
 
-                        <td><a href="{!! route('admin.download', $report->id) !!}">Download</a></td>
+                        <td>
+                            <a href="{!! route('admin.download', $report->id) !!}">Download</a>
+                            <form action="{{route('admin.report.destroy', $report->id)}}" class="d-inline"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-soft-danger btn-icon btn-circle btn-sm"
+                                        data-toggle="tooltip"><i class="las la-trash"
+                                                                 aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
 
                 @endforeach
@@ -102,9 +115,9 @@
         $(document).ready(function () {
             // Setup - add a text input to each footer cell
             // $('#table_id thead tr')
-                // .clone(true)
-                // .addClass('filters')
-                // .appendTo('#table_id thead');
+            // .clone(true)
+            // .addClass('filters')
+            // .appendTo('#table_id thead');
 
             var table = $('#table_id').DataTable({
                 stateSave: true,

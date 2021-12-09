@@ -98,4 +98,14 @@ class ReportController extends Controller
         }
         return response()->json(['msg'=>'Fail'],404);
     }
+
+    public function destroy($id)
+    {
+        if (Gate::any(['SuperUser', 'Manager', 'OPS','Client'], Auth::user())) {
+            $report = Report::find($id);
+            $report->delete();
+            return redirect()->route('admin.report.index');
+        }
+        return abort(403);
+    }
 }
