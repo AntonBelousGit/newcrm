@@ -256,8 +256,10 @@ class OrderController extends Controller
             $lupa[] = $tracker_end->cargolocation->toArray();
             $status = ProductStatus::all();
             $payers = Payer::where('status', 'active')->get();
-            if (Payer::where('id', $orders->payer_id)->first()->pluck('status')->first() == 'inactive') {
-                $payers->push(Payer::where('id', $orders->payer_id)->first());
+            $check_payer = Payer::where('id', $orders->payer_id);
+            $check_payer_status = $check_payer->first('status');
+            if ($check_payer_status->status == 'inactive') {
+                $payers->push($check_payer->first());
             }
             $substatus = SubProductStatus::all();
             $cargo_location = CargoLocation::all();
