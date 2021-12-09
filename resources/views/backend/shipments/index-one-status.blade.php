@@ -48,12 +48,25 @@
                 </h3>
             </div>
         </div>
+        <div class="abs">
+                    <select id="multiViber" name="loh">
+                        <option value="0">
+                            Choose action
+                        </option>
+                        <option value="1">
+                            Print List of Jobs
+                        </option>
+                    </select>
+                    <button id="appForm" type="button">Submit</button>
+                    <div id="outputField"></div>
+                </div>
         <form id="tableForm">
             @csrf()
             <div class="wrap_table">
                 <table id="table_id" class="">
                     <thead>
                     <tr>
+                        <th></ht>
                         <th>№</th>
                         <th>Shipper's company name</th>
                         <th>Consignee's company name</th>
@@ -71,7 +84,8 @@
                         @foreach($orders as $key=>$shipment)
                             @can('manage-agent',$shipment)
                                 <tr>
-                                    <th>{{$shipment->id}}</th>
+                                    <td><input class="checkbox" type="checkbox"/></td>
+                                                                        <td class='idTable'>{{$shipment->id}}</td>
                                     <th>
                                         <div class="text_table">
                                             {{$shipment->company_shipper}}
@@ -154,7 +168,8 @@
                         @foreach($orders as $key=>$shipment)
                             @can('manage-driver',$shipment)
                                 <tr>
-                                    <th>{{$shipment->id}}</th>
+                                    <td><input class="checkbox" type="checkbox"/></td>
+                                                                        <td class='idTable'>{{$shipment->id}}</td>
                                     <th>
                                         <div class="text_table">
                                             {{$shipment->company_shipper}}
@@ -239,7 +254,8 @@
                             @can('manage-client',$shipment)
 
                                 <tr>
-                                    <th>{{$shipment->id}}</th>
+                                    <td><input class="checkbox" type="checkbox"/></td>
+                                                                        <td class='idTable'>{{$shipment->id}}</td>
                                     <th>
                                         <div class="text_table">
                                             {{$shipment->company_shipper}}
@@ -318,7 +334,8 @@
                     @else
                         @foreach($orders as $key=>$shipment)
                             <tr>
-                                <th>{{$shipment->id}}</th>
+                                <td><input class="checkbox" type="checkbox"/></td>
+                                                                <td class='idTable'>{{$shipment->id}}</td>
                                 <th>
                                     <div class="text_table">
                                         {{$shipment->company_shipper}}
@@ -412,6 +429,86 @@
     {{--@include('modals.delete_modal')--}}
 @endsection
 @section('script')
+    <script type="text/javascript">
+     function rotate(e) {
+                $('.btn_arr').toggleClass('active');
+            }
+    </script>
+     <script type="text/javascript">
+         $('#multiViber').on('change', function () {
+                option = this.value;
+            });
+
+
+                    let arrayId = [];
+
+                    function removeVal(arr, val) {
+                        for (var i = 0; i < arr.length; i++) {
+                            if (arr[i] == val)
+                                arr.splice(i, 1);
+                        }
+                    };
+                    const myCount = function () {
+                        $('#outputField').html($('.checkbox:checked').length + ' checkboxes selected by you.');
+                        let boxes = $('.checkbox:checked');
+                        let boxLang = $('.checkbox:checked').length;
+                        idItem = $(this).parent().siblings('.idTable').text();
+                        if ($(this).prop('checked')) {
+                            arrayId.push(idItem);
+                        } else {
+                            removeVal(arrayId, idItem);
+                        }
+                    };
+                    myCount();
+
+                    $(function () {
+                        $('.checkbox').on('click', myCount);
+                        $('#appForm').click(function () {
+                            formes();
+                        });
+                    })
+
+            function formes() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    xhrFields: {
+                        responseType: 'blob',
+                    },
+                    url: "{{route('admin.selected_orders')}}",
+                    type: "POST",
+                    data: {
+                        order_id: arrayId,
+                        option: option,
+                    },
+                    success: function (result, status, xhr) {
+
+                        var disposition = xhr.getResponseHeader('content-disposition');
+                        var matches = /"([^"]*)"/.exec(disposition);
+                        var filename = (matches != null && matches[1] ? matches[1] : 'salary.xlsx');
+
+                        // The actual download
+                        var blob = new Blob([result], {
+                            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        });
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = filename;
+
+                        document.body.appendChild(link);
+
+                        link.click();
+                        document.body.removeChild(link);
+                    },
+                    error: function (res) {
+                        alert('Nothing found');
+                    }
+                });
+            }
+        </script>
     <script type="text/javascript">
 
         @can('Client')
