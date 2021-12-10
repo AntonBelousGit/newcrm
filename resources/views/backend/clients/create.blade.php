@@ -19,7 +19,7 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label>Contact Name(APC+Last/Second Name):</label>
+                    <label>Contact Name(APC+First/Last Name):</label>
                     <input type="text" id="name" class="form-control" placeholder="Full name" name="fullname" required>
                 </div>
                 <div class="form-group">

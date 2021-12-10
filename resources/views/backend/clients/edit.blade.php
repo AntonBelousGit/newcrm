@@ -20,7 +20,7 @@
                 @method('PUT')
                 <div class="card-body">
                     <div class="form-group">
-                        <label>Full name:</label>
+                        <label>Contact Name(APC+First/Last Name):</label>
                         <input type="text" id="name" class="form-control" placeholder="Full name" name="fullname" required value="{{$user->fullname}}">
                     </div>
                     <div class="form-group">

@@ -11,7 +11,7 @@
             <form class="form-horizontal" action="" id="kt_form_1" method="GET" enctype="multipart/form-data">
                 <div class="card-body">
                     <div class="form-group">
-                        <label>Full name:</label>
+                        <label>Contact Name(APC+First/Last Name):</label>
                         <input type="text" id="name" class="form-control" placeholder="Full name" disabled  value="{{$users->fullname}}">
                     </div>
                     <div class="form-group">
