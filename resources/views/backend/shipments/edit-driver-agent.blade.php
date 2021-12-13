@@ -361,7 +361,7 @@
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Arrived Time:</label>
+                                    <label>Pick up Time:</label>
                                     <input  placeholder="Start time" type="datetime-local" name="start[arrived_time]"  class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
@@ -465,7 +465,7 @@
                                     <div class="mb-2 d-md-none"></div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Arrived Time:</label>
+                                    <label>Delivery Time:</label>
                                     <input  placeholder="Start time" type="datetime-local" name="end[arrived_time]" class="form-control" value="{{ $end_time }}"/>
                                     <div class="mb-2 d-md-none"></div>
                                 </div>

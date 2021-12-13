@@ -26,7 +26,7 @@ class ReportController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
 
-            $reports = Report::all();
+            $reports = Report::with('user.roles')->get();
             $drivers = User::whereHas('roles', function ($q) {
                 $q->where('name', 'Driver');
             })->get();

@@ -911,7 +911,7 @@
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3 col-md-4" id="actual_time">
-                                <label>Arrived Time:</label>
+                                <label>Pick up Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="start[arrived_time]"
                                        autocomplete="off"
                                        class="form-control @if (empty($end_time)) border-danger @php $alert_marker = 0; @endphp @endif"
@@ -1199,7 +1199,7 @@
                                 <div class="mb-2 d-md-none"></div>
                             </div>
                             <div class="col-md-3 col-md-4" id="actual-time-end">
-                                <label>Arrived Time:</label>
+                                <label>Delivery Time:</label>
                                 <input placeholder="Start time" type="datetime-local" name="end[arrived_time]"
                                        autocomplete="off"
                                        class="form-control @if (empty($end_time) && $alert_marker === 1) border-danger @endif"

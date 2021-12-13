@@ -65,13 +65,15 @@
                     <th>Comment</th>
                     <th>Created at</th>
                     <th>Period</th>
+                    @canany(['Administration'],Auth::id())
+                    <th>Creator</th>
+                    @endcanany
                     <th>Status</th>
                     <th>Mission</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($reports as $report)
-
                     <tr>
                         <td>{{$report->id}}</td>
                         <td>{{$report->comment}}</td>
@@ -79,8 +81,10 @@
                         <td>({{($report->start)?$report->start->format('d.m.Y'): ''}}
                             - {{($report->end)?$report->end->format('d.m.Y'): ''}})
                         </td>
+                        @canany(['Administration'],Auth::id())
+                        <td>{{$report->user->name}}-({{$report->user->roles->first()->name}})</td>
+                        @endcanany
                         <td>{{ $report->status_name }}</td>
-
                         <td>
                             <a href="{!! route('admin.download', $report->id) !!}">Download</a>
                             <form action="{{route('admin.report.destroy', $report->id)}}" class="d-inline"

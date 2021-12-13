@@ -14,7 +14,9 @@ class CargoLocationSeeder extends Seeder
      */
     public function run()
     {
-        CargoLocation::create(['name'=>'IEV(KBP)','city'=>'KYIV']);
+        CargoLocation::create(['name'=>'KYIV','city'=>'KYIV']);
+        CargoLocation::create(['name'=>'KBP','city'=>'Аэропорт Борисполь']);
+        CargoLocation::create(['name'=>'IEV','city'=>'Аэропорт Жуляны']);
         CargoLocation::create(['name'=>'CKC','city'=>'CHERKASY']);
         CargoLocation::create(['name'=>'CWC','city'=>'CHERNIVTSI']);
         CargoLocation::create(['name'=>'CEJ','city'=>'CHERNIHIV']);
@@ -34,5 +36,9 @@ class CargoLocationSeeder extends Seeder
         CargoLocation::create(['name'=>'VIN','city'=>'VINNYTSIA']);
         CargoLocation::create(['name'=>'OZH','city'=>'ZAPORIZZHIA']);
         CargoLocation::create(['name'=>'ZTR','city'=>'ZHYTOMYR']);
+        CargoLocation::create(['name'=>'CA-02-IEV','city'=>'CA-02-IEV']);
+        CargoLocation::create(['name'=>'R-03-IEV','city'=>'R-03-IEV']);
+        CargoLocation::create(['name'=>'NTC-01-IEV','city'=>'NTC-01-IEV']);
+        CargoLocation::create(['name'=>'F-03-IEV','city'=>'F-03-IEV']);
     }
 }

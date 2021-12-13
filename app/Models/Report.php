@@ -10,4 +10,8 @@ class Report extends Model
     use HasFactory;
     protected $dates = ['start','end'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
