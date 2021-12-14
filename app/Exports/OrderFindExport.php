@@ -29,7 +29,7 @@ class OrderFindExport implements FromView
 
         if ($this->request->driver_id != null && $this->request->agent_id == null && $this->request->status == null) {
 
-            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereHas('tracker', function ($q) {
+            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereHas('tracker', function ($q) {
                 $q->where('driver_id', $this->request->driver_id);
             })->get();
             $driver = User::find($this->request->driver_id);
@@ -40,7 +40,7 @@ class OrderFindExport implements FromView
             ]);
         }
         if ($this->request->agent_id != null && $this->request->driver_id == null && $this->request->status == null) {
-            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereHas('tracker', function ($q) {
+            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereHas('tracker', function ($q) {
                 $q->where('agent_id', $this->request->agent_id);
             })->get();
             $agent = User::find($this->request->agent_id);
@@ -54,30 +54,30 @@ class OrderFindExport implements FromView
 
             if ($this->request->status == 0) {
 
-                if(Gate::check('Administration',Auth::user())){
-                    $user = User::find($this->request->user_id);
-                    $payer_user = DB::table('payer_user')->where('user_id', $user->id)->get(['payer_id']);
-                }
-                else{
+                if (Gate::check('Administration', Auth::user())) {
+                    return view('backend.exports.admin_all_status', [
+                        'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->get()
+                    ]);
+                } else {
                     $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                    return view('backend.exports.reports', [
+                        'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereIn('payer_id', $payer_user->pluck('payer_id'))->get()
+                    ]);
                 }
-                return view('backend.exports.reports', [
-                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereIn('payer_id', $payer_user->pluck('payer_id'))->get()
-                ]);
             }
             if ($this->request->status == 2) {
                 return view('backend.exports.reports', [
-                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time', [$start, $end])->get()
+                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time', [$start, $end])->get()
                 ]);
             }
             return view('backend.exports.reports', [
-                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->get()
+                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->get()
             ]);
         }
         if ($this->request->driver_id != null && $this->request->agent_id != null && $this->request->status == null) {
             $driver = User::find($this->request->driver_id);
             $agent = User::find($this->request->agent_id);
-            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereHas('tracker', function ($q) {
+            $order = Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereHas('tracker', function ($q) {
                 $q->where('driver_id', $this->request->driver_id);
             })->whereHas('tracker', function ($q) {
                 $q->where('agent_id', $this->request->agent_id);
@@ -93,30 +93,33 @@ class OrderFindExport implements FromView
             $driver = User::find($this->request->driver_id);
 
             if ($this->request->status == 0) {
-                if(Gate::check('Administration',Auth::user())){
-                    $user = User::find($this->request->user_id);
-                    $payer_user = DB::table('payer_user')->where('user_id', $user->id)->get(['payer_id']);
-                }
-                else{
+                if (Gate::check('Administration', Auth::user())) {
+                    return view('backend.exports.admin_all_status', [
+                        'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereHas('tracker', function ($q) {
+                            $q->where('driver_id', $this->request->driver_id);
+                        })->get(),
+                        'driver' => $driver
+                    ]);
+                } else {
                     $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                    return view('backend.exports.reports', [
+                        'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
+                            $q->where('driver_id', $this->request->driver_id);
+                        })->get(),
+                        'driver' => $driver
+                    ]);
                 }
-                return view('backend.exports.reports', [
-                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
-                        $q->where('driver_id', $this->request->driver_id);
-                    })->get(),
-                    'driver' => $driver
-                ]);
             }
             if ($this->request->status == 2) {
                 return view('backend.exports.reports', [
-                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
+                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
                         $q->where('driver_id', $this->request->driver_id);
                     })->get(),
                     'driver' => $driver
                 ]);
             }
             return view('backend.exports.reports', [
-                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
+                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
                     $q->where('driver_id', $this->request->driver_id);
                 })->get(),
                 'driver' => $driver
@@ -125,30 +128,33 @@ class OrderFindExport implements FromView
         if ($this->request->agent_id != null && !is_null($this->request->status) && $this->request->driver_id == null) {
             $agent = User::find($this->request->agent_id);
             if ($this->request->status == 0) {
-                if(Gate::check('Administration',Auth::user())){
-                    $user = User::find($this->request->user_id);
-                    $payer_user = DB::table('payer_user')->where('user_id', $user->id)->get(['payer_id']);
-                }
-                else{
+                if (Gate::check('Administration', Auth::user())) {
+                    return view('backend.exports.admin_all_status', [
+                        'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereHas('tracker', function ($q) {
+                            $q->where('agent_id', $this->request->agent_id);
+                        })->get(),
+                        'agent' => $agent
+                    ]);
+                } else {
                     $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                    return view('backend.exports.reports', [
+                        'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
+                            $q->where('agent_id', $this->request->agent_id);
+                        })->get(),
+                        'agent' => $agent
+                    ]);
                 }
-                return view('backend.exports.reports', [
-                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
-                        $q->where('agent_id', $this->request->agent_id);
-                    })->get(),
-                    'agent' => $agent
-                ]);
             }
             if ($this->request->status == 2) {
                 return view('backend.exports.reports', [
-                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
+                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
                         $q->where('agent_id', $this->request->agent_id);
                     })->get(),
                     'agent' => $agent
                 ]);
             }
             return view('backend.exports.reports', [
-                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
+                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
                     $q->where('agent_id', $this->request->agent_id);
                 })->get(),
                 'agent' => $agent
@@ -159,26 +165,32 @@ class OrderFindExport implements FromView
             $agent = User::find($this->request->agent_id);
 
             if ($this->request->status == 0) {
-                if(Gate::check('Administration',Auth::user())){
-                    $user = User::find($this->request->user_id);
-                    $payer_user = DB::table('payer_user')->where('user_id', $user->id)->get(['payer_id']);
-                }
-                else{
+                if (Gate::check('Administration', Auth::user())) {
+                    return view('backend.exports.admin_all_status', [
+                        'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereHas('tracker', function ($q) {
+                            $q->where('driver_id', $this->request->driver_id);
+                        })->whereHas('tracker', function ($q) {
+                            $q->where('agent_id', $this->request->agent_id);
+                        })->get(),
+                        'driver' => $driver,
+                        'agent' => $agent,
+                    ]);
+                } else {
                     $payer_user = DB::table('payer_user')->where('user_id', Auth::id())->get(['payer_id']);
+                    return view('backend.exports.reports', [
+                        'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
+                            $q->where('driver_id', $this->request->driver_id);
+                        })->whereHas('tracker', function ($q) {
+                            $q->where('agent_id', $this->request->agent_id);
+                        })->get(),
+                        'driver' => $driver,
+                        'agent' => $agent,
+                    ]);
                 }
-                return view('backend.exports.reports', [
-                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereIn('payer_id', $payer_user->pluck('payer_id'))->whereHas('tracker', function ($q) {
-                        $q->where('driver_id', $this->request->driver_id);
-                    })->whereHas('tracker', function ($q) {
-                        $q->where('agent_id', $this->request->agent_id);
-                    })->get(),
-                    'driver' => $driver,
-                    'agent' => $agent,
-                ]);
             }
             if ($this->request->status == 2) {
                 return view('backend.exports.reports', [
-                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
+                    'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->whereIn('status_id', [2, 3, 4, 5, 8])->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
                         $q->where('driver_id', $this->request->driver_id);
                     })->whereHas('tracker', function ($q) {
                         $q->where('agent_id', $this->request->agent_id);
@@ -188,7 +200,7 @@ class OrderFindExport implements FromView
                 ]);
             }
             return view('backend.exports.reports', [
-                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
+                'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->whereHas('tracker', function ($q) {
                     $q->where('driver_id', $this->request->driver_id);
                 })->whereHas('tracker', function ($q) {
                     $q->where('agent_id', $this->request->agent_id);
@@ -199,7 +211,7 @@ class OrderFindExport implements FromView
         }
 
         return view('backend.exports.reports', [
-            'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id','!=',10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->get()
+            'orders' => Order::with('cargo', 'agent', 'tracker.cargolocation', 'tracker.user', 'tracker.agent', 'order', 'payer')->where('status_id', '!=', 10)->where('status_id', $this->request->status)->whereBetween('delivery_time', [$start, $end])->get()
         ]);
 
     }

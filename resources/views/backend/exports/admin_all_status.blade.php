@@ -3,46 +3,41 @@
     <tr>
         <th>Delivery Date</th>
         <th>HWB Number</th>
-        @canany(['Administration','Agent'],Auth::id())
         <th>Client HWB</th>
-        @endcan
         <th>Job Number</th>
-        <th>Service Code</th>
-        <th>Customer Name</th>
-        <th>Customer Account</th>
-        <th>Shipper’s company name</th>
-        <th>Shipper Address</th>
-        <th>City</th>
+        <th>Service code(пока этой графы в заявках нет)</th>
+        <th>Customer name</th>
+        <th>Customer account</th>
+        <th>Shipper's company name</th>
+        <th>Shipper address</th>
+        <th>Shipper APC(city)</th>
         <th>Country</th>
-        <th>Site Number</th>
-        <th>Consignee’s company name</th>
-        <th>Consignee Address</th>
-        <th>City</th>
+        <th>Site Number(shipper)</th>
+        <th>Consignee's company name</th>
+        <th>Consignee address</th>
+        <th>Consignee APC(city)</th>
         <th>Country</th>
-        <th>Site Number</th>
-        <th>Pieces</th>
-        <th>Weight, kg</th>
-        <th>Volume Weight, kg</th>
-        <th>Dimensions, cm</th>
-        <th>Temperature conditions, C</th>
+        <th>Site number(consignee)</th>
+        <th>Shipment description</th>
+        <th>Pick up instructions</th>
+        <th>Package type</th>
+        <th>Actual weight</th>
+        <th>Quantity</th>
+        <th>Serial number box</th>
+        <th>Serial number tt</th>
+        <th>Temperature conditions</th>
+        <th>Dimensions</th>
+        <th>Delivery instructions</th>
         <th>Pick up date and time</th>
-        @canany(['Administration','Agent'],Auth::id())
-            <th>Driver 1</th>
-            <th>Driver 2</th>
-            <th>Agent 1</th>
-            <th>Agent 2</th>
-        @endcan
-        <th>Price</th>
+        <th>Delivery date and time</th>
+        <th>Driver</th>
+        <th>Agent</th>
+        <th>Price(этой графы в заявках пока нет)</th>
+
     </tr>
     </thead>
-    {{--    @dd($orders)--}}
-    {{--    @dd($orders->first()->tracker->where('position',2)->first())--}}
     <tbody>
-{{--        @dd($orders)--}}
-
-    @canany(['Administration','Agent'],Auth::id())
         @foreach($orders as $order)
-{{--            @dd($orders)--}}
             @foreach($order->cargo as  $item)
                 <tr>
                     <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
@@ -62,13 +57,19 @@
                     <td>{{$order->tracker->where('position',2)->first()->cargolocation->city}}</td>
                     <td>UKR</td>
                     <td>{{$order->site_consignee}}</td>
-                    <td>{{$item->quantity}}</td>
+                    <td>{{$order->shipment_description}}</td>
+                    <td>{{$order->comment}}</td>
+                    <td>{{$item->type}}</td>
                     <td>{{$item->actual_weight}}</td>
-                    <td>{{$item->volume_weight}}</td>
+                    <td>{{$item->quantity}}</td>
+                    <td>{{$item->serial_number}}</td>
+                    <td>{{$item->serial_number_sensor}}</td>
+                    <td>{{$item->temperature_conditions}}</td>
                     <td>{{$item->сargo_dimensions_length}}x{{$item->сargo_dimensions_width}}
                         x{{$item->сargo_dimensions_height}}</td>
-                    <td>{{$item->temperature_conditions}}</td>
+                    <td>{{$order->delivery_comment}}</td>
                     <td>{{$order->tracker->where('position',0)->first()->end_time}}</td>
+                    <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
                     <td>
 
                         @if (isset($driver))
@@ -91,7 +92,6 @@
                             @endphp
                         @endif
                     </td>
-                    <td></td>
                     <td>
                         @if (isset($agent))
                             @if (!empty($agent))
@@ -115,45 +115,9 @@
                         @endif
                         {{--                    {{$order->tracker->first()->agent->fullname ?? ''}}--}}
                     </td>
-                    <td></td>
                     <td>...$</td>
                 </tr>
             @endforeach
         @endforeach
-    @elsecanany(['Client'],Auth::id())
-        @foreach($orders as $order)
-            {{--        @dd($orders)--}}
-            {{--        @can('manage-client-exel',$order)--}}
-            @foreach($order->cargo as $item)
-                <tr>
-                    <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
-                    <td>@php echo str_pad($order->invoice_number, 6, "0", STR_PAD_LEFT);  @endphp</td>
-                    <td>{{$order->id}}</td>
-                    <td></td>
-                    <td>{{$order->payer->customer_name}}</td>
-                    <td>{{$order->payer->customer_account_number}}</td>
-                    <td>{{$order->company_shipper}}</td>
-                    <td>{{$order->tracker->where('position',0)->first()->address}}</td>
-                    <td>{{$order->tracker->where('position',0)->first()->cargolocation->city}}</td>
-                    <td>UKR</td>
-                    <td>{{$order->site_shipper}}</td>
-                    <td>{{$order->company_consignee}}</td>
-                    <td>{{$order->tracker->where('position',2)->first()->address}}</td>
-                    <td>{{$order->tracker->where('position',2)->first()->cargolocation->city}}</td>
-                    <td>UKR</td>
-                    <td>{{$order->site_consignee}}</td>
-                    <td>{{$item->quantity}}</td>
-                    <td>{{$item->actual_weight}}</td>
-                    <td>{{$item->volume_weight}}</td>
-                    <td>{{$item->сargo_dimensions_height}}x{{$item->сargo_dimensions_length}}
-                        x{{$item->сargo_dimensions_width}}</td>
-                    <td>{{$item->temperature_conditions}}</td>
-                    <td>{{$order->tracker->where('position',0)->first()->end_time}}</td>
-                    <td>...$</td>
-                </tr>
-            @endforeach
-            {{--        @endcan--}}
-        @endforeach
-    @endcanany
     </tbody>
 </table>

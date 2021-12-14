@@ -38,9 +38,7 @@
                             <option value="2">Accepted in work</option>
                             <option value="6">Delivered</option>
                             <option value="9">Invoiced</option>
-                            @can('Client',Auth::id())
-                                <option value="0">All shipments</option>
-                            @endcan
+                            <option value="0">All shipments</option>
                         </select>
                         <button type="submit" class="btn btn-circle btn-info">
                             <span>New Reports</span>
