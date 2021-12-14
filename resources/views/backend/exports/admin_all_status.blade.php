@@ -1,11 +1,10 @@
 <table>
     <thead>
     <tr>
-        <th>Delivery Date</th>
         <th>HWB Number</th>
         <th>Client HWB</th>
         <th>Job Number</th>
-        <th>Service code(пока этой графы в заявках нет)</th>
+        <th>Service code</th>
         <th>Customer name</th>
         <th>Customer account</th>
         <th>Shipper's company name</th>
@@ -32,7 +31,7 @@
         <th>Delivery date and time</th>
         <th>Driver</th>
         <th>Agent</th>
-        <th>Price(этой графы в заявках пока нет)</th>
+        <th>Price</th>
 
     </tr>
     </thead>
@@ -40,7 +39,6 @@
         @foreach($orders as $order)
             @foreach($order->cargo as  $item)
                 <tr>
-                    <td>{{$order->tracker->where('position',2)->first()->end_time}}</td>
                     <td>@php echo str_pad($order->invoice_number, 6, "0", STR_PAD_LEFT);  @endphp</td>
                     <td>{{$order->client_hwb}}</td>
                     <td>{{$order->id}}</td>
