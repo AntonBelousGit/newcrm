@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('status',['active','inactive'])->default('active');
             $table->rememberToken()->nullable();
             $table->bigInteger('agent_id')->unsigned()->nullable();
             $table->bigInteger('driver_id')->unsigned()->nullable();

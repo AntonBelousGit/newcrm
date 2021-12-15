@@ -82,7 +82,7 @@
                         @canany(['Administration'],Auth::id())
                         <td>{{$report->user->name}}-({{$report->user->roles->first()->name}})</td>
                         @endcanany
-                        <td>{{ $report->status_name }}</td>
+                        <td>{{$report->status_name}}</td>
                         <td>
                             <a href="{!! route('admin.download', $report->id) !!}">Download</a>
                             <form action="{{route('admin.report.destroy', $report->id)}}" class="d-inline"

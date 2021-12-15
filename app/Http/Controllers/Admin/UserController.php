@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Models\Activity;
@@ -194,5 +195,17 @@ class UserController extends Controller
 
         return back()->with('error', 'Something went wrong!');
 
+    }
+
+    public function statusClient($id)
+    {
+        $user = User::find($id);
+        if ($user->status == 'inactive') {
+            DB::table('users')->where('id', $id)->update(['status' => 'active']);
+        } else {
+            DB::table('users')->where('id', $id)->update(['status' => 'inactive']);
+        }
+
+        return back()->with(['msg' => 'Successfully updated status', 200]);
     }
 }

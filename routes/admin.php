@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::get('/users/client-payer', [PayerController::class, 'showClient'])->name('show-client');
         Route::get('/user/edit', [UserController::class, 'editClient'])->name('user.edit-client');
         Route::post('/user/edit/{id}', [UserController::class, 'updateClient'])->name('user.update-client');
+        Route::get('/user/status/{id}', [UserController::class, 'statusClient'])->name('user.status');
         Route::get('/users/client-payer/{user}', [PayerController::class, 'clientPayerEdit'])->name('client-payer-edit');
         Route::post('/users/client-payer/{user}', [PayerController::class, 'clientPayerUpdate'])->name('client-payer-update');
 //Reports

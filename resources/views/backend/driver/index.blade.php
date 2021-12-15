@@ -38,6 +38,16 @@
                     {{$title}}
                 </h3>
             </div>
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <h4>{{$errors->first()}}</h4>
+                </div>
+            @endif
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <h4>{{session('success')}}</h4>
+                </div>
+            @endif
         </div>
         <form id="tableForm">
             @csrf()
@@ -48,6 +58,7 @@
                         <th>Full name</th>
                         <th>Сar model</th>
                         <th>Number</th>
+                        <th>Status</th>
                         <th>Mission</th>
                     </tr>
                     </thead>
@@ -57,7 +68,12 @@
                                 <th>{{$user->fullname}}</th>
                                 <th>{{$user->driver['car_model'] ?? ''}}</th>
                                 <th>{{$user->driver['gos_number_car'] ?? ''}}</th>
+                                <th>{{$user->status}}</th>
                                 <td class="text-center">
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                       href="{{route('admin.user.status', $user->id)}}" title="Status">
+                                        <i class="las la-low-vision"></i>
+                                    </a>
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                        href="{{route('admin.driver.edit', $user->id)}}" title="{{  ('Edit') }}">
                                         <i class="las la-edit"></i>
