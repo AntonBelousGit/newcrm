@@ -102,4 +102,11 @@ class User extends Authenticatable
             'payer_id'
         );
     }
+    public function scopeDriverAgent($query)
+    {
+        return $query->whereHas('roles', function ($query) {
+            $query->whereIn('name', ['Agent', 'Driver']);
+        });
+    }
+
 }

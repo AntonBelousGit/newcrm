@@ -244,7 +244,7 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
-            $user = User::where('status', 'active')->get(['id', 'nickname']);
+            $user = User::where('status', 'active')->with('roles')->driverAgent()->get(['id', 'nickname']);
             $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
 
             if (count($driver_in_tracker) > 0) {
@@ -264,7 +264,6 @@ class OrderController extends Controller
             }
             $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
             $lupa[] = $tracker_end->cargolocation->toArray();
-
 
             $status = ProductStatus::all();
             $payers = Payer::where('status', 'active')->get();
