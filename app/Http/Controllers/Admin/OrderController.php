@@ -244,21 +244,20 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
-            $user = User::where('status', 'active')->get(['id','nickname']);
+            $user = User::where('status', 'active')->get(['id', 'nickname']);
             $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
-            $check_payer_status = User::where('status', 'inactive')->whereIn('id',array_filter(array_unique($driver_in_tracker->toArray())))->get(['id','nickname']);
 
-            if (count($driver_in_tracker)>0) {
-                foreach ($check_payer_status as $item)
-                {
+            if (count($driver_in_tracker) > 0) {
+                $inactive_users = User::where('status', 'inactive')->whereIn('id', array_filter(array_unique($driver_in_tracker->toArray())))->get(['id', 'nickname']);
+                foreach ($inactive_users as $item) {
                     $user->push($item);
                 }
-
             }
+
             $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '1')->get();
             $trackers_count = count($trackers);
-            
+
             $lupa[] = $tracker_start->cargolocation->toArray();
             foreach ($trackers as $item) {
                 $lupa[] = $item->cargolocation->toArray();
