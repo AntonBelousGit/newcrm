@@ -870,16 +870,14 @@
                             <div class="col-md-3">
                                 <label>Driver:</label>
                                 <select name="start[driver_id]"
-                                        class="form-control @if (empty($end_time) && !isset($tracker_start->driver_id) && !isset($tracker_start->agent_id)) border-danger  @endif"
+                                        class="form-control select-driver @if (empty($end_time) && !isset($tracker_start->driver_id) && !isset($tracker_start->agent_id)) border-danger  @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
                                     @foreach($user as $item)
-                                        @if($item->roles->first()->name == 'Driver')
                                             <option value="{{$item->id}}"
                                                     @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
                                                 - {{$item->roles->first()->name}}  </option>
-                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -887,17 +885,15 @@
 
                             <div class="col-md-3">
                                 <label>Agent:</label>
-                                <select id="change-country-to" name="start[agent_id]"
+                                <select id="change-country-to" name="start[agent_id]" onchange="changeAgent(this.parent);"
                                         class="form-control @if (empty($end_time) && !isset($tracker_start->agent_id) && !isset($tracker_start->driver_id)) border-danger @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
-                                    @foreach($user as $item)
-                                        @if($item->roles->first()->name == 'Agent')
+                                    @foreach($agents as $item)
                                             <option value="{{$item->id}}"
                                                     @if($item->id == $tracker_start->agent_id) selected @endif >{{$item->nickname}}
                                                 - {{$item->roles->first()->name}} </option>
-                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -972,7 +968,7 @@
                                         <div class="col-md-3">
                                             <label>Driver:</label>
                                             <select name="driver_id"
-                                                    class="form-control @if (empty($end_time) && !isset($tracker->driver_id) && !isset($tracker->agent_id) && $alert_marker === 1) border-danger  @endif"
+                                                    class="form-control select-driver @if (empty($end_time) && !isset($tracker->driver_id) && !isset($tracker->agent_id) && $alert_marker === 1) border-danger  @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
                                                 @foreach($user as $item)
@@ -1092,7 +1088,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Driver:</label>
-                                        <select name="driver_id" class="form-control "
+                                        <select name="driver_id" class="form-control select-driver"
                                                 @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                             <option value=""></option>
                                             @foreach($user as $item)
@@ -1288,6 +1284,11 @@
 @section('script')
     <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
     <script type='text/javascript'>
+
+        function changeAgent(param) {
+            console.log(param);
+        }
+
         $(document).ready(function() {
             $('input').attr('autocomplete','new-password');
         });

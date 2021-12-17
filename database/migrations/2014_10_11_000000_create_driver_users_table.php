@@ -17,7 +17,12 @@ class CreateDriverUsersTable extends Migration
             $table->id();
             $table->string('car_model')->nullable();
             $table->string('gos_number_car')->nullable();
+            $table->string('phone')->nullable();
+            $table->unsignedBigInteger('agent_user_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('agent_user_id')->references('id')->on('agent_users');
+
         });
     }
 

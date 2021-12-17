@@ -58,6 +58,7 @@
                         <th>Full name</th>
                         <th>Сar model</th>
                         <th>Number</th>
+                        <th>Company</th>
                         <th>Status</th>
                         <th>Mission</th>
                     </tr>
@@ -67,6 +68,7 @@
                             <tr>
                                 <th>{{$user->fullname}}</th>
                                 <th>{{$user->driver['car_model'] ?? ''}}</th>
+                                <th>{{$user->driver->company->agent_company_name ?? ''}}</th>
                                 <th>{{$user->driver['gos_number_car'] ?? ''}}</th>
                                 <th>{{$user->status}}</th>
                                 <td class="text-center">

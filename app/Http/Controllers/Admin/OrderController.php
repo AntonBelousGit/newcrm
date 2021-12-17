@@ -244,15 +244,17 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
-            $user = User::where('status', 'active')->with('roles')->driverAgent()->get(['id', 'nickname']);
-            $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
-
-            if (count($driver_in_tracker) > 0) {
-                $inactive_users = User::where('status', 'inactive')->whereIn('id', array_filter(array_unique($driver_in_tracker->toArray())))->get(['id', 'nickname']);
-                foreach ($inactive_users as $item) {
-                    $user->push($item);
-                }
-            }
+            $user = User::where('status', 'active')->with('roles')->driverAgent()->isNotCompanyDriver()->get(['id', 'nickname']);
+            $agents = User::where('status', 'active')->with('roles')->agent()->get(['id', 'nickname']);
+//            dd($agents);
+//            $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
+//
+//            if (count($driver_in_tracker) > 0) {
+//                $inactive_users = User::where('status', 'inactive')->whereIn('id', array_filter(array_unique($driver_in_tracker->toArray())))->get(['id', 'nickname']);
+//                foreach ($inactive_users as $item) {
+//                    $user->push($item);
+//                }
+//            }
 
             $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '1')->get();
@@ -277,7 +279,7 @@ class OrderController extends Controller
             $addInfo = AdditionOrderInfo::where('order_id', $id)->first();
             $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
 
-            return view('backend.shipments.edit', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo'));
+            return view('backend.shipments.edit', compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end','substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo','agents'));
         }
         return abort(403);
     }

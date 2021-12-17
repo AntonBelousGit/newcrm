@@ -108,5 +108,26 @@ class User extends Authenticatable
             $query->whereIn('name', ['Agent', 'Driver']);
         });
     }
+    public function scopeDriver($query)
+    {
+        return $query->whereHas('roles', function($q)
+        {
+            $q->where('name', 'Driver');
+        });
+    }
+    public function scopeIsNotCompanyDriver($query)
+    {
+        return $query->whereHas('driver', function($q)
+        {
+            $q->whereNull('agent_user_id');
+        });
+    }
+    public function scopeAgent($query)
+    {
+        return $query->whereHas('roles', function($q)
+        {
+            $q->where('name', 'Agent');
+        });
+    }
 
 }
