@@ -867,25 +867,43 @@
                                        value="{{$tracker_start->address}}"/>
                                 <div class="mb-2 d-md-none"></div>
                             </div>
+
+{{--                            @dd($agents->where('id',$tracker_start->agent_id)->pluck('agent')->pluck('driver')->first())--}}
+
                             <div class="col-md-3">
                                 <label>Driver:</label>
-                                <select name="start[driver_id]"
+                                <select v-if="selectGovno2 !== null" name="start[driver_id]"
                                         class="form-control select-driver @if (empty($end_time) && !isset($tracker_start->driver_id) && !isset($tracker_start->agent_id)) border-danger  @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
-                                    @foreach($user as $item)
-                                            <option value="{{$item->id}}"
-                                                    @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
-                                                - {{$item->roles->first()->name}}  </option>
-                                    @endforeach
+                                    <option v-for="(item, idx) in selectGovno2" :key="idx" :value="item.id">
+                                        Elem
+                                    </option>
+                                </select>
+                                <select v-if="selectGovno2 === null" name="start[driver_id]"
+                                        class="form-control select-driver @if (empty($end_time) && !isset($tracker_start->driver_id) && !isset($tracker_start->agent_id)) border-danger  @endif"
+                                        autocomplete="off"
+                                        @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
+                                    <option value=""></option>
+                                    @if (!is_null($tracker_start->agent_id))
+                                        @foreach($agents->where('id',$tracker_start->agent_id)->pluck('agent')->pluck('driver')->first() as $item)
+                                            <option value="{{$item->user->first()->id}}"
+                                                    @if($item->user->first()->id == $tracker_start->driver_id) selected @endif >{{$item->user->first()->nickname}}
+                                                - {{$item->user->first()->roles->first()->name}}</option>
+                                        @endforeach
+                                    @else
+                                        @foreach($driver_without_agent as $item)
+                                                <option value="{{$item->id}}"
+                                                        @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
+                                                    - {{$item->roles->first()->name}}  </option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
-
-
                             <div class="col-md-3">
                                 <label>Agent:</label>
-                                <select id="change-country-to" name="start[agent_id]" onchange="changeAgent(this.parent);"
+                                <select id="change-country-to" name="start[agent_id]" v-on:change="changeAgent()" v-model="selectGovno1"
                                         class="form-control @if (empty($end_time) && !isset($tracker_start->agent_id) && !isset($tracker_start->driver_id)) border-danger @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
@@ -971,7 +989,7 @@
                                                     class="form-control select-driver @if (empty($end_time) && !isset($tracker->driver_id) && !isset($tracker->agent_id) && $alert_marker === 1) border-danger  @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
-                                                @foreach($user as $item)
+                                                @foreach($driver_without_agent as $item)
                                                     @if($item->roles->first()->name == 'Driver')
                                                         <option value="{{$item->id}}"
                                                                 @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
@@ -987,7 +1005,7 @@
                                                     class="form-control @if (empty($end_time) && !isset($tracker->agent_id) && !isset($tracker->driver_id)  && $alert_marker === 1) border-danger @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
-                                                @foreach($user as $item)
+                                                @foreach($agents as $item)
                                                     @if($item->roles->first()->name == 'Agent')
                                                         <option value="{{$item->id}}"
                                                                 @if($item->id == $tracker->agent_id) selected @endif >{{$item->nickname}}
@@ -1091,7 +1109,7 @@
                                         <select name="driver_id" class="form-control select-driver"
                                                 @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                             <option value=""></option>
-                                            @foreach($user as $item)
+                                            @foreach($driver_without_agent as $item)
                                                 @if($item->roles->first()->name == 'Driver')
                                                     <option value="{{$item->id}}">{{$item->nickname}}
                                                         - {{$item->roles->first()->name}}  </option>
@@ -1104,7 +1122,7 @@
                                         <select name="agent_id" class="form-control "
                                                 @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                             <option value=""></option>
-                                            @foreach($user as $item)
+                                            @foreach($agents as $item)
                                                 @if($item->roles->first()->name == 'Agent')
                                                     <option value="{{$item->id}}">{{$item->nickname}}
                                                         - {{$item->roles->first()->name}}  </option>
@@ -1283,11 +1301,49 @@
 @endsection
 @section('script')
     <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script type='text/javascript'>
+        var tmp;
+        var app = new Vue({
+            el: '#kt_repeater_12',
+            data: {
+                selectGovno1: '',
+                selectGovno2: null
+            },
+            created() {
 
-        function changeAgent(param) {
-            console.log(param);
+            },
+            methods: {
+                changeAgent() {
+                    console.log('this.selectGovno1' + this.selectGovno1)
+                    dadad(this.selectGovno1)
+                    if(tmp) {
+                        this.selectGovno2 = tmp
+                    }
+                    console.log('this.selectGovno2' + this.selectGovno2)
+                }
+            }
+        })
+
+        function dadad(tmp1) {
+            alert(tmp1)
+            $.ajax({
+                url: '{{route('admin.order.select.agent')}}',
+                type: "POST",
+                data: {
+                    id: tmp1,
+                },
+                success: function (response) {
+                    console.log(response.data)
+                    tmp = response.data
+                }
+            })
+            console.log('tmp' + tmp)
         }
+        // function changeAgent(param) {
+        //     console.log(param.value);
+        //     return param.value;
+        // }
 
         $(document).ready(function() {
             $('input').attr('autocomplete','new-password');
@@ -1833,7 +1889,6 @@
             });
         });
     </script>
-
 
     <script>
         $("#visicom-autocomplete input").attr('name', 'address_shipper');
