@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdditionOrderInfo;
 use App\Models\AddressesList;
+use App\Models\AgentUser;
 use App\Models\Cargo;
 use App\Models\CargoLocation;
+use App\Models\DriverUser;
 use App\Models\Order;
 use App\Models\Payer;
 use App\Models\ProductStatus;
@@ -238,15 +240,17 @@ class OrderController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
-            $user = User::where('status', 'active')->with('roles')->driverAgent()->isNotCompanyDriver()->get(['id', 'nickname']);
-            $agents = User::where('status', 'active')->with('roles')->agent()->get(['id', 'nickname']);
-//            dd($agents);
+            $driver_without_agent = User::where('status', 'active')->with('roles')->driver()->isNotCompanyDriver()->get(['id', 'nickname']); // Драйверы без агентов
+            $driver_agent = User::where('status', 'active')->with('roles','driver')->driver()->get(['id', 'nickname','driver_id']);      // Драйверы с агентами
+//            $agents = User::where('status', 'active')->with('agent')->agent()->get(['id', 'nickname','surname']);
+            $agents = User::with('agent.driver.user')->agent()->get(['id', 'nickname','agent_id','driver_id']);
+//            $pizda = AgentUser::with('driver')->get()
 //            $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
 //
 //            if (count($driver_in_tracker) > 0) {
@@ -255,7 +259,6 @@ class OrderController extends Controller
 //                    $user->push($item);
 //                }
 //            }
-
             $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '1')->get();
             $trackers_count = count($trackers);
@@ -279,7 +282,7 @@ class OrderController extends Controller
             $addInfo = AdditionOrderInfo::where('order_id', $id)->first();
             $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
 
-            return view('backend.shipments.edit', compact('orders','user','status','cargo_location','trackers','tracker_start','tracker_end','substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo','agents'));
+            return view('backend.shipments.edit', compact('orders','status','cargo_location','trackers','tracker_start','tracker_end','substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo','agents','driver_without_agent','driver_agent'));
         }
         return abort(403);
     }
@@ -566,6 +569,16 @@ class OrderController extends Controller
             }
             return back()->with('error', 'Data not found');
         }
-        abort(403);
+       return abort(403);
+    }
+
+    public function selectTrackerAgent(Request $request)
+    {
+
+
+        $drivers = User::where('id',$request['id'])->get(['id','name']);
+        return response()->json([
+            'data' => $drivers,
+        ]);
     }
 }

@@ -20,4 +20,9 @@ class AgentUser extends Model
         return $this->belongsTo('App\Models\CargoLocation','location_id');
 
     }
+
+    public function driver()
+    {
+        return $this->hasMany(DriverUser::class,'agent_user_id','id');
+    }
 }

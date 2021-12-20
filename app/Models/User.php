@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\Models\AgentUser;
 
 class User extends Authenticatable
 {
@@ -120,6 +121,13 @@ class User extends Authenticatable
         return $query->whereHas('driver', function($q)
         {
             $q->whereNull('agent_user_id');
+        });
+    }
+    public function scopeIsCompanyDriver($query)
+    {
+        return $query->whereHas('driver', function($q)
+        {
+            $q->orWhereNotNull('agent_user_id');
         });
     }
     public function scopeAgent($query)

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class DriverUser extends Model
 {
     use HasFactory;
@@ -13,11 +14,11 @@ class DriverUser extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User','user_id');
+        return $this->hasMany(User::class,'driver_id','id');
 
     }
-    public function company()
+    public function agent()
     {
-        return $this->belongsTo('App\Models\AgentUser','agent_user_id');
+        return $this->belongsTo(AgentUser::class,'agent_user_id');
     }
 }

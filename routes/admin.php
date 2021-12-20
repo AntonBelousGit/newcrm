@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
         Route::post('/orders/driver/{order}', [OrderController::class, 'update_agent_driver_tracker'])->name('orders.agent-driver-tracker');
         Route::get('/orders/duplicate/{order}', [OrderController::class, 'duplicate'])->name('orders.duplicate');
         Route::post('/orders/remove-cargo', [OrderController::class, 'remove_cargo']);
+        Route::post('/orders/select-agent', [OrderController::class, 'selectTrackerAgent'])->name('order.select.agent');
 //Users
         Route::get('/users/client-payer', [PayerController::class, 'showClient'])->name('show-client');
         Route::get('/user/edit', [UserController::class, 'editClient'])->name('user.edit-client');
