@@ -74,7 +74,7 @@
                                 <select name="agent_user_id" class="form-control">
                                     <option></option>
                                     @foreach($agents as $item)
-                                        <option value="{{$item->id}}">{{$item->agent_company_name}}</option>
+                                        <option value="{{$item->id}}" @if (isset($users->driver) && $item->id == $users->driver['agent_user_id']) selected @endif>{{$item->agent_company_name}}</option>
                                     @endforeach
                                 </select>
                             </div>

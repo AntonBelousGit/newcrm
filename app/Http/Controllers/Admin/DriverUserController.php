@@ -21,7 +21,7 @@ class DriverUserController extends Controller
     public function index()
     {
         if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
-            $users = User::with('driver.company')->driver()->get();
+            $users = User::with('driver.agent')->driver()->get();
             $title = 'All driver';
             return view('backend.driver.index', compact('users', 'title'));
         }
@@ -73,7 +73,6 @@ class DriverUserController extends Controller
 //            $agents = User::with('agent')->agent()->get();
 //            $agents = User::with('agent')->agent()->get();
             $agents = AgentUser::all();
-//            dd($agents);
             return view('backend.driver.edit', compact('users','agents'));
         }
         return abort(403);

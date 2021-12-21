@@ -68,8 +68,8 @@
                             <tr>
                                 <th>{{$user->fullname}}</th>
                                 <th>{{$user->driver['car_model'] ?? ''}}</th>
+                                <th>{{$user->driver['phone'] ?? ''}}</th>
                                 <th>{{$user->driver->company->agent_company_name ?? ''}}</th>
-                                <th>{{$user->driver['gos_number_car'] ?? ''}}</th>
                                 <th>{{$user->status}}</th>
                                 <td class="text-center">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"

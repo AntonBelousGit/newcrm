@@ -555,7 +555,7 @@
                                             <input type="text" placeholder="{{ ('type')}}" class="form-control"
                                                    required
                                                    autocomplete="off"
-                                                   name="type" >
+                                                   name="type">
                                             <input type="hidden" name="id">
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -564,7 +564,7 @@
                                             <input
                                                 {{--                                                class="kt_touchspin_weight"--}}
                                                 placeholder="Actual weight" type="number"
-                                                required  min="1"
+                                                required min="1"
                                                 step="0.1"
                                                 name="actual_weight" class="form-control" autocomplete="off"
                                             />
@@ -574,38 +574,38 @@
                                             <label class="red-star">{{ ('Quantity')}}:</label>
                                             <input class="kt_touchspin_qty" placeholder="{{ ('Quantity')}}" required
                                                    type="number"
-                                                    min="1"
+                                                   min="1"
                                                    name="quantity" class="form-control" autocomplete="off"
-                                                   />
+                                            />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number box:</label>
-                                            <input type="text"   placeholder="Serial number" name="serial_number"
+                                            <input type="text" placeholder="Serial number" name="serial_number"
                                                    autocomplete="off"
-                                                   class="form-control " />
+                                                   class="form-control "/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Serial number sensor:</label>
                                             <input type="text" placeholder="Serial number sensor" autocomplete="off"
                                                    name="serial_number_sensor" class="form-control  "
-                                                   />
+                                            />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>UN number:</label>
-                                            <input type="text"  placeholder="UN number" name="un_number"
+                                            <input type="text" placeholder="UN number" name="un_number"
                                                    autocomplete="off"
                                                    class="form-control  " value=""/>
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="red-star">Temperature conditions:</label>
-                                            <input type="text"  placeholder="Temperature conditions"
+                                            <input type="text" placeholder="Temperature conditions"
                                                    name="temperature_conditions" required class="form-control  "
                                                    autocomplete="off"
-                                                   />
+                                            />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
                                         <div class="col-md-3">
@@ -626,21 +626,21 @@
                                                    type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Length')}}"
                                                    name="сargo_dimensions_length"
-                                                   />
+                                            />
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r"
-                                                    type="number" min="1" required
+                                                   type="number" min="1" required
                                                    class="form-control" placeholder="{{ ('Width')}}"
                                                    name="сargo_dimensions_width"
-                                                   />
+                                            />
                                         </div>
                                         <div class="col-md-3">
                                             <input class="dimensions_r"
-                                                     type="number" min="1" required
+                                                   type="number" min="1" required
                                                    class="form-control " placeholder="{{ ('Height')}}"
                                                    name="сargo_dimensions_height"
-                                                  />
+                                            />
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -868,21 +868,12 @@
                                 <div class="mb-2 d-md-none"></div>
                             </div>
 
-{{--                            @dd($agents->where('id',$tracker_start->agent_id)->pluck('agent')->pluck('driver')->first())--}}
+                            {{--                            @dd($agents->where('id',$tracker_start->agent_id)->pluck('agent')->pluck('driver')->first())--}}
 
                             <div class="col-md-3">
                                 <label>Driver:</label>
-                                <select v-if="selectGovno2 !== null" name="start[driver_id]"
-                                        class="form-control select-driver @if (empty($end_time) && !isset($tracker_start->driver_id) && !isset($tracker_start->agent_id)) border-danger  @endif"
-                                        autocomplete="off"
-                                        @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
-                                    <option value=""></option>
-                                    <option v-for="(item, idx) in selectGovno2" :key="idx" :value="item.id">
-                                        Elem
-                                    </option>
-                                </select>
-                                <select v-if="selectGovno2 === null" name="start[driver_id]"
-                                        class="form-control select-driver @if (empty($end_time) && !isset($tracker_start->driver_id) && !isset($tracker_start->agent_id)) border-danger  @endif"
+                                <select name="start[driver_id]"
+                                        class="form-control select-driver  @if (empty($end_time) && !isset($tracker_start->driver_id) && !isset($tracker_start->agent_id)) border-danger  @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
@@ -894,24 +885,24 @@
                                         @endforeach
                                     @else
                                         @foreach($driver_without_agent as $item)
-                                                <option value="{{$item->id}}"
-                                                        @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
-                                                    - {{$item->roles->first()->name}}  </option>
+                                            <option value="{{$item->id}}"
+                                                    @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
+                                                - {{$item->roles->first()->name}}  </option>
                                         @endforeach
                                     @endif
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <label>Agent:</label>
-                                <select id="change-country-to" name="start[agent_id]" v-on:change="changeAgent()" v-model="selectGovno1"
+                                <select id="change-country-to" name="start[agent_id]" onchange="changeAgent(this)"
                                         class="form-control @if (empty($end_time) && !isset($tracker_start->agent_id) && !isset($tracker_start->driver_id)) border-danger @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
                                     @foreach($agents as $item)
-                                            <option value="{{$item->id}}"
-                                                    @if($item->id == $tracker_start->agent_id) selected @endif >{{$item->nickname}}
-                                                - {{$item->roles->first()->name}} </option>
+                                        <option value="{{$item->id}}"
+                                                @if($item->id == $tracker_start->agent_id) selected @endif >{{$item->nickname}}
+                                            - {{$item->roles->first()->name}} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -989,19 +980,27 @@
                                                     class="form-control select-driver @if (empty($end_time) && !isset($tracker->driver_id) && !isset($tracker->agent_id) && $alert_marker === 1) border-danger  @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
-                                                @foreach($driver_without_agent as $item)
-                                                    @if($item->roles->first()->name == 'Driver')
-                                                        <option value="{{$item->id}}"
-                                                                @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
-                                                            - {{$item->roles->first()->name}}  </option>
-                                                    @endif
-                                                @endforeach
+                                                @if (!is_null($tracker->agent_id))
+                                                    @foreach($agents->where('id',$tracker->agent_id)->pluck('agent')->pluck('driver')->first() as $item)
+                                                        <option value="{{$item->user->first()->id}}"
+                                                                @if($item->user->first()->id == $tracker->driver_id) selected @endif >{{$item->user->first()->nickname}}
+                                                            - {{$item->user->first()->roles->first()->name}}</option>
+                                                    @endforeach
+                                                @else
+                                                    @foreach($driver_without_agent as $item)
+                                                        @if($item->roles->first()->name == 'Driver')
+                                                            <option value="{{$item->id}}"
+                                                                    @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
+                                                                - {{$item->roles->first()->name}}  </option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
 
                                         <div class="col-md-3">
                                             <label>Agent:</label>
-                                            <select name="agent_id"
+                                            <select name="agent_id" onchange="changeAgent(this)"
                                                     class="form-control @if (empty($end_time) && !isset($tracker->agent_id) && !isset($tracker->driver_id)  && $alert_marker === 1) border-danger @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
@@ -1119,7 +1118,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Agent:</label>
-                                        <select name="agent_id" class="form-control "
+                                        <select name="agent_id" class="form-control " onchange="changeAgent(this)"
                                                 @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                             <option value=""></option>
                                             @foreach($agents as $item)
@@ -1301,52 +1300,37 @@
 @endsection
 @section('script')
     <script src="https://api.visicom.ua/apps/visicom-autocomplete.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script type='text/javascript'>
-        var tmp;
-        var app = new Vue({
-            el: '#kt_repeater_12',
-            data: {
-                selectGovno1: '',
-                selectGovno2: null
-            },
-            created() {
 
-            },
-            methods: {
-                changeAgent() {
-                    console.log('this.selectGovno1' + this.selectGovno1)
-                    dadad(this.selectGovno1)
-                    if(tmp) {
-                        this.selectGovno2 = tmp
-                    }
-                    console.log('this.selectGovno2' + this.selectGovno2)
-                }
-            }
-        })
+        function changeAgent(param) {
+            let select_driver = $(param).parent('.col-md-3').parent('div').find('.select-driver');
 
-        function dadad(tmp1) {
-            alert(tmp1)
             $.ajax({
                 url: '{{route('admin.order.select.agent')}}',
                 type: "POST",
                 data: {
-                    id: tmp1,
+                    _token: '{{ csrf_token() }}',
+                    id: param.value,
                 },
                 success: function (response) {
-                    console.log(response.data)
-                    tmp = response.data
+                    let users = response.data;
+                    if (users.length > 0) {
+                        select_driver.html('<option></option>');
+                        users.forEach((users) => {
+                            let opt = document.createElement('option');
+                            opt.value = users.id;
+                            let userName = document.createTextNode(users.name + ' - Driver');
+                            opt.appendChild(userName);
+                            console.log(opt)
+                            select_driver.append(opt);
+                        });
+                    }
                 }
             })
-            console.log('tmp' + tmp)
         }
-        // function changeAgent(param) {
-        //     console.log(param.value);
-        //     return param.value;
-        // }
 
-        $(document).ready(function() {
-            $('input').attr('autocomplete','new-password');
+        $(document).ready(function () {
+            $('input').attr('autocomplete', 'new-password');
         });
     </script>
     <script type="text/javascript">
@@ -1510,64 +1494,6 @@
             placeholder: "Select Branch",
         })
 
-        function get_estimation_cost() {
-            var total_weight = document.getElementById('kt_touchspin_4').value;
-            var select_packages = document.getElementsByClassName('package-type-select');
-            var from_country_id = document.getElementsByName("Shipment[from_country_id]")[0].value;
-            var to_country_id = document.getElementsByName("Shipment[to_country_id]")[0].value;
-            var from_state_id = document.getElementsByName("Shipment[from_state_id]")[0].value;
-            var to_state_id = document.getElementsByName("Shipment[to_state_id]")[0].value;
-            var from_area_id = document.getElementsByName("Shipment[from_area_id]")[0].value;
-            var to_area_id = document.getElementsByName("Shipment[to_area_id]")[0].value;
-            var package_ids = [];
-            for (let index = 0; index < select_packages.length; index++) {
-                if (select_packages[index].value) {
-                    package_ids[index] = new Object();
-                    package_ids[index]["package_id"] = select_packages[index].value;
-                } else {
-                    AIZ.plugins.notify('danger', '{{  ('Please select package type') }} ' + (index + 1));
-                    return 0;
-                }
-            }
-            var request_data = {
-                _token: '{{ csrf_token() }}',
-                package_ids: package_ids,
-                total_weight: total_weight,
-                from_country_id: from_country_id,
-                to_country_id: to_country_id,
-                from_state_id: from_state_id,
-                to_state_id: to_state_id,
-                from_area_id: from_area_id,
-                to_area_id: to_area_id,
-            };
-            {{--$.post('{{ route('admin.shipments.get-estimation-cost') }}', request_data, function(response){--}}
-            {{--    if({{$is_def_mile_or_fees}} =='2')--}}
-            {{--    {--}}
-            {{--        document.getElementById("shipping_cost").innerHTML = response.shipping_cost;--}}
-            {{--        document.getElementById("return_cost").innerHTML = response.return_cost;--}}
-            {{--    }else if({{$is_def_mile_or_fees}} =='1')--}}
-            {{--    {--}}
-            {{--        document.getElementById("mile_cost").innerHTML = response.shipping_cost;--}}
-            {{--        document.getElementById("return_mile_cost").innerHTML = response.return_cost;--}}
-            {{--    }--}}
-            {{--    document.getElementById("tax_duty").innerHTML = response.tax;--}}
-            {{--    document.getElementById("insurance").innerHTML = response.insurance;--}}
-            {{--    document.getElementById("total_cost").innerHTML = response.total_cost;--}}
-            {{--    document.getElementById('modal_open').click();--}}
-            {{--    console.log(response);--}}
-            {{--});--}}
-        }
-
-        function calcTotalWeight() {
-            var elements = $('.weight-listener');
-            var sumWeight = 0;
-            elements.map(function () {
-                sumWeight += parseInt($(this).val());
-                console.log(sumWeight);
-            }).get();
-            $('.total-weight').val(sumWeight);
-        }
-
         function deleteCargo(elem, deleteElement) {
             var cargo_id = $(elem).find('input[type="hidden"]').val();
             var order_id = $("#order").val();
@@ -1590,7 +1516,6 @@
             var tracker_id = $(elem).find('input[type="hidden"]').val();
             // var order_id = $("#order").val();
             if (confirm('Удалять?')) {
-                console.log(tracker_id);
                 $.ajax({
                     url: '/admin/tracker/remove-tracker',
                     type: "POST",

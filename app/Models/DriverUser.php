@@ -19,6 +19,10 @@ class DriverUser extends Model
     }
     public function agent()
     {
-        return $this->belongsTo(AgentUser::class,'agent_user_id');
+        return $this->belongsTo(AgentUser::class, 'agent_user_id');
+    }
+    public function company()
+    {
+        return $this->belongsTo('App\Models\AgentUser','agent_user_id');
     }
 }
