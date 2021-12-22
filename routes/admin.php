@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AddressesListController;
 use App\Http\Controllers\Admin\AgentUserController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DriverUserController;
 use App\Http\Controllers\Admin\PayerController;
 use App\Http\Controllers\Admin\ReportController;
@@ -65,6 +66,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'],
             'payer' => PayerController::class,
             'report' => ReportController::class,
             'addresses-list' => AddressesListController::class,
+            'company'=> CompanyController::class,
         ]);
         Route::get('/payer/status/{id}',[PayerController::class,'status'])->name('payer.status');
         Route::post('/selected-orders', [ReportController::class, 'exportSelected'])->name('selected_orders');

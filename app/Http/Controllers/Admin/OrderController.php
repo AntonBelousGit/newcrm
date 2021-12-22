@@ -247,17 +247,18 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
             $driver_without_agent = User::where('status', 'active')->with('roles')->driver()->isNotCompanyDriver()->get(['id', 'nickname']); // Драйверы без агентов
+//            dd($driver_without_agent);
             $driver_agent = User::where('status', 'active')->with('roles', 'driver')->driver()->get(['id', 'nickname', 'driver_id']);      // Драйверы с агентами
 //            $agents = User::where('status', 'active')->with('agent')->agent()->get(['id', 'nickname','surname']);
             $agents = User::with('agent.driver.user')->agent()->get(['id', 'nickname', 'agent_id', 'driver_id']);
-//            $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
-//
-//            if (count($driver_in_tracker) > 0) {
-//                $inactive_users = User::where('status', 'inactive')->whereIn('id', array_filter(array_unique($driver_in_tracker->toArray())))->get(['id', 'nickname']);
-//                foreach ($inactive_users as $item) {
-//                    $user->push($item);
-//                }
-//            }
+
+            $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
+            if (count($driver_in_tracker) > 0) {
+                $inactive_users = User::where('status', 'inactive')->whereIn('id', array_filter(array_unique($driver_in_tracker->toArray())))->get(['id', 'nickname']);
+                foreach ($inactive_users as $item) {
+                    $driver_without_agent->push($item);
+                }
+            }
             $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '1')->get();
             $trackers_count = count($trackers);

@@ -48,14 +48,14 @@ class User extends Authenticatable
     ];
 
 //    protected static $recordEvents = ['deleted'];
-    protected static $recordEvents = ['deleted','updated'];
+    protected static $recordEvents = ['deleted', 'updated'];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->useLogName('User')
-            ->logOnly(['*','roles'])
-            ->logExcept(['updated_at','created_at'])
+            ->logOnly(['*', 'roles'])
+            ->logExcept(['updated_at', 'created_at'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
 
@@ -66,34 +66,40 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Role');
     }
 
-    public function hasRole($role){
-        if($this->roles()->where('name',$role)->first()){
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
             return true;
         }
         return false;
     }
 
-    public function hasRoles($role){
-        if($this->roles()->whereIn('name',$role)->first()){
+    public function hasRoles($role)
+    {
+        if ($this->roles()->whereIn('name', $role)->first()) {
             return true;
         }
         return false;
     }
+
     public function driver()
     {
-        return $this->belongsTo('App\Models\DriverUser','driver_id');
+        return $this->belongsTo('App\Models\DriverUser', 'driver_id');
 
     }
+
     public function agent()
     {
-        return $this->belongsTo('App\Models\AgentUser','agent_id');
+        return $this->belongsTo('App\Models\AgentUser', 'agent_id');
 
     }
+
     public function getpayer()
     {
-        return $this->belongsTo('App\Models\Payer','payer_id');
+        return $this->belongsTo('App\Models\Payer', 'payer_id');
 
     }
+
     public function payer()
     {
         return $this->belongsToMany(
@@ -103,39 +109,49 @@ class User extends Authenticatable
             'payer_id'
         );
     }
+
     public function scopeDriverAgent($query)
     {
         return $query->whereHas('roles', function ($query) {
             $query->whereIn('name', ['Agent', 'Driver']);
         });
     }
+
     public function scopeDriver($query)
     {
-        return $query->whereHas('roles', function($q)
-        {
+        return $query->whereHas('roles', function ($q) {
             $q->where('name', 'Driver');
         });
     }
+
     public function scopeIsNotCompanyDriver($query)
     {
-        return $query->whereHas('driver', function($q)
-        {
+        return $query->whereHas('driver', function ($q) {
             $q->whereNull('agent_user_id');
         });
     }
+
     public function scopeIsCompanyDriver($query)
     {
-        return $query->whereHas('driver', function($q)
-        {
+        return $query->whereHas('driver', function ($q) {
             $q->orWhereNotNull('agent_user_id');
         });
     }
+
     public function scopeAgent($query)
     {
-        return $query->whereHas('roles', function($q)
-        {
+        return $query->whereHas('roles', function ($q) {
             $q->where('name', 'Agent');
         });
+    }
+
+    public function companyAgent()
+    {
+        return $this->belongsToMany(Company::class)->wherePivot('type', 'agent');
+    }
+    public function companyDriver()
+    {
+        return $this->belongsToMany(Company::class)->wherePivot('type', 'driver');
     }
 
 }
