@@ -65,13 +65,13 @@
                     <h5 class="my-1 mr-5 text-dark font-weight-bold">{{$users->fullname ?? ''}}</h5>
                     <hr>
                     <div class="row">
-                        <div class="col-md-6">
+{{--                        <div class="col-md-6">--}}
 
-                            <div class="form-group">
-                                <label class="red-star">Agent company name:</label>
-                                <input type="text" placeholder="Agent company name" name="agent_company_name" required class="form-control" value="{{$users->agent['agent_company_name'] ?? ''}}" />
-                            </div>
-                        </div>
+{{--                            <div class="form-group">--}}
+{{--                                <label class="red-star">Agent company name:</label>--}}
+{{--                                <input type="text" placeholder="Agent company name" name="agent_company_name" required class="form-control" value="{{$users->agent['agent_company_name'] ?? ''}}" />--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">Location:</label>

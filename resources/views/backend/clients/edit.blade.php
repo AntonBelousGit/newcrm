@@ -1,10 +1,3 @@
-{{--@php--}}
-{{--    $checked_google_map = \App\BusinessSetting::where('type', 'google_map')->first();--}}
-{{--    $is_def_mile_or_fees = \App\ShipmentSetting::getVal('is_def_mile_or_fees');--}}
-{{--    $countries = \App\Country::where('covered',1)->get();--}}
-{{--    $user_type = Auth::user()->user_type;--}}
-{{--@endphp--}}
-
 @extends('backend.layouts.app')
 
 @section('content')
@@ -15,30 +8,35 @@
                 <h5 class="mb-0 h6">{{  ('User Information')}}</h5>
             </div>
 
-            <form class="form-horizontal" action="{{ route('admin.users.update',$user->id) }}" id="kt_form_1" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" action="{{ route('admin.users.update',$user->id) }}" id="kt_form_1"
+                  method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
                     <div class="form-group">
                         <label>Contact Name(APC+First/Last Name):</label>
-                        <input type="text" id="name" class="form-control" placeholder="Full name" name="fullname" required value="{{$user->fullname}}">
+                        <input type="text" id="name" class="form-control" placeholder="Full name" name="fullname"
+                               required value="{{$user->fullname}}">
                     </div>
                     <div class="form-group">
                         <label>Email:</label>
-                        <input id="email-field" type="text" class="form-control" placeholder="Email" name="email" required value="{{$user->email}}">
+                        <input id="email-field" type="text" class="form-control" placeholder="Email" name="email"
+                               required value="{{$user->email}}">
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Password" name="password" >
+                                <input type="password" class="form-control" id="password" placeholder="Password"
+                                       name="password">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Confirm Password:</label>
-                                <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" >
+                                <input type="password" class="form-control" placeholder="Confirm Password"
+                                       name="confirm_password">
                             </div>
                         </div>
                     </div>
@@ -47,13 +45,27 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Name:</label>
-                                <input type="text" class="form-control" id="owner_name" placeholder="Name" name="name" required value="{{$user->name}}">
+                                <input type="text" class="form-control" id="owner_name" placeholder="Name" name="name"
+                                       required value="{{$user->name}}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Nickname:</label>
-                                <input type="text" class="form-control" placeholder="Nickname" name="nickname" required value="{{$user->nickname}}">
+                                <input type="text" class="form-control" placeholder="Nickname" name="nickname" required
+                                       value="{{$user->nickname}}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Company</label>
+                                <select name="company_id"
+                                        class="change-country-client-address form-control select-country">
+                                    <option value=""></option>
+                                    @foreach($companies as $item)
+                                        <option value="{{$item->id}}" @if($item->id == $user->company()->get()->pluck('id')->first()) selected @endif>{{$item->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -61,9 +73,11 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Roles</label>
-                                <select name="roles" class="change-country-client-address form-control select-country" required>
+                                <select name="roles" class="change-country-client-address form-control select-country"
+                                        required>
                                     @foreach($roles as $item)
-                                        <option value="{{$item->id}}" @if($item->id == $user->roles()->get()->pluck('id')->first()) selected @endif>{{$item->name}}</option>
+                                        <option value="{{$item->id}}"
+                                                @if($item->id == $user->roles()->get()->pluck('id')->first()) selected @endif>{{$item->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -72,7 +86,8 @@
                     <div class="form-group ">
                         <div class="">
                             <div>
-                                <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary" value="Save">
+                                <input type="submit" class="btn btn-sm font-weight-bolder btn-light-primary"
+                                       value="Save">
                             </div>
                         </div>
                     </div>
@@ -89,13 +104,13 @@
 
     <script type="text/javascript">
 
-        $('.address-client').each(function(){
+        $('.address-client').each(function () {
             var address = $(this);
             address.geocomplete({
                 map: ".map_canvas.map-client",
                 mapOptions: {
                     zoom: 8,
-                    center: { lat: -34.397, lng: 150.644 },
+                    center: {lat: -34.397, lng: 150.644},
                 },
                 markerOptions: {
                     draggable: true
@@ -105,7 +120,7 @@
                 autoselect: true,
                 restoreValueAfterBlur: true,
             });
-            address.bind("geocode:dragged", function(event, latLng){
+            address.bind("geocode:dragged", function (event, latLng) {
                 $("input[data-client=lat]").val(latLng.lat());
                 $("input[data-client=lng]").val(latLng.lng());
             });
@@ -120,9 +135,8 @@
         $('#kt_repeater_1').repeater({
             initEmpty: false,
 
-            show: function() {
+            show: function () {
                 var repeater_item = $(this);
-
 
 
                 $(this).slideDown();
@@ -132,7 +146,7 @@
                 selectPlaceholder();
             },
 
-            hide: function(deleteElement) {
+            hide: function (deleteElement) {
                 $(this).slideUp(deleteElement);
             },
 
@@ -140,10 +154,7 @@
         });
 
 
-
-
-
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             FormValidation.formValidation(
                 document.getElementById('kt_form_1'), {
@@ -186,8 +197,8 @@
                                     message: '{{  ("This is required!")}}'
                                 },
                                 identical: {
-                                    compare: function() {
-                                        return  document.getElementById('kt_form_1').querySelector('[name="password"]').value;
+                                    compare: function () {
+                                        return document.getElementById('kt_form_1').querySelector('[name="password"]').value;
                                     },
                                     message: 'The password and its confirm are not the same'
                                 }

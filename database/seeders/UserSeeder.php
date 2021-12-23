@@ -67,6 +67,41 @@ class UserSeeder extends Seeder
             'email' => '7@mail.com',
             'password' => Hash::make('123'),
         ]);
+        DB::table('users')->insert([
+            'name' => 'Agent2',
+            'nickname' => 'Agent2',
+            'fullname' => 'Семёныч2',
+            'email' => '42@mail.com',
+            'password' => Hash::make('123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Agent3',
+            'nickname' => 'Agent3',
+            'fullname' => 'Семёныч3',
+            'email' => '43@mail.com',
+            'password' => Hash::make('123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Driver2',
+            'nickname' => 'Driver2',
+            'fullname' => 'Петрович2',
+            'email' => '52@mail.com',
+            'password' => Hash::make('123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Driver3',
+            'nickname' => 'Driver3',
+            'fullname' => 'Петрович3',
+            'email' => '53@mail.com',
+            'password' => Hash::make('123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Driver4',
+            'nickname' => 'Driver4',
+            'fullname' => 'Петрович4',
+            'email' => '54@mail.com',
+            'password' => Hash::make('123'),
+        ]);
         DB::table('role_user')->insert([
             'role_id' => 1,
             'user_id' => 1,
@@ -98,6 +133,26 @@ class UserSeeder extends Seeder
         DB::table('role_user')->insert([
             'role_id' => 8,
             'user_id' => 8,
+        ]);
+        DB::table('role_user')->insert([
+            'role_id' => 5,
+            'user_id' => 9,
+        ]);
+        DB::table('role_user')->insert([
+            'role_id' => 5,
+            'user_id' => 10,
+        ]);
+        DB::table('role_user')->insert([
+            'role_id' => 6,
+            'user_id' => 11,
+        ]);
+        DB::table('role_user')->insert([
+            'role_id' => 6,
+            'user_id' => 12,
+        ]);
+        DB::table('role_user')->insert([
+            'role_id' => 6,
+            'user_id' => 13,
         ]);
     }
 }

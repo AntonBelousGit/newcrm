@@ -75,7 +75,7 @@ class AgentUserController extends Controller
             {
                 $q->where('name', 'Agent');
             })->first();
-
+    //            $company
             $cargo_location = CargoLocation::all();
 
             return view('backend.agent.edit',compact('users','cargo_location'));

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,7 +39,8 @@ class UserController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             $roles = Role::where('id', '!=', 1)->get();
-            return view('backend.clients.create', compact('roles'));
+            $companies = Company::all();
+            return view('backend.clients.create', compact('roles','companies'));
         }
         return abort(403);
     }
@@ -66,6 +68,14 @@ class UserController extends Controller
                 return abort(403);
             }
             $user->roles()->attach($request->roles);
+
+
+            if ($request->roles == 5){
+                $user->company()->attach($request->company_id, ['type' => 'agent']);
+            }
+            if ($request->roles == 6){
+                $user->company()->attach($request->company_id, ['type' => 'driver']);
+            }
 
 //            dd($user->roles);
 
@@ -110,7 +120,8 @@ class UserController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
             $user = User::find($id);
             $roles = Role::where('id', '!=', 1)->get();
-            return view('backend.clients.edit', compact('user', 'roles'));
+            $companies = Company::all();
+            return view('backend.clients.edit', compact('user', 'roles','companies'));
         }
         return abort(403);
     }
@@ -142,6 +153,14 @@ class UserController extends Controller
             }
 
             $user->roles()->sync($request->roles);
+            $user->company()->sync([]);
+
+            if ($request->roles == 5){
+                $user->company()->attach($request->company_id, ['type' => 'agent']);
+            }
+            if ($request->roles == 6){
+                $user->company()->attach($request->company_id, ['type' => 'driver']);
+            }
 
             return redirect()->route('admin.users.index');
         }

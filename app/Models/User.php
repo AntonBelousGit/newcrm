@@ -110,6 +110,17 @@ class User extends Authenticatable
         );
     }
 
+    public function company()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'company_user',
+            'user_id',
+            'company_id'
+
+        );
+    }
+
     public function scopeDriverAgent($query)
     {
         return $query->whereHas('roles', function ($query) {

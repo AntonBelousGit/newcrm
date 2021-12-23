@@ -44,10 +44,6 @@
 
                             <td class="text-center">
                                 <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
-                                   href="{{route('admin.company.show', $item->id)}}" title="Show">
-                                    <i class="las la-eye"></i>
-                                </a>
-                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                    href="{{route('admin.company.edit', $item->id)}}" title="Edit">
                                     <i class="las la-edit"></i>
                                 </a>
@@ -66,7 +62,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td>Nothing found</td>
+                        <td colspan="5" class="text-center">Nothing found</td>
                     </tr>
                 @endif
                 </tbody>

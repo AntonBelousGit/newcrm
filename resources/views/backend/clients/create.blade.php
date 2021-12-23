@@ -55,6 +55,16 @@
                             <label>Nickname:</label>
                             <input type="text" class="form-control" placeholder="Nickname" name="nickname" required>
                         </div>
+                    </div> <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Company</label>
+                            <select name="company_id" class="change-country-client-address form-control select-country">
+                                <option value=""></option>
+                                @foreach($companies as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
