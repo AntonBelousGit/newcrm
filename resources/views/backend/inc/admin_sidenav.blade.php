@@ -120,7 +120,7 @@
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <i class="menu-icon flaticon-home"></i>
                             <span class="menu-text">
-                               Company
+                               Agent’s Company
                             </span>
                             <i class="menu-arrow"></i>
                         </a>
