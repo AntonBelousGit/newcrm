@@ -49,18 +49,24 @@
                         <th>Agent company name</th>
                         <th>Location</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <th>Mission</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($users as $user)
                         <tr>
-{{--                            @dd($users)--}}
+                            {{--                            @dd($users)--}}
                             <th>{{$user->fullname}}</th>
                             <th>{{$user->agent['agent_company_name'] ?? ''}}</th>
                             <th>{{$user->agent->location['name'] ?? ''}} - {{$user->agent->location['city'] ?? ''}}</th>
                             <th>{{$user->email}}</th>
+                            <th>{{$user->status}}</th>
                             <td class="text-center">
+                                <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                   href="{{route('admin.user.status', $user->id)}}" title="Status">
+                                    <i class="las la-low-vision"></i>
+                                </a>
                                 <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                    href="{{route('admin.agent.edit', $user->id)}}" title="{{  ('Edit') }}">
                                     <i class="las la-edit"></i>

@@ -165,4 +165,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Company::class)->wherePivot('type', 'driver');
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }

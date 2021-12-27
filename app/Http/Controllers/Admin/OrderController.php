@@ -136,7 +136,7 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $users = User::whereHas('roles', function ($q) {
                 $q->where('name', 'Client');
-            })->get();
+            })->active()->get();
             $parentOrder = $this->orderService->getAllParentOrder();
             $payers = Payer::all();
             $cargo_location = CargoLocation::all();
@@ -246,10 +246,8 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
-            $driver_without_agent = User::where('status', 'active')->with('roles')->driver()->isNotCompanyDriver()->get(['id', 'nickname']); // Драйверы без агентов
-//            dd($driver_without_agent);
-            $driver_agent = User::where('status', 'active')->with('roles', 'driver')->driver()->get(['id', 'nickname', 'driver_id']);      // Драйверы с агентами
-//            $agents = User::where('status', 'active')->with('agent')->agent()->get(['id', 'nickname','surname']);
+            $driver_without_agent = User::with('roles')->active()->driver()->isNotCompanyDriver()->get(['id', 'nickname']); // Драйверы без агентов
+            $driver_agent = User::with('roles', 'driver')->active()->driver()->get(['id', 'nickname', 'driver_id']);      // Драйверы с агентами
             $agents = User::with('agent.driver.user')->agent()->get(['id', 'nickname', 'agent_id', 'driver_id']);
 
             $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
@@ -588,7 +586,7 @@ class OrderController extends Controller
                 }
             }
         } else {
-            $driver_without_agent = User::where('status', 'active')->with('roles')->driver()->isNotCompanyDriver()->get(['id', 'name']);
+            $driver_without_agent = User::with('roles')->active()->driver()->isNotCompanyDriver()->get(['id', 'name']);
             if (count($driver_without_agent) > 0) {
                 foreach ($driver_without_agent as $key => $item) {
                     $drivers[$key] = [
