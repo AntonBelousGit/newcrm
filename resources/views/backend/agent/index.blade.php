@@ -58,7 +58,7 @@
                         <tr>
                             {{--                            @dd($users)--}}
                             <th>{{$user->fullname}}</th>
-                            <th>{{$user->agent['agent_company_name'] ?? ''}}</th>
+                            <th>{{$user->company->first()->name ?? ''}}</th>
                             <th>{{$user->agent->location['name'] ?? ''}} - {{$user->agent->location['city'] ?? ''}}</th>
                             <th>{{$user->email}}</th>
                             <th>{{$user->status}}</th>

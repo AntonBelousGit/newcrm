@@ -72,7 +72,7 @@
 {{--                                <input type="text" placeholder="Agent company name" name="agent_company_name" required class="form-control" value="{{$users->agent['agent_company_name'] ?? ''}}" />--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="red-star">Location:</label>
                                 <select   name="location_id" required class="form-control ">
@@ -82,6 +82,18 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Agent:</label>
+                                <select name="company_id" class="form-control">
+                                    <option></option>
+                                    @foreach($companies as $item)
+                                        <option value="{{$item->id}}" @if (isset($users->company) && $item->id == $users->company->first()?->id) selected @endif>{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

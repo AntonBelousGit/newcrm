@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AgentUser;
+use App\Models\Company;
 use App\Models\DriverUser;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class DriverUserController extends Controller
     public function index()
     {
         if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
-            $users = User::with('driver.agent')->driver()->get();
+            $users = User::with('company')->driver()->get();
             $title = 'All driver';
             return view('backend.driver.index', compact('users', 'title'));
         }
@@ -69,11 +70,11 @@ class DriverUserController extends Controller
     public function edit($id)
     {
         if (Gate::any(['SuperUser', 'Manager', 'Security Officer'], Auth::user())) {
-            $users = User::with('driver')->where('id', $id)->driver()->first();
+            $users = User::with('company')->where('id', $id)->driver()->first();
 //            $agents = User::with('agent')->agent()->get();
 //            $agents = User::with('agent')->agent()->get();
-            $agents = AgentUser::all();
-            return view('backend.driver.edit', compact('users','agents'));
+            $companies = Company::all();
+            return view('backend.driver.edit', compact('users', 'companies'));
         }
         return abort(403);
     }
@@ -94,7 +95,7 @@ class DriverUserController extends Controller
                 'car_model' => 'string|required',
                 'gos_number_car' => 'string|required',
                 'phone' => 'string|nullable',
-                'agent_user_id' => 'nullable',
+                'company_id' => 'nullable',
             ]);
 
             if (is_null($users->driver_id)) {
@@ -104,8 +105,12 @@ class DriverUserController extends Controller
             }
             $driver_user->fill($validate_data)->save();
 
-            $users->driver_id = $driver_user->id;
+            $users->company()->sync([]);
 
+            if ($validate_data['company_id']) {
+                $users->company()->attach($validate_data['company_id'], ['type' => 'driver']);
+            }
+            $users->driver_id = $driver_user->id;
             $users->update();
 
             return redirect()->route('admin.driver.index');

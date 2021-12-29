@@ -71,10 +71,10 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Agent:</label>
-                                <select name="agent_user_id" class="form-control">
+                                <select name="company_id" class="form-control">
                                     <option></option>
-                                    @foreach($agents as $item)
-                                        <option value="{{$item->id}}" @if (isset($users->driver) && $item->id == $users->driver['agent_user_id']) selected @endif>{{$item->agent_company_name}}</option>
+                                    @foreach($companies as $item)
+                                        <option value="{{$item->id}}" @if (isset($users->company) && $item->id == $users->company->first()?->id) selected @endif>{{$item->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
