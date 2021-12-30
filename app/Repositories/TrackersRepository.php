@@ -46,7 +46,7 @@ class TrackersRepository
         $start = $request->start;
 
         $tracker_start->driver_id = $start['driver_id'] ?? null;
-        $tracker_start->agent_id = $start['agent_id'] ?? null;
+        $tracker_start->company_id = $start['company_id'] ?? null;
 
         if (!is_null($start['start_time']) && !is_null($start['start_time_stop'])) {
             $tracker_start->start_time = str_replace('T', ' ', $start['start_time']);
@@ -300,7 +300,7 @@ class TrackersRepository
     {
         $tracker->order_id = $order->id;
         $tracker->driver_id = $option_key['driver_id'] ?? null;
-        $tracker->agent_id = $option_key['agent_id'] ?? null;
+        $tracker->company_id = $option_key['company_id'] ?? null;
         $tracker->location_id = $option_key['cargo_location'];
         $tracker->address = $option_key['address'];
         $tracker->signed = $option_key['signed'] ?? null;

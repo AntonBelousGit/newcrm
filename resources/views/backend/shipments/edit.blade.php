@@ -880,29 +880,28 @@
                                     @if (!is_null($tracker_start->agent_id))
                                         @foreach($agents->where('id',$tracker_start->agent_id)->pluck('agent')->pluck('driver')->first() as $item)
                                             <option value="{{$item->user->first()->id}}"
-                                                    @if($item->user->first()->id == $tracker_start->driver_id) selected @endif >{{$item->user->first()->nickname}}
-                                                - {{$item->user->first()->roles->first()->name}}</option>
+                                                    @if($item->user->first()->id == $tracker_start->driver_id) selected @endif >{{$item->user->first()->name}}
+                                                - Driver</option>
                                         @endforeach
                                     @else
                                         @foreach($driver_without_agent as $item)
                                             <option value="{{$item->id}}"
                                                     @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
-                                                - {{$item->roles->first()->name}}  </option>
+                                                - Driver </option>
                                         @endforeach
                                     @endif
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <label>Agent:</label>
-                                <select id="change-country-to" name="start[agent_id]" onchange="changeAgent(this)"
-                                        class="form-control @if (empty($end_time) && !isset($tracker_start->agent_id) && !isset($tracker_start->driver_id)) border-danger @endif"
+                                <select id="change-country-to" name="start[company_id]" onchange="changeAgent(this)"
+                                        class="form-control @if (empty($end_time) && !isset($tracker_start->company_id) && !isset($tracker_start->driver_id)) border-danger @endif"
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
-                                    @foreach($agents as $item)
+                                    @foreach($companies as $item)
                                         <option value="{{$item->id}}"
-                                                @if($item->id == $tracker_start->agent_id) selected @endif >{{$item->nickname}}
-                                            - {{$item->roles->first()->name}} </option>
+                                                @if($item->id == $tracker_start->company_id) selected @endif >{{$item->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -1324,6 +1323,8 @@
                             console.log(opt)
                             select_driver.append(opt);
                         });
+                    }else {
+                        select_driver.html('<option></option><option value="">Not found</option>');
                     }
                 }
             })

@@ -8,6 +8,7 @@ use App\Models\AddressesList;
 use App\Models\AgentUser;
 use App\Models\Cargo;
 use App\Models\CargoLocation;
+use App\Models\Company;
 use App\Models\DriverUser;
 use App\Models\Order;
 use App\Models\Payer;
@@ -249,6 +250,8 @@ class OrderController extends Controller
             $driver_without_agent = User::with('roles')->active()->driver()->isNotCompanyDriver()->get(['id', 'nickname']); // Драйверы без агентов
             $driver_agent = User::with('roles', 'driver')->active()->driver()->get(['id', 'nickname', 'driver_id']);      // Драйверы с агентами
             $agents = User::with('agent.driver.user')->agent()->get(['id', 'nickname', 'agent_id', 'driver_id']);
+            $companies = Company::all();
+
 
             $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
             if (count($driver_in_tracker) > 0) {
@@ -280,7 +283,7 @@ class OrderController extends Controller
             $addInfo = AdditionOrderInfo::where('order_id', $id)->first();
             $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
 
-            return view('backend.shipments.edit', compact('orders', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo', 'agents', 'driver_without_agent', 'driver_agent'));
+            return view('backend.shipments.edit', compact('orders', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo', 'companies', 'agents', 'driver_without_agent', 'driver_agent'));
         }
         return abort(403);
     }
@@ -546,7 +549,6 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.index');
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -575,18 +577,23 @@ class OrderController extends Controller
         $drivers = [];
         if (!empty($request['id'])) {
             $agent = User::where('id', $request['id'])->with('agent.driver.user')->agent()->first();
-            $driver_users = $agent->agent->driver;
+
+            $company_driver = Company::where('id', $request['id'])->with('userDriver', function ($q) {
+                $q->where('status', 'active');
+            })->first();
+
+
+            $driver_users = $company_driver->userDriver;
             if (count($driver_users) > 0) {
                 foreach ($driver_users as $key => $item) {
-                    $user = $item->user->first();
                     $drivers[$key] = [
-                        'id' => $user->id,
-                        'name' => $user->name,
+                        'id' => $item->id,
+                        'name' => $item->name,
                     ];
                 }
             }
         } else {
-            $driver_without_agent = User::with('roles')->active()->driver()->isNotCompanyDriver()->get(['id', 'name']);
+            $driver_without_agent = User::with('roles')->driver()->doesnthave('company')->get(['id', 'name']);
             if (count($driver_without_agent) > 0) {
                 foreach ($driver_without_agent as $key => $item) {
                     $drivers[$key] = [
