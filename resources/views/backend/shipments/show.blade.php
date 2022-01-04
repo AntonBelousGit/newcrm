@@ -644,17 +644,17 @@
                         {{--                            @endif--}}
                         {{--                        @endcan--}}
                         <hr>
-                        @cannot('Client')
-                            <hr>
-                            <div class="">
-                                <div class="col-md-6" data-select2-id="66">
-                                    <label>Agent:</label>
-                                    <input type="text" placeholder="Agent" class="form-control" disabled
-                                           value="@php if(isset($orders->agent)){ echo $orders->agent->fullname;} @endphp"/>
-                                </div>
-                            </div>
-                            <hr>
-                        @endcan
+{{--                        @cannot('Client')--}}
+{{--                            <hr>--}}
+{{--                            <div class="">--}}
+{{--                                <div class="col-md-6" data-select2-id="66">--}}
+{{--                                    <label>Agent:</label>--}}
+{{--                                    <input type="text" placeholder="Agent" class="form-control" disabled--}}
+{{--                                           value="@php if(isset($orders->agent)){ echo $orders->agent->fullname;} @endphp"/>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <hr>--}}
+{{--                        @endcan--}}
 
                         @cannot('Driver')
                             <div class="form-group ">

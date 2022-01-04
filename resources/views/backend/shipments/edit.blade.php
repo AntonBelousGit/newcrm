@@ -1114,7 +1114,7 @@
                                             <option value=""></option>
                                             @foreach($driver_without_agent as $item)
                                                 <option value="{{$item->id}}"
-                                                        @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
+                                                >{{$item->nickname}}
                                                     - Driver
                                                 </option>
                                             @endforeach
@@ -1125,7 +1125,7 @@
                                         <select name="company_id" class="form-control " onchange="changeAgent(this)"
                                                 @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                             <option value=""></option>
-                                            @foreach($driver_without_agent as $item)
+                                            @foreach($companies as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
