@@ -441,13 +441,13 @@
                                             <div class="col-md-3">
                                                 <label class="red-star">Actual weight (kg):</label>
                                                 <input
-                                                    {{--                                                class="kt_touchspin_weight"--}}
-                                                    placeholder="Actual weight" type="number"
-                                                    required @if(in_array($orders->status_id,[6,7,9,10])) disabled
-                                                    @endif  min="1"
-                                                    step="0.1"
-                                                    name="actual_weight" class="form-control" autocomplete="off"
-                                                    value="{{$item['actual_weight']}}"/>
+                                                        {{--                                                class="kt_touchspin_weight"--}}
+                                                        placeholder="Actual weight" type="number"
+                                                        required @if(in_array($orders->status_id,[6,7,9,10])) disabled
+                                                        @endif  min="1"
+                                                        step="0.1"
+                                                        name="actual_weight" class="form-control" autocomplete="off"
+                                                        value="{{$item['actual_weight']}}"/>
                                                 <div class="mb-2 d-md-none"></div>
                                             </div>
                                             <div class="col-md-3">
@@ -504,7 +504,7 @@
                                             </div>
                                             <div class="col-md-12" style="margin-top: 10px;">
                                                 <label
-                                                    class="red-star">{{ ('Dimensions [Length x Width x Height] (cm)')}}
+                                                        class="red-star">{{ ('Dimensions [Length x Width x Height] (cm)')}}
                                                     :</label>
                                             </div>
                                             <div class="col-md-3">
@@ -562,11 +562,11 @@
                                         <div class="col-md-3">
                                             <label class="red-star">Actual weight (kg):</label>
                                             <input
-                                                {{--                                                class="kt_touchspin_weight"--}}
-                                                placeholder="Actual weight" type="number"
-                                                required min="1"
-                                                step="0.1"
-                                                name="actual_weight" class="form-control" autocomplete="off"
+                                                    {{--                                                class="kt_touchspin_weight"--}}
+                                                    placeholder="Actual weight" type="number"
+                                                    required min="1"
+                                                    step="0.1"
+                                                    name="actual_weight" class="form-control" autocomplete="off"
                                             />
                                             <div class="mb-2 d-md-none"></div>
                                         </div>
@@ -618,7 +618,7 @@
                                         </div>
                                         <div class="col-md-12" style="margin-top: 10px;">
                                             <label
-                                                class="red-star">{{ ('Dimensions [Length x Width x Height] (cm)')}}
+                                                    class="red-star">{{ ('Dimensions [Length x Width x Height] (cm)')}}
                                                 :</label>
                                         </div>
                                         <div class="col-md-3">
@@ -877,17 +877,22 @@
                                         autocomplete="off"
                                         @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                     <option value=""></option>
-                                    @if (!is_null($tracker_start->agent_id))
-                                        @foreach($agents->where('id',$tracker_start->agent_id)->pluck('agent')->pluck('driver')->first() as $item)
-                                            <option value="{{$item->user->first()->id}}"
-                                                    @if($item->user->first()->id == $tracker_start->driver_id) selected @endif >{{$item->user->first()->name}}
-                                                - Driver</option>
+                                    @if (!is_null($tracker_start->company_id))
+                                        @php
+                                            $start_driver_with_company = $companies->where('id', $tracker_start->company_id)->pluck('userDriver')->first();
+                                        @endphp
+                                        @foreach($start_driver_with_company as $item)
+                                            <option value="{{$item->id}}"
+                                                    @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
+                                                - Driver
+                                            </option>
                                         @endforeach
                                     @else
                                         @foreach($driver_without_agent as $item)
                                             <option value="{{$item->id}}"
                                                     @if($item->id == $tracker_start->driver_id) selected @endif >{{$item->nickname}}
-                                                - Driver </option>
+                                                - Driver
+                                            </option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -979,19 +984,22 @@
                                                     class="form-control select-driver @if (empty($end_time) && !isset($tracker->driver_id) && !isset($tracker->agent_id) && $alert_marker === 1) border-danger  @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
-                                                @if (!is_null($tracker->agent_id))
-                                                    @foreach($agents->where('id',$tracker->agent_id)->pluck('agent')->pluck('driver')->first() as $item)
-                                                        <option value="{{$item->user->first()->id}}"
-                                                                @if($item->user->first()->id == $tracker->driver_id) selected @endif >{{$item->user->first()->nickname}}
-                                                            - {{$item->user->first()->roles->first()->name}}</option>
+                                                @if (!is_null($tracker->company_id))
+                                                    @php
+                                                        $start_driver_with_company = $companies->where('id', $tracker->company_id)->pluck('userDriver')->first();
+                                                    @endphp
+                                                    @foreach($start_driver_with_company as $item)
+                                                        <option value="{{$item->id}}"
+                                                                @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
+                                                            - Driver
+                                                        </option>
                                                     @endforeach
                                                 @else
                                                     @foreach($driver_without_agent as $item)
-                                                        @if($item->roles->first()->name == 'Driver')
-                                                            <option value="{{$item->id}}"
-                                                                    @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
-                                                                - {{$item->roles->first()->name}}  </option>
-                                                        @endif
+                                                        <option value="{{$item->id}}"
+                                                                @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
+                                                            - Driver
+                                                        </option>
                                                     @endforeach
                                                 @endif
                                             </select>
@@ -999,16 +1007,13 @@
 
                                         <div class="col-md-3">
                                             <label>Agent:</label>
-                                            <select name="agent_id" onchange="changeAgent(this)"
-                                                    class="form-control @if (empty($end_time) && !isset($tracker->agent_id) && !isset($tracker->driver_id)  && $alert_marker === 1) border-danger @endif"
+                                            <select name="company_id" onchange="changeAgent(this)"
+                                                    class="form-control @if (empty($end_time) && !isset($tracker->company_id) && !isset($tracker->driver_id)  && $alert_marker === 1) border-danger @endif"
                                                     @if($orders->status_id > 2) readonly @endif >
                                                 <option value=""></option>
-                                                @foreach($agents as $item)
-                                                    @if($item->roles->first()->name == 'Agent')
-                                                        <option value="{{$item->id}}"
-                                                                @if($item->id == $tracker->agent_id) selected @endif >{{$item->nickname}}
-                                                            - {{$item->roles->first()->name}}  </option>
-                                                    @endif
+                                                @foreach($companies as $item)
+                                                    <option value="{{$item->id}}"
+                                                            @if($item->id == $tracker->company_id) selected @endif >{{$item->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -1108,23 +1113,20 @@
                                                 @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                             <option value=""></option>
                                             @foreach($driver_without_agent as $item)
-                                                @if($item->roles->first()->name == 'Driver')
-                                                    <option value="{{$item->id}}">{{$item->nickname}}
-                                                        - {{$item->roles->first()->name}}  </option>
-                                                @endif
+                                                <option value="{{$item->id}}"
+                                                        @if($item->id == $tracker->driver_id) selected @endif >{{$item->nickname}}
+                                                    - Driver
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Agent:</label>
-                                        <select name="agent_id" class="form-control " onchange="changeAgent(this)"
+                                        <select name="company_id" class="form-control " onchange="changeAgent(this)"
                                                 @if(in_array($orders->status_id,[6,7,9,10])) readonly @endif >
                                             <option value=""></option>
-                                            @foreach($agents as $item)
-                                                @if($item->roles->first()->name == 'Agent')
-                                                    <option value="{{$item->id}}">{{$item->nickname}}
-                                                        - {{$item->roles->first()->name}}  </option>
-                                                @endif
+                                            @foreach($driver_without_agent as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -1318,12 +1320,12 @@
                         users.forEach((users) => {
                             let opt = document.createElement('option');
                             opt.value = users.id;
-                            let userName = document.createTextNode(users.name + ' - Driver');
+                            let userName = document.createTextNode(users.nickname + ' - Driver');
                             opt.appendChild(userName);
                             console.log(opt)
                             select_driver.append(opt);
                         });
-                    }else {
+                    } else {
                         select_driver.html('<option></option><option value="">Not found</option>');
                     }
                 }

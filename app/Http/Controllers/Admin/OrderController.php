@@ -247,10 +247,11 @@ class OrderController extends Controller
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
-            $driver_without_agent = User::with('roles')->active()->driver()->isNotCompanyDriver()->get(['id', 'nickname']); // Драйверы без агентов
-            $driver_agent = User::with('roles', 'driver')->active()->driver()->get(['id', 'nickname', 'driver_id']);      // Драйверы с агентами
+            $driver_without_agent = User::with('roles')->active()->driver()->doesnthave('company')->get(['id', 'nickname']);
+
+            $driver_agent = User::with('driver','company')->active()->driver()->get(['id', 'nickname', 'driver_id']);      // Драйверы с агентами
             $agents = User::with('agent.driver.user')->agent()->get(['id', 'nickname', 'agent_id', 'driver_id']);
-            $companies = Company::all();
+            $companies = Company::with('userDriver')->get();
 
 
             $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
@@ -588,17 +589,17 @@ class OrderController extends Controller
                 foreach ($driver_users as $key => $item) {
                     $drivers[$key] = [
                         'id' => $item->id,
-                        'name' => $item->name,
+                        'nickname' => $item->nickname,
                     ];
                 }
             }
         } else {
-            $driver_without_agent = User::with('roles')->driver()->doesnthave('company')->get(['id', 'name']);
+            $driver_without_agent = User::with('roles')->driver()->doesnthave('company')->get(['id', 'nickname']);
             if (count($driver_without_agent) > 0) {
                 foreach ($driver_without_agent as $key => $item) {
                     $drivers[$key] = [
                         'id' => $item->id,
-                        'name' => $item->name,
+                        'nickname' => $item->nickname,
                     ];
                 }
             }

@@ -34,4 +34,17 @@ class Company extends Model
     {
         return $this->belongsToMany(User::class)->wherePivot('type', 'driver');
     }
+
+    public function scopeDriver($query)
+    {
+        return $query->whereHas('user.roles', function ($q) {
+            $q->where('name', 'Driver');
+        });
+    }
+    public function scopeAgent($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'Agent');
+        });
+    }
 }
