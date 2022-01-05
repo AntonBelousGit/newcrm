@@ -46,7 +46,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+//    protected $with = ['company'];
 //    protected static $recordEvents = ['deleted'];
     protected static $recordEvents = ['deleted', 'updated'];
 

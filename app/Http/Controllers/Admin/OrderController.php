@@ -488,7 +488,7 @@ class OrderController extends Controller
     {
         if (Gate::any(['Agent', 'Driver'], Auth::user())) {
             $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
-            $user = User::all();
+            $user = User::with('roles')->get();
             $trackers = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '1')->get();
             $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
             $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
@@ -505,7 +505,8 @@ class OrderController extends Controller
 
         $order = Order::find($id);
         if (Gate::any(['manage-agent', 'manage-driver'], $order)) {
-
+            $order->client_hwb = $request->client_hwb ?? null;
+            $order->update();
             if (!isset($request->time)) {
 
                 $this->trakerService->updateDriverStartTracker($order, $request, false);

@@ -60,7 +60,7 @@ class AuthServiceProvider extends ServiceProvider
         });
         Gate::define('manage-agent', function (User $user, Order $order) {
             foreach ($order->tracker as $item) {
-                if ($user->id == $item->agent_id) {
+                if ($user->company->first()->id ?? 'not found'  == $item->company_id) {
                     return true;
                 }
             }
