@@ -1876,32 +1876,48 @@
             searchPostal2(data2);
         }
     </script>
-    <script>
-        $('#table_id').DataTable({
-            "ordering": false,
-        });
-        $('#table_id2').DataTable({
-            "ordering": false,
-        });
-    </script>
-    <script>
-        let item = document.querySelectorAll('.item-table');
-        for (let i = 0; i < item.length; i++) {
-            $(item[i]).click(function () {
-                let text = $(this).text();
-                $('#visicom-autocomplete').children('input').val(text);
-                $('.modal').modal('hide');
-            });
-        }
-    </script>
-    <script>
-        let item2 = document.querySelectorAll('.item-table2');
-        for (let i = 0; i < item2.length; i++) {
-            $(item2[i]).click(function () {
-                let text = $(this).text();
-                $('#visicom-autocomplete2').children('input').val(text);
-                $('.modal').modal('hide');
-            });
-        }
-    </script>
+   <script>
+            $(document).ready(function (){
+               var table = $('#table_id').DataTable({
+                  drawCallback: function(){
+                     $('.paginate_button')
+                        .on('click', function(){
+                           qwe();
+                        });
+                  },
+                  "ordering": false,
+               });
+                var table2 = $('#table_id2').DataTable({
+                    drawCallback: function(){
+                     $('.paginate_button')
+                          .on('click', function(){
+                              ewq();
+                          });
+                    },
+                    "ordering": false,
+               });
+           });
+           function ewq() {
+               let item2 = document.querySelectorAll('.item-table2');
+               for (let i = 0; i < item2.length; i++) {
+                   $(item2[i]).click(function () {
+                       let text = $(this).text();
+                        $('#visicom-autocomplete2').children('input').val(text);
+                       $('.modal').modal('hide');
+                   });
+               }
+           }
+           ewq();
+           function qwe() {
+               let item = document.querySelectorAll('.item-table');
+               for (let i = 0; i < item.length; i++) {
+                   $(item[i]).click(function () {
+                       let text = $(this).text();
+                       $('#visicom-autocomplete').children('input').val(text);
+                       $('.modal').modal('hide');
+                   });
+               }
+           }
+          qwe();
+       </script>
 @endsection
