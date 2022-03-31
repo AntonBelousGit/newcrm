@@ -11,7 +11,7 @@
         }
     }
     elseif ($orders->status_id == 3){
-       echo  $orders->status->name.' ->'. $orders->tracker->where('position','1')->pluck('cargolocation')->first()->name  ;
+       echo  $orders->status->name.' ->'. $orders->tracker->where('position','1')->pluck('cargolocation')->first()?->name  ;
     }
     elseif ($orders->status_id == 4){
         $location_name=!is_null($orders->tracker->where('position','1')->where('status','Awaiting arrival')->first())?$orders->tracker->where('position','1')->where('status','Awaiting arrival')->first()->cargolocation->name:$orders->tracker->where('position','2')->where('status','Awaiting arrival')->first()->cargolocation->name;

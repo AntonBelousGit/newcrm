@@ -11,7 +11,7 @@
         }
     }
     elseif ($orders->status_id == 3){
-       echo $orders->tracker->where('position','1')->pluck('cargolocation')->first()->name;
+       echo $orders->tracker->where('position','1')->pluck('cargolocation')->first()?->name;
     }
     elseif ($orders->status_id == 4){
 
