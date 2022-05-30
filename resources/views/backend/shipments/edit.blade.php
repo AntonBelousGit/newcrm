@@ -218,16 +218,16 @@
                         @else
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="red-star">{{ ('Shipper State')}}:</label>
+                                    <label class="red-star">{{ ('Shipper Address')}}:</label>
                                     <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" disabled
-                                           autocomplete="off" class="form-control" value="{{$orders->shipper_state?->name}}"/>
+                                           autocomplete="off" class="form-control" value="{{$tracker_start->address}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="red-star">{{ ('Shipper Address')}}:</label>
-                                    <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" disabled
-                                           autocomplete="off" class="form-control" value="{{$tracker_start->address}}"/>
+                                    <label class="red-star">{{ ('Shipper State')}}:</label>
+                                    <input type="text" placeholder="{{ ('Shipper State')}}" id="autocomplete" disabled
+                                           autocomplete="off" class="form-control" value="{{$orders->shipper_state?->name}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -374,13 +374,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Consignee State')}}:</label>
-                                    <select class="form-control kt-select2 state" id="consignee_state_id"
-                                            disabled required>
-                                        <option value="" disabled selected>Chose state</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{$country->id}}" @if($country->id == $orders->consignee_state_id) selected @endif>{{ $country->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" placeholder="{{ ('Consignee State')}}" id="autocomplete" disabled
+                                           autocomplete="off" class="form-control" value="{{$orders->consignee_state?->name}}"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -1651,7 +1646,7 @@
                 },
             });
             $('.select-state').select2({
-                placeholder: "Select state",
+                placeholder: "State",
                 language: {
                     noResults: function () {
                         {{--                @if($user_type == 'admin' || in_array('1105', $staff_permission) )--}}
