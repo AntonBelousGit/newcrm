@@ -86,6 +86,16 @@ class Order extends Model
         return $this->belongsTo(CargoLocation::class, 'shipper_address_id');
 
     }
+    public function shipper_state()
+    {
+        return $this->belongsTo(Country::class, 'shipper_state_id');
+
+    }
+    public function consignee_state()
+    {
+        return $this->belongsTo(Country::class, 'consignee_state_id');
+
+    }
     public function consignee_city()
     {
         return $this->belongsTo(CargoLocation::class, 'consignee_address_id');

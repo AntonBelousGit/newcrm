@@ -13,7 +13,7 @@ class InvoiceController extends Controller
 {
     public function downloadPDF($id)
     {
-        $invoices = Order::find($id);
+        $invoices = Order::with('shipper_state','consignee_state')->find($id);
         $tracker_start = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '0')->first();
         $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
         $image = base64_encode(file_get_contents(public_path('assets/img/logo2.jpg')));

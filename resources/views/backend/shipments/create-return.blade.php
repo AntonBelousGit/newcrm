@@ -103,6 +103,18 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label class="red-star">{{ ('Shipper State')}}:</label>
+                                <select class="form-control kt-select2 state" id="shipper_state_id"
+                                        name="shipper_state_id" required>
+                                    <option value="" disabled selected>Chose state</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{$country->id}}">{{ $country->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label class="red-star">{{ ('Shipper City')}}:</label>
                                 <select class="form-control kt-select2 delivery-time" id="consignee_address" name="shipper_address_id" required>
                                     @foreach($cargo_location as $location)
@@ -146,6 +158,18 @@
                                 <label class="red-star">{{ ('Consignee Address')}}:</label>
                                 <input type="text" placeholder="City, street" name="address_shipper" class="form-control" required value="{{old('address_consignee')}}"  />
 
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">{{ ('Consignee State')}}:</label>
+                                <select class="form-control kt-select2 state" id="consignee_state_id"
+                                        name="consignee_state_id" required>
+                                    <option value="" disabled selected>Chose state</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{$country->id}}">{{ $country->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">

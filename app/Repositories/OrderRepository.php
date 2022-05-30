@@ -42,6 +42,8 @@ class OrderRepository
         $order->site_consignee = $request->site_consignee;
         $order->shipper_address_id = $request->shipper_address_id;
         $order->consignee_address_id = $request->consignee_address_id;
+        $order->shipper_state_id = $request->shipper_state_id;
+        $order->consignee_state_id = $request->consignee_state_id;
         $order->company_consignee = $request->company_consignee;
         $order->shipment_description = $request->shipment_description ?? null;
         $order->comment = $request->comment ?? null;
@@ -127,11 +129,15 @@ class OrderRepository
         if ($status) {
             $order->shipper_address_id = $request->shipper_address_id;
             $order->consignee_address_id = $request->consignee_address_id;
+            $order->shipper_state_id = $request->shipper_state_id;
+            $order->consignee_state_id = $request->consignee_state_id;
         }
         else
         {
             $order->shipper_address_id = $request->consignee_address_id;
             $order->consignee_address_id = $request->shipper_address_id;
+            $order->shipper_state_id = $request->consignee_state_id;
+            $order->consignee_state_id = $request->shipper_state_id;
         }
 
 
@@ -204,6 +210,8 @@ class OrderRepository
             $order->client_hwb = $request->client_hwb ?? null;
             $order->locations = $request->locations;
             $order->locations_id = $request->city_id;
+            $order->shipper_state_id = $request->shipper_state_id;
+            $order->consignee_state_id = $request->consignee_state_id;
 
             if (!is_null($request->start['start_time'])) {
                 $order->sending_time = str_replace('T', ' ', $request->start['start_time']);

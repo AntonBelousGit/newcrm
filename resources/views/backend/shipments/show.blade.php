@@ -103,7 +103,13 @@
                                 </div>
                             @endif
                         @endcan
-
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">{{ ('Shipper State')}}:</label>
+                                <input type="text" placeholder="{{ ('Shipper State')}}"
+                                       disabled class="form-control" value="{{$orders->shipper_state->name}}"/>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Shipper Address')}}:</label>
@@ -205,6 +211,13 @@
                                 </div>
                             @endif
                         @endcan
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">{{ ('Consignee State')}}:</label>
+                                <input type="text" placeholder="{{ ('Consignee State')}}"
+                                       disabled class="form-control" value="{{$orders->consignee_state->name}}"/>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="red-star">{{ ('Consignee Address')}}:</label>

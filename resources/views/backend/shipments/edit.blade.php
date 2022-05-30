@@ -185,6 +185,18 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label class="red-star">{{ ('Shipper State')}}:</label>
+                                    <select class="form-control kt-select2 state" id="shipper_state_id"
+                                            name="shipper_state_id" required>
+                                        <option value="" disabled selected>Chose state</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{$country->id}}" @if($country->id == $orders->shipper_state_id) selected @endif>{{ $country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label class="red-star">{{ ('Shipper APC')}}:</label>
                                     <select class="form-control kt-select2 delivery-time" autocomplete="off"
                                             id="shipper_address" name="shipper_address_id" required>
@@ -204,6 +216,13 @@
                                 </div>
                             </div>
                         @else
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">{{ ('Shipper State')}}:</label>
+                                    <input type="text" placeholder="{{ ('Shipper Address')}}" id="autocomplete" disabled
+                                           autocomplete="off" class="form-control" value="{{$orders->shipper_state?->name}}"/>
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="red-star">{{ ('Shipper Address')}}:</label>
@@ -310,6 +329,18 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label class="red-star">{{ ('Consignee State')}}:</label>
+                                    <select class="form-control kt-select2 state" id="consignee_state_id"
+                                            name="consignee_state_id" required>
+                                        <option value="" disabled selected>Chose state</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{$country->id}}" @if($country->id == $orders->consignee_state_id) selected @endif>{{ $country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label class="red-star">Consignee APC:</label>
                                     <select class="form-control kt-select2 delivery-time" autocomplete="off"
                                             id="consignee_address"
@@ -338,6 +369,18 @@
                                            class="form-control"
                                            autocomplete="off"
                                            disabled value="{{$tracker_end->address}}"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="red-star">{{ ('Consignee State')}}:</label>
+                                    <select class="form-control kt-select2 state" id="consignee_state_id"
+                                            disabled required>
+                                        <option value="" disabled selected>Chose state</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{$country->id}}" @if($country->id == $orders->consignee_state_id) selected @endif>{{ $country->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -9,6 +9,7 @@ use App\Models\AgentUser;
 use App\Models\Cargo;
 use App\Models\CargoLocation;
 use App\Models\Company;
+use App\Models\Country;
 use App\Models\DriverUser;
 use App\Models\Order;
 use App\Models\Payer;
@@ -68,9 +69,10 @@ class OrderController extends Controller
         if (Gate::any(['SuperUser', 'Manager', 'OPS', 'Client'], Auth::user())) {
             $user = User::all();
             $payers = Payer::where('status', 'active')->get();
+            $countries = Country::all();
             $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
             $cargo_location = CargoLocation::all();
-            return view('backend.shipments.create', compact('user', 'cargo_location', 'payers', 'addresses'));
+            return view('backend.shipments.create', compact('user', 'cargo_location', 'payers', 'addresses','countries'));
         }
         return abort(403);
     }
@@ -140,8 +142,9 @@ class OrderController extends Controller
             })->active()->get();
             $parentOrder = $this->orderService->getAllParentOrder();
             $payers = Payer::all();
+            $countries = Country::all();
             $cargo_location = CargoLocation::all();
-            return view('backend.shipments.create-return', compact('users', 'cargo_location', 'payers', 'parentOrder'));
+            return view('backend.shipments.create-return', compact('users', 'cargo_location', 'payers', 'parentOrder','countries'));
         }
         return abort(403);
     }
@@ -246,13 +249,13 @@ class OrderController extends Controller
     public function edit($id)
     {
         if (Gate::any(['SuperUser', 'Manager', 'OPS'], Auth::user())) {
-            $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker')->find($id);
+            $orders = Order::with('cargo', 'user', 'status', 'cargolocation', 'tracker','shipper_state','consignee_state')->find($id);
             $driver_without_agent = User::with('roles')->active()->driver()->doesnthave('company')->get(['id', 'nickname']);
 
             $driver_agent = User::with('driver','company')->active()->driver()->get(['id', 'nickname', 'driver_id']);      // Драйверы с агентами
             $agents = User::with('agent.driver.user')->agent()->get(['id', 'nickname', 'agent_id', 'driver_id']);
             $companies = Company::with('userDriver')->get();
-
+            $countries = Country::all();
 
             $driver_in_tracker = Tracker::where('order_id', $id)->get('driver_id')->pluck('driver_id');
             if (count($driver_in_tracker) > 0) {
@@ -284,7 +287,7 @@ class OrderController extends Controller
             $addInfo = AdditionOrderInfo::where('order_id', $id)->first();
             $addresses = Gate::check('Client', Auth::user()) ? AddressesList::where('user_id', Auth::id())->get(['address']) : AddressesList::all(['address']);
 
-            return view('backend.shipments.edit', compact('orders', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo', 'companies', 'agents', 'driver_without_agent', 'driver_agent'));
+            return view('backend.shipments.edit', compact('orders', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end', 'substatus', 'lupa', 'trackers_count', 'payers', 'addresses', 'addInfo', 'companies', 'agents', 'driver_without_agent', 'driver_agent','countries'));
         }
         return abort(403);
     }
@@ -494,8 +497,8 @@ class OrderController extends Controller
             $tracker_end = Tracker::with('cargolocation')->where('order_id', $id)->where('position', '2')->first();
             $status = ProductStatus::all();
             $cargo_location = CargoLocation::all();
-
-            return view('backend.shipments.edit-driver-agent', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end'));
+            $countries = Country::all();
+            return view('backend.shipments.edit-driver-agent', compact('orders', 'user', 'status', 'cargo_location', 'trackers', 'tracker_start', 'tracker_end','countries'));
         }
         return abort(403);
     }

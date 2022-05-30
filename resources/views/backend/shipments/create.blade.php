@@ -170,6 +170,18 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label class="red-star">{{ ('Shipper State')}}:</label>
+                                <select class="form-control kt-select2 state" id="shipper_state_id"
+                                        name="shipper_state_id" required>
+                                    <option value="" disabled selected>Chose state</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{$country->id}}">{{ $country->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label class="red-star">{{ ('Shipper APC')}}:</label>
                                 <select class="form-control kt-select2 delivery-time" id="shipper_address"
                                         name="shipper_address_id" required>
@@ -257,6 +269,18 @@
                                            name="address_consignee_checkbox"/>
                                     <label for="address_consignee_checkbox"> - add address to addresses list</label>
                                 @endcan
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="red-star">{{ ('Consignee State')}}:</label>
+                                <select class="form-control kt-select2 state" id="consignee_state_id"
+                                        name="consignee_state_id" required>
+                                    <option value="" disabled selected>Chose state</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{$country->id}}">{{ $country->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -810,6 +834,10 @@
 
         $('.delivery-time').select2({
             placeholder: "Delivery Time",
+        });
+
+        $('.state').select2({
+            placeholder: "Chose State",
         });
 
         $('.select-branch').select2({

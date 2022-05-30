@@ -239,7 +239,7 @@
                         </div>
                         <div>
                             <p>STATE/COUNTRY</p>
-                            <p>Ukraine</p>
+                            <p>{{$invoices->shipper_state->name ?? 'Ukraine'}}</p>
                         </div>
                         <div>
                             <p>POSTCODE</p>
@@ -255,7 +255,7 @@
                         </div>
                         <div>
                             <p>STATE/COUNTRY</p>
-                            <p>Ukraine</p>
+                            <p>{{$invoices->consignee_state->name ?? 'Ukraine'}}</p>
                         </div>
                         <div>
                             <p>POSTCODE</p>
