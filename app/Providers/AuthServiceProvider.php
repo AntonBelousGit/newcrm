@@ -59,8 +59,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRoles(['SuperUser', 'OPS', 'Manager']);
         });
         Gate::define('manage-agent', function (User $user, Order $order) {
+//            dd($user->company->first()->id);
             foreach ($order->tracker as $item) {
-                if ($user->company->first()->id ?? 'not found'  == $item->company_id) {
+                if ($user->company->first()->id == $item->company_id) {
                     return true;
                 }
             }
