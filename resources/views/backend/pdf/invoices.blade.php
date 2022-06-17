@@ -384,7 +384,7 @@
                                 echo $actual_weight;
                             @endphp
                             KGS</p>
-                        <p>CHARGEABLE WEIGHT
+                        <p>VOLUME WEIGHT
                             @php
                                 $weight = 0;
                             @endphp
