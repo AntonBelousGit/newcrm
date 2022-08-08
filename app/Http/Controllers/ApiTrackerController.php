@@ -51,7 +51,7 @@ class ApiTrackerController extends Controller
         if (isset($time->start_time)) {
             $start_time = new DateTime($time->start_time);
             $time->start_hour = $start_time->format('H:i');
-            $time->start_date = $start_time->format('d.m.Y');
+            $time->start_date = $start_time->format('d.m.Y ');
         } else {
             $time->start_hour = '';
             $time->start_date = 'set the date';
@@ -59,7 +59,7 @@ class ApiTrackerController extends Controller
         //Фактическое время
         if (isset($time->end_time)) {
             $end_time = new DateTime($time->end_time);
-            $time->end_hour = $end_time->format('H:i');
+            $time->end_hour = $end_time->format('d.m.Y (H:i)');
         } else {
             $time->end_hour = '';
         }
