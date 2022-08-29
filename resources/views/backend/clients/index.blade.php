@@ -109,7 +109,7 @@
 
                                     <p>{{$log->updated_at->format('d.m.Y - H:i:s') }} -
                                         User {{$log->user->name ?? ''}} {{$log->description}}
-                                        User {{$log->client->name}} {{__('activitylog.'.key($new))}}
+                                        User {{$log->client->name ?? ''}} {{__('activitylog.'.key($new))}}
                                         @if(isset($old))
                                             @php $shift_old = array_shift($old); @endphp
                                             @if ($shift_old == null)
