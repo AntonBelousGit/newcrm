@@ -279,6 +279,7 @@ class OrderRepository
         $new_order = $order->replicate();
         $new_order->created_at = now();
         $new_order->invoice_number = null;
+        $new_order->checkout_number = null;
         $new_order->status_id = 1;
         $new_order->save();
         $new_order->invoice_number = $new_order->id;
