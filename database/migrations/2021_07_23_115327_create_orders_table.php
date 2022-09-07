@@ -49,6 +49,8 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('substatus_id')->unsigned()->nullable();
             $table->bigInteger('shipper_address_id')->unsigned()->nullable();
             $table->bigInteger('consignee_address_id')->unsigned()->nullable();
+            $table->bigInteger('shipper_state_id')->unsigned()->nullable();
+            $table->bigInteger('consignee_state_id')->unsigned()->nullable();
 
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('status_id')->references('id')->on('product_statuses');
@@ -57,6 +59,8 @@ class CreateOrdersTable extends Migration
             $table->foreign('cargo_location_id')->references('id')->on('cargo_locations');
             $table->foreign('shipper_address_id')->references('id')->on('cargo_locations');
             $table->foreign('consignee_address_id')->references('id')->on('cargo_locations');
+            $table->foreign('shipper_state_id')->references('id')->on('countries');
+            $table->foreign('consignee_state_id')->references('id')->on('countries');
 
             $table->timestamps();
         });
