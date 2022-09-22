@@ -14,8 +14,8 @@
 
         <tr>
             <td>{{$address->id}}</td>
-            <td>{{$address->user->name}}</td>
-            <td>{{$address->user->email}}</td>
+            <td>{{$address->user?->name}}</td>
+            <td>{{$address->user?->email}}</td>
             <td>{{$address->address}}</td>
             <td class="text-center">
                 <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"

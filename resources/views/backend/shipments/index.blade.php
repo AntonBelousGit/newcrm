@@ -93,7 +93,7 @@
                                             <div class="display_none_text">
                                                 {{$shipment->shipper}}<br>
                                                 {{$shipment->phone_shipper}}<br>
-                                                {{$shipment->tracker->where('position','0')->first()->address}}
+                                                {{$shipment->tracker->where('position','0')?->first()->address}}
                                             </div>
                                         </div>
                                     </td>
@@ -103,7 +103,7 @@
                                             <div class="display_none_text">
                                                 {{$shipment->consignee}}<br>
                                                 {{$shipment->phone_consignee}}<br>
-                                                {{$shipment->tracker->where('position','2')->first()->address}}
+                                                {{$shipment->tracker->where('position','2')?->first()->address}}
                                             </div>
                                         </div>
                                     </td>
@@ -177,7 +177,7 @@
                                             <div class="display_none_text">
                                                 {{$shipment->shipper}}<br>
                                                 {{$shipment->phone_shipper}}<br>
-                                                {{$shipment->tracker->where('position','0')->first()->address}}
+                                                {{$shipment->tracker->where('position','0')?->first()->address}}
                                             </div>
                                         </div>
                                     </td>
@@ -187,7 +187,7 @@
                                             <div class="display_none_text">
                                                 {{$shipment->consignee}}<br>
                                                 {{$shipment->phone_consignee}}<br>
-                                                {{$shipment->tracker->where('position','2')->first()->address}}
+                                                {{$shipment->tracker->where('position','2')?->first()->address}}
                                             </div>
                                         </div>
                                     </td>
@@ -263,7 +263,7 @@
                                             <div class="display_none_text">
                                                 {{$shipment->shipper}}<br>
                                                 {{$shipment->phone_shipper}}<br>
-                                                {{$shipment->tracker->where('position','0')->first()->address}}
+                                                {{$shipment->tracker->where('position','0')?->first()->address}}
                                             </div>
                                         </div>
                                     </td>
@@ -273,7 +273,7 @@
                                             <div class="display_none_text">
                                                 {{$shipment->consignee}}<br>
                                                 {{$shipment->phone_consignee}}<br>
-                                                {{$shipment->tracker->where('position','2')->first()->address}}
+                                                {{$shipment->tracker->where('position','2')?->first()->address}}
                                             </div>
                                         </div>
                                     </td>
@@ -343,7 +343,7 @@
                                         <div class="display_none_text">
                                             {{$shipment->shipper}}<br>
                                             {{$shipment->phone_shipper}}<br>
-                                            {{$shipment->tracker->where('position','0')->first()->address}}
+                                            {{$shipment->tracker->where('position','0')?->first()->address}}
                                         </div>
                                     </div>
                                 </td>
@@ -353,7 +353,7 @@
                                         <div class="display_none_text">
                                             {{$shipment->consignee}}<br>
                                             {{$shipment->phone_consignee}}<br>
-                                            {{$shipment->tracker->where('position','2')->first()->address}}
+                                            {{$shipment->tracker->where('position','2')?->first()->address}}
                                         </div>
                                     </div>
                                 </td>

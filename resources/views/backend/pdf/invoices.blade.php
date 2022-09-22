@@ -98,7 +98,7 @@
 
     .logo {
         float: left;
-        height: 100px;
+        height: 50px;
     }
 
     .code {
@@ -143,13 +143,13 @@
 <body>
 
 <div>
-    <div>
+    <div class="mb-2">
         <div class='logo'>
             <img src="data:image/png;base64,{{ $image }}" alt=""/>
         </div>
         <div class='code'>
             <div>
-                <div>
+                <div class="mb-2">
                     @php
                         $hwb = str_pad($invoices->invoice_number, 6, "0", STR_PAD_LEFT);
                         echo $hwb;
@@ -160,6 +160,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="p-1">
+
     </div>
     <div class='white'>
         SHIPPER'S SECURITY ENDORSEMENT: I CERTIFY THAT THIS CARGO DOES NOT CONTAIN ANY UNANTHORIZED
